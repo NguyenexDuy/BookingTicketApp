@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/item_home"
+        android:icon="@drawable/icon_homeee"
+        android:title="TRANG CHỦ"
+        />
+    <item
+        android:id="@+id/item_booking"
+        android:icon="@drawable/icon_booking"
+        android:title="ĐẶT VÉ" />
+    <item
+        android:id="@+id/item_noti"
+        android:icon="@drawable/icon_notification"
+        android:title="THÔNG BÁO" />
+    <item
+        android:id="@+id/item_accout"
+        android:icon="@drawable/icon_person"
+        android:title="TÀI KHOẢN" />
+</menu>

@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "655274089659",
+    "firebase_url": "https://dvmb-16215-default-rtdb.firebaseio.com",
+    "project_id": "dvmb-16215",
+    "storage_bucket": "dvmb-16215.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:655274089659:android:263012358e01c60ed35d9e",
+        "android_client_info": {
+          "package_name": "com.example.cnpmnc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbE6VQNMfxPUTt6x2qyUS-PCqI1GsM_Ss"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:655274089659:android:b745234c582a0943d35d9e",
+        "android_client_info": {
+          "package_name": "com.example.dvmb"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbE6VQNMfxPUTt6x2qyUS-PCqI1GsM_Ss"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
