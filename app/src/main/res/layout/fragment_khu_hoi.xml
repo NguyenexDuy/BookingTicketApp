@@ -110,7 +110,7 @@
                 android:layout_marginBottom="5dp"
                 android:textColor="@color/white"/>
             <LinearLayout
-                android:layout_marginLeft="140dp"
+                android:layout_marginLeft="120dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -135,6 +135,7 @@
 
         </LinearLayout>
         <LinearLayout
+            android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -146,7 +147,7 @@
                 android:layout_marginBottom="5dp"
                 android:textColor="@color/white"/>
             <LinearLayout
-                android:layout_marginLeft="140dp"
+                android:layout_marginLeft="120dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -171,6 +172,7 @@
 
         </LinearLayout>
         <LinearLayout
+            android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -182,7 +184,7 @@
                 android:layout_marginBottom="5dp"
                 android:textColor="@color/white"/>
             <LinearLayout
-                android:layout_marginLeft="140dp"
+                android:layout_marginLeft="120dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -221,15 +223,7 @@
         android:textStyle="bold"/>
 
 
-    <Button
-        android:layout_marginTop="120dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Tìm kiếm chuyến bay"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        android:backgroundTint="@color/textColor"
-        android:layout_marginHorizontal="10dp"/>
+
 
 
 </LinearLayout>

@@ -1,7 +1,10 @@
 package com.example.cnpmnc.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -9,8 +12,10 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.cnpmnc.R;
+import com.example.cnpmnc.activity.ChonChuyenBayActivity;
 import com.example.cnpmnc.adapter.VPBookingAdapter;
 import com.google.android.material.tabs.TabLayout;
 
@@ -34,14 +39,7 @@ public class BookingFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment BookingFragment.
-     */
+
     // TODO: Rename and change types and number of parameters
     public static BookingFragment newInstance(String param1, String param2) {
         BookingFragment fragment = new BookingFragment();
@@ -62,6 +60,7 @@ public class BookingFragment extends Fragment {
     }
     private TabLayout mtabLayout;
     private ViewPager mviewPager;
+    private Button btnTimKiem;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,12 +69,27 @@ public class BookingFragment extends Fragment {
         Anhxa(view);
         VPBookingAdapter viewPagerAdapter = new VPBookingAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         mviewPager.setAdapter(viewPagerAdapter);
-
         mtabLayout.setupWithViewPager(mviewPager);
         return view;
+
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        btnTimKiem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getContext(), ChonChuyenBayActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
     private void Anhxa(View view) {
         mtabLayout = view.findViewById(R.id.tab_layout);
         mviewPager = view.findViewById(R.id.view_pager);
+        btnTimKiem=view.findViewById(R.id.btnTimKiem);
     }
 }
