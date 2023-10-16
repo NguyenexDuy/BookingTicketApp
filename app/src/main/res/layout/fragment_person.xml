@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ABC"
+        android:text="Tài khoản"
         android:textColor="@color/white"
         android:textSize="25dp"
         android:layout_gravity="center_horizontal"
