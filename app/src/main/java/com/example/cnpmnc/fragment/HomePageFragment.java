@@ -3,6 +3,8 @@ package com.example.cnpmnc.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Handler;
@@ -12,7 +14,11 @@ import android.view.ViewGroup;
 
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.adapter.Adapterviewpager;
+import com.example.cnpmnc.adapter.RcvCateFlightAdapter;
+import com.example.cnpmnc.model.ChuyenBay;
+import com.example.cnpmnc.model.Firebase;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -63,7 +69,11 @@ public class HomePageFragment extends Fragment {
         }
     }
     int currentPage = 0;
-    ViewPager viewPager;
+    private ViewPager viewPager;
+    private RecyclerView rcv_flightFromTPHCM, rcv_flightFromHN, rcv_flightFromDaNang;
+    private RcvCateFlightAdapter rcvCateFlightAdapter1,rcvCateFlightAdapter2, rcvCateFlightAdapter3;
+    private ArrayList<ChuyenBay> flightlist1, flightlist2, flightlist3;
+    private Firebase firebase;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -71,10 +81,47 @@ public class HomePageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
         Anhxa(view);
         setAutoScrollViewScroll();
+        setDataForRcv();
         return view;
     }
     private void Anhxa(View view){
+        firebase = new Firebase(getContext());
         viewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        rcv_flightFromTPHCM = (RecyclerView) view.findViewById(R.id.rcv_flightFromTPHCM);
+        rcv_flightFromHN = (RecyclerView) view.findViewById(R.id.rcv_flightFromHN);
+        rcv_flightFromDaNang = (RecyclerView) view.findViewById(R.id.rcv_flightFromDaNang);
+    }
+    private void setDataForRcv(){
+        LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager layoutManager2 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager layoutManager3 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        rcv_flightFromTPHCM.setLayoutManager(layoutManager1);
+        rcv_flightFromHN.setLayoutManager(layoutManager2);
+        rcv_flightFromDaNang.setLayoutManager(layoutManager3);
+        firebase.getAllFlightByDiemDi("SGN", new Firebase.FirebaseCallback<ChuyenBay>() {
+            @Override
+            public void onCallback(ArrayList<ChuyenBay> list) {
+                flightlist1 = list;
+                rcvCateFlightAdapter1 = new RcvCateFlightAdapter(getContext(), flightlist1, firebase);
+                rcv_flightFromTPHCM.setAdapter(rcvCateFlightAdapter1);
+            }
+        });
+        firebase.getAllFlightByDiemDi("HAN", new Firebase.FirebaseCallback<ChuyenBay>() {
+            @Override
+            public void onCallback(ArrayList<ChuyenBay> list2) {
+                flightlist2 = list2;
+                rcvCateFlightAdapter2 = new RcvCateFlightAdapter(getContext(), flightlist2, firebase);
+                rcv_flightFromHN.setAdapter(rcvCateFlightAdapter2);
+            }
+        });
+        firebase.getAllFlightByDiemDi("DAD", new Firebase.FirebaseCallback<ChuyenBay>() {
+            @Override
+            public void onCallback(ArrayList<ChuyenBay> list3) {
+                flightlist3 = list3;
+                rcvCateFlightAdapter3 = new RcvCateFlightAdapter(getContext(), flightlist3, firebase);
+                rcv_flightFromDaNang.setAdapter(rcvCateFlightAdapter3);
+            }
+        });
     }
     private void setAutoScrollViewScroll() {
         Adapterviewpager adapterviewpager = new Adapterviewpager(getContext());
