@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.cnpmnc.R;
+import com.example.cnpmnc.activity.ChiTietFlightActivity;
 import com.example.cnpmnc.model.ChuyenBay;
 import com.example.cnpmnc.model.Firebase;
 
@@ -49,7 +50,9 @@ public class RcvCateFlightAdapter extends RecyclerView.Adapter<RcvCateFlightAdap
         holder.imageflight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Chuyển qua xem chi tiết", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "Chuyển qua xem chi tiết", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(context, ChiTietFlightActivity.class);
+                context.startActivity(intent);
             }
         });
     }
