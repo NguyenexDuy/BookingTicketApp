@@ -26,7 +26,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Điểm đi"
+                    android:text="Điểm điiii"
                     android:textStyle="bold"
                     android:textSize="14dp"
                     android:textColor="#71AFE5" />
