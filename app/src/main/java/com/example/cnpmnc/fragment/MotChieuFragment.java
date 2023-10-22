@@ -1,14 +1,24 @@
 package com.example.cnpmnc.fragment;
 
+import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.cnpmnc.R;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,6 +58,8 @@ public class MotChieuFragment extends Fragment {
         return fragment;
     }
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,12 +67,47 @@ public class MotChieuFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-    }
 
+    }
+    private ImageView img_calendar1ChieuNgayDi;
+    private TextView tv_CalendarNgayDi;
+    int day;
+    int month;
+    int year;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_mot_chieu, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        img_calendar1ChieuNgayDi=view.findViewById(R.id.img_calendar1ChieuNgayDi);
+        tv_CalendarNgayDi=view.findViewById(R.id.tv_CalendarNgayDi);
+        Calendar calendar=Calendar.getInstance();
+        img_calendar1ChieuNgayDi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                year=calendar.get(Calendar.YEAR);
+                day=calendar.get(Calendar.DAY_OF_MONTH);
+                month=calendar.get(Calendar.MONTH);
+
+                DatePickerDialog datePickerDialog=new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+                        tv_CalendarNgayDi.setText(SimpleDateFormat.getDateInstance().format(calendar.getTime()));
+                        img_calendar1ChieuNgayDi.setVisibility(View.INVISIBLE);
+                        tv_CalendarNgayDi.setVisibility(View.VISIBLE);
+                    }
+                },year,month,day);
+                datePickerDialog.show();
+            }
+        });
+
+
+
     }
 }
