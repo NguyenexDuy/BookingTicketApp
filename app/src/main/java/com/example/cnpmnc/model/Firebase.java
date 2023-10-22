@@ -53,7 +53,9 @@ public class Firebase {
                                     document.getString("NgayVe"),
                                     document.getString("SoLuongGheTrong"),
                                     document.getString("SoLuongGheVipTrong"),
-                                    document.getString("TrangThai"));
+                                    document.getString("TrangThai"),
+                                    document.getString("MoTa"),
+                                    document.getString("MoTaDiemDap"));
                             flightlist.add(chuyenBay);
                         }
                         callback.onCallback(flightlist);
