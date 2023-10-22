@@ -52,6 +52,7 @@ public class RcvCateFlightAdapter extends RecyclerView.Adapter<RcvCateFlightAdap
             public void onClick(View view) {
 //                Toast.makeText(context, "Chuyển qua xem chi tiết", Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(context, ChiTietFlightActivity.class);
+                intent.putExtra("ThongTinChuyenBay",currentFlight);
                 context.startActivity(intent);
             }
         });
