@@ -11,7 +11,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -74,6 +76,12 @@ public class MotChieuFragment extends Fragment {
     int day;
     int month;
     int year;
+    int countNguoiLon=0;
+    int countTreEm2_12Tuoi=0;
+    int countTreEmDuoi2tuoi=0;
+
+    private ImageButton btn_minus1MotChieu,btn_plus1MotChieu,btn_minus2MotChieu,btn_plus2MotChieu,btn_minus3MotChieu,btn_plus3MotChieu;
+    private TextView tv_countNguoiLon,tv_count2NguoiLonMotChieu,tv_count3NguoiLonMotChieu;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -86,6 +94,15 @@ public class MotChieuFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         img_calendar1ChieuNgayDi=view.findViewById(R.id.img_calendar1ChieuNgayDi);
         tv_CalendarNgayDi=view.findViewById(R.id.tv_CalendarNgayDi);
+        tv_countNguoiLon=view.findViewById(R.id.tv_countNguoiLonMotChieu);
+        btn_minus1MotChieu=view.findViewById(R.id.btn_minusMotChieu);
+        btn_plus1MotChieu=view.findViewById(R.id.btn_plusMotChieu);
+        btn_minus2MotChieu=view.findViewById(R.id.btn_minus2MotChieu);
+        btn_plus2MotChieu=view.findViewById(R.id.btn_plus2MotChieu);
+        btn_minus3MotChieu=view.findViewById(R.id.btn_minus3MotChieu);
+        btn_plus3MotChieu=view.findViewById(R.id.btn_plus3MotChieu);
+        tv_count2NguoiLonMotChieu=view.findViewById(R.id.tv_count2NguoiLonMotChieu);
+        tv_count3NguoiLonMotChieu=view.findViewById(R.id.tv_count3NguoiLonMotChieu);
         Calendar calendar=Calendar.getInstance();
         img_calendar1ChieuNgayDi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +124,67 @@ public class MotChieuFragment extends Fragment {
             }
         });
 
+        btn_minus1MotChieu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(countNguoiLon>0)
+                {
+                    countNguoiLon--;
+                    updateCount(tv_countNguoiLon,countNguoiLon);
+                }
+
+            }
+        });
+        btn_minus2MotChieu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(countTreEm2_12Tuoi>0)
+                {
+                    countTreEm2_12Tuoi--;
+                    updateCount(tv_count2NguoiLonMotChieu,countTreEm2_12Tuoi);
+                }
+
+            }
+        });
+        btn_minus3MotChieu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(countTreEmDuoi2tuoi>0)
+                {
+                    countTreEmDuoi2tuoi--;
+                    updateCount(tv_count3NguoiLonMotChieu,countTreEmDuoi2tuoi);
+                }
+
+            }
+        });
+
+        btn_plus1MotChieu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                countNguoiLon++;
+                updateCount(tv_countNguoiLon,countNguoiLon);
+            }
+        });
+
+        btn_plus2MotChieu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                countTreEm2_12Tuoi++;
+                updateCount(tv_count2NguoiLonMotChieu,countTreEm2_12Tuoi);
+            }
+        });
+        btn_plus3MotChieu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                countTreEmDuoi2tuoi++;
+                updateCount(tv_count3NguoiLonMotChieu,countTreEmDuoi2tuoi);
+            }
+        });
 
 
+    }
+
+    private void updateCount(TextView text,int count) {
+        text.setText(String.format("%02d", count));
     }
 }
