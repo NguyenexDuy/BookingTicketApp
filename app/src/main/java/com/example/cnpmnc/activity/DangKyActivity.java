@@ -43,10 +43,10 @@ public class DangKyActivity extends AppCompatActivity {
         edtRepass = findViewById(R.id.edtRePassDangKy);
         BtnDangKy = findViewById(R.id.BtnDangKy);
         Layout_Dang_Ky = findViewById(R.id.layout_dangky);
-//        edtHoten = findViewById(R.id.);
-//        edtNgaySinh = findViewById(R.id.);
-//        edtSDT = findViewById(R.id);
-//        edtQuocTich = findViewById(R.id);
+        edtHoten = findViewById(R.id.edtHoTen);
+        edtNgaySinh = findViewById(R.id.edtNgaySinh);
+        edtSDT = findViewById(R.id.edtSDT);
+        edtQuocTich = findViewById(R.id.edtQuocTich);
     }
     private void initListener(){
 
