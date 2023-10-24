@@ -63,6 +63,7 @@ public class DangNhapActivity extends AppCompatActivity {
                         .addOnCompleteListener(DangNhapActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
+                                progressDialog.dismiss();
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
                                     Intent intent = new Intent(DangNhapActivity.this,HomePageActivity.class);
