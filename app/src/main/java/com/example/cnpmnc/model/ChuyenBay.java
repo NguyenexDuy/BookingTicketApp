@@ -13,9 +13,11 @@ public class ChuyenBay implements Serializable {
     private String SoLuongGheTrong;
     private String SoLuongGheVipTrong;
     private String TrangThai;
+    private  String MoTa;
+    private  String MoTaDiemDap;
 
     public ChuyenBay(String idChuyenBay, String diemDen, String diemDi, String gioBatDau, String hinhAnh, String ngayDi, String ngayVe,
-                     String soLuongGheTrong, String soLuongGheVipTrong, String trangThai) {
+                     String soLuongGheTrong, String soLuongGheVipTrong, String trangThai, String moTa, String moTaDiemDap) {
         IdChuyenBay = idChuyenBay;
         DiemDen = diemDen;
         DiemDi = diemDi;
@@ -26,6 +28,24 @@ public class ChuyenBay implements Serializable {
         SoLuongGheTrong = soLuongGheTrong;
         SoLuongGheVipTrong = soLuongGheVipTrong;
         TrangThai = trangThai;
+        MoTa=moTa;
+        MoTaDiemDap=moTaDiemDap;
+    }
+
+    public String getMoTa() {
+        return MoTa;
+    }
+
+    public void setMoTa(String moTa) {
+        MoTa = moTa;
+    }
+
+    public String getMoTaDiemDap() {
+        return MoTaDiemDap;
+    }
+
+    public void setMoTaDiemDap(String moTaDiemDap) {
+        MoTaDiemDap = moTaDiemDap;
     }
 
     public String getIdChuyenBay() {
