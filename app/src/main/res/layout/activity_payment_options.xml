@@ -49,7 +49,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/_17pxv"
-                android:gravity="start"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -59,7 +58,6 @@
                     android:layout_marginStart="@dimen/_21pxh"
                     android:layout_marginTop="@dimen/_5pxv"
                     android:layout_marginEnd="@dimen/_21pxh"
-                    android:gravity="start"
                     android:orientation="horizontal">
 
                     <TextView
@@ -114,10 +112,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
-                    android:layout_marginStart=""
                     android:layout_marginTop="@dimen/_19pxv"
-                    android:layout_marginEnd=""
-                    android:gravity="end"
                     android:orientation="horizontal">
 
                     <TextView
@@ -151,20 +146,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_80pxv"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginStart=""
                     android:layout_marginTop="@dimen/_13pxv"
-                    android:layout_marginEnd="">
+                    >
 
                     <TextView
                         android:id="@+id/txtOne"
                         style="@style/txtInterregular25_1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="top|start"
                         android:layout_marginBottom="@dimen/_10pxv"
                         android:ellipsize="end"
-                        android:gravity="center_horizontal"
                         android:singleLine="true"
+                        android:gravity="center"
                         android:text="@{androidLargeTwentytwoVM.androidLargeTwentytwoModel.txtOne}"
                         tools:text="@string/msg" />
 
@@ -179,7 +172,6 @@
                         android:layout_marginEnd="@dimen/_18pxh"
                         android:layout_marginBottom="@dimen/_13pxv"
                         android:ellipsize="end"
-                        android:gravity="top|start"
                         android:singleLine="true"
                         android:text="@{androidLargeTwentytwoVM.androidLargeTwentytwoModel.txtThATMIntern}"
                         tools:text="@string/msg_th_atm_intern" />
@@ -203,22 +195,16 @@
                     style="@style/txtInterregular25_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart=""
                     android:layout_marginTop="@dimen/_1pxv"
-                    android:layout_marginEnd=""
                     android:ellipsize="end"
-                    android:gravity="center_horizontal"
+                    android:gravity="center"
                     android:singleLine="true"
-                    android:text="@{androidLargeTwentytwoVM.androidLargeTwentytwoModel.txtTwo}"
                     tools:text="@string/msg" />
 
                 <LinearLayout
                     android:id="@+id/linearRowmomo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart=""
-                    android:layout_marginTop=""
-                    android:layout_marginEnd=""
                     android:orientation="horizontal">
 
                     <TextView
@@ -254,11 +240,9 @@
                     style="@style/txtInterregular25_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart=""
                     android:layout_marginTop="@dimen/_2pxv"
-                    android:layout_marginEnd=""
                     android:ellipsize="end"
-                    android:gravity="center_horizontal"
+                    android:gravity="center"
                     android:singleLine="true"
                     android:text="@{androidLargeTwentytwoVM.androidLargeTwentytwoModel.txtThree}"
                     tools:text="@string/msg" />
@@ -268,9 +252,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_70pxv"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginStart=""
                     android:layout_marginTop="@dimen/_13pxv"
-                    android:layout_marginEnd="">
+                    >
 
                     <TextView
                         android:id="@+id/txtFour"
@@ -280,8 +263,7 @@
                         android:layout_gravity="bottom|start"
                         android:layout_marginTop="10dp"
                         android:ellipsize="end"
-                        android:gravity="top|start"
-                        android:gravity="center_horizontal"
+                        android:gravity="center"
                         android:singleLine="true"
                         android:text="@{androidLargeTwentytwoVM.androidLargeTwentytwoModel.txtFour}"
                         tools:text="@string/msg" />
@@ -319,9 +301,7 @@
                     android:id="@+id/linearRowunionpay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart=""
                     android:layout_marginTop="@dimen/_10pxv"
-                    android:layout_marginEnd=""
                     android:orientation="horizontal">
 
                     <TextView
@@ -356,12 +336,10 @@
                     style="@style/txtInterregular25_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart=""
                     android:layout_marginTop="@dimen/_1pxv"
-                    android:layout_marginEnd=""
                     android:layout_marginBottom="@dimen/_20pxv"
                     android:ellipsize="end"
-                    android:gravity="center_horizontal"
+                    android:gravity="center"
                     android:singleLine="true"
                     android:text="@{androidLargeTwentytwoVM.androidLargeTwentytwoModel.txtFive}"
                     tools:text="@string/msg" />
