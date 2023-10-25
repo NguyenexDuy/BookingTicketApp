@@ -4,8 +4,6 @@ import static android.content.ContentValues.TAG;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,7 +17,6 @@ import java.util.ArrayList;
 
 //file cua anh Nhan,Duy dung vo chem/ ak.
 public class Firebase {
-    ProgressBar progressBarid;
     FirebaseFirestore mfirestore;
     FirebaseAuth mfirebaseAuth;
     FirebaseUser mfirebaseUser;
@@ -33,7 +30,6 @@ public class Firebase {
         mstorageRef = mfirebaseStorage.getReference();
         this.mcontext = context;
     }
-
     public interface FirebaseCallback<T> {
         void onCallback(ArrayList<T> list);
     }
@@ -57,9 +53,7 @@ public class Firebase {
                                     document.getString("NgayVe"),
                                     document.getString("SoLuongGheTrong"),
                                     document.getString("SoLuongGheVipTrong"),
-                                    document.getString("TrangThai"),
-                                    document.getString("MoTa"),
-                                    document.getString("MoTaDiemDap"));
+                                    document.getString("TrangThai"));
                             flightlist.add(chuyenBay);
                         }
                         callback.onCallback(flightlist);
@@ -67,7 +61,6 @@ public class Firebase {
                         Log.w(TAG, "Error getting documents.", task.getException());
                     }
                 });
-
     }
     public void getTenSanBayBySanBayId(String sanBayId, getTenSanBayBySanBayIdCallback callback) {
         mfirestore.collection("SanBay")
