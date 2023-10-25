@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="list8thng102023Two1RowModel" type="com.tngnguynhongphcsapplication.app.modules.androidlargetwentyone.data.model.List8thng102023Two1RowModel"/>
+    </data>
+    <LinearLayout android:gravity="start"
+        android:id="@+id/linearColumn8thng102023Two"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content" android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txt8thng102023Two"
+            style="@style/txtIntermedium12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text=""
+            tools:text="@string/lbl_8_th_ng_10_2023" />
+        <TextView android:ellipsize="end" android:id="@+id/txtTimeTwo"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_10pxh"
+            android:layout_marginTop="@dimen/_5pxv"
+            android:layout_width="wrap_content"
+            android:singleLine="true"
+            android:text=""
+            style="@style/txtIntermedium15" tools:text="@string/lbl_5_00"/>
+        <TextView android:ellipsize="end" android:id="@+id/txtSGNOne"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_10pxh"
+            android:layout_marginTop="@dimen/_7pxv"
+            android:layout_width="wrap_content"
+            android:singleLine="true"
+            android:text=""
+            style="@style/txtInterbold20_4" tools:text="@string/lbl_sgn"/>
+    </LinearLayout>
+</layout>

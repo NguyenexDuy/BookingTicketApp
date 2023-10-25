@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+	<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+		<item name="colorPrimary">@color/colorPrimary</item>
+		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+		<item name="colorAccent">@color/colorAccent</item>
+	</style>
+	<style name="txtLilyScriptOneregular50">
+		<item name="android:textSize">@dimen/_50pxh</item>
+		<item name="android:textColor">@color/lime_700</item>
+		<item name="android:fontFamily">@font/lily_script_one</item>
+		<item name="android:textFontWeight" tools:targetApi="p">400</item>
+	</style>
+	<style name="txtInterregular18">
+		<item name="android:textSize">@dimen/_18pxh</item>
+		<item name="android:textColor">@color/gray_800</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">400</item>
+	</style>
+	<style name="txtInterregular15">
+		<item name="android:textSize">@dimen/_15pxh</item>
+		<item name="android:textColor">@color/gray_800</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">400</item>
+	</style>
+	<style name="txtInterbold15_1">
+		<item name="android:textSize">@dimen/_15pxh</item>
+		<item name="android:textColor">@color/white_A700</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+	</style>
+	<style name="txtInterregular25_2">
+		<item name="android:textSize">@dimen/_25pxh</item>
+		<item name="android:textColor">@color/black_900</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">400</item>
+	</style>
+	<style name="txtInterregular14">
+		<item name="android:textSize">@dimen/_14pxh</item>
+		<item name="android:textColor">@color/black_900</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">400</item>
+	</style>
+	<style name="txtInterregular25_1">
+		<item name="android:textSize">@dimen/_25pxh</item>
+		<item name="android:textColor">@color/gray_700</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">400</item>
+	</style>
+	<style name="txtInterbold15_4">
+		<item name="android:textSize">@dimen/_15pxh</item>
+		<item name="android:textColor">@color/black_900</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+	</style>
+	<style name="txtInterbold15_2">
+		<item name="android:textSize">@dimen/_15pxh</item>
+		<item name="android:textColor">@color/lime_700</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+	</style>
+	<style name="btnSolidRounded_2">
+		<item name="android:textSize">@dimen/_25pxh</item>
+		<item name="android:textColor">@color/white_A700</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+		<item name="android:background">@drawable/rectangle_bg_lime_701_radius_20</item>
+	</style>
+	<style name="txtInterbold15_3">
+		<item name="android:textSize">@dimen/_15pxh</item>
+		<item name="android:textColor">@color/yellow_800</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+	</style>
+	<style name="btnSolidRounded_1">
+		<item name="android:textSize">@dimen/_18pxh</item>
+		<item name="android:textColor">@color/white_A700</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+		<item name="android:background">@drawable/rectangle_bg_yellow_800_radius_12</item>
+	</style>
+	<style name="groupStylecornerRadius">
+		<item name="android:background">@drawable/rectangle_gradient_s_gray_900_00_e_black_901_radius_5</item>
+	</style>
+	<style name="groupStylecyan_1">
+		<item name="android:background">@drawable/rectangle_bg_cyan_900_radius_12</item>
+	</style>
+	<style name="txtInterthin22">
+		<item name="android:textSize">@dimen/_22pxh</item>
+		<item name="android:textColor">@color/black_900</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">100</item>
+	</style>
+	<style name="txtIntermedium25_1">
+		<item name="android:textSize">@dimen/_25pxh</item>
+		<item name="android:textColor">@color/black_900</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">500</item>
+	</style>
+	<style name="groupStylebluegray_100">
+		<item name="android:background">@drawable/rectangle_bg_bluegray_100</item>
+	</style>
+	<style name="groupStyleyellow_800_b5cornerRadius">
+		<item name="android:background">@drawable/rectangle_bg_yellow_800_b5_radius_5</item>
+	</style>
+	<style name="txtInterregular50">
+		<item name="android:textSize">@dimen/_50pxh</item>
+		<item name="android:textColor">@color/lime_700</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">400</item>
+	</style>
+	<style name="groupStylewhite_A700">
+		<item name="android:background">@drawable/rectangle_bg_white_a700</item>
+	</style>
+	<style name="txtInterbold18">
+		<item name="android:textSize">@dimen/_18pxh</item>
+		<item name="android:textColor">@color/white_A700</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+	</style>
+	<style name="groupStylecornerRadius_2">
+		<item name="android:background">@drawable/rectangle_radius_12</item>
+	</style>
+	<style name="btnSolidRounded">
+		<item name="android:textSize">@dimen/_18pxh</item>
+		<item name="android:textColor">@color/white_A700</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+		<item name="android:background">@drawable/rectangle_bg_lime_700_radius_12</item>
+	</style>
+	<style name="txtInterbold25_1">
+		<item name="android:textSize">@dimen/_25pxh</item>
+		<item name="android:textColor">@color/lime_701</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+	</style>
+	<style name="groupStylelime_700cornerRadius">
+		<item name="android:background">@drawable/rectangle_bg_lime_700_radius_12</item>
+	</style>
+	<style name="txtInterbold25_2">
+		<item name="android:textSize">@dimen/_25pxh</item>
+		<item name="android:textColor">@color/black_900</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+	</style>
+	<style name="groupStylecyan_900cornerRadius">
+		<item name="android:background">@drawable/rectangle_bg_cyan_900_radius_9</item>
+	</style>
+	<style name="groupStylecornerRadius_1">
+		<item name="android:background">@drawable/rectangle_radius_5</item>
+	</style>
+	<style name="groupStylewhite_1">
+		<item name="android:background">@drawable/rectangle_bg_white_a700_border_black_900_radius_65</item>
+	</style>
+	<style name="txtJomolhariregular32">
+		<item name="android:textSize">@dimen/_32pxh</item>
+		<item name="android:textColor">@color/black_900</item>
+		<item name="android:fontFamily">@font/jomolhari</item>
+		<item name="android:textFontWeight" tools:targetApi="p">400</item>
+	</style>
+	<style name="txtInterbold12">
+		<item name="android:textSize">@dimen/_12pxh</item>
+		<item name="android:textColor">@color/white_A700</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+	</style>
+	<style name="txtInterbold25_3">
+		<item name="android:textSize">@dimen/_25pxh</item>
+		<item name="android:textColor">@color/orange_600</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+	</style>
+	<style name="groupStylewhite_3">
+		<item name="android:background">@drawable/rectangle_bg_white_a700_radius_tl_10_tr_10</item>
+	</style>
+	<style name="txtInterbold13">
+		<item name="android:textSize">@dimen/_13pxh</item>
+		<item name="android:textColor">@color/lime_700</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+	</style>
+	<style name="txtInterbold25_4">
+		<item name="android:textSize">@dimen/_25pxh</item>
+		<item name="android:textColor">@color/cyan_900</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+	</style>
+	<style name="groupStylewhite_2">
+		<item name="android:background">@drawable/rectangle_bg_white_a700_border_black_900</item>
+	</style>
+	<style name="txtInterbold14">
+		<item name="android:textSize">@dimen/_14pxh</item>
+		<item name="android:textColor">@color/blue_300</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+	</style>
+	<style name="txtInterbold15">
+		<item name="android:textSize">@dimen/_15pxh</item>
+		<item name="android:textColor">@color/orange_600</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+	</style>
+	<style name="txtInterbold16">
+		<item name="android:textSize">@dimen/_16pxh</item>
+		<item name="android:textColor">@color/lime_700</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+	</style>
+	<style name="txtIntermedium20">
+		<item name="android:textSize">@dimen/_20pxh</item>
+		<item name="android:textColor">@color/black_900</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">500</item>
+	</style>
+	<style name="txtIntermedium10">
+		<item name="android:textSize">@dimen/_10pxh</item>
+		<item name="android:textColor">@color/white_A700</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">500</item>
+	</style>
+	<style name="txtIntermedium12">
+		<item name="android:textSize">@dimen/_12pxh</item>
+		<item name="android:textColor">@color/black_900</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">500</item>
+	</style>
+	<style name="txtIntermedium14">
+		<item name="android:textSize">@dimen/_14pxh</item>
+		<item name="android:textColor">@color/black_900</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">500</item>
+	</style>
+	<style name="txtIntermedium15">
+		<item name="android:textSize">@dimen/_15pxh</item>
+		<item name="android:textColor">@color/black_900</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">500</item>
+	</style>
+	<style name="txtIntermedium10_1">
+		<item name="android:textSize">@dimen/_10pxh</item>
+		<item name="android:textColor">@color/lime_701</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">500</item>
+	</style>
+	<style name="groupStyle">
+		<item name="android:background">@drawable/rectangle_gradient_s_green_50_7f_c_teal_100_7f_e_teal_200_7f</item>
+	</style>
+	<style name="groupStylebluegray_1">
+		<item name="android:background">@drawable/rectangle_bg_bluegray_100_radius_12</item>
+	</style>
+	<style name="groupStyle_3">
+		<item name="android:background">@drawable/rectangle_gradient_s_gray_50_7f_e_indigo_400_7f</item>
+	</style>
+	<style name="txtSolidRounded">
+		<item name="android:textSize">@dimen/_14pxh</item>
+		<item name="android:textColor">@color/white_A700</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+		<item name="android:background">@drawable/rectangle_bg_cyan_900_radius_9</item>
+	</style>
+	<style name="groupStyle_1">
+		<item name="android:background">@drawable/rectangle_dhi_0</item>
+	</style>
+	<style name="groupStylebluegray_2">
+		<item name="android:background">@drawable/rectangle_bg_bluegray_100_radius_20</item>
+	</style>
+	<style name="groupStyle_2">
+		<item name="android:background">@drawable/rectangle_gradient_s_blue_200_4c_e_blue_800_4c</item>
+	</style>
+	<style name="txtInterbold14_1">
+		<item name="android:textSize">@dimen/_14pxh</item>
+		<item name="android:textColor">@color/white_A700</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+	</style>
+	<style name="groupStylebluegray_500cornerRadius">
+		<item name="android:background">@drawable/rectangle_bg_bluegray_500_radius_12</item>
+	</style>
+	<style name="txtInterbold12_1">
+		<item name="android:textSize">@dimen/_12pxh</item>
+		<item name="android:textColor">@color/black_900</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+	</style>
+	<style name="txtInterbold18_1">
+		<item name="android:textSize">@dimen/_18pxh</item>
+		<item name="android:textColor">@color/black_900</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+	</style>
+	<style name="txtInterbold22">
+		<item name="android:textSize">@dimen/_22pxh</item>
+		<item name="android:textColor">@color/white_A700</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+	</style>
+	<style name="txtInterbold16_1">
+		<item name="android:textSize">@dimen/_16pxh</item>
+		<item name="android:textColor">@color/white_A700</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+	</style>
+	<style name="txtLilyScriptOneregular35">
+		<item name="android:textSize">@dimen/_35pxh</item>
+		<item name="android:textColor">@color/yellow_800</item>
+		<item name="android:fontFamily">@font/lily_script_one</item>
+		<item name="android:textFontWeight" tools:targetApi="p">400</item>
+	</style>
+	<style name="txtInterbold24">
+		<item name="android:textSize">@dimen/_24pxh</item>
+		<item name="android:textColor">@color/black_900</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+	</style>
+	<style name="txtInterbold25">
+		<item name="android:textSize">@dimen/_25pxh</item>
+		<item name="android:textColor">@color/white_A700</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+	</style>
+	<style name="txtInterbold28">
+		<item name="android:textSize">@dimen/_28pxh</item>
+		<item name="android:textColor">@color/white_A700</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+	</style>
+	<style name="groupStylebluegray_100cornerRadius">
+		<item name="android:background">@drawable/rectangle_bg_bluegray_100_radius_15</item>
+	</style>
+	<style name="txtIntermedium25">
+		<item name="android:textSize">@dimen/_25pxh</item>
+		<item name="android:textColor">@color/white_A700</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">500</item>
+	</style>
+	<style name="groupStylecyan_900">
+		<item name="android:background">@drawable/rectangle_bg_cyan_900</item>
+	</style>
+	<style name="txtInterbold20">
+		<item name="android:textSize">@dimen/_20pxh</item>
+		<item name="android:textColor">@color/orange_600</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+	</style>
+	<style name="groupStyleindigo_800">
+		<item name="android:background">@drawable/rectangle_bg_indigo_800</item>
+	</style>
+	<style name="txtInterbold20_2">
+		<item name="android:textSize">@dimen/_20pxh</item>
+		<item name="android:textColor">@color/lime_700</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+	</style>
+	<style name="txtInterbold20_3">
+		<item name="android:textSize">@dimen/_20pxh</item>
+		<item name="android:textColor">@color/yellow_800</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+	</style>
+	<style name="txtInterbold20_1">
+		<item name="android:textSize">@dimen/_20pxh</item>
+		<item name="android:textColor">@color/white_A700</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+	</style>
+	<style name="txtInterbold20_6">
+		<item name="android:textSize">@dimen/_20pxh</item>
+		<item name="android:textColor">@color/cyan_900</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+	</style>
+	<style name="txtInterregular25">
+		<item name="android:textSize">@dimen/_25pxh</item>
+		<item name="android:textColor">@color/gray_700</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">400</item>
+	</style>
+	<style name="txtInterbold20_4">
+		<item name="android:textSize">@dimen/_20pxh</item>
+		<item name="android:textColor">@color/black_900</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+	</style>
+	<style name="txtInterbold20_5">
+		<item name="android:textSize">@dimen/_20pxh</item>
+		<item name="android:textColor">@color/lime_701</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+	</style>
+	<style name="txtSolidOutline">
+		<item name="android:textSize">@dimen/_25pxh</item>
+		<item name="android:textColor">@color/black_900</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">500</item>
+		<item name="android:background">@drawable/rectangle_bg_white_a700_border_black_900</item>
+	</style>
+	<style name="groupStylewhite_A700cornerRadius">
+		<item name="android:background">@drawable/rectangle_bg_white_a700_radius_15</item>
+	</style>
+	<style name="txtInterbold35">
+		<item name="android:textSize">@dimen/_35pxh</item>
+		<item name="android:textColor">@color/white_A700</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+	</style>
+	<style name="txt">
+		<item name="android:textSize">@dimen/_15pxh</item>
+		<item name="android:textColor">@color/white_A700</item>
+		<item name="android:fontFamily">@font/inter</item>
+		<item name="android:textFontWeight" tools:targetApi="p">700</item>
+		<item name="android:background">@drawable/rectangle_dhi_0</item>
+	</style>
+	<style name="groupStylebluegray_100_66cornerRadius">
+		<item name="android:background">@drawable/rectangle_bg_bluegray_100_66_radius_bl_10_br_10</item>
+	</style>
+	<style name="groupStyleblue_800cornerRadius">
+		<item name="android:background">@drawable/rectangle_bg_blue_800_radius_12</item>
+	</style>
+</resources>
