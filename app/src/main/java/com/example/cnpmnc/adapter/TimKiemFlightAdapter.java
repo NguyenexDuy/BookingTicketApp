@@ -18,12 +18,12 @@ import java.util.ArrayList;
 
 public class TimKiemFlightAdapter extends RecyclerView.Adapter<TimKiemFlightAdapter.ViewHolder> {
 
-    private Context context;
-    private ArrayList<SanBay> sanBays;
+    private Context mcontext;
+    private ArrayList<SanBay> msanBays;
 
     public TimKiemFlightAdapter(Context context, ArrayList<SanBay> sanBays) {
-        this.context = context;
-        this.sanBays = sanBays;
+        this.mcontext = context;
+        this.msanBays = sanBays;
     }
 
     @NonNull
@@ -35,14 +35,14 @@ public class TimKiemFlightAdapter extends RecyclerView.Adapter<TimKiemFlightAdap
 
     @Override
     public void onBindViewHolder(@NonNull TimKiemFlightAdapter.ViewHolder holder, int position) {
-        SanBay sanBay=sanBays.get(position);
+        SanBay sanBay= msanBays.get(position);
         holder.tv_SanBay1.setText(sanBay.getTenSanBay());
 
     }
 
     @Override
     public int getItemCount() {
-        return sanBays.size();
+        return msanBays.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
