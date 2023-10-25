@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- rectangle_30 from your XD file. -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-	android:shape="rectangle" >
-	<solid android:color="@color/m_t_chi_u_color" />
-</shape>
-

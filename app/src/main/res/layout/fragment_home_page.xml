@@ -9,6 +9,11 @@
 
     <!-- TODO: Update blank fragment layout -->
 
+    <ProgressBar
+        android:id="@+id/progressBarid"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
