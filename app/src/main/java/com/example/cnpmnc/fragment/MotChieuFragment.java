@@ -15,9 +15,11 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.cnpmnc.R;
+import com.example.cnpmnc.activity.TimKiemActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -82,6 +84,7 @@ public class MotChieuFragment extends Fragment {
 
     private ImageButton btn_minus1MotChieu,btn_plus1MotChieu,btn_minus2MotChieu,btn_plus2MotChieu,btn_minus3MotChieu,btn_plus3MotChieu;
     private TextView tv_countNguoiLon,tv_count2NguoiLonMotChieu,tv_count3NguoiLonMotChieu;
+    private LinearLayout linear_DiemDi;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -103,6 +106,16 @@ public class MotChieuFragment extends Fragment {
         btn_plus3MotChieu=view.findViewById(R.id.btn_plus3MotChieu);
         tv_count2NguoiLonMotChieu=view.findViewById(R.id.tv_count2NguoiLonMotChieu);
         tv_count3NguoiLonMotChieu=view.findViewById(R.id.tv_count3NguoiLonMotChieu);
+        linear_DiemDi=view.findViewById(R.id.linear_DiemDi);
+
+        linear_DiemDi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getContext(), TimKiemActivity.class);
+                startActivity(intent);
+            }
+        });
+
         Calendar calendar=Calendar.getInstance();
         img_calendar1ChieuNgayDi.setOnClickListener(new View.OnClickListener() {
             @Override
