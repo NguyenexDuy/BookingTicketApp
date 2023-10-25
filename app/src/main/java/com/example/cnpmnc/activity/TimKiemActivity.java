@@ -21,35 +21,28 @@ import java.util.ArrayList;
 
 public class TimKiemActivity extends AppCompatActivity {
 
-    ArrayList<SanBay> sanBays;
-    RecyclerView rcv_nameitemFlight;
-    TimKiemFlightAdapter timKiemFlightAdapter;
-    FirebaseFirestore db;
+    private RecyclerView rcv_nameitemFlight;
+    private ArrayList<SanBay> sanBaysList;
+    private TimKiemFlightAdapter timKiemFlightAdapter;
+    private Firebase firebase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tim_kiem);
-
-        rcv_nameitemFlight=findViewById(R.id.rcv_nameitemFlight);
-        sanBays=new ArrayList<>();
-        timKiemFlightAdapter=new TimKiemFlightAdapter(TimKiemActivity.this,sanBays);
-        rcv_nameitemFlight.setAdapter(timKiemFlightAdapter);
-        rcv_nameitemFlight.setLayoutManager(new LinearLayoutManager(TimKiemActivity.this,LinearLayoutManager.VERTICAL,false));
-        db=FirebaseFirestore.getInstance();
-        db.collection("SanBay").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        Anhxa();
+        firebase.getAllSanBay(new Firebase.FirebaseCallback<SanBay>() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                for (QueryDocumentSnapshot documentSnapshot : task.getResult())
-                {
-                    String IdSanBay=documentSnapshot.getId();
-                    String tenSanBay= (String) documentSnapshot.get("TenSanBay");
-                    SanBay sanBay=new SanBay(IdSanBay, tenSanBay);
-                    sanBays.add(sanBay);
-                }
-
-
+            public void onCallback(ArrayList<SanBay> list) {
+                sanBaysList = list;
+                timKiemFlightAdapter=new TimKiemFlightAdapter(TimKiemActivity.this,sanBaysList);
+                rcv_nameitemFlight.setAdapter(timKiemFlightAdapter);
             }
         });
+    }
+    private void Anhxa() {
+        firebase = new Firebase(TimKiemActivity.this);
+        rcv_nameitemFlight=findViewById(R.id.rcv_nameitemFlight);
+        rcv_nameitemFlight.setLayoutManager(new LinearLayoutManager(this));
 
     }
 }
