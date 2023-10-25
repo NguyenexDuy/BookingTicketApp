@@ -92,6 +92,21 @@ public class Firebase {
                     }
                 });
     }
-
-
+    public void getAllSanBay(FirebaseCallback<SanBay> callback) {
+        ArrayList<SanBay> sanBayslist = new ArrayList<>();
+        mfirestore.collection("SanBay")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            SanBay sanBay = new SanBay(document.getId(),
+                                    document.getString("TenSanBay"));
+                            sanBayslist.add(sanBay);
+                        }
+                        callback.onCallback(sanBayslist);
+                    } else {
+                        Log.w(TAG, "Error getting documents.", task.getException());
+                    }
+                });
+    }
 }
