@@ -26,6 +26,12 @@
             android:exported="false" />
         <activity
             android:name=".activity.HomePageActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".activity.DangKyActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".activity.DangNhapActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
