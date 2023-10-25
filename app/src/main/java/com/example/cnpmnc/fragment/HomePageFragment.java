@@ -11,7 +11,6 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.adapter.Adapterviewpager;
@@ -75,7 +74,6 @@ public class HomePageFragment extends Fragment {
     private RcvCateFlightAdapter rcvCateFlightAdapter1,rcvCateFlightAdapter2, rcvCateFlightAdapter3;
     private ArrayList<ChuyenBay> flightlist1, flightlist2, flightlist3;
     private Firebase firebase;
-    private ProgressBar progressBar;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -92,10 +90,8 @@ public class HomePageFragment extends Fragment {
         rcv_flightFromTPHCM = (RecyclerView) view.findViewById(R.id.rcv_flightFromTPHCM);
         rcv_flightFromHN = (RecyclerView) view.findViewById(R.id.rcv_flightFromHN);
         rcv_flightFromDaNang = (RecyclerView) view.findViewById(R.id.rcv_flightFromDaNang);
-        progressBar=(ProgressBar) view.findViewById(R.id.progressBarid);
     }
     private void setDataForRcv(){
-        progressBar.setVisibility(View.VISIBLE);
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         LinearLayoutManager layoutManager2 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         LinearLayoutManager layoutManager3 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -108,7 +104,6 @@ public class HomePageFragment extends Fragment {
                 flightlist1 = list;
                 rcvCateFlightAdapter1 = new RcvCateFlightAdapter(getContext(), flightlist1, firebase);
                 rcv_flightFromTPHCM.setAdapter(rcvCateFlightAdapter1);
-                progressBar.setVisibility(View.GONE);
             }
         });
         firebase.getAllFlightByDiemDi("HAN", new Firebase.FirebaseCallback<ChuyenBay>() {
