@@ -24,6 +24,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.HashMap;
@@ -92,6 +93,23 @@ public class DangKyActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
+                                        Map<String, String> khachHang=new HashMap<>();
+                                        khachHang.put("Gmail",strEmail);
+                                        khachHang.put("Mật khẩu",strPass);
+                                        khachHang.put("Họ và tên",strHoten);
+                                        //khachHang.put("SoLuonGheVipTrong",strGioiTinh);
+                                        khachHang.put("Ngày Sinh",strNgaySinh);
+                                        khachHang.put("Số điện thoại",strSDT);
+                                        khachHang.put("Quốc tịch",strQuocTich);
+
+                                        firestore.collection("KhachHang")
+                                                .add(khachHang)
+                                                .addOnSuccessListener(documentReference -> {
+                                                    Toast.makeText(DangKyActivity.this, "Tải thành công", Toast.LENGTH_SHORT).show();
+                                                })
+                                                .addOnFailureListener(e -> {
+                                                    Toast.makeText(DangKyActivity.this, "Tải thất bại", Toast.LENGTH_SHORT).show();
+                                                });
                                         Toast.makeText(DangKyActivity.this, "Tạo tài khoản thành công.",
                                                 Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(DangKyActivity.this,HomePageActivity.class);
@@ -111,6 +129,8 @@ public class DangKyActivity extends AppCompatActivity {
 
     }
     private void initUI(){
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        firestore = FirebaseFirestore.getInstance();
         edtEmail = findViewById(R.id.edtEmailDangKy);
         edtPass = findViewById(R.id.edtPassDangKy);
         edtRepass = findViewById(R.id.edtRePassDangKy);
