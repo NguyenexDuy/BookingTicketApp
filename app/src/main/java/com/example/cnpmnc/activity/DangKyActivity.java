@@ -32,12 +32,12 @@ import java.util.Map;
 
 public class DangKyActivity extends AppCompatActivity {
 
+    String userID;
     private EditText edtEmail,edtPass,edtRepass,edtHoten,edtNgaySinh,edtSDT,edtQuocTich;
-    private Button BtnDangKy;
+    private Button BtnDangKy,BtnReSendCode;
 
     private TextView Layout_Dang_Ky;
-    private String UserId;
-    StorageReference storageReference;
+
     FirebaseFirestore firestore;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -97,7 +97,7 @@ public class DangKyActivity extends AppCompatActivity {
                                         khachHang.put("Gmail",strEmail);
                                         khachHang.put("Mật khẩu",strPass);
                                         khachHang.put("Họ và tên",strHoten);
-                                        //khachHang.put("SoLuonGheVipTrong",strGioiTinh);
+                                        //khachHang.put("GioiTinh",strGioiTinh);
                                         khachHang.put("Ngày Sinh",strNgaySinh);
                                         khachHang.put("Số điện thoại",strSDT);
                                         khachHang.put("Quốc tịch",strQuocTich);
@@ -105,22 +105,20 @@ public class DangKyActivity extends AppCompatActivity {
                                         firestore.collection("KhachHang")
                                                 .add(khachHang)
                                                 .addOnSuccessListener(documentReference -> {
-                                                    Toast.makeText(DangKyActivity.this, "Tải thành công", Toast.LENGTH_SHORT).show();
+
                                                 })
                                                 .addOnFailureListener(e -> {
-                                                    Toast.makeText(DangKyActivity.this, "Tải thất bại", Toast.LENGTH_SHORT).show();
+
                                                 });
                                         Toast.makeText(DangKyActivity.this, "Tạo tài khoản thành công.",
                                                 Toast.LENGTH_SHORT).show();
                                         Intent intent = new Intent(DangKyActivity.this,HomePageActivity.class);
                                         startActivity(intent);
                                         finishAffinity();
-;
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Toast.makeText(DangKyActivity.this, "Tạo tài khoản thất bại.",
                                                 Toast.LENGTH_SHORT).show();
-
                                     }
                                 }
                             });
@@ -140,5 +138,7 @@ public class DangKyActivity extends AppCompatActivity {
         edtNgaySinh = findViewById(R.id.edtNgaySinh);
         edtSDT = findViewById(R.id.edtSDT);
         edtQuocTich = findViewById(R.id.edtQuocTich);
+        BtnReSendCode = findViewById(R.id.Btn_ResendCode);
+
     }
 }
