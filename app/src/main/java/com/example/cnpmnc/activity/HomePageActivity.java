@@ -19,6 +19,7 @@ import com.example.cnpmnc.fragment.BookingFragment;
 import com.example.cnpmnc.fragment.HomePageFragment;
 import com.example.cnpmnc.fragment.NotifiFragment;
 import com.example.cnpmnc.fragment.PersonFragment;
+import com.example.cnpmnc.model.ChuyenBay;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,13 +34,20 @@ public class HomePageActivity extends AppCompatActivity implements BottomNavigat
     private static final int FRAGMENT_PERSON = 3;
     private int mCurrentFragment = FRAGMENT_HOMEPAGE;
     private BottomNavigationView mBottomNavigationView;
+    private ChuyenBay chuyenBay;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
         Anhxa();
         replaceFragment(new HomePageFragment());
-        mBottomNavigationView.getMenu().findItem(R.id.item_home).setChecked(true);
+        check();
+    }
+    private  void check(){
+        if (getIntent().getSerializableExtra("Chuyenbay") != null){
+            chuyenBay = (ChuyenBay) getIntent().getSerializableExtra("currentCar");
+            replaceFragment(new BookingFragment());
+        }
     }
     private void Anhxa() {
         mBottomNavigationView = findViewById(R.id.bottom_nav);
