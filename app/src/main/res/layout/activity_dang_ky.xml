@@ -15,6 +15,17 @@
         android:textStyle="bold"
         android:textColor="@color/textColor">
     </TextView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Mã xác thực đã được gửi"
+        android:textSize="15dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/green"
+        android:visibility="gone">
+
+    </TextView>
     <EditText
         android:id="@+id/edtHoTen"
         android:layout_width="match_parent"
@@ -126,4 +137,14 @@
         </TextView>
 
     </LinearLayout>
+    <Button
+        android:id="@+id/Btn_ResendCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Gửi lại mã xác thực"
+        android:layout_marginTop="15dp"
+        android:visibility="gone">
+
+    </Button>
 </LinearLayout>
