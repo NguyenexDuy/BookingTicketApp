@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,9 +22,13 @@ import com.example.cnpmnc.model.Firebase;
 import java.util.ArrayList;
 
 public class RcvCateFlightAdapter extends RecyclerView.Adapter<RcvCateFlightAdapter.ViewHolder>{
+
+
+
     private ArrayList<ChuyenBay> flightlist;
     private Context context;
     private Firebase firebase;
+
     public RcvCateFlightAdapter(Context context, ArrayList<ChuyenBay> flightlist, Firebase firebase) {
         this.flightlist = flightlist;
         this.context = context;
@@ -52,6 +57,7 @@ public class RcvCateFlightAdapter extends RecyclerView.Adapter<RcvCateFlightAdap
             public void onClick(View view) {
 //                Toast.makeText(context, "Chuyển qua xem chi tiết", Toast.LENGTH_SHORT).show();
                 Intent intent=new Intent(context, ChiTietFlightActivity.class);
+                intent.putExtra("ThongTinChuyenBay",currentFlight);
                 context.startActivity(intent);
             }
         });
@@ -67,9 +73,13 @@ public class RcvCateFlightAdapter extends RecyclerView.Adapter<RcvCateFlightAdap
         ImageView imageflight;
         public ViewHolder(View itemView) {
             super(itemView);
+
             nameflight = itemView.findViewById(R.id.tv_nameflight);
             priceflight = itemView.findViewById(R.id.tv_priceflight);
             imageflight = itemView.findViewById(R.id.img_rcvflight);
         }
     }
+
+
+
 }

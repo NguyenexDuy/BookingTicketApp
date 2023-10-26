@@ -4,12 +4,19 @@ import static android.content.ContentValues.TAG;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -17,6 +24,7 @@ import java.util.ArrayList;
 
 //file cua anh Nhan,Duy dung vo chem/ ak.
 public class Firebase {
+    ProgressBar progressBarid;
     FirebaseFirestore mfirestore;
     FirebaseAuth mfirebaseAuth;
     FirebaseUser mfirebaseUser;
@@ -30,6 +38,7 @@ public class Firebase {
         mstorageRef = mfirebaseStorage.getReference();
         this.mcontext = context;
     }
+
     public interface FirebaseCallback<T> {
         void onCallback(ArrayList<T> list);
     }
@@ -53,7 +62,9 @@ public class Firebase {
                                     document.getString("NgayVe"),
                                     document.getString("SoLuongGheTrong"),
                                     document.getString("SoLuongGheVipTrong"),
-                                    document.getString("TrangThai"));
+                                    document.getString("TrangThai"),
+                                    document.getString("MoTa"),
+                                    document.getString("MoTaDiemDap"));
                             flightlist.add(chuyenBay);
                         }
                         callback.onCallback(flightlist);
@@ -61,6 +72,7 @@ public class Firebase {
                         Log.w(TAG, "Error getting documents.", task.getException());
                     }
                 });
+
     }
     public void getTenSanBayBySanBayId(String sanBayId, getTenSanBayBySanBayIdCallback callback) {
         mfirestore.collection("SanBay")
@@ -77,6 +89,23 @@ public class Firebase {
                         }
                     } else {
                         Log.w(TAG, "Error getting document", task.getException());
+                    }
+                });
+    }
+    public void getAllSanBay(FirebaseCallback<SanBay> callback) {
+        ArrayList<SanBay> sanBayslist = new ArrayList<>();
+        mfirestore.collection("SanBay")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            SanBay sanBay = new SanBay(document.getId(),
+                                    document.getString("TenSanBay"));
+                            sanBayslist.add(sanBay);
+                        }
+                        callback.onCallback(sanBayslist);
+                    } else {
+                        Log.w(TAG, "Error getting documents.", task.getException());
                     }
                 });
     }
