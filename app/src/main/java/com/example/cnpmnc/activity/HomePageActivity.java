@@ -41,12 +41,14 @@ public class HomePageActivity extends AppCompatActivity implements BottomNavigat
         setContentView(R.layout.activity_homepage);
         Anhxa();
         replaceFragment(new HomePageFragment());
+        mBottomNavigationView.getMenu().findItem(R.id.item_home).setChecked(true);
         check();
     }
     private  void check(){
         if (getIntent().getSerializableExtra("Chuyenbay") != null){
-            chuyenBay = (ChuyenBay) getIntent().getSerializableExtra("currentCar");
+            chuyenBay = (ChuyenBay) getIntent().getSerializableExtra("Chuyenbay");
             replaceFragment(new BookingFragment());
+            mBottomNavigationView.getMenu().findItem(R.id.item_booking).setChecked(true);
         }
     }
     private void Anhxa() {
