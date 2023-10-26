@@ -2,6 +2,7 @@ package com.example.cnpmnc.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -43,22 +44,6 @@ public class DangKyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dang_ky);
 
         initUI();
-        initListener();
-
-    }
-    private void initUI(){
-        edtEmail = findViewById(R.id.edtEmailDangKy);
-        edtPass = findViewById(R.id.edtPassDangKy);
-        edtRepass = findViewById(R.id.edtRePassDangKy);
-        BtnDangKy = findViewById(R.id.BtnDangKy);
-        Layout_Dang_Ky = findViewById(R.id.layout_dangnhap);
-        edtHoten = findViewById(R.id.edtHoTen);
-        edtNgaySinh = findViewById(R.id.edtNgaySinh);
-        edtSDT = findViewById(R.id.edtSDT);
-        edtQuocTich = findViewById(R.id.edtQuocTich);
-    }
-    private void initListener(){
-
         Layout_Dang_Ky.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,25 +57,32 @@ public class DangKyActivity extends AppCompatActivity {
                 String strEmail = edtEmail.getText().toString().trim();
                 String strPass = edtPass.getText().toString().trim();
                 String strRePass = edtRepass.getText().toString().trim();
+
                 String strHoten = edtHoten.getText().toString();
                 String strNgaySinh = edtNgaySinh.getText().toString();
                 String strSDT = edtSDT.getText().toString();
                 String strQuocTich = edtQuocTich.getText().toString();
+
                 FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
                 if (strHoten.isEmpty()) {
                     Toast.makeText(DangKyActivity.this, "Vui lòng điền họ và tên", Toast.LENGTH_SHORT).show();
 
-                } else if (strNgaySinh.isEmpty()) {
+                }  if (strNgaySinh.isEmpty()) {
                     Toast.makeText(DangKyActivity.this, "Vui lòng điền ngày sinh", Toast.LENGTH_SHORT).show();
 
-                } else if (strSDT.isEmpty()) {
+                }  if (strSDT.isEmpty()) {
                     Toast.makeText(DangKyActivity.this, "Vui lòng điền số điện thoại", Toast.LENGTH_SHORT).show();
 
-                } else if (strQuocTich.isEmpty()) {
+                }  if (strQuocTich.isEmpty()) {
                     Toast.makeText(DangKyActivity.this, "Vui lòng điền quốc tịch", Toast.LENGTH_SHORT).show();
 
-                } else if (!strPass.equals(strRePass)) {
+                }if (strEmail.isEmpty()){
+                    Toast.makeText(DangKyActivity.this, "Vui lòng điền Email", Toast.LENGTH_SHORT).show();
+                }if (TextUtils.isEmpty(strPass) || strPass.length() < 6) {
+                    Toast.makeText(DangKyActivity.this, "Mật khẩu phải có ít nhất 6 kí tự", Toast.LENGTH_SHORT).show();
+
+                }if (!strPass.equals(strRePass)) {
                     // Passwords do not match
                     Toast.makeText(DangKyActivity.this, "Mật khẩu không trùng khớp", Toast.LENGTH_SHORT).show();
                 } else {
@@ -99,36 +91,34 @@ public class DangKyActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-
-//                                        FirebaseUser fuser = mAuth.getCurrentUser();
-//                                        fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                            @Override
-//                                            public void onSuccess(Void unused) {
-//                                                Toast.makeText(DangKyActivity.this,"Verification has been sent", Toast.LENGTH_SHORT).show();
-//
-//                                            }
-//                                        }).addOnFailureListener(new OnFailureListener() {
-//                                            @Override
-//                                            public void onFailure(@NonNull Exception e) {
-//                                                Toast.makeText(DangKyActivity.this,"Email not sent", Toast.LENGTH_SHORT).show();
-//
-//                                            }
-//                                        });
-                                        Toast.makeText(DangKyActivity.this,"Đăng ký tài khoản thành công", Toast.LENGTH_SHORT).show();
-//
-//
-//                                        UserId = mAuth.getCurrentUser().getUid();
-
                                         // Sign in success, update UI with the signed-in user's information
-                                        Intent intent = new Intent(DangKyActivity.this, HomePageActivity.class);
+                                        Toast.makeText(DangKyActivity.this, "Tạo tài khoản thành công.",
+                                                Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(DangKyActivity.this,HomePageActivity.class);
                                         startActivity(intent);
                                         finishAffinity();
+;
                                     } else {
                                         // If sign in fails, display a message to the user.
-                                        Toast.makeText(DangKyActivity.this, "Tạo tài khoản thất bại", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(DangKyActivity.this, "Tạo tài khoản thất bại.",
+                                                Toast.LENGTH_SHORT).show();
+
                                     }
                                 }
                             });
-                   }
+                }
             }});
-    }  }
+
+    }
+    private void initUI(){
+        edtEmail = findViewById(R.id.edtEmailDangKy);
+        edtPass = findViewById(R.id.edtPassDangKy);
+        edtRepass = findViewById(R.id.edtRePassDangKy);
+        BtnDangKy = findViewById(R.id.BtnDangKy);
+        Layout_Dang_Ky = findViewById(R.id.layout_dangnhap);
+        edtHoten = findViewById(R.id.edtHoTen);
+        edtNgaySinh = findViewById(R.id.edtNgaySinh);
+        edtSDT = findViewById(R.id.edtSDT);
+        edtQuocTich = findViewById(R.id.edtQuocTich);
+    }
+}

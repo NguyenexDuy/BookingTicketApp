@@ -35,19 +35,6 @@ public class DangNhapActivity extends AppCompatActivity {
         BtnDangNhap=(Button)findViewById(R.id.btnDangNhap);
 
         initUI();
-        initListener();
-    }
-    private void initUI(){
-
-        Layout_Dang_Ky = findViewById(R.id.tv_dangky);
-
-        edtEmailDangNhap = findViewById(R.id.edtEmailDangNhap);
-        edtPassDangNhap= findViewById(R.id.edtPassDangNhap);
-        BtnDangNhap = findViewById(R.id.btnDangNhap);
-        progressDialog = new ProgressDialog(this);
-    }
-    private void initListener(){
-
         Layout_Dang_Ky.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,5 +80,15 @@ public class DangNhapActivity extends AppCompatActivity {
                 }
             }
         });
+
+    }
+    private void initUI(){
+
+        Layout_Dang_Ky = findViewById(R.id.tv_dangky);
+
+        edtEmailDangNhap = findViewById(R.id.edtEmailDangNhap);
+        edtPassDangNhap= findViewById(R.id.edtPassDangNhap);
+        BtnDangNhap = findViewById(R.id.btnDangNhap);
+        progressDialog = new ProgressDialog(this);
     }
 }

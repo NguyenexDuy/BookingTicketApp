@@ -28,10 +28,10 @@
             android:name=".activity.HomePageActivity"
             android:exported="false"/>
         <activity
-            android:name=".activity.DangKyActivity"
+            android:name=".activity.DangNhapActivity"
             android:exported="false"/>
         <activity
-            android:name=".activity.DangNhapActivity"
+            android:name=".activity.DangKyActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
