@@ -90,5 +90,6 @@ public class DangNhapActivity extends AppCompatActivity {
         edtPassDangNhap= findViewById(R.id.edtPassDangNhap);
         BtnDangNhap = findViewById(R.id.btnDangNhap);
         progressDialog = new ProgressDialog(this);
+
     }
 }
