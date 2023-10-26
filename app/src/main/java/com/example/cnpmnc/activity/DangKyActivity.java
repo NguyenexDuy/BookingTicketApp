@@ -33,7 +33,7 @@ import java.util.Map;
 public class DangKyActivity extends AppCompatActivity {
 
     String userID;
-    private EditText edtEmail,edtPass,edtRepass,edtHoten,edtNgaySinh,edtSDT,edtQuocTich;
+    private EditText edtEmail,edtPass,edtRepass,edtHoten,edtGioiTinh,edtNgaySinh,edtSDT,edtQuocTich;
     private Button BtnDangKy,BtnReSendCode;
 
     private TextView Layout_Dang_Ky;
@@ -60,6 +60,7 @@ public class DangKyActivity extends AppCompatActivity {
                 String strRePass = edtRepass.getText().toString().trim();
 
                 String strHoten = edtHoten.getText().toString();
+                String strGioiTinh = edtGioiTinh.getText().toString();
                 String strNgaySinh = edtNgaySinh.getText().toString();
                 String strSDT = edtSDT.getText().toString();
                 String strQuocTich = edtQuocTich.getText().toString();
@@ -72,7 +73,11 @@ public class DangKyActivity extends AppCompatActivity {
                 }  if (strNgaySinh.isEmpty()) {
                     Toast.makeText(DangKyActivity.this, "Vui lòng điền ngày sinh", Toast.LENGTH_SHORT).show();
 
-                }  if (strSDT.isEmpty()) {
+                }if (strGioiTinh.isEmpty()){
+                    Toast.makeText(DangKyActivity.this, "Vui lòng điền giới tính", Toast.LENGTH_SHORT).show();
+
+                }
+                if (strSDT.isEmpty()) {
                     Toast.makeText(DangKyActivity.this, "Vui lòng điền số điện thoại", Toast.LENGTH_SHORT).show();
 
                 }  if (strQuocTich.isEmpty()) {
@@ -97,7 +102,7 @@ public class DangKyActivity extends AppCompatActivity {
                                         khachHang.put("Gmail",strEmail);
                                         khachHang.put("Mật khẩu",strPass);
                                         khachHang.put("Họ và tên",strHoten);
-                                        //khachHang.put("GioiTinh",strGioiTinh);
+                                        khachHang.put("GioiTinh",strGioiTinh);
                                         khachHang.put("Ngày Sinh",strNgaySinh);
                                         khachHang.put("Số điện thoại",strSDT);
                                         khachHang.put("Quốc tịch",strQuocTich);
@@ -112,9 +117,27 @@ public class DangKyActivity extends AppCompatActivity {
                                                 });
                                         Toast.makeText(DangKyActivity.this, "Tạo tài khoản thành công.",
                                                 Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(DangKyActivity.this,HomePageActivity.class);
+                                        Intent intent = new Intent(DangKyActivity.this,DangNhapActivity.class);
                                         startActivity(intent);
-                                        finishAffinity();
+                                        finish();
+//                                        FirebaseUser User = mAuth.getCurrentUser();
+//                                        sendEmailVerification(User);
+//                                        User.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                            @Override
+//                                            public void onSuccess(Void aVoid) {
+//                                                Toast.makeText(DangKyActivity.this, "Mã xác thực đã được gửi", Toast.LENGTH_SHORT).show();
+//
+//
+//
+//                                            }
+//                                        }).addOnFailureListener(new OnFailureListener() {
+//                                            @Override
+//                                            public void onFailure(@NonNull Exception e) {
+//                                                Toast.makeText(DangKyActivity.this, "Tài khoản Gmail không tồn tại", Toast.LENGTH_SHORT).show();
+//
+//                                            }
+//                                        });
+
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Toast.makeText(DangKyActivity.this, "Tạo tài khoản thất bại.",
@@ -122,9 +145,36 @@ public class DangKyActivity extends AppCompatActivity {
                                     }
                                 }
                             });
+
                 }
             }});
 
+    }
+    private void checkIfEmailVerified(FirebaseUser user) {
+        if (user.isEmailVerified()) {
+            // Tài khoản đã được xác thực email
+            Intent intent = new Intent(DangKyActivity.this,HomePageActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            // Tài khoản chưa được xác thực email
+            Toast.makeText(DangKyActivity.this, "Vui lòng xác thực email để đăng nhập", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+    private void sendEmailVerification(@NonNull FirebaseUser user) {
+        user.sendEmailVerification()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        // Gửi email xác thực thành công
+                        Toast.makeText(DangKyActivity.this, "Vui lòng kiểm tra email để xác thực tài khoản", Toast.LENGTH_SHORT).show();
+                        checkIfEmailVerified(user);
+
+                    } else {
+                        // Gửi email xác thực thất bại
+                        Toast.makeText(DangKyActivity.this, "Gửi email xác thực thất bại", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
     private void initUI(){
         FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -135,10 +185,11 @@ public class DangKyActivity extends AppCompatActivity {
         BtnDangKy = findViewById(R.id.BtnDangKy);
         Layout_Dang_Ky = findViewById(R.id.layout_dangnhap);
         edtHoten = findViewById(R.id.edtHoTen);
+        edtGioiTinh = findViewById(R.id.edtGioiTinh);
         edtNgaySinh = findViewById(R.id.edtNgaySinh);
         edtSDT = findViewById(R.id.edtSDT);
         edtQuocTich = findViewById(R.id.edtQuocTich);
-        BtnReSendCode = findViewById(R.id.Btn_ResendCode);
+        BtnReSendCode = findViewById(R.id.Btn_XacThuc);
 
     }
 }
