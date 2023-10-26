@@ -2,6 +2,7 @@ package com.example.cnpmnc.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,38 +19,60 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TimKiemActivity extends AppCompatActivity {
 
-    ArrayList<SanBay> sanBays;
-    RecyclerView rcv_nameitemFlight;
-    TimKiemFlightAdapter timKiemFlightAdapter;
-    FirebaseFirestore db;
+    private RecyclerView rcv_nameitemFlight;
+    private ArrayList<SanBay> sanBaysList;
+    private  SearchView searchView;
+    private TimKiemFlightAdapter timKiemFlightAdapter;
+    private Firebase firebase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tim_kiem);
-
-        rcv_nameitemFlight=findViewById(R.id.rcv_nameitemFlight);
-        sanBays=new ArrayList<>();
-        timKiemFlightAdapter=new TimKiemFlightAdapter(TimKiemActivity.this,sanBays);
-        rcv_nameitemFlight.setAdapter(timKiemFlightAdapter);
-        rcv_nameitemFlight.setLayoutManager(new LinearLayoutManager(TimKiemActivity.this,LinearLayoutManager.VERTICAL,false));
-        db=FirebaseFirestore.getInstance();
-        db.collection("SanBay").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        Anhxa();
+        firebase.getAllSanBay(new Firebase.FirebaseCallback<SanBay>() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                for (QueryDocumentSnapshot documentSnapshot : task.getResult())
-                {
-                    String IdSanBay=documentSnapshot.getId();
-                    String tenSanBay= (String) documentSnapshot.get("TenSanBay");
-                    SanBay sanBay=new SanBay(IdSanBay, tenSanBay);
-                    sanBays.add(sanBay);
-                }
-
-
+            public void onCallback(ArrayList<SanBay> list) {
+                sanBaysList = list;
+                timKiemFlightAdapter=new TimKiemFlightAdapter(TimKiemActivity.this,sanBaysList);
+                rcv_nameitemFlight.setAdapter(timKiemFlightAdapter);
             }
         });
+        searchView.requestFocus();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                ArrayList<SanBay> filteredList = filter(sanBaysList, newText);
+                timKiemFlightAdapter.setData(filteredList);
+                timKiemFlightAdapter.notifyDataSetChanged();
+
+                return true;
+            }
+        });
+    }
+    private void Anhxa() {
+        firebase = new Firebase(TimKiemActivity.this);
+        rcv_nameitemFlight=findViewById(R.id.rcv_nameitemFlight);
+        rcv_nameitemFlight.setLayoutManager(new LinearLayoutManager(this));
+        searchView = findViewById(R.id.searchView);
+    }
+    private ArrayList<SanBay> filter(List<SanBay> sanBays, String query) {
+        query = query.toLowerCase().trim();
+
+        final ArrayList<SanBay> filteredList = new ArrayList<>();
+        for (SanBay sanBay : sanBays) {
+            if (sanBay.getTenSanBay().toLowerCase().contains(query)) {
+                filteredList.add(sanBay);
+            }
+        }
+        return filteredList;
     }
 }
