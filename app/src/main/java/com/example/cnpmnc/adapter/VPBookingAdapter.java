@@ -1,5 +1,7 @@
 package com.example.cnpmnc.adapter;
 
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -9,25 +11,43 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import com.example.cnpmnc.fragment.KhuHoiFragment;
 import com.example.cnpmnc.fragment.MotChieuFragment;
 import com.example.cnpmnc.fragment.NhieuChangFragment;
+import com.example.cnpmnc.model.ChuyenBay;
 
 public class VPBookingAdapter extends FragmentStatePagerAdapter {
+    private ChuyenBay chuyenBay;
+    public VPBookingAdapter(@NonNull FragmentManager fm, int behavior, ChuyenBay chuyenBay) {
+        super(fm, behavior);
+        this.chuyenBay = chuyenBay;
+    }
     public VPBookingAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
-
     }
 
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        switch (position){
-            case 0:
-                return new KhuHoiFragment();
-            case 1:
-                return new MotChieuFragment();
-            case 2:
-                return new NhieuChangFragment();
-            default:
-                return new KhuHoiFragment();
+        if (chuyenBay != null){
+            switch (position){
+                case 0:
+                    return new KhuHoiFragment(chuyenBay);
+                case 1:
+                    return new MotChieuFragment(chuyenBay);
+                case 2:
+                    return new NhieuChangFragment();
+                default:
+                    return new MotChieuFragment();
+            }
+        }else {
+            switch (position){
+                case 0:
+                    return new KhuHoiFragment();
+                case 1:
+                    return new MotChieuFragment();
+                case 2:
+                    return new NhieuChangFragment();
+                default:
+                    return new KhuHoiFragment();
+            }
         }
     }
 

@@ -13,10 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.activity.ChonChuyenBayActivity;
 import com.example.cnpmnc.adapter.VPBookingAdapter;
+import com.example.cnpmnc.model.ChuyenBay;
 import com.google.android.material.tabs.TabLayout;
 
 /**
@@ -34,11 +36,14 @@ public class BookingFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private ChuyenBay chuyenBay;
 
     public BookingFragment() {
         // Required empty public constructor
     }
-
+    public BookingFragment(ChuyenBay chuyenbay) {
+        this.chuyenBay = chuyenbay;
+    }
 
     // TODO: Rename and change types and number of parameters
     public static BookingFragment newInstance(String param1, String param2) {
@@ -67,11 +72,16 @@ public class BookingFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_booking, container, false);
         Anhxa(view);
-        VPBookingAdapter viewPagerAdapter = new VPBookingAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        mviewPager.setAdapter(viewPagerAdapter);
-        mtabLayout.setupWithViewPager(mviewPager);
+        if (chuyenBay != null){
+            VPBookingAdapter viewPagerAdapter = new VPBookingAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, chuyenBay);
+            mviewPager.setAdapter(viewPagerAdapter);
+            mtabLayout.setupWithViewPager(mviewPager);
+        }else {
+            VPBookingAdapter viewPagerAdapter = new VPBookingAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+            mviewPager.setAdapter(viewPagerAdapter);
+            mtabLayout.setupWithViewPager(mviewPager);
+        }
         return view;
-
     }
 
     @Override
