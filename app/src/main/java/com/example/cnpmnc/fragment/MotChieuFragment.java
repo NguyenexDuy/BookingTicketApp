@@ -20,6 +20,8 @@ import android.widget.TextView;
 
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.activity.TimKiemActivity;
+import com.example.cnpmnc.model.ChuyenBay;
+import com.example.cnpmnc.model.Firebase;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -39,9 +41,13 @@ public class MotChieuFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private ChuyenBay chuyenBay;
 
     public MotChieuFragment() {
         // Required empty public constructor
+    }
+    public MotChieuFragment(ChuyenBay chuyenBay) {
+        this.chuyenBay = chuyenBay;
     }
 
     /**
@@ -83,8 +89,9 @@ public class MotChieuFragment extends Fragment {
     int countTreEmDuoi2tuoi=0;
 
     private ImageButton btn_minus1MotChieu,btn_plus1MotChieu,btn_minus2MotChieu,btn_plus2MotChieu,btn_minus3MotChieu,btn_plus3MotChieu;
-    private TextView tv_countNguoiLon,tv_count2NguoiLonMotChieu,tv_count3NguoiLonMotChieu;
+    private TextView tv_countNguoiLon,tv_count2NguoiLonMotChieu,tv_count3NguoiLonMotChieu,tv_idsanbaydiemdiMotChieu,tv_tensanbaydiemdiMotChieu,tv_idsanbaydiemdenMotChieu,tv_tensanbaydiemdenMotChieu;
     private LinearLayout linear_DiemDi;
+    Firebase firebase;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -107,6 +114,12 @@ public class MotChieuFragment extends Fragment {
         tv_count2NguoiLonMotChieu=view.findViewById(R.id.tv_count2NguoiLonMotChieu);
         tv_count3NguoiLonMotChieu=view.findViewById(R.id.tv_count3NguoiLonMotChieu);
         linear_DiemDi=view.findViewById(R.id.linear_DiemDi);
+        tv_idsanbaydiemdiMotChieu=view.findViewById(R.id.tv_idsanbaydiemdiMotChieu);
+        tv_idsanbaydiemdenMotChieu=view.findViewById(R.id.tv_idsanbaydiemdenMotChieu);
+        tv_tensanbaydiemdiMotChieu=view.findViewById(R.id.tv_tensanbaydiemdiMotChieu);
+        tv_tensanbaydiemdenMotChieu=view.findViewById(R.id.tv_tensanbaydiemdenMotChieu);
+        firebase = new Firebase(getContext());
+        setdata();
 
         linear_DiemDi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,6 +208,24 @@ public class MotChieuFragment extends Fragment {
         });
 
 
+    }
+    private void setdata(){
+        if (chuyenBay != null){
+            tv_idsanbaydiemdiMotChieu.setText(chuyenBay.getDiemDi());
+            firebase.getTenSanBayBySanBayId(chuyenBay.getDiemDi(), new Firebase.getTenSanBayBySanBayIdCallback() {
+                @Override
+                public void onCallback(String tensanbay) {
+                    tv_tensanbaydiemdiMotChieu.setText(tensanbay);
+                }
+            });
+            tv_idsanbaydiemdenMotChieu.setText(chuyenBay.getDiemDen());
+            firebase.getTenSanBayBySanBayId(chuyenBay.getDiemDen(), new Firebase.getTenSanBayBySanBayIdCallback() {
+                @Override
+                public void onCallback(String tensanbay) {
+                    tv_tensanbaydiemdenMotChieu.setText(tensanbay);
+                }
+            });
+        }
     }
 
     private void updateCount(TextView text,int count) {

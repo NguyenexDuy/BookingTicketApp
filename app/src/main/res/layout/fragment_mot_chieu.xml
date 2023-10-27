@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_motchieu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -36,12 +37,14 @@
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content">
                    <TextView
+                       android:id="@+id/tv_idsanbaydiemdiMotChieu"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
                        android:text="SGN"
                        android:textSize="35dp"
                        android:textColor="@color/white"/>
                    <TextView
+                       android:id="@+id/tv_tensanbaydiemdiMotChieu"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
                        android:text="Tp Hồ Chí Minh, VN"
@@ -88,12 +91,14 @@
                     android:textSize="14dp"
                     android:textColor="#71AFE5" />
                 <TextView
+                    android:id="@+id/tv_idsanbaydiemdenMotChieu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="SGN"
                     android:textSize="35dp"
                     android:textColor="@color/white"/>
                 <TextView
+                    android:id="@+id/tv_tensanbaydiemdenMotChieu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Tp Hồ Chí Minh, VN"
