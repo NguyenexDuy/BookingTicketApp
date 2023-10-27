@@ -1,251 +1,272 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_motchieu"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="10dp"
-    tools:context=".fragment.MotChieuFragment">
-
-    <LinearLayout
-        android:padding="10dp"
-        android:layout_marginTop="50dp"
+    tools:context=".fragment.MotChieuFragment"
+    android:background="@color/primaryColor"
+    android:layout_gravity="center"
+    android:padding="10dp">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/primaryColor">
+        android:layout_height="86dp"
+        android:layout_marginBottom="20dp">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="20dp">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Điểm đi"
-                    android:textStyle="bold"
-                    android:textSize="14dp"
-                    android:textColor="#71AFE5" />
-               <LinearLayout
-                   android:id="@+id/linear_DiemDi"
-                   android:orientation="vertical"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content">
-                   <TextView
-                       android:id="@+id/tv_idsanbaydiemdiMotChieu"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:text="SGN"
-                       android:textSize="35dp"
-                       android:textColor="@color/white"/>
-                   <TextView
-                       android:id="@+id/tv_tensanbaydiemdiMotChieu"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:text="Tp Hồ Chí Minh, VN"
-                       android:textSize="14dp"
-                       android:textColor="@color/white"/>
-               </LinearLayout>
-            </LinearLayout>
-           <RelativeLayout
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content">
-               <ImageButton
-                   android:id="@+id/img_calendar1ChieuNgayDi"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:src="@drawable/icon_ngaydi"
-                   android:layout_marginLeft="150dp"
-                   android:visibility="visible"
-                   android:background="@color/primaryColor"/>
-               <TextView
-                   android:id="@+id/tv_CalendarNgayDi"
-                   android:layout_marginLeft="140dp"
-                   android:layout_marginTop="10dp"
-                   android:visibility="invisible"
-                   android:layout_width="90dp"
-                   android:layout_height="80dp"
-                   android:textColor="@color/white"
-                   android:textSize="25dp"
-                   android:text="Ngay Di"/>
-           </RelativeLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Điểm đi"
-                    android:textStyle="bold"
-                    android:textSize="14dp"
-                    android:textColor="#71AFE5" />
-                <TextView
-                    android:id="@+id/tv_idsanbaydiemdenMotChieu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="SGN"
-                    android:textSize="35dp"
-                    android:textColor="@color/white"/>
-                <TextView
-                    android:id="@+id/tv_tensanbaydiemdenMotChieu"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Tp Hồ Chí Minh, VN"
-                    android:textSize="14dp"
-                    android:textColor="@color/white"/>
-            </LinearLayout>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
             android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Hàng khách"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp"
-                android:textSize="14dp"
-                android:textColor="#71AFE5"/>
-            <LinearLayout
-                android:layout_width="wrap_content"
+                android:text="Điểm đi"
+                android:textColor="#71AFE5"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tv_idsanbaydiemdi"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:text="Người lớn"
-                    android:textSize="14dp"
-                    android:layout_marginBottom="5dp"
-                    android:textColor="@color/white"/>
-                <LinearLayout
-                    android:layout_marginLeft="120dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <ImageButton
-                        android:id="@+id/btn_minusMotChieu"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/button_minus"
-                        android:background="@color/primaryColor"
-                        android:layout_marginRight="19dp"/>
-                    <TextView
-                        android:id="@+id/tv_countNguoiLonMotChieu"
+                android:text="SGN"
+                android:textColor="@color/white"
+                android:textSize="35sp" />
 
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="00"
-                        android:textColor="@color/white"
-                        android:layout_marginRight="19dp"/>
-                    <ImageButton
-                        android:id="@+id/btn_plusMotChieu"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/button_plus"
-                        android:background="@color/primaryColor"/>
-                </LinearLayout>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_marginTop="5dp"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/tv_tensanbaydiemdi"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:text="Trẻ em(2-12 tuổi)"
-                    android:textSize="14dp"
-                    android:layout_marginBottom="5dp"
-                    android:textColor="@color/white"/>
-                <LinearLayout
-                    android:layout_marginLeft="120dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <ImageButton
-                        android:id="@+id/btn_minus2MotChieu"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/button_minus"
-                        android:background="@color/primaryColor"
-                        android:layout_marginRight="19dp"/>
-                    <TextView
-                        android:id="@+id/tv_count2NguoiLonMotChieu"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="00"
-                        android:textColor="@color/white"
-                        android:layout_marginRight="19dp"/>
-                    <ImageButton
-                        android:id="@+id/btn_plus2MotChieu"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/button_plus"
-                        android:background="@color/primaryColor"/>
-                </LinearLayout>
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_marginTop="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:text="Trẻ em dưới 2 tuổi"
-                    android:textSize="14dp"
-                    android:layout_marginBottom="5dp"
-                    android:textColor="@color/white"/>
-                <LinearLayout
-                    android:layout_marginLeft="120dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <ImageButton
-                        android:id="@+id/btn_minus3MotChieu"
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/button_minus"
-                        android:background="@color/primaryColor"
-                        android:layout_marginRight="19dp"/>
-                    <TextView
-                        android:id="@+id/tv_count3NguoiLonMotChieu"
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="00"
-                        android:textColor="@color/white"
-                        android:layout_marginRight="19dp"/>
-                    <ImageButton
-                        android:id="@+id/btn_plus3MotChieu"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/button_plus"
-                        android:background="@color/primaryColor"/>
-                </LinearLayout>
-
-            </LinearLayout>
+                android:text="Tp Hồ Chí Minh, VN"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Chọn ngày đi"
+                android:textColor="#71AFE5"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_CalendarNgayDi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_calenda"
+                android:drawablePadding="3dp"
+                android:text="17-10-2023"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="86dp"
+        android:layout_marginBottom="20dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Điểm đến"
+                android:textColor="#71AFE5"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_idsanbaydiemden"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SGN"
+                android:textColor="@color/white"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/tv_tensanbaydiemden"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tp Hồ Chí Minh, VN"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Chọn ngày về"
+                android:textColor="#71AFE5"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_CalendarNgayVe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_calenda"
+                android:drawablePadding="3dp"
+                android:text="18-10-2023"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/textview1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hàng khách"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="#71AFE5"/>
+        <TextView
+            android:id="@+id/textview2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textview1"
+            android:layout_alignParentStart="true"
+            android:layout_marginVertical="5dp"
+            android:text="Người lớn"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+        <TextView
+            android:id="@+id/textview3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textview2"
+            android:layout_alignParentStart="true"
+            android:layout_marginVertical="5dp"
+            android:text="Trẻ em(2-12 tuổi)"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textview3"
+            android:layout_alignParentStart="true"
+            android:layout_marginVertical="5dp"
+            android:text="Trẻ em dưới 2 tuổi"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:id="@+id/LinearLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textview1"
+            android:layout_alignParentEnd="true"
+            android:layout_marginVertical="5dp"
+
+            android:orientation="horizontal">
+            <ImageButton
+                android:id="@+id/btn_minusMotChieu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="19dp"
+                android:background="@color/primaryColor"
+                android:src="@drawable/button_minus" />
+            <TextView
+                android:id="@+id/tv_countNguoiLonMotChieu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="19dp"
+                android:text="00"
+                android:textColor="@color/white" />
+            <ImageButton
+                android:id="@+id/btn_plusMotChieu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/primaryColor"
+                android:src="@drawable/button_plus" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/LinearLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/LinearLayout1"
+            android:layout_alignParentEnd="true"
+            android:layout_marginVertical="5dp"
+            android:orientation="horizontal">
+            <ImageButton
+                android:id="@+id/btn_minus2MotChieu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="19dp"
+                android:background="@color/primaryColor"
+                android:src="@drawable/button_minus" />
+            <TextView
+                android:id="@+id/tv_count2NguoiLonMotChieu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="19dp"
+                android:text="00"
+                android:textColor="@color/white" />
+            <ImageButton
+                android:id="@+id/btn_plus2MotChieu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/primaryColor"
+                android:src="@drawable/button_plus" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/LinearLayout3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/LinearLayout2"
+            android:layout_alignParentEnd="true"
+            android:layout_marginVertical="5dp"
+            android:orientation="horizontal">
+            <ImageButton
+                android:id="@+id/btn_minus3MotChieu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="19dp"
+                android:background="@color/primaryColor"
+                android:src="@drawable/button_minus" />
+            <TextView
+                android:id="@+id/tv_count3NguoiLonMotChieu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="19dp"
+                android:text="00"
+                android:textColor="@color/white" />
+            <ImageButton
+                android:id="@+id/btn_plus3MotChieu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/primaryColor"
+                android:src="@drawable/button_plus" />
+        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>
