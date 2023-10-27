@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.activity.TimKiemActivity;
+import com.example.cnpmnc.model.ChuyenBay;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -39,9 +40,13 @@ public class MotChieuFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private ChuyenBay chuyenBay;
 
     public MotChieuFragment() {
         // Required empty public constructor
+    }
+    public MotChieuFragment(ChuyenBay chuyenBay) {
+        this.chuyenBay = chuyenBay;
     }
 
     /**

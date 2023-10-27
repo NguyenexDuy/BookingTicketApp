@@ -46,7 +46,7 @@ public class HomePageActivity extends AppCompatActivity implements BottomNavigat
     private  void check(){
         if (getIntent().getSerializableExtra("Chuyenbay") != null){
             chuyenBay = (ChuyenBay) getIntent().getSerializableExtra("Chuyenbay");
-            replaceFragment(new BookingFragment());
+            replaceFragment(new BookingFragment(chuyenBay));
             mCurrentFragment = FRAGMENT_BOOKING;
             mBottomNavigationView.getMenu().findItem(R.id.item_booking).setChecked(true);
         }
