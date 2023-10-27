@@ -219,6 +219,7 @@
                        android:text="1.000.000VND"
                        android:textColor="@color/black"/>
                    <Button
+                       android:id="@+id/btn_datve"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:text="Đặt vé ngay"

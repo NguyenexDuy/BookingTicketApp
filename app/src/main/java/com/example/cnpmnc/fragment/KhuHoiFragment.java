@@ -7,8 +7,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.cnpmnc.R;
+import com.example.cnpmnc.model.ChuyenBay;
+import com.example.cnpmnc.model.Firebase;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,9 +28,12 @@ public class KhuHoiFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private ChuyenBay chuyenBay;
     public KhuHoiFragment() {
         // Required empty public constructor
+    }
+    public KhuHoiFragment(ChuyenBay chuyenbay) {
+        this.chuyenBay = chuyenbay;
     }
 
     /**
@@ -56,11 +62,40 @@ public class KhuHoiFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    TextView tv_idsanbaydiemden, tv_tensanbaydiemden, tv_idsanbaydiemdi, tv_tensanbaydiemdi;
+    Firebase firebase;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_khu_hoi, container, false);
+        View view = inflater.inflate(R.layout.fragment_khu_hoi, container, false);
+        Anhxa(view);
+        setdata();
+        return view;
+    }
+    private void setdata(){
+        if (chuyenBay != null){
+            tv_idsanbaydiemdi.setText(chuyenBay.getDiemDi());
+            firebase.getTenSanBayBySanBayId(chuyenBay.getDiemDi(), new Firebase.getTenSanBayBySanBayIdCallback() {
+                @Override
+                public void onCallback(String tensanbay) {
+                    tv_tensanbaydiemdi.setText(tensanbay);
+                }
+            });
+            tv_idsanbaydiemden.setText(chuyenBay.getDiemDen());
+            firebase.getTenSanBayBySanBayId(chuyenBay.getDiemDen(), new Firebase.getTenSanBayBySanBayIdCallback() {
+                @Override
+                public void onCallback(String tensanbay) {
+                    tv_tensanbaydiemden.setText(tensanbay);
+                }
+            });
+        }
+    }
+    private void Anhxa(View view){
+        firebase = new Firebase(getContext());
+        tv_idsanbaydiemdi = view.findViewById(R.id.tv_idsanbaydiemdi);
+        tv_tensanbaydiemdi = view.findViewById(R.id.tv_tensanbaydiemdi);
+        tv_idsanbaydiemden = view.findViewById(R.id.tv_idsanbaydiemden);
+        tv_tensanbaydiemden = view.findViewById(R.id.tv_tensanbaydiemden);
     }
 }
