@@ -41,11 +41,16 @@ public class KhuHoiFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private ChuyenBay chuyenBay;
+    private String DiemDi, DiemDen;
     public KhuHoiFragment() {
         // Required empty public constructor
     }
     public KhuHoiFragment(ChuyenBay chuyenbay) {
         this.chuyenBay = chuyenbay;
+    }
+    public KhuHoiFragment(String diemdi, String diemden) {
+        this.DiemDi = diemdi;
+        this.DiemDen = diemden;
     }
 
     /**
@@ -143,6 +148,14 @@ public class KhuHoiFragment extends Fragment {
                 @Override
                 public void onCallback(String tensanbay) {
                     tv_tensanbaydiemden.setText(tensanbay);
+                }
+            });
+        }else if (DiemDi != null){
+            tv_idsanbaydiemdi.setText(DiemDi);
+            firebase.getTenSanBayBySanBayId(DiemDi, new Firebase.getTenSanBayBySanBayIdCallback() {
+                @Override
+                public void onCallback(String tensanbay) {
+                    tv_tensanbaydiemdi.setText(tensanbay);
                 }
             });
         }

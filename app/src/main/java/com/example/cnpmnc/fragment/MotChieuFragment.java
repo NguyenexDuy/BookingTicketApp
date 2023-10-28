@@ -47,14 +47,17 @@ public class MotChieuFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private ChuyenBay chuyenBay;
-
+    private String DiemDi, DiemDen;
     public MotChieuFragment() {
         // Required empty public constructor
     }
     public MotChieuFragment(ChuyenBay chuyenBay) {
         this.chuyenBay = chuyenBay;
     }
-
+    public MotChieuFragment(String diemdi, String diemden) {
+        this.DiemDi = diemdi;
+        this.DiemDen = diemden;
+    }
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -130,6 +133,8 @@ public class MotChieuFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(getContext(), TimKiemActivity.class);
+                intent.putExtra("Chuyenbay", chuyenBay);
+                intent.putExtra("Timkiem", "diemdi");
                 startActivity(intent);
             }
         });

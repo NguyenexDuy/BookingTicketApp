@@ -35,6 +35,7 @@ public class HomePageActivity extends AppCompatActivity implements BottomNavigat
     private int mCurrentFragment = FRAGMENT_HOMEPAGE;
     private BottomNavigationView mBottomNavigationView;
     private ChuyenBay chuyenBay;
+    public String DiemDi, DiemDen;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +48,11 @@ public class HomePageActivity extends AppCompatActivity implements BottomNavigat
         if (getIntent().getSerializableExtra("Chuyenbay") != null){
             chuyenBay = (ChuyenBay) getIntent().getSerializableExtra("Chuyenbay");
             replaceFragment(new BookingFragment(chuyenBay));
+            mCurrentFragment = FRAGMENT_BOOKING;
+            mBottomNavigationView.getMenu().findItem(R.id.item_booking).setChecked(true);
+        }else if (getIntent().getSerializableExtra("DiemDi") != null){
+            DiemDi = (String) getIntent().getStringExtra("DiemDi");
+            replaceFragment(new BookingFragment(DiemDi, null));
             mCurrentFragment = FRAGMENT_BOOKING;
             mBottomNavigationView.getMenu().findItem(R.id.item_booking).setChecked(true);
         }

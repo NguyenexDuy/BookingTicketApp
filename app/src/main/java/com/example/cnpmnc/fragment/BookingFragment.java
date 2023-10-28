@@ -37,12 +37,16 @@ public class BookingFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private ChuyenBay chuyenBay;
-
+    private String DiemDi, DiemDen;
     public BookingFragment() {
         // Required empty public constructor
     }
     public BookingFragment(ChuyenBay chuyenbay) {
         this.chuyenBay = chuyenbay;
+    }
+    public BookingFragment(String diemdi, String diemden) {
+        this.DiemDi = diemdi;
+        this.DiemDen =diemden;
     }
 
     // TODO: Rename and change types and number of parameters
@@ -72,22 +76,26 @@ public class BookingFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_booking, container, false);
         Anhxa(view);
-        if (chuyenBay != null){
-            VPBookingAdapter viewPagerAdapter = new VPBookingAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, chuyenBay);
-            mviewPager.setAdapter(viewPagerAdapter);
-            mtabLayout.setupWithViewPager(mviewPager);
-        }else {
-            VPBookingAdapter viewPagerAdapter = new VPBookingAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-            mviewPager.setAdapter(viewPagerAdapter);
-            mtabLayout.setupWithViewPager(mviewPager);
-        }
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        if (chuyenBay != null){
+            VPBookingAdapter viewPagerAdapter = new VPBookingAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, chuyenBay);
+            mviewPager.setAdapter(viewPagerAdapter);
+            mtabLayout.setupWithViewPager(mviewPager);
+        }else if (DiemDi != null){
+            VPBookingAdapter viewPagerAdapter = new VPBookingAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, DiemDi, null);
+            mviewPager.setAdapter(viewPagerAdapter);
+            mtabLayout.setupWithViewPager(mviewPager);
+        }
+        else {
+            VPBookingAdapter viewPagerAdapter = new VPBookingAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+            mviewPager.setAdapter(viewPagerAdapter);
+            mtabLayout.setupWithViewPager(mviewPager);
+        }
         btnTimKiem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

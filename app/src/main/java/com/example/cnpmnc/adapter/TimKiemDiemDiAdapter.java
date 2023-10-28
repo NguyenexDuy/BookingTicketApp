@@ -1,6 +1,7 @@
 package com.example.cnpmnc.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,35 +13,55 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cnpmnc.R;
-import com.example.cnpmnc.model.Firebase;
+import com.example.cnpmnc.activity.HomePageActivity;
+import com.example.cnpmnc.model.ChuyenBay;
 import com.example.cnpmnc.model.SanBay;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class TimKiemFlightAdapter extends RecyclerView.Adapter<TimKiemFlightAdapter.ViewHolder> implements Filterable {
+public class TimKiemDiemDiAdapter extends RecyclerView.Adapter<TimKiemDiemDiAdapter.ViewHolder> implements Filterable {
 
     private Context mcontext;
     private ArrayList<SanBay> msanBays;
-
-    public TimKiemFlightAdapter(Context context, ArrayList<SanBay> sanBays) {
+    private ChuyenBay chuyenBay;
+    public TimKiemDiemDiAdapter(Context context, ArrayList<SanBay> sanBays) {
         this.mcontext = context;
         this.msanBays = sanBays;
+    }
+    public TimKiemDiemDiAdapter(Context context, ArrayList<SanBay> sanBays, ChuyenBay chuyenbay) {
+        this.mcontext = context;
+        this.msanBays = sanBays;
+        this.chuyenBay = chuyenbay;
     }
 
     @NonNull
     @Override
-    public TimKiemFlightAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TimKiemDiemDiAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_muctimkiem, parent, false);
-        return new TimKiemFlightAdapter.ViewHolder(view);
+        return new TimKiemDiemDiAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TimKiemFlightAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TimKiemDiemDiAdapter.ViewHolder holder, int position) {
         SanBay sanBay= msanBays.get(position);
         holder.tv_SanBay1.setText(sanBay.getTenSanBay());
-
+        holder.tv_SanBay1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (chuyenBay!= null){
+                    chuyenBay.setDiemDi(sanBay.getIdSanBay());
+                    Intent i = new Intent(mcontext, HomePageActivity.class);
+                    i.putExtra("Chuyenbay", chuyenBay);
+                    mcontext.startActivity(i);
+                }else {
+                    Intent i = new Intent(mcontext, HomePageActivity.class);
+                    i.putExtra("DiemDi", sanBay.getIdSanBay());
+                    mcontext.startActivity(i);
+                }
+            }
+        });
     }
     @Override
     public Filter getFilter() {
