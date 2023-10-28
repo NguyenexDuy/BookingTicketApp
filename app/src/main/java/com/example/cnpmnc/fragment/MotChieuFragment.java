@@ -214,6 +214,8 @@ public class MotChieuFragment extends Fragment {
     }
     private void showCalendarNgayDi(){
         final Calendar c = Calendar.getInstance();
+        long currentDateInMillis = c.getTimeInMillis();
+
         int mYear = c.get(Calendar.YEAR);
         int mMonth = c.get(Calendar.MONTH);
         int mDay = c.get(Calendar.DAY_OF_MONTH);
@@ -230,6 +232,7 @@ public class MotChieuFragment extends Fragment {
                     }
                 }, mYear, mMonth, mDay);
         rentDatePickerDialog.setTitle("Chọn ngày thuê");
+        rentDatePickerDialog.getDatePicker().setMinDate(currentDateInMillis);
         rentDatePickerDialog.show();
     }
     private void updateCount(TextView text,int count) {
