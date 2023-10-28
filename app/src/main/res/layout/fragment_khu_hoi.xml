@@ -28,7 +28,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tv_idsanbaydiemdi"
+                        android:id="@+id/tv_idsanbaydiemdiKhuHoi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="SGN"
@@ -36,7 +36,7 @@
                         android:textSize="35sp" />
 
                     <TextView
-                        android:id="@+id/tv_tensanbaydiemdi"
+                        android:id="@+id/tv_tensanbaydiemdiKhuHoi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Tp Hồ Chí Minh, VN"

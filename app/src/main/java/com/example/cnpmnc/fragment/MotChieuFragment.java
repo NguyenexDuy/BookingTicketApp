@@ -11,11 +11,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -113,10 +110,10 @@ public class MotChieuFragment extends Fragment {
         btn_plus3=view.findViewById(R.id.btn_plus3MotChieu);
         tv_count2NguoiLon=view.findViewById(R.id.tv_count2NguoiLonMotChieu);
         tv_count3NguoiLon=view.findViewById(R.id.tv_count3NguoiLonMotChieu);
-        tv_idsanbaydiemdi=view.findViewById(R.id.tv_idsanbaydiemdi);
-        tv_idsanbaydiemden=view.findViewById(R.id.tv_idsanbaydiemden);
-        tv_tensanbaydiemdi=view.findViewById(R.id.tv_tensanbaydiemdi);
-        tv_tensanbaydiemden=view.findViewById(R.id.tv_tensanbaydiemden);
+        tv_idsanbaydiemdi=view.findViewById(R.id.tv_idsanbaydiemdiMotChieu);
+        tv_idsanbaydiemden=view.findViewById(R.id.tv_idsanbaydiemdenMotChieu);
+        tv_tensanbaydiemdi=view.findViewById(R.id.tv_tensanbaydiemdiMotChieu);
+        tv_tensanbaydiemden=view.findViewById(R.id.tv_tensanbaydiemdenMotChieu);
         firebase = new Firebase(getContext());
         currentDate = new SimpleDateFormat("dd-MM-YYYY", Locale.getDefault()).format(new Date());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy");
@@ -213,6 +210,14 @@ public class MotChieuFragment extends Fragment {
                 @Override
                 public void onCallback(String tensanbay) {
                     tv_tensanbaydiemden.setText(tensanbay);
+                }
+            });
+        }else if (DiemDi != null){
+            tv_idsanbaydiemdi.setText(DiemDi);
+            firebase.getTenSanBayBySanBayId(DiemDi, new Firebase.getTenSanBayBySanBayIdCallback() {
+                @Override
+                public void onCallback(String tensanbay) {
+                    tv_tensanbaydiemdi.setText(tensanbay);
                 }
             });
         }
