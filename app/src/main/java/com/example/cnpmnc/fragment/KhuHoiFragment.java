@@ -1,17 +1,29 @@
 package com.example.cnpmnc.fragment;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.model.ChuyenBay;
 import com.example.cnpmnc.model.Firebase;
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,8 +74,11 @@ public class KhuHoiFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-    TextView tv_idsanbaydiemden, tv_tensanbaydiemden, tv_idsanbaydiemdi, tv_tensanbaydiemdi;
+    TextView tv_idsanbaydiemden, tv_tensanbaydiemden, tv_idsanbaydiemdi, tv_tensanbaydiemdi,tv_CalendarNgayVeKhuHoi,tv_CalendarNgayDiKhuHoi;
     Firebase firebase;
+    private String NgayVe;
+    private String currentDate;
+    private LocalDate curdate;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -73,6 +88,47 @@ public class KhuHoiFragment extends Fragment {
         setdata();
         return view;
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        tv_CalendarNgayVeKhuHoi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showCalendarNgayVe(tv_CalendarNgayVeKhuHoi);
+            }
+        });
+        tv_CalendarNgayDiKhuHoi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showCalendarNgayVe(tv_CalendarNgayDiKhuHoi);
+            }
+        });
+    }
+
+    private void showCalendarNgayVe(TextView textView) {
+        final Calendar c = Calendar.getInstance();
+        long currentDateInMillis = c.getTimeInMillis();
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH);
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog rentDatePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                NgayVe = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy");
+                LocalDate ngaydi = LocalDate.parse(NgayVe, formatter);
+                if (curdate.isAfter(ngaydi)){
+                    Toast.makeText(getContext(), "Ngày thuê không hợp lệ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                textView.setText(NgayVe);
+            }
+        }, mYear, mMonth, mDay);
+        rentDatePickerDialog.setTitle("Chọn ngày thuê");
+        rentDatePickerDialog.getDatePicker().setMinDate(currentDateInMillis);
+        rentDatePickerDialog.show();
+    }
+
     private void setdata(){
         if (chuyenBay != null){
             tv_idsanbaydiemdi.setText(chuyenBay.getDiemDi());
@@ -93,9 +149,16 @@ public class KhuHoiFragment extends Fragment {
     }
     private void Anhxa(View view){
         firebase = new Firebase(getContext());
+        tv_CalendarNgayVeKhuHoi=view.findViewById(R.id.tv_CalendarNgayVeKhuHoi);
+        tv_CalendarNgayDiKhuHoi=view.findViewById(R.id.tv_CalendarNgayDiKhuHoi);
         tv_idsanbaydiemdi = view.findViewById(R.id.tv_idsanbaydiemdi);
         tv_tensanbaydiemdi = view.findViewById(R.id.tv_tensanbaydiemdi);
         tv_idsanbaydiemden = view.findViewById(R.id.tv_idsanbaydiemden);
         tv_tensanbaydiemden = view.findViewById(R.id.tv_tensanbaydiemden);
+        currentDate = new SimpleDateFormat("dd-MM-YYYY", Locale.getDefault()).format(new Date());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy");
+        curdate = LocalDate.parse(currentDate, formatter);
+        tv_CalendarNgayVeKhuHoi.setText(currentDate);
+        tv_CalendarNgayDiKhuHoi.setText(currentDate);
     }
 }

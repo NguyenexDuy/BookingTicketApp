@@ -62,7 +62,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tv_CalendarNgayDi"
+                        android:id="@+id/tv_CalendarNgayDiKhuHoi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawableTop="@drawable/ic_calenda"
@@ -127,7 +127,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_CalendarNgayVe"
+                android:id="@+id/tv_CalendarNgayVeKhuHoi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableTop="@drawable/ic_calenda"
