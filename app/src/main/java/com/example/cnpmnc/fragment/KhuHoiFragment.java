@@ -150,7 +150,8 @@ public class KhuHoiFragment extends Fragment {
                     tv_tensanbaydiemden.setText(tensanbay);
                 }
             });
-        }else if (DiemDi != null){
+        }
+        else if (DiemDi != null){
             tv_idsanbaydiemdi.setText(DiemDi);
             firebase.getTenSanBayBySanBayId(DiemDi, new Firebase.getTenSanBayBySanBayIdCallback() {
                 @Override
@@ -164,8 +165,8 @@ public class KhuHoiFragment extends Fragment {
         firebase = new Firebase(getContext());
         tv_CalendarNgayVeKhuHoi=view.findViewById(R.id.tv_CalendarNgayVeKhuHoi);
         tv_CalendarNgayDiKhuHoi=view.findViewById(R.id.tv_CalendarNgayDiKhuHoi);
-        tv_idsanbaydiemdi = view.findViewById(R.id.tv_idsanbaydiemdi);
-        tv_tensanbaydiemdi = view.findViewById(R.id.tv_tensanbaydiemdi);
+        tv_idsanbaydiemdi = view.findViewById(R.id.tv_idsanbaydiemdiKhuHoi);
+        tv_tensanbaydiemdi = view.findViewById(R.id.tv_tensanbaydiemdiKhuHoi);
         tv_idsanbaydiemden = view.findViewById(R.id.tv_idsanbaydiemden);
         tv_tensanbaydiemden = view.findViewById(R.id.tv_tensanbaydiemden);
         currentDate = new SimpleDateFormat("dd-MM-YYYY", Locale.getDefault()).format(new Date());
