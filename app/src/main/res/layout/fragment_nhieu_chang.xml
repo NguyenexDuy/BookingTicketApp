@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".fragment.KhuHoiFragment"
-    android:padding="10dp">
+>
 
     <LinearLayout
         android:padding="10dp"
@@ -53,12 +53,35 @@
                     android:textSize="14dp"
                     android:textColor="@color/white"/>
             </LinearLayout>
-            <ImageButton
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_ngaydi"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
                 android:layout_marginLeft="150dp"
-                android:background="@color/primaryColor"/>
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Chọn ngày đi"
+                    android:textColor="#71AFE5"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_CalendarNgayDi1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_calenda"
+                    android:drawablePadding="3dp"
+                    android:text="17-10-2023"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -91,13 +114,36 @@
                     android:textSize="14sp"
                     android:textColor="@color/white"/>
             </LinearLayout>
-            <ImageButton
-                android:layout_marginLeft="150dp"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_ngayve"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="150dp"
+                android:orientation="vertical">
 
-                android:background="@color/primaryColor"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+
+                    android:text="Chọn ngày đi"
+                    android:textColor="#71AFE5"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_CalendarNgayDi2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_calenda"
+                    android:drawablePadding="3dp"
+                    android:text="17-10-2023"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
 
         </LinearLayout>
         <TextView
@@ -139,12 +185,35 @@
                     android:textSize="14dp"
                     android:textColor="@color/white"/>
             </LinearLayout>
-            <ImageButton
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_ngaydi"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
                 android:layout_marginLeft="150dp"
-                android:background="@color/primaryColor"/>
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Chọn ngày đi"
+                    android:textColor="#71AFE5"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_CalendarNgayDi3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_calenda"
+                    android:drawablePadding="3dp"
+                    android:text="17-10-2023"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -177,13 +246,35 @@
                     android:textSize="14sp"
                     android:textColor="@color/white"/>
             </LinearLayout>
-            <ImageButton
-                android:layout_marginLeft="150dp"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_ngayve"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="150dp"
+                android:orientation="vertical">
 
-                android:background="@color/primaryColor"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Chọn ngày đi"
+                    android:textColor="#71AFE5"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_CalendarNgayDi4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_calenda"
+                    android:drawablePadding="3dp"
+                    android:text="17-10-2023"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
 
         </LinearLayout>
 
