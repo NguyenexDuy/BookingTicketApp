@@ -85,7 +85,7 @@ public class LoaiVePhoThongFragment extends Fragment {
         rvVePhoThong.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         chuyenVeTests = initData(); // Khởi tạo dữ liệu
-        chuyenBayAdapter = new ChuyenBayAdapter(chuyenVeTests);
+        chuyenBayAdapter = new ChuyenBayAdapter(chuyenVeTests,getContext());
         rvVePhoThong.setAdapter(chuyenBayAdapter);
     }
     private List<ChuyenVeTest> initData() {

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 
 import com.example.cnpmnc.R;
+import com.example.cnpmnc.adapter.TimKiemDiemDenAdapter;
 import com.example.cnpmnc.adapter.TimKiemDiemDiAdapter;
 import com.example.cnpmnc.model.ChuyenBay;
 import com.example.cnpmnc.model.Firebase;
@@ -22,19 +23,22 @@ public class TimKiemActivity extends AppCompatActivity {
     private ArrayList<SanBay> sanBaysList;
     private  SearchView searchView;
     private TimKiemDiemDiAdapter timKiemFlightAdapter;
+    private TimKiemDiemDenAdapter timKiemDiemDenAdapter;
     private Firebase firebase;
     private ChuyenBay chuyenBay;
     private String key;
+    private String key1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tim_kiem);
         Anhxa();
         key = getIntent().getStringExtra("Timkiem");
-        if (key.equals("diemdi")){
+        key1=getIntent().getStringExtra("Timkiem1");
+        if (key != null && key.equals("diemdi")){
             checkdiemdi();
-        }else {
-
+        }else if(key1 != null && key1.equals("diemden")) {
+            checkdiemden();
         }
         checkdiemdi();
         searchView.requestFocus();
@@ -47,17 +51,46 @@ public class TimKiemActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 ArrayList<SanBay> filteredList = filter(sanBaysList, newText);
                 timKiemFlightAdapter.setData(filteredList);
+                timKiemDiemDenAdapter.setData(filteredList);
+                timKiemDiemDenAdapter.notifyDataSetChanged();
                 timKiemFlightAdapter.notifyDataSetChanged();
 
                 return true;
             }
         });
     }
+
+
+
     private void Anhxa() {
         firebase = new Firebase(TimKiemActivity.this);
         rcv_nameitemFlight=findViewById(R.id.rcv_nameitemFlight);
         rcv_nameitemFlight.setLayoutManager(new LinearLayoutManager(this));
         searchView = findViewById(R.id.searchView);
+    }
+    private void checkdiemden() {
+        if(getIntent().getSerializableExtra("Chuyenbay1")!=null)
+        {
+            chuyenBay=(ChuyenBay) getIntent().getSerializableExtra("ChuyenBay1");
+            firebase.getAllSanBay(new Firebase.FirebaseCallback<SanBay>() {
+                @Override
+                public void onCallback(ArrayList<SanBay> list) {
+                    sanBaysList=list;
+                    timKiemDiemDenAdapter=new TimKiemDiemDenAdapter(TimKiemActivity.this,sanBaysList,chuyenBay);
+                    rcv_nameitemFlight.setAdapter(timKiemDiemDenAdapter);
+                }
+            });
+        }
+        else {
+            firebase.getAllSanBay(new Firebase.FirebaseCallback<SanBay>() {
+                @Override
+                public void onCallback(ArrayList<SanBay> list) {
+                    sanBaysList=list;
+                    timKiemDiemDenAdapter=new TimKiemDiemDenAdapter(TimKiemActivity.this,sanBaysList,chuyenBay);
+                    rcv_nameitemFlight.setAdapter(timKiemDiemDenAdapter);
+                }
+            });
+        }
     }
     private  void checkdiemdi(){
         if (getIntent().getSerializableExtra("Chuyenbay") != null){

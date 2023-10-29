@@ -135,6 +135,15 @@ public class MotChieuFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        tv_idsanbaydiemden.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getContext(), TimKiemActivity.class);
+                intent.putExtra("ChuyenBay1",chuyenBay);
+                intent.putExtra("TimKiem1","diemden");
+                startActivity(intent);
+            }
+        });
         tv_CalendarNgayDi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

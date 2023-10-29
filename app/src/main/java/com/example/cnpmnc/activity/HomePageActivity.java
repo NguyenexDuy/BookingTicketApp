@@ -52,10 +52,16 @@ public class HomePageActivity extends AppCompatActivity implements BottomNavigat
             mBottomNavigationView.getMenu().findItem(R.id.item_booking).setChecked(true);
         }else if (getIntent().getSerializableExtra("DiemDi") != null){
             DiemDi = (String) getIntent().getStringExtra("DiemDi");
-            replaceFragment(new BookingFragment(DiemDi, null));
+            replaceFragment(new BookingFragment(DiemDi, DiemDen));
             mCurrentFragment = FRAGMENT_BOOKING;
             mBottomNavigationView.getMenu().findItem(R.id.item_booking).setChecked(true);
-        }
+        }else if (getIntent().getSerializableExtra("DiemDen")!=null)
+        {
+            DiemDen=(String) getIntent().getStringExtra("DiemDen");
+            replaceFragment(new BookingFragment(null,DiemDen));
+            mCurrentFragment=FRAGMENT_BOOKING;
+            mBottomNavigationView.getMenu().findItem(R.id.item_booking).setChecked(true);
+         }
     }
     private void Anhxa() {
         mBottomNavigationView = findViewById(R.id.bottom_nav);
