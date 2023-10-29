@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.activity.HomePageActivity;
 import com.example.cnpmnc.model.ChuyenBay;
+import com.example.cnpmnc.model.DiaDiem;
 import com.example.cnpmnc.model.SanBay;
 
 import java.util.ArrayList;
@@ -26,14 +27,11 @@ public class TimKiemDiemDiAdapter extends RecyclerView.Adapter<TimKiemDiemDiAdap
     private Context mcontext;
     private ArrayList<SanBay> msanBays;
     private ChuyenBay chuyenBay;
-    public TimKiemDiemDiAdapter(Context context, ArrayList<SanBay> sanBays) {
+    private String key;
+    public TimKiemDiemDiAdapter(Context context, ArrayList<SanBay> sanBays, String key) {
         this.mcontext = context;
         this.msanBays = sanBays;
-    }
-    public TimKiemDiemDiAdapter(Context context, ArrayList<SanBay> sanBays, ChuyenBay chuyenbay) {
-        this.mcontext = context;
-        this.msanBays = sanBays;
-        this.chuyenBay = chuyenbay;
+        this.key = key;
     }
 
     @NonNull
@@ -50,14 +48,13 @@ public class TimKiemDiemDiAdapter extends RecyclerView.Adapter<TimKiemDiemDiAdap
         holder.tv_SanBay1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (chuyenBay!= null){
-                    chuyenBay.setDiemDi(sanBay.getIdSanBay());
+                if (key.equals("diemdi")){
                     Intent i = new Intent(mcontext, HomePageActivity.class);
-                    i.putExtra("Chuyenbay", chuyenBay);
+                    DiaDiem.getInstance().setDiemDi(sanBay.getIdSanBay());
                     mcontext.startActivity(i);
-                }else {
+                }else if (key.equals("diemden")){
                     Intent i = new Intent(mcontext, HomePageActivity.class);
-                    i.putExtra("DiemDi", sanBay.getIdSanBay());
+                    DiaDiem.getInstance().setDiemDen(sanBay.getIdSanBay());
                     mcontext.startActivity(i);
                 }
             }

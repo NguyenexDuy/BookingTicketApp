@@ -23,11 +23,6 @@ public class VPBookingAdapter extends FragmentStatePagerAdapter {
     public VPBookingAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
     }
-    public VPBookingAdapter(@NonNull FragmentManager fm, int behavior, String diemdi, String diemden) {
-        super(fm, behavior);
-        this.DiemDi = diemdi;
-        this.DiemDen = diemden;
-    }
     @NonNull
     @Override
     public Fragment getItem(int position) {
@@ -37,17 +32,6 @@ public class VPBookingAdapter extends FragmentStatePagerAdapter {
                     return new KhuHoiFragment(chuyenBay);
                 case 1:
                     return new MotChieuFragment(chuyenBay);
-                case 2:
-                    return new NhieuChangFragment();
-                default:
-                    return new MotChieuFragment();
-            }
-        }else  if (DiemDi != null){
-            switch (position) {
-                case 0:
-                    return new KhuHoiFragment(DiemDi, null);
-                case 1:
-                    return new MotChieuFragment(DiemDi, null);
                 case 2:
                     return new NhieuChangFragment();
                 default:

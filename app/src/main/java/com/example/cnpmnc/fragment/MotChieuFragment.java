@@ -18,7 +18,9 @@ import android.widget.Toast;
 
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.activity.TimKiemActivity;
+import com.example.cnpmnc.adapter.TimKiemDiemDiAdapter;
 import com.example.cnpmnc.model.ChuyenBay;
+import com.example.cnpmnc.model.DiaDiem;
 import com.example.cnpmnc.model.Firebase;
 
 import java.text.SimpleDateFormat;
@@ -44,16 +46,11 @@ public class MotChieuFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private ChuyenBay chuyenBay;
-    private String DiemDi, DiemDen;
     public MotChieuFragment() {
         // Required empty public constructor
     }
     public MotChieuFragment(ChuyenBay chuyenBay) {
         this.chuyenBay = chuyenBay;
-    }
-    public MotChieuFragment(String diemdi, String diemden) {
-        this.DiemDi = diemdi;
-        this.DiemDen = diemden;
     }
     /**
      * Use this factory method to create a new instance of
@@ -97,6 +94,8 @@ public class MotChieuFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mot_chieu, container, false);
         Anhxa(view);
+        setdata();
+
         return view;
     }
     private void Anhxa(View view) {
@@ -110,10 +109,10 @@ public class MotChieuFragment extends Fragment {
         btn_plus3=view.findViewById(R.id.btn_plus3MotChieu);
         tv_count2NguoiLon=view.findViewById(R.id.tv_count2NguoiLonMotChieu);
         tv_count3NguoiLon=view.findViewById(R.id.tv_count3NguoiLonMotChieu);
-        tv_idsanbaydiemdi=view.findViewById(R.id.tv_idsanbaydiemdiMotChieu);
-        tv_idsanbaydiemden=view.findViewById(R.id.tv_idsanbaydiemdenMotChieu);
-        tv_tensanbaydiemdi=view.findViewById(R.id.tv_tensanbaydiemdiMotChieu);
-        tv_tensanbaydiemden=view.findViewById(R.id.tv_tensanbaydiemdenMotChieu);
+        tv_idsanbaydiemdi=view.findViewById(R.id.tv_idsanbaydiemdi);
+        tv_idsanbaydiemden=view.findViewById(R.id.tv_idsanbaydiemden);
+        tv_tensanbaydiemdi=view.findViewById(R.id.tv_tensanbaydiemdi);
+        tv_tensanbaydiemden=view.findViewById(R.id.tv_tensanbaydiemden);
         firebase = new Firebase(getContext());
         currentDate = new SimpleDateFormat("dd-MM-YYYY", Locale.getDefault()).format(new Date());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy");
@@ -124,13 +123,10 @@ public class MotChieuFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        setdata();
-
         tv_idsanbaydiemdi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(getContext(), TimKiemActivity.class);
-                intent.putExtra("Chuyenbay", chuyenBay);
                 intent.putExtra("Timkiem", "diemdi");
                 startActivity(intent);
             }
@@ -139,8 +135,7 @@ public class MotChieuFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(getContext(), TimKiemActivity.class);
-                intent.putExtra("ChuyenBay1",chuyenBay);
-                intent.putExtra("TimKiem1","diemden");
+                intent.putExtra("Timkiem","diemden");
                 startActivity(intent);
             }
         });
@@ -205,6 +200,7 @@ public class MotChieuFragment extends Fragment {
             }
         });
     }
+
     private void setdata(){
         if (chuyenBay != null){
             tv_idsanbaydiemdi.setText(chuyenBay.getDiemDi());
@@ -221,12 +217,24 @@ public class MotChieuFragment extends Fragment {
                     tv_tensanbaydiemden.setText(tensanbay);
                 }
             });
-        }else if (DiemDi != null){
-            tv_idsanbaydiemdi.setText(DiemDi);
-            firebase.getTenSanBayBySanBayId(DiemDi, new Firebase.getTenSanBayBySanBayIdCallback() {
+        }
+        if (DiaDiem.getInstance().getDiemDi() != null){
+            String diemdi = DiaDiem.getInstance().getDiemDi();
+            tv_idsanbaydiemdi.setText(diemdi);
+            firebase.getTenSanBayBySanBayId(diemdi, new Firebase.getTenSanBayBySanBayIdCallback() {
                 @Override
                 public void onCallback(String tensanbay) {
                     tv_tensanbaydiemdi.setText(tensanbay);
+                }
+            });
+        }
+        if (DiaDiem.getInstance().getDiemDen() != null){
+            String diemden = DiaDiem.getInstance().getDiemDen();
+            tv_idsanbaydiemden.setText(diemden);
+            firebase.getTenSanBayBySanBayId(diemden, new Firebase.getTenSanBayBySanBayIdCallback() {
+                @Override
+                public void onCallback(String tensanbay) {
+                    tv_tensanbaydiemden.setText(tensanbay);
                 }
             });
         }

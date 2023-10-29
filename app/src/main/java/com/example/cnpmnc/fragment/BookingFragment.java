@@ -44,11 +44,6 @@ public class BookingFragment extends Fragment {
     public BookingFragment(ChuyenBay chuyenbay) {
         this.chuyenBay = chuyenbay;
     }
-    public BookingFragment(String diemdi, String diemden) {
-        this.DiemDi = diemdi;
-        this.DiemDen =diemden;
-    }
-
     // TODO: Rename and change types and number of parameters
     public static BookingFragment newInstance(String param1, String param2) {
         BookingFragment fragment = new BookingFragment();
@@ -84,10 +79,6 @@ public class BookingFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         if (chuyenBay != null){
             VPBookingAdapter viewPagerAdapter = new VPBookingAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, chuyenBay);
-            mviewPager.setAdapter(viewPagerAdapter);
-            mtabLayout.setupWithViewPager(mviewPager);
-        }else if (DiemDi != null){
-            VPBookingAdapter viewPagerAdapter = new VPBookingAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, DiemDi, null);
             mviewPager.setAdapter(viewPagerAdapter);
             mtabLayout.setupWithViewPager(mviewPager);
         }

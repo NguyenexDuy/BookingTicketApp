@@ -90,7 +90,6 @@ public class KhuHoiFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_khu_hoi, container, false);
         Anhxa(view);
-        setdata();
         return view;
     }
 
@@ -133,40 +132,12 @@ public class KhuHoiFragment extends Fragment {
         rentDatePickerDialog.getDatePicker().setMinDate(currentDateInMillis);
         rentDatePickerDialog.show();
     }
-
-    private void setdata(){
-        if (chuyenBay != null){
-            tv_idsanbaydiemdi.setText(chuyenBay.getDiemDi());
-            firebase.getTenSanBayBySanBayId(chuyenBay.getDiemDi(), new Firebase.getTenSanBayBySanBayIdCallback() {
-                @Override
-                public void onCallback(String tensanbay) {
-                    tv_tensanbaydiemdi.setText(tensanbay);
-                }
-            });
-            tv_idsanbaydiemden.setText(chuyenBay.getDiemDen());
-            firebase.getTenSanBayBySanBayId(chuyenBay.getDiemDen(), new Firebase.getTenSanBayBySanBayIdCallback() {
-                @Override
-                public void onCallback(String tensanbay) {
-                    tv_tensanbaydiemden.setText(tensanbay);
-                }
-            });
-        }
-        else if (DiemDi != null){
-            tv_idsanbaydiemdi.setText(DiemDi);
-            firebase.getTenSanBayBySanBayId(DiemDi, new Firebase.getTenSanBayBySanBayIdCallback() {
-                @Override
-                public void onCallback(String tensanbay) {
-                    tv_tensanbaydiemdi.setText(tensanbay);
-                }
-            });
-        }
-    }
     private void Anhxa(View view){
         firebase = new Firebase(getContext());
         tv_CalendarNgayVeKhuHoi=view.findViewById(R.id.tv_CalendarNgayVeKhuHoi);
         tv_CalendarNgayDiKhuHoi=view.findViewById(R.id.tv_CalendarNgayDiKhuHoi);
-        tv_idsanbaydiemdi = view.findViewById(R.id.tv_idsanbaydiemdiKhuHoi);
-        tv_tensanbaydiemdi = view.findViewById(R.id.tv_tensanbaydiemdiKhuHoi);
+        tv_idsanbaydiemdi = view.findViewById(R.id.tv_idsanbaydiemdi);
+        tv_tensanbaydiemdi = view.findViewById(R.id.tv_tensanbaydiemdi);
         tv_idsanbaydiemden = view.findViewById(R.id.tv_idsanbaydiemden);
         tv_tensanbaydiemden = view.findViewById(R.id.tv_tensanbaydiemden);
         currentDate = new SimpleDateFormat("dd-MM-YYYY", Locale.getDefault()).format(new Date());

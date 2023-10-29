@@ -27,7 +27,7 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
             <TextView
-                android:id="@+id/tv_idsanbaydiemdiMotChieu"
+                android:id="@+id/tv_idsanbaydiemdi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="SGN"
@@ -35,7 +35,7 @@
                 android:textSize="35sp" />
 
             <TextView
-                android:id="@+id/tv_tensanbaydiemdiMotChieu"
+                android:id="@+id/tv_tensanbaydiemdi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Tp Hồ Chí Minh, VN"
@@ -92,7 +92,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_idsanbaydiemdenMotChieu"
+                android:id="@+id/tv_idsanbaydiemden"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="SGN"
@@ -100,7 +100,7 @@
                 android:textSize="35sp" />
 
             <TextView
-                android:id="@+id/tv_tensanbaydiemdenMotChieu"
+                android:id="@+id/tv_tensanbaydiemden"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Tp Hồ Chí Minh, VN"

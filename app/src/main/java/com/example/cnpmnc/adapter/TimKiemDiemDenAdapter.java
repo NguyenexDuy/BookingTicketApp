@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.activity.HomePageActivity;
 import com.example.cnpmnc.model.ChuyenBay;
+import com.example.cnpmnc.model.DiaDiem;
 import com.example.cnpmnc.model.SanBay;
 
 import java.util.ArrayList;
@@ -60,7 +61,6 @@ public class TimKiemDiemDenAdapter extends RecyclerView.Adapter<TimKiemDiemDenAd
                 }
                 else {
                     Intent intent = new Intent(mcontext, HomePageActivity.class);
-                    intent.putExtra("DiemDen", sanBay.getIdSanBay());
                     mcontext.startActivity(intent);
                 }
             }
