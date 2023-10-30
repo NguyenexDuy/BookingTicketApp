@@ -11,19 +11,24 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.activity.TimKiemActivity;
+import com.example.cnpmnc.adapter.TimKiemDiemDiAdapter;
 import com.example.cnpmnc.model.ChuyenBay;
+import com.example.cnpmnc.model.DiaDiem;
+import com.example.cnpmnc.model.Firebase;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,14 +46,12 @@ public class MotChieuFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private ChuyenBay chuyenBay;
-
     public MotChieuFragment() {
         // Required empty public constructor
     }
     public MotChieuFragment(ChuyenBay chuyenBay) {
         this.chuyenBay = chuyenBay;
     }
-
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -67,8 +70,6 @@ public class MotChieuFragment extends Fragment {
         return fragment;
     }
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,71 +79,69 @@ public class MotChieuFragment extends Fragment {
         }
 
     }
-    private ImageView img_calendar1ChieuNgayDi;
     private TextView tv_CalendarNgayDi;
-    int day;
-    int month;
-    int year;
     int countNguoiLon=0;
     int countTreEm2_12Tuoi=0;
     int countTreEmDuoi2tuoi=0;
-
-    private ImageButton btn_minus1MotChieu,btn_plus1MotChieu,btn_minus2MotChieu,btn_plus2MotChieu,btn_minus3MotChieu,btn_plus3MotChieu;
-    private TextView tv_countNguoiLon,tv_count2NguoiLonMotChieu,tv_count3NguoiLonMotChieu;
-    private LinearLayout linear_DiemDi;
+    private String NgayDi;
+    private String currentDate;
+    private LocalDate curdate;
+    private ImageButton btn_minus1,btn_plus1,btn_minus2,btn_plus2,btn_minus3,btn_plus3;
+    private TextView tv_countNguoiLon,tv_count2NguoiLon,tv_count3NguoiLon,tv_idsanbaydiemdi,tv_tensanbaydiemdi,tv_idsanbaydiemden,tv_tensanbaydiemden;
+    Firebase firebase;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_mot_chieu, container, false);
+        Anhxa(view);
+        setdata();
 
-        return inflater.inflate(R.layout.fragment_mot_chieu, container, false);
+        return view;
+    }
+    private void Anhxa(View view) {
+        tv_CalendarNgayDi=view.findViewById(R.id.tv_CalendarNgayDi);
+
+        tv_idsanbaydiemdi=view.findViewById(R.id.tv_idsanbaydiemdi);
+        tv_idsanbaydiemden=view.findViewById(R.id.tv_idsanbaydiemden);
+        tv_tensanbaydiemdi=view.findViewById(R.id.tv_tensanbaydiemdi);
+        tv_tensanbaydiemden=view.findViewById(R.id.tv_tensanbaydiemden);
+        firebase = new Firebase(getContext());
+        currentDate = new SimpleDateFormat("dd-MM-YYYY", Locale.getDefault()).format(new Date());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy");
+        curdate = LocalDate.parse(currentDate, formatter);
+        tv_CalendarNgayDi.setText(currentDate);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        img_calendar1ChieuNgayDi=view.findViewById(R.id.img_calendar1ChieuNgayDi);
-        tv_CalendarNgayDi=view.findViewById(R.id.tv_CalendarNgayDi);
-        tv_countNguoiLon=view.findViewById(R.id.tv_countNguoiLonMotChieu);
-        btn_minus1MotChieu=view.findViewById(R.id.btn_minusMotChieu);
-        btn_plus1MotChieu=view.findViewById(R.id.btn_plusMotChieu);
-        btn_minus2MotChieu=view.findViewById(R.id.btn_minus2MotChieu);
-        btn_plus2MotChieu=view.findViewById(R.id.btn_plus2MotChieu);
-        btn_minus3MotChieu=view.findViewById(R.id.btn_minus3MotChieu);
-        btn_plus3MotChieu=view.findViewById(R.id.btn_plus3MotChieu);
-        tv_count2NguoiLonMotChieu=view.findViewById(R.id.tv_count2NguoiLonMotChieu);
-        tv_count3NguoiLonMotChieu=view.findViewById(R.id.tv_count3NguoiLonMotChieu);
-        linear_DiemDi=view.findViewById(R.id.linear_DiemDi);
-
-        linear_DiemDi.setOnClickListener(new View.OnClickListener() {
+        tv_idsanbaydiemdi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(getContext(), TimKiemActivity.class);
+                intent.putExtra("Timkiem", "diemdi");
                 startActivity(intent);
             }
         });
-
-        Calendar calendar=Calendar.getInstance();
-        img_calendar1ChieuNgayDi.setOnClickListener(new View.OnClickListener() {
+        tv_idsanbaydiemden.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                year=calendar.get(Calendar.YEAR);
-                day=calendar.get(Calendar.DAY_OF_MONTH);
-                month=calendar.get(Calendar.MONTH);
-
-                DatePickerDialog datePickerDialog=new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                        tv_CalendarNgayDi.setText(SimpleDateFormat.getDateInstance().format(calendar.getTime()));
-                        img_calendar1ChieuNgayDi.setVisibility(View.INVISIBLE);
-                        tv_CalendarNgayDi.setVisibility(View.VISIBLE);
-                    }
-                },year,month,day);
-                datePickerDialog.show();
+                Intent intent=new Intent(getContext(), TimKiemActivity.class);
+                intent.putExtra("Timkiem","diemden");
+                startActivity(intent);
+            }
+        });
+        tv_CalendarNgayDi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showCalendarNgayDi();
             }
         });
 
-        btn_minus1MotChieu.setOnClickListener(new View.OnClickListener() {
+    }
+    private void Action()
+    {
+        btn_minus1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(countNguoiLon>0)
@@ -153,55 +152,112 @@ public class MotChieuFragment extends Fragment {
 
             }
         });
-        btn_minus2MotChieu.setOnClickListener(new View.OnClickListener() {
+        btn_minus2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(countTreEm2_12Tuoi>0)
                 {
                     countTreEm2_12Tuoi--;
-                    updateCount(tv_count2NguoiLonMotChieu,countTreEm2_12Tuoi);
+                    updateCount(tv_count2NguoiLon,countTreEm2_12Tuoi);
                 }
 
             }
         });
-        btn_minus3MotChieu.setOnClickListener(new View.OnClickListener() {
+        btn_minus3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(countTreEmDuoi2tuoi>0)
                 {
                     countTreEmDuoi2tuoi--;
-                    updateCount(tv_count3NguoiLonMotChieu,countTreEmDuoi2tuoi);
+                    updateCount(tv_count3NguoiLon,countTreEmDuoi2tuoi);
                 }
 
             }
         });
-
-        btn_plus1MotChieu.setOnClickListener(new View.OnClickListener() {
+        btn_plus1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 countNguoiLon++;
                 updateCount(tv_countNguoiLon,countNguoiLon);
             }
         });
-
-        btn_plus2MotChieu.setOnClickListener(new View.OnClickListener() {
+        btn_plus2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 countTreEm2_12Tuoi++;
-                updateCount(tv_count2NguoiLonMotChieu,countTreEm2_12Tuoi);
+                updateCount(tv_count2NguoiLon,countTreEm2_12Tuoi);
             }
         });
-        btn_plus3MotChieu.setOnClickListener(new View.OnClickListener() {
+        btn_plus3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 countTreEmDuoi2tuoi++;
-                updateCount(tv_count3NguoiLonMotChieu,countTreEmDuoi2tuoi);
+                updateCount(tv_count3NguoiLon,countTreEmDuoi2tuoi);
             }
         });
-
-
     }
 
+    private void setdata(){
+        if (chuyenBay != null){
+            tv_idsanbaydiemdi.setText(chuyenBay.getDiemDi());
+            firebase.getTenSanBayBySanBayId(chuyenBay.getDiemDi(), new Firebase.getTenSanBayBySanBayIdCallback() {
+                @Override
+                public void onCallback(String tensanbay) {
+                    tv_tensanbaydiemdi.setText(tensanbay);
+                }
+            });
+            tv_idsanbaydiemden.setText(chuyenBay.getDiemDen());
+            firebase.getTenSanBayBySanBayId(chuyenBay.getDiemDen(), new Firebase.getTenSanBayBySanBayIdCallback() {
+                @Override
+                public void onCallback(String tensanbay) {
+                    tv_tensanbaydiemden.setText(tensanbay);
+                }
+            });
+        }
+        if (DiaDiem.getInstance().getDiemDi() != null){
+            String diemdi = DiaDiem.getInstance().getDiemDi();
+            tv_idsanbaydiemdi.setText(diemdi);
+            firebase.getTenSanBayBySanBayId(diemdi, new Firebase.getTenSanBayBySanBayIdCallback() {
+                @Override
+                public void onCallback(String tensanbay) {
+                    tv_tensanbaydiemdi.setText(tensanbay);
+                }
+            });
+        }
+        if (DiaDiem.getInstance().getDiemDen() != null){
+            String diemden = DiaDiem.getInstance().getDiemDen();
+            tv_idsanbaydiemden.setText(diemden);
+            firebase.getTenSanBayBySanBayId(diemden, new Firebase.getTenSanBayBySanBayIdCallback() {
+                @Override
+                public void onCallback(String tensanbay) {
+                    tv_tensanbaydiemden.setText(tensanbay);
+                }
+            });
+        }
+    }
+    private void showCalendarNgayDi(){
+        final Calendar c = Calendar.getInstance();
+        long currentDateInMillis = c.getTimeInMillis();
+
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH);
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog rentDatePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        NgayDi = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy");
+                        LocalDate ngaydi = LocalDate.parse(NgayDi, formatter);
+                        if (curdate.isAfter(ngaydi)){
+                            Toast.makeText(getContext(), "Ngày thuê không hợp lệ", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        tv_CalendarNgayDi.setText(NgayDi);
+                    }
+                }, mYear, mMonth, mDay);
+        rentDatePickerDialog.setTitle("Chọn ngày thuê");
+        rentDatePickerDialog.getDatePicker().setMinDate(currentDateInMillis);
+        rentDatePickerDialog.show();
+    }
     private void updateCount(TextView text,int count) {
         text.setText(String.format("%02d", count));
     }

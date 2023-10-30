@@ -1,5 +1,7 @@
 package com.example.cnpmnc.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,15 +11,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cnpmnc.R;
+import com.example.cnpmnc.activity.ThongTinKhachhangActivity;
 import com.example.cnpmnc.model.ChuyenVeTest;
 
 import java.util.List;
 
 public class ChuyenBayAdapter extends RecyclerView.Adapter<ChuyenBayAdapter.ChuyenBayVH>{
+    private Context mcontext;
     private List<ChuyenVeTest> chuyenVeTests;
 
-    public ChuyenBayAdapter(List<ChuyenVeTest> chuyenVeTests) {
+    public ChuyenBayAdapter(List<ChuyenVeTest> chuyenVeTests, Context mcontext) {
         this.chuyenVeTests = chuyenVeTests;
+        this.mcontext=mcontext;
     }
 
     @NonNull
@@ -38,6 +43,13 @@ public class ChuyenBayAdapter extends RecyclerView.Adapter<ChuyenBayAdapter.Chuy
         holder.tvNoiBay.setText(chuyenVeTest.getNoiBay());
         holder.tvNoiDen.setText(chuyenVeTest.getNoiDen());
         holder.tvTongTien.setText(chuyenVeTest.getTongTien());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(mcontext, ThongTinKhachhangActivity.class);
+                mcontext.startActivity(intent);
+            }
+        });
     }
 
     @Override

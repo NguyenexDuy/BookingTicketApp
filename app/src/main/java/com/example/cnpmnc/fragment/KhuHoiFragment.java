@@ -1,17 +1,30 @@
 package com.example.cnpmnc.fragment;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.model.ChuyenBay;
 import com.example.cnpmnc.model.Firebase;
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,11 +42,16 @@ public class KhuHoiFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private ChuyenBay chuyenBay;
+    private String DiemDi, DiemDen;
     public KhuHoiFragment() {
         // Required empty public constructor
     }
     public KhuHoiFragment(ChuyenBay chuyenbay) {
         this.chuyenBay = chuyenbay;
+    }
+    public KhuHoiFragment(String diemdi, String diemden) {
+        this.DiemDi = diemdi;
+        this.DiemDen = diemden;
     }
 
     /**
@@ -62,40 +80,146 @@ public class KhuHoiFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-    TextView tv_idsanbaydiemden, tv_tensanbaydiemden, tv_idsanbaydiemdi, tv_tensanbaydiemdi;
+    TextView tv_idsanbaydiemden, tv_tensanbaydiemden, tv_idsanbaydiemdi, tv_tensanbaydiemdi,tv_CalendarNgayVeKhuHoi,tv_CalendarNgayDiKhuHoi,tv_countNguoiLonKhuHoi,tv_count2NguoiLonKhuHoi,tv_count3NguoiLonKhuHoi;
+    ImageButton btn_minus1,btn_plus1,btn_minus2,btn_plus2,btn_minus3,btn_plus3;
     Firebase firebase;
+    int countNguoiLon=0;
+    int countTreEm2_12Tuoi=0;
+    int countTreEmDuoi2tuoi=0;
+    private String NgayVe;
+    private String currentDate;
+    private LocalDate curdate;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_khu_hoi, container, false);
         Anhxa(view);
-        setdata();
         return view;
     }
-    private void setdata(){
-        if (chuyenBay != null){
-            tv_idsanbaydiemdi.setText(chuyenBay.getDiemDi());
-            firebase.getTenSanBayBySanBayId(chuyenBay.getDiemDi(), new Firebase.getTenSanBayBySanBayIdCallback() {
-                @Override
-                public void onCallback(String tensanbay) {
-                    tv_tensanbaydiemdi.setText(tensanbay);
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        tv_CalendarNgayVeKhuHoi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showCalendarNgayVe(tv_CalendarNgayVeKhuHoi);
+            }
+        });
+        tv_CalendarNgayDiKhuHoi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showCalendarNgayVe(tv_CalendarNgayDiKhuHoi);
+            }
+        });
+//        Action();
+    }
+
+    private void showCalendarNgayVe(TextView textView) {
+        final Calendar c = Calendar.getInstance();
+        long currentDateInMillis = c.getTimeInMillis();
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH);
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog rentDatePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                NgayVe = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy");
+                LocalDate ngaydi = LocalDate.parse(NgayVe, formatter);
+                if (curdate.isAfter(ngaydi)){
+                    Toast.makeText(getContext(), "Ngày thuê không hợp lệ", Toast.LENGTH_SHORT).show();
+                    return;
                 }
-            });
-            tv_idsanbaydiemden.setText(chuyenBay.getDiemDen());
-            firebase.getTenSanBayBySanBayId(chuyenBay.getDiemDen(), new Firebase.getTenSanBayBySanBayIdCallback() {
-                @Override
-                public void onCallback(String tensanbay) {
-                    tv_tensanbaydiemden.setText(tensanbay);
-                }
-            });
-        }
+                textView.setText(NgayVe);
+            }
+        }, mYear, mMonth, mDay);
+        rentDatePickerDialog.setTitle("Chọn ngày thuê");
+        rentDatePickerDialog.getDatePicker().setMinDate(currentDateInMillis);
+        rentDatePickerDialog.show();
     }
     private void Anhxa(View view){
         firebase = new Firebase(getContext());
+//        btn_minus1=view.findViewById(R.id.btn_minusKhuHoi);
+//        btn_minus2=view.findViewById(R.id.btn_minus2KhuHoi);
+//        btn_minus3=view.findViewById(R.id.btn_minus3KhuHoi);
+//        btn_plus1=view.findViewById(R.id.btn_plusKhuHoi);
+//        btn_plus2=view.findViewById(R.id.btn_plus2KhuHoi);
+//        btn_plus3=view.findViewById(R.id.btn_plus3KhuHoi);
+//        tv_countNguoiLonKhuHoi=view.findViewById(R.id.tv_countNguoiLonKhuHoi);
+//        tv_count2NguoiLonKhuHoi=view.findViewById(R.id.tv_count2NguoiLonKhuHoi);
+//        tv_count3NguoiLonKhuHoi=view.findViewById(R.id.tv_count3NguoiLonKhuHoi);
+        tv_CalendarNgayVeKhuHoi=view.findViewById(R.id.tv_CalendarNgayVeKhuHoi);
+        tv_CalendarNgayDiKhuHoi=view.findViewById(R.id.tv_CalendarNgayDiKhuHoi);
         tv_idsanbaydiemdi = view.findViewById(R.id.tv_idsanbaydiemdi);
         tv_tensanbaydiemdi = view.findViewById(R.id.tv_tensanbaydiemdi);
         tv_idsanbaydiemden = view.findViewById(R.id.tv_idsanbaydiemden);
         tv_tensanbaydiemden = view.findViewById(R.id.tv_tensanbaydiemden);
+        currentDate = new SimpleDateFormat("dd-MM-YYYY", Locale.getDefault()).format(new Date());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy");
+        curdate = LocalDate.parse(currentDate, formatter);
+        tv_CalendarNgayVeKhuHoi.setText(currentDate);
+        tv_CalendarNgayDiKhuHoi.setText(currentDate);
+    }
+
+    private  void Action()
+    {
+        btn_minus1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(countNguoiLon>0)
+                {
+                    countNguoiLon--;
+                    updateCount(tv_countNguoiLonKhuHoi,countNguoiLon);
+                }
+
+            }
+        });
+        btn_minus2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(countTreEm2_12Tuoi>0)
+                {
+                    countTreEm2_12Tuoi--;
+                    updateCount(tv_count2NguoiLonKhuHoi,countTreEm2_12Tuoi);
+                }
+
+            }
+        });
+        btn_minus3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(countTreEmDuoi2tuoi>0)
+                {
+                    countTreEmDuoi2tuoi--;
+                    updateCount(tv_count3NguoiLonKhuHoi,countTreEmDuoi2tuoi);
+                }
+
+            }
+        });
+        btn_plus1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                countNguoiLon++;
+                updateCount(tv_countNguoiLonKhuHoi,countNguoiLon);
+            }
+        });
+        btn_plus2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                countTreEm2_12Tuoi++;
+                updateCount(tv_count2NguoiLonKhuHoi,countTreEm2_12Tuoi);
+            }
+        });
+        btn_plus3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                countTreEmDuoi2tuoi++;
+                updateCount(tv_count3NguoiLonKhuHoi,countTreEmDuoi2tuoi);
+            }
+        });
+    }
+    private void updateCount(TextView text,int count) {
+        text.setText(String.format("%02d", count));
     }
 }

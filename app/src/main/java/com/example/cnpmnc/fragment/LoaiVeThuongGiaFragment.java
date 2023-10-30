@@ -90,7 +90,7 @@ public class LoaiVeThuongGiaFragment extends Fragment {
         rvVeThuongGia.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         chuyenVeTests = initData(); // Khởi tạo dữ liệu
-        chuyenBayAdapter = new ChuyenBayAdapter(chuyenVeTests);
+        chuyenBayAdapter = new ChuyenBayAdapter(chuyenVeTests,getContext());
         rvVeThuongGia.setAdapter(chuyenBayAdapter);
     }
     private List<ChuyenVeTest> initData() {
