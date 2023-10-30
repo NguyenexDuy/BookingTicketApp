@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -79,8 +80,12 @@ public class KhuHoiFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-    TextView tv_idsanbaydiemden, tv_tensanbaydiemden, tv_idsanbaydiemdi, tv_tensanbaydiemdi,tv_CalendarNgayVeKhuHoi,tv_CalendarNgayDiKhuHoi;
+    TextView tv_idsanbaydiemden, tv_tensanbaydiemden, tv_idsanbaydiemdi, tv_tensanbaydiemdi,tv_CalendarNgayVeKhuHoi,tv_CalendarNgayDiKhuHoi,tv_countNguoiLonKhuHoi,tv_count2NguoiLonKhuHoi,tv_count3NguoiLonKhuHoi;
+    ImageButton btn_minus1,btn_plus1,btn_minus2,btn_plus2,btn_minus3,btn_plus3;
     Firebase firebase;
+    int countNguoiLon=0;
+    int countTreEm2_12Tuoi=0;
+    int countTreEmDuoi2tuoi=0;
     private String NgayVe;
     private String currentDate;
     private LocalDate curdate;
@@ -108,6 +113,7 @@ public class KhuHoiFragment extends Fragment {
                 showCalendarNgayVe(tv_CalendarNgayDiKhuHoi);
             }
         });
+        Action();
     }
 
     private void showCalendarNgayVe(TextView textView) {
@@ -134,6 +140,15 @@ public class KhuHoiFragment extends Fragment {
     }
     private void Anhxa(View view){
         firebase = new Firebase(getContext());
+        btn_minus1=view.findViewById(R.id.btn_minusKhuHoi);
+        btn_minus2=view.findViewById(R.id.btn_minus2KhuHoi);
+        btn_minus3=view.findViewById(R.id.btn_minus3KhuHoi);
+        btn_plus1=view.findViewById(R.id.btn_plusKhuHoi);
+        btn_plus2=view.findViewById(R.id.btn_plus2KhuHoi);
+        btn_plus3=view.findViewById(R.id.btn_plus3KhuHoi);
+        tv_countNguoiLonKhuHoi=view.findViewById(R.id.tv_countNguoiLonKhuHoi);
+        tv_count2NguoiLonKhuHoi=view.findViewById(R.id.tv_count2NguoiLonKhuHoi);
+        tv_count3NguoiLonKhuHoi=view.findViewById(R.id.tv_count3NguoiLonKhuHoi);
         tv_CalendarNgayVeKhuHoi=view.findViewById(R.id.tv_CalendarNgayVeKhuHoi);
         tv_CalendarNgayDiKhuHoi=view.findViewById(R.id.tv_CalendarNgayDiKhuHoi);
         tv_idsanbaydiemdi = view.findViewById(R.id.tv_idsanbaydiemdi);
@@ -145,5 +160,66 @@ public class KhuHoiFragment extends Fragment {
         curdate = LocalDate.parse(currentDate, formatter);
         tv_CalendarNgayVeKhuHoi.setText(currentDate);
         tv_CalendarNgayDiKhuHoi.setText(currentDate);
+    }
+
+    private  void Action()
+    {
+        btn_minus1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(countNguoiLon>0)
+                {
+                    countNguoiLon--;
+                    updateCount(tv_countNguoiLonKhuHoi,countNguoiLon);
+                }
+
+            }
+        });
+        btn_minus2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(countTreEm2_12Tuoi>0)
+                {
+                    countTreEm2_12Tuoi--;
+                    updateCount(tv_count2NguoiLonKhuHoi,countTreEm2_12Tuoi);
+                }
+
+            }
+        });
+        btn_minus3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(countTreEmDuoi2tuoi>0)
+                {
+                    countTreEmDuoi2tuoi--;
+                    updateCount(tv_count3NguoiLonKhuHoi,countTreEmDuoi2tuoi);
+                }
+
+            }
+        });
+        btn_plus1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                countNguoiLon++;
+                updateCount(tv_countNguoiLonKhuHoi,countNguoiLon);
+            }
+        });
+        btn_plus2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                countTreEm2_12Tuoi++;
+                updateCount(tv_count2NguoiLonKhuHoi,countTreEm2_12Tuoi);
+            }
+        });
+        btn_plus3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                countTreEmDuoi2tuoi++;
+                updateCount(tv_count3NguoiLonKhuHoi,countTreEmDuoi2tuoi);
+            }
+        });
+    }
+    private void updateCount(TextView text,int count) {
+        text.setText(String.format("%02d", count));
     }
 }
