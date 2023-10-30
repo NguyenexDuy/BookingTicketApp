@@ -113,7 +113,7 @@ public class KhuHoiFragment extends Fragment {
                 showCalendarNgayVe(tv_CalendarNgayDiKhuHoi);
             }
         });
-        Action();
+//        Action();
     }
 
     private void showCalendarNgayVe(TextView textView) {
@@ -140,15 +140,15 @@ public class KhuHoiFragment extends Fragment {
     }
     private void Anhxa(View view){
         firebase = new Firebase(getContext());
-        btn_minus1=view.findViewById(R.id.btn_minusKhuHoi);
-        btn_minus2=view.findViewById(R.id.btn_minus2KhuHoi);
-        btn_minus3=view.findViewById(R.id.btn_minus3KhuHoi);
-        btn_plus1=view.findViewById(R.id.btn_plusKhuHoi);
-        btn_plus2=view.findViewById(R.id.btn_plus2KhuHoi);
-        btn_plus3=view.findViewById(R.id.btn_plus3KhuHoi);
-        tv_countNguoiLonKhuHoi=view.findViewById(R.id.tv_countNguoiLonKhuHoi);
-        tv_count2NguoiLonKhuHoi=view.findViewById(R.id.tv_count2NguoiLonKhuHoi);
-        tv_count3NguoiLonKhuHoi=view.findViewById(R.id.tv_count3NguoiLonKhuHoi);
+//        btn_minus1=view.findViewById(R.id.btn_minusKhuHoi);
+//        btn_minus2=view.findViewById(R.id.btn_minus2KhuHoi);
+//        btn_minus3=view.findViewById(R.id.btn_minus3KhuHoi);
+//        btn_plus1=view.findViewById(R.id.btn_plusKhuHoi);
+//        btn_plus2=view.findViewById(R.id.btn_plus2KhuHoi);
+//        btn_plus3=view.findViewById(R.id.btn_plus3KhuHoi);
+//        tv_countNguoiLonKhuHoi=view.findViewById(R.id.tv_countNguoiLonKhuHoi);
+//        tv_count2NguoiLonKhuHoi=view.findViewById(R.id.tv_count2NguoiLonKhuHoi);
+//        tv_count3NguoiLonKhuHoi=view.findViewById(R.id.tv_count3NguoiLonKhuHoi);
         tv_CalendarNgayVeKhuHoi=view.findViewById(R.id.tv_CalendarNgayVeKhuHoi);
         tv_CalendarNgayDiKhuHoi=view.findViewById(R.id.tv_CalendarNgayDiKhuHoi);
         tv_idsanbaydiemdi = view.findViewById(R.id.tv_idsanbaydiemdi);
