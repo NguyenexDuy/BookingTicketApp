@@ -15,11 +15,13 @@ import android.view.MenuItem;
 
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.adapter.Adapterviewpager;
+import com.example.cnpmnc.adapter.TimKiemDiemDiAdapter;
 import com.example.cnpmnc.fragment.BookingFragment;
 import com.example.cnpmnc.fragment.HomePageFragment;
 import com.example.cnpmnc.fragment.NotifiFragment;
 import com.example.cnpmnc.fragment.PersonFragment;
 import com.example.cnpmnc.model.ChuyenBay;
+import com.example.cnpmnc.model.DiaDiem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,14 +45,18 @@ public class HomePageActivity extends AppCompatActivity implements BottomNavigat
         replaceFragment(new HomePageFragment());
         check();
     }
-    private  void check(){
-        if (getIntent().getSerializableExtra("Chuyenbay") != null){
-            chuyenBay = (ChuyenBay) getIntent().getSerializableExtra("Chuyenbay");
+    public void check(){
+        if(getIntent().getSerializableExtra("Chuyenbay") != null){
             replaceFragment(new BookingFragment(chuyenBay));
+            mCurrentFragment = FRAGMENT_BOOKING;
+            mBottomNavigationView.getMenu().findItem(R.id.item_booking).setChecked(true);
+        }else if (DiaDiem.getInstance().getDiemDi() != null || DiaDiem.getInstance().getDiemDen() != null){
+            replaceFragment(new BookingFragment());
             mCurrentFragment = FRAGMENT_BOOKING;
             mBottomNavigationView.getMenu().findItem(R.id.item_booking).setChecked(true);
         }
     }
+
     private void Anhxa() {
         mBottomNavigationView = findViewById(R.id.bottom_nav);
         mBottomNavigationView.setOnNavigationItemSelectedListener(this);
