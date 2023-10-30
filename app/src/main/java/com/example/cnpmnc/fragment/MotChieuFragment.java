@@ -100,15 +100,7 @@ public class MotChieuFragment extends Fragment {
     }
     private void Anhxa(View view) {
         tv_CalendarNgayDi=view.findViewById(R.id.tv_CalendarNgayDi);
-        tv_countNguoiLon=view.findViewById(R.id.tv_countNguoiLonMotChieu);
-        btn_minus1=view.findViewById(R.id.btn_minusMotChieu);
-        btn_plus1=view.findViewById(R.id.btn_plusMotChieu);
-        btn_minus2=view.findViewById(R.id.btn_minus2MotChieu);
-        btn_plus2=view.findViewById(R.id.btn_plus2MotChieu);
-        btn_minus3=view.findViewById(R.id.btn_minus3MotChieu);
-        btn_plus3=view.findViewById(R.id.btn_plus3MotChieu);
-        tv_count2NguoiLon=view.findViewById(R.id.tv_count2NguoiLonMotChieu);
-        tv_count3NguoiLon=view.findViewById(R.id.tv_count3NguoiLonMotChieu);
+
         tv_idsanbaydiemdi=view.findViewById(R.id.tv_idsanbaydiemdi);
         tv_idsanbaydiemden=view.findViewById(R.id.tv_idsanbaydiemden);
         tv_tensanbaydiemdi=view.findViewById(R.id.tv_tensanbaydiemdi);
@@ -145,6 +137,10 @@ public class MotChieuFragment extends Fragment {
                 showCalendarNgayDi();
             }
         });
+
+    }
+    private void Action()
+    {
         btn_minus1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
