@@ -19,7 +19,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.Firebase;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -100,14 +99,14 @@ public class DangKyActivity extends AppCompatActivity {
                                         // Sign in success, update UI with the signed-in user's information
                                         Map<String, String> khachHang=new HashMap<>();
                                         khachHang.put("Gmail",strEmail);
-                                        khachHang.put("Mật khẩu",strPass);
-                                        khachHang.put("Họ và tên",strHoten);
+                                        khachHang.put("Password",strPass);
+                                        khachHang.put("HoTen",strHoten);
                                         khachHang.put("GioiTinh",strGioiTinh);
-                                        khachHang.put("Ngày Sinh",strNgaySinh);
-                                        khachHang.put("Số điện thoại",strSDT);
-                                        khachHang.put("Quốc tịch",strQuocTich);
+                                        khachHang.put("NgaySinh",strNgaySinh);
+                                        khachHang.put("Sdt",strSDT);
+                                        khachHang.put("QuocTich",strQuocTich);
 
-                                        firestore.collection("KhachHang")
+                                        firestore.collection("User")
                                                 .add(khachHang)
                                                 .addOnSuccessListener(documentReference -> {
 
@@ -120,23 +119,23 @@ public class DangKyActivity extends AppCompatActivity {
                                         Intent intent = new Intent(DangKyActivity.this,DangNhapActivity.class);
                                         startActivity(intent);
                                         finish();
-//                                        FirebaseUser User = mAuth.getCurrentUser();
-//                                        sendEmailVerification(User);
-//                                        User.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                            @Override
-//                                            public void onSuccess(Void aVoid) {
-//                                                Toast.makeText(DangKyActivity.this, "Mã xác thực đã được gửi", Toast.LENGTH_SHORT).show();
-//
-//
-//
-//                                            }
-//                                        }).addOnFailureListener(new OnFailureListener() {
-//                                            @Override
-//                                            public void onFailure(@NonNull Exception e) {
-//                                                Toast.makeText(DangKyActivity.this, "Tài khoản Gmail không tồn tại", Toast.LENGTH_SHORT).show();
-//
-//                                            }
-//                                        });
+                                        FirebaseUser User = mAuth.getCurrentUser();
+                                        sendEmailVerification(User);
+                                        User.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Toast.makeText(DangKyActivity.this, "Mã xác thực đã được gửi", Toast.LENGTH_SHORT).show();
+
+
+
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(DangKyActivity.this, "Tài khoản Gmail không tồn tại", Toast.LENGTH_SHORT).show();
+
+                                            }
+                                        });
 
                                     } else {
                                         // If sign in fails, display a message to the user.
