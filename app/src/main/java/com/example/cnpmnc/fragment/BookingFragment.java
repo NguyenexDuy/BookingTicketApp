@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.activity.ChonChuyenBayActivity;
+import com.example.cnpmnc.activity.ThongTinKhachhangActivity;
 import com.example.cnpmnc.adapter.VPBookingAdapter;
 import com.example.cnpmnc.model.ChuyenBay;
 import com.google.android.material.tabs.TabLayout;
@@ -95,10 +96,14 @@ public class BookingFragment extends Fragment {
             mviewPager.setAdapter(viewPagerAdapter);
             mtabLayout.setupWithViewPager(mviewPager);
         }
+
         btnTimKiem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(getContext(), ChonChuyenBayActivity.class);
+                Intent intent1=new Intent(getContext(), ThongTinKhachhangActivity.class);
+                int soLuongHangKhach=Integer.parseInt(tv_count2NguoiLon.getText().toString());
+                intent1.putExtra("Soluonghangkhach",soLuongHangKhach);
                 startActivity(intent);
             }
         });
