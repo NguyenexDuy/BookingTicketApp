@@ -163,4 +163,34 @@ public class Firebase {
                 });
 
     }
+    public void getAllFlighttoCompare(String diemDi, String diemDen,FirebaseCallback<ChuyenBay> callback) {
+        ArrayList<ChuyenBay> flightlist = new ArrayList<>();
+        mfirestore.collection("ChuyenBay")
+                .whereEqualTo("DiemDi",diemDi)
+                .whereEqualTo("DiemDen",diemDen)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            ChuyenBay chuyenBay = new ChuyenBay(document.getId(),
+                                    document.getString("DiemDen"),
+                                    document.getString("DiemDi"),
+                                    document.getString("GioBatDau"),
+                                    document.getString("HinhAnh"),
+                                    document.getString("NgayDi"),
+                                    document.getString("NgayVe"),
+                                    document.getString("SoLuongGheTrong"),
+                                    document.getString("SoLuongGheVipTrong"),
+                                    document.getString("TrangThai"),
+                                    document.getString("MoTa"),
+                                    document.getString("MoTaDiemDap"));
+                            flightlist.add(chuyenBay);
+                        }
+                        callback.onCallback(flightlist);
+                    } else {
+                        Log.w(TAG, "Error getting documents.", task.getException());
+                    }
+                });
+
+    }
 }

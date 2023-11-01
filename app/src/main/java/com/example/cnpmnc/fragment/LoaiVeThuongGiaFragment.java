@@ -54,6 +54,7 @@ public class LoaiVeThuongGiaFragment extends Fragment {
     private RecyclerView rvVeThuongGia;
     private ChuyenBayAdapter chuyenBayAdapter;
     ArrayList<ChuyenBay> chuyenBays;
+    private  ChuyenBay chuyenBay;
 
 
 
@@ -64,6 +65,12 @@ public class LoaiVeThuongGiaFragment extends Fragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public static Fragment newInstance(ChuyenBay chuyenBay) {
+            LoaiVeThuongGiaFragment fragment = new LoaiVeThuongGiaFragment();
+            fragment.chuyenBay=chuyenBay;
+            return  fragment;
     }
 
     @Override
