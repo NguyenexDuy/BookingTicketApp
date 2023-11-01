@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -81,8 +82,9 @@ public class KhuHoiFragment extends Fragment {
         }
     }
     TextView tv_idsanbaydiemden, tv_tensanbaydiemden, tv_idsanbaydiemdi, tv_tensanbaydiemdi,tv_CalendarNgayVeKhuHoi,tv_CalendarNgayDiKhuHoi,tv_countNguoiLonKhuHoi,tv_count2NguoiLonKhuHoi,tv_count3NguoiLonKhuHoi;
-    ImageButton btn_minus1,btn_plus1,btn_minus2,btn_plus2,btn_minus3,btn_plus3;
+    ImageButton btn_minus1KhuHoi,btn_plus1KhuHoi,btn_minus2KhuHoi,btn_plus2KhuHoi,btn_minus3KhuHoi,btn_plus3KhuHoi;
     Firebase firebase;
+    Button btnTimKiemKhuHoi;
     int countNguoiLon=0;
     int countTreEm2_12Tuoi=0;
     int countTreEmDuoi2tuoi=0;
@@ -113,7 +115,7 @@ public class KhuHoiFragment extends Fragment {
                 showCalendarNgayVe(tv_CalendarNgayDiKhuHoi);
             }
         });
-//        Action();
+        Action();
     }
 
     private void showCalendarNgayVe(TextView textView) {
@@ -140,15 +142,16 @@ public class KhuHoiFragment extends Fragment {
     }
     private void Anhxa(View view){
         firebase = new Firebase(getContext());
-//        btn_minus1=view.findViewById(R.id.btn_minusKhuHoi);
-//        btn_minus2=view.findViewById(R.id.btn_minus2KhuHoi);
-//        btn_minus3=view.findViewById(R.id.btn_minus3KhuHoi);
-//        btn_plus1=view.findViewById(R.id.btn_plusKhuHoi);
-//        btn_plus2=view.findViewById(R.id.btn_plus2KhuHoi);
-//        btn_plus3=view.findViewById(R.id.btn_plus3KhuHoi);
-//        tv_countNguoiLonKhuHoi=view.findViewById(R.id.tv_countNguoiLonKhuHoi);
-//        tv_count2NguoiLonKhuHoi=view.findViewById(R.id.tv_count2NguoiLonKhuHoi);
-//        tv_count3NguoiLonKhuHoi=view.findViewById(R.id.tv_count3NguoiLonKhuHoi);
+        btnTimKiemKhuHoi=view.findViewById(R.id.btnTimKiemKhuHoi);
+        btn_minus1KhuHoi=view.findViewById(R.id.btn_minusKhuHoi);
+        btn_minus2KhuHoi=view.findViewById(R.id.btn_minus2KhuHoi);
+        btn_minus3KhuHoi=view.findViewById(R.id.btn_minus3KhuHoi);
+        btn_plus1KhuHoi=view.findViewById(R.id.btn_plusKhuHoi);
+        btn_plus2KhuHoi=view.findViewById(R.id.btn_plus2KhuHoi);
+        btn_plus3KhuHoi=view.findViewById(R.id.btn_plus3KhuHoi);
+        tv_countNguoiLonKhuHoi=view.findViewById(R.id.tv_countNguoiLonKhuHoi);
+        tv_count2NguoiLonKhuHoi=view.findViewById(R.id.tv_countTreEm2_12KhuHoi);
+        tv_count3NguoiLonKhuHoi=view.findViewById(R.id.tv_count3TreEm2TKhuHoi);
         tv_CalendarNgayVeKhuHoi=view.findViewById(R.id.tv_CalendarNgayVeKhuHoi);
         tv_CalendarNgayDiKhuHoi=view.findViewById(R.id.tv_CalendarNgayDiKhuHoi);
         tv_idsanbaydiemdi = view.findViewById(R.id.tv_idsanbaydiemdi);
@@ -164,7 +167,7 @@ public class KhuHoiFragment extends Fragment {
 
     private  void Action()
     {
-        btn_minus1.setOnClickListener(new View.OnClickListener() {
+        btn_minus1KhuHoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(countNguoiLon>0)
@@ -175,7 +178,7 @@ public class KhuHoiFragment extends Fragment {
 
             }
         });
-        btn_minus2.setOnClickListener(new View.OnClickListener() {
+        btn_minus2KhuHoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(countTreEm2_12Tuoi>0)
@@ -186,7 +189,7 @@ public class KhuHoiFragment extends Fragment {
 
             }
         });
-        btn_minus3.setOnClickListener(new View.OnClickListener() {
+        btn_minus3KhuHoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(countTreEmDuoi2tuoi>0)
@@ -197,21 +200,21 @@ public class KhuHoiFragment extends Fragment {
 
             }
         });
-        btn_plus1.setOnClickListener(new View.OnClickListener() {
+        btn_plus1KhuHoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 countNguoiLon++;
                 updateCount(tv_countNguoiLonKhuHoi,countNguoiLon);
             }
         });
-        btn_plus2.setOnClickListener(new View.OnClickListener() {
+        btn_plus2KhuHoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 countTreEm2_12Tuoi++;
                 updateCount(tv_count2NguoiLonKhuHoi,countTreEm2_12Tuoi);
             }
         });
-        btn_plus3.setOnClickListener(new View.OnClickListener() {
+        btn_plus3KhuHoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 countTreEmDuoi2tuoi++;

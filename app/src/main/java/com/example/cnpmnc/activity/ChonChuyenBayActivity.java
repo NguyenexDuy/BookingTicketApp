@@ -39,5 +39,7 @@ public class ChonChuyenBayActivity extends AppCompatActivity {
                     tab.setText(position + 1);
             }
         }).attach();
+
+
     }
 }

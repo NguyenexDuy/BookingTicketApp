@@ -45,6 +45,11 @@ public class Firebase {
     public interface getTenSanBayBySanBayIdCallback {
         void onCallback(String tensanbay);
     }
+    public interface getIdSanBayByTenSanBayCallback{
+        void onCallBack(String idSanBay);
+    }
+
+
     public void getAllFlightByDiemDi(String diemdi,FirebaseCallback<ChuyenBay> callback) {
         ArrayList<ChuyenBay> flightlist = new ArrayList<>();
         mfirestore.collection("ChuyenBay")
@@ -92,6 +97,27 @@ public class Firebase {
                     }
                 });
     }
+    public void getIdSanBayByTenSanBay(String tenSanBay,getIdSanBayByTenSanBayCallback callback )
+    {
+        mfirestore.collection("SanBay")
+                .document(tenSanBay)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()){
+                        DocumentSnapshot documentSnapshot= task.getResult();
+                        if(documentSnapshot.exists())
+                        {
+                            String idSanBay=documentSnapshot.getId();
+                            callback.onCallBack(idSanBay);
+                        }else {
+                            Log.d(TAG,"No such document");
+                        }
+
+                    }else {
+                        Log.w(TAG,"Error getting document",task.getException());
+                    }
+                });
+    }
     public void getAllSanBay(FirebaseCallback<SanBay> callback) {
         ArrayList<SanBay> sanBayslist = new ArrayList<>();
         mfirestore.collection("SanBay")
@@ -108,5 +134,33 @@ public class Firebase {
                         Log.w(TAG, "Error getting documents.", task.getException());
                     }
                 });
+    }
+    public void getAllFlight(FirebaseCallback<ChuyenBay> callback) {
+        ArrayList<ChuyenBay> flightlist = new ArrayList<>();
+        mfirestore.collection("ChuyenBay")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            ChuyenBay chuyenBay = new ChuyenBay(document.getId(),
+                                    document.getString("DiemDen"),
+                                    document.getString("DiemDi"),
+                                    document.getString("GioBatDau"),
+                                    document.getString("HinhAnh"),
+                                    document.getString("NgayDi"),
+                                    document.getString("NgayVe"),
+                                    document.getString("SoLuongGheTrong"),
+                                    document.getString("SoLuongGheVipTrong"),
+                                    document.getString("TrangThai"),
+                                    document.getString("MoTa"),
+                                    document.getString("MoTaDiemDap"));
+                            flightlist.add(chuyenBay);
+                        }
+                        callback.onCallback(flightlist);
+                    } else {
+                        Log.w(TAG, "Error getting documents.", task.getException());
+                    }
+                });
+
     }
 }

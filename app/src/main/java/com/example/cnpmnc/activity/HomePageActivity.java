@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.adapter.Adapterviewpager;
@@ -47,10 +48,12 @@ public class HomePageActivity extends AppCompatActivity implements BottomNavigat
     }
     public void check(){
         if(getIntent().getSerializableExtra("Chuyenbay") != null){
+            chuyenBay =(ChuyenBay) getIntent().getSerializableExtra("Chuyenbay");
             replaceFragment(new BookingFragment(chuyenBay));
             mCurrentFragment = FRAGMENT_BOOKING;
             mBottomNavigationView.getMenu().findItem(R.id.item_booking).setChecked(true);
-        }else if (DiaDiem.getInstance().getDiemDi() != null || DiaDiem.getInstance().getDiemDen() != null){
+        }
+        else if (DiaDiem.getInstance().getDiemDi() != null || DiaDiem.getInstance().getDiemDen() != null){
             replaceFragment(new BookingFragment());
             mCurrentFragment = FRAGMENT_BOOKING;
             mBottomNavigationView.getMenu().findItem(R.id.item_booking).setChecked(true);

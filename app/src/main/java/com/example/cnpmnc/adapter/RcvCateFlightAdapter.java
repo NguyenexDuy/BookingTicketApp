@@ -45,12 +45,13 @@ public class RcvCateFlightAdapter extends RecyclerView.Adapter<RcvCateFlightAdap
     public void onBindViewHolder(RcvCateFlightAdapter.ViewHolder holder, int position) {
         ChuyenBay currentFlight = flightlist.get(position);
         holder.priceflight.setText(String.format("%,d", Math.round(100000)) + " VNĐ");
-        firebase.getTenSanBayBySanBayId(currentFlight.getDiemDen(), new Firebase.getTenSanBayBySanBayIdCallback() {
-            @Override
-            public void onCallback(String tensanbay) {
-                holder.nameflight.setText(tensanbay);
-            }
-        });
+//        firebase.getTenSanBayBySanBayId(currentFlight.getDiemDen(), new Firebase.getTenSanBayBySanBayIdCallback() {
+//            @Override
+//            public void onCallback(String tensanbay) {
+//                holder.nameflight.setText(tensanbay);
+//            }
+//        });
+        holder.nameflight.setText(currentFlight.getDiemDen());
         Glide.with(context).load(currentFlight.getHinhAnh()).into(holder.imageflight);
         holder.imageflight.setOnClickListener(new View.OnClickListener() {
             @Override

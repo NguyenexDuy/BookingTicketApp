@@ -11,17 +11,22 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cnpmnc.R;
+import com.example.cnpmnc.activity.ThongTinChoNgoiActivity;
+import com.example.cnpmnc.activity.ThongTinKhachhangActivity;
 import com.example.cnpmnc.activity.TimKiemActivity;
 import com.example.cnpmnc.adapter.TimKiemDiemDiAdapter;
 import com.example.cnpmnc.model.ChuyenBay;
 import com.example.cnpmnc.model.DiaDiem;
 import com.example.cnpmnc.model.Firebase;
+import com.example.cnpmnc.model.HoaDon;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -84,33 +89,23 @@ public class MotChieuFragment extends Fragment {
     int countTreEm2_12Tuoi=0;
     int countTreEmDuoi2tuoi=0;
     private String NgayDi;
+    private Button btnTimKiemMotChieu;
     private String currentDate;
     private LocalDate curdate;
-    private ImageButton btn_minus1,btn_plus1,btn_minus2,btn_plus2,btn_minus3,btn_plus3;
-    private TextView tv_countNguoiLon,tv_count2NguoiLon,tv_count3NguoiLon,tv_idsanbaydiemdi,tv_tensanbaydiemdi,tv_idsanbaydiemden,tv_tensanbaydiemden;
+    private ImageButton btn_plus1MotChieu,btn_plus2MotChieu,btn_plus3MotChieu,btn_minus1MotChieu,btn_minus2MotChieu,btn_minus3MotChieu;
+    private TextView tv_countNguoiLon,tv_countTreEm2_12T,tv_countTreEm2T,tv_idsanbaydiemdi,tv_tensanbaydiemdi,tv_idsanbaydiemden,tv_tensanbaydiemden;
     Firebase firebase;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mot_chieu, container, false);
         Anhxa(view);
+        Action();
         setdata();
 
         return view;
     }
-    private void Anhxa(View view) {
-        tv_CalendarNgayDi=view.findViewById(R.id.tv_CalendarNgayDi);
 
-        tv_idsanbaydiemdi=view.findViewById(R.id.tv_idsanbaydiemdi);
-        tv_idsanbaydiemden=view.findViewById(R.id.tv_idsanbaydiemden);
-        tv_tensanbaydiemdi=view.findViewById(R.id.tv_tensanbaydiemdi);
-        tv_tensanbaydiemden=view.findViewById(R.id.tv_tensanbaydiemden);
-        firebase = new Firebase(getContext());
-        currentDate = new SimpleDateFormat("dd-MM-YYYY", Locale.getDefault()).format(new Date());
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy");
-        curdate = LocalDate.parse(currentDate, formatter);
-        tv_CalendarNgayDi.setText(currentDate);
-    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -138,81 +133,67 @@ public class MotChieuFragment extends Fragment {
             }
         });
 
-    }
-    private void Action()
-    {
-        btn_minus1.setOnClickListener(new View.OnClickListener() {
+        btnTimKiemMotChieu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(countNguoiLon>0)
-                {
-                    countNguoiLon--;
-                    updateCount(tv_countNguoiLon,countNguoiLon);
-                }
+                Intent intent=new Intent(getContext(), ThongTinKhachhangActivity.class);
 
-            }
-        });
-        btn_minus2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(countTreEm2_12Tuoi>0)
+                if(chuyenBay!=null)
                 {
-                    countTreEm2_12Tuoi--;
-                    updateCount(tv_count2NguoiLon,countTreEm2_12Tuoi);
+                    HoaDon hoaDon=new HoaDon(chuyenBay.getDiemDi(),chuyenBay.getDiemDen(),tv_countNguoiLon.getText().toString(),tv_countTreEm2_12T.getText().toString(),tv_countTreEm2T.getText().toString());
+                    intent.putExtra("ThongTinChuyenBay",chuyenBay);
+                    Toast.makeText(getContext(), "chuyenbay", Toast.LENGTH_SHORT).show();
+                } else if (DiaDiem.getInstance().getDiemDi() != null&&DiaDiem.getInstance().getDiemDen() != null) {
+                    Toast.makeText(getContext(), "abc", Toast.LENGTH_SHORT).show();
+                    Bundle bundle=new Bundle();
+                    bundle.putString("DiemDen",DiaDiem.getInstance().getDiemDen());
+                    bundle.putString("DiemDi",DiaDiem.getInstance().getDiemDi());
+//                    Intent intent1=new Intent(getContext(),ThongTinKhachhangActivity.class);
+//                    intent1.putExtra(bundle);
+                } else {
+                    Toast.makeText(getContext(), "NGU", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
 
-            }
-        });
-        btn_minus3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(countTreEmDuoi2tuoi>0)
-                {
-                    countTreEmDuoi2tuoi--;
-                    updateCount(tv_count3NguoiLon,countTreEmDuoi2tuoi);
-                }
-
-            }
-        });
-        btn_plus1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                countNguoiLon++;
-                updateCount(tv_countNguoiLon,countNguoiLon);
-            }
-        });
-        btn_plus2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                countTreEm2_12Tuoi++;
-                updateCount(tv_count2NguoiLon,countTreEm2_12Tuoi);
-            }
-        });
-        btn_plus3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                countTreEmDuoi2tuoi++;
-                updateCount(tv_count3NguoiLon,countTreEmDuoi2tuoi);
-            }
-        });
     }
 
     private void setdata(){
         if (chuyenBay != null){
-            tv_idsanbaydiemdi.setText(chuyenBay.getDiemDi());
-            firebase.getTenSanBayBySanBayId(chuyenBay.getDiemDi(), new Firebase.getTenSanBayBySanBayIdCallback() {
+
+            firebase.getIdSanBayByTenSanBay(chuyenBay.getDiemDi(), new Firebase.getIdSanBayByTenSanBayCallback() {
                 @Override
-                public void onCallback(String tensanbay) {
-                    tv_tensanbaydiemdi.setText(tensanbay);
+                public void onCallBack(String idSanBay) {
+                    tv_idsanbaydiemdi.setText(idSanBay);
                 }
             });
-            tv_idsanbaydiemden.setText(chuyenBay.getDiemDen());
-            firebase.getTenSanBayBySanBayId(chuyenBay.getDiemDen(), new Firebase.getTenSanBayBySanBayIdCallback() {
+            tv_tensanbaydiemdi.setText(chuyenBay.getDiemDi());
+
+            firebase.getIdSanBayByTenSanBay(chuyenBay.getDiemDen(), new Firebase.getIdSanBayByTenSanBayCallback() {
                 @Override
-                public void onCallback(String tensanbay) {
-                    tv_tensanbaydiemden.setText(tensanbay);
+                public void onCallBack(String idSanBay) {
+                    tv_idsanbaydiemden.setText(idSanBay);
                 }
             });
+            tv_tensanbaydiemden.setText(chuyenBay.getDiemDen());
+
+//
+//            tv_idsanbaydiemdi.setText(chuyenBay.getDiemDi());
+//            firebase.getTenSanBayBySanBayId(chuyenBay.getDiemDi(), new Firebase.getTenSanBayBySanBayIdCallback() {
+//                @Override
+//                public void onCallback(String tensanbay) {
+//                    tv_tensanbaydiemdi.setText(tensanbay);
+//                }
+//            });
+//
+//
+//            tv_idsanbaydiemden.setText(chuyenBay.getDiemDen());
+//            firebase.getTenSanBayBySanBayId(chuyenBay.getDiemDen(), new Firebase.getTenSanBayBySanBayIdCallback() {
+//                @Override
+//                public void onCallback(String tensanbay) {
+//                    tv_tensanbaydiemden.setText(tensanbay);
+//                }
+//            });
         }
         if (DiaDiem.getInstance().getDiemDi() != null){
             String diemdi = DiaDiem.getInstance().getDiemDi();
@@ -260,5 +241,85 @@ public class MotChieuFragment extends Fragment {
     }
     private void updateCount(TextView text,int count) {
         text.setText(String.format("%02d", count));
+    }
+
+    private  void Action()
+    {
+        btn_minus1MotChieu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(countNguoiLon>0)
+                {
+                    countNguoiLon--;
+                    updateCount(tv_countNguoiLon,countNguoiLon);
+                }
+
+            }
+        });
+        btn_minus2MotChieu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(countTreEm2_12Tuoi>0)
+                {
+                    countTreEm2_12Tuoi--;
+                    updateCount(tv_countTreEm2_12T,countTreEm2_12Tuoi);
+                }
+
+            }
+        });
+        btn_minus3MotChieu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(countTreEmDuoi2tuoi>0)
+                {
+                    countTreEmDuoi2tuoi--;
+                    updateCount(tv_countTreEm2T,countTreEmDuoi2tuoi);
+                }
+
+            }
+        });
+        btn_plus1MotChieu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                countNguoiLon++;
+                updateCount(tv_countNguoiLon,countNguoiLon);
+            }
+        });
+        btn_plus2MotChieu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                countTreEm2_12Tuoi++;
+                updateCount(tv_countTreEm2_12T,countTreEm2_12Tuoi);
+            }
+        });
+        btn_plus3MotChieu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                countTreEmDuoi2tuoi++;
+                updateCount(tv_countTreEm2T,countTreEmDuoi2tuoi);
+            }
+        });
+    }
+    private void Anhxa(View view) {
+        btn_plus1MotChieu=view.findViewById(R.id.btn_plusMotChieu);
+        btn_plus2MotChieu=view.findViewById(R.id.btn_plus2MotChieu);
+        btn_plus3MotChieu=view.findViewById(R.id.btn_plus3MotChieu);
+        btn_minus1MotChieu=view.findViewById(R.id.btn_minusMotChieu);
+        btn_minus2MotChieu=view.findViewById(R.id.btn_minus2MotChieu);
+        btn_minus3MotChieu=view.findViewById(R.id.btn_minus3MotChieu);
+        tv_countNguoiLon=view.findViewById(R.id.tv_countNguoiLonMotChieu);
+        tv_countTreEm2T=view.findViewById(R.id.tv_countTrEm2TMotChieu);
+        tv_countTreEm2_12T=view.findViewById(R.id.tv_countTreEm2_12TMotChieu);
+        tv_CalendarNgayDi=view.findViewById(R.id.tv_CalendarNgayDi);
+        tv_idsanbaydiemdi=view.findViewById(R.id.tv_idsanbaydiemdi);
+        tv_idsanbaydiemden=view.findViewById(R.id.tv_idsanbaydiemden);
+        tv_tensanbaydiemdi=view.findViewById(R.id.tv_tensanbaydiemdi);
+        btnTimKiemMotChieu=view.findViewById(R.id.btnTimKiemMotChieu);
+        tv_tensanbaydiemden=view.findViewById(R.id.tv_tensanbaydiemden);
+        firebase = new Firebase(getContext());
+        currentDate = new SimpleDateFormat("dd-MM-YYYY", Locale.getDefault()).format(new Date());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy");
+        curdate = LocalDate.parse(currentDate, formatter);
+        tv_CalendarNgayDi.setText(currentDate);
     }
 }

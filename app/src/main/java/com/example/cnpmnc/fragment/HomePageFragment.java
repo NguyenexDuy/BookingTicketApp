@@ -106,7 +106,7 @@ public class HomePageFragment extends Fragment {
         rcv_flightFromTPHCM.setLayoutManager(layoutManager1);
         rcv_flightFromHN.setLayoutManager(layoutManager2);
         rcv_flightFromDaNang.setLayoutManager(layoutManager3);
-        firebase.getAllFlightByDiemDi("SGN", new Firebase.FirebaseCallback<ChuyenBay>() {
+        firebase.getAllFlightByDiemDi("Tp. Hồ Chí Minh", new Firebase.FirebaseCallback<ChuyenBay>() {
             @Override
             public void onCallback(ArrayList<ChuyenBay> list) {
                 flightlist1 = list;
@@ -115,7 +115,7 @@ public class HomePageFragment extends Fragment {
                 progressBar.setVisibility(View.GONE);
             }
         });
-        firebase.getAllFlightByDiemDi("HAN", new Firebase.FirebaseCallback<ChuyenBay>() {
+        firebase.getAllFlightByDiemDi("Hà Nội", new Firebase.FirebaseCallback<ChuyenBay>() {
             @Override
             public void onCallback(ArrayList<ChuyenBay> list2) {
                 flightlist2 = list2;
@@ -123,7 +123,7 @@ public class HomePageFragment extends Fragment {
                 rcv_flightFromHN.setAdapter(rcvCateFlightAdapter2);
             }
         });
-        firebase.getAllFlightByDiemDi("DAD", new Firebase.FirebaseCallback<ChuyenBay>() {
+        firebase.getAllFlightByDiemDi("Đà Nẵng", new Firebase.FirebaseCallback<ChuyenBay>() {
             @Override
             public void onCallback(ArrayList<ChuyenBay> list3) {
                 flightlist3 = list3;

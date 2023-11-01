@@ -15,7 +15,6 @@ import com.example.cnpmnc.model.ChuyenBay;
 
 public class VPBookingAdapter extends FragmentStatePagerAdapter {
     private ChuyenBay chuyenBay;
-    private String DiemDi,DiemDen;
     public VPBookingAdapter(@NonNull FragmentManager fm, int behavior, ChuyenBay chuyenBay) {
         super(fm, behavior);
         this.chuyenBay = chuyenBay;
