@@ -15,8 +15,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.cnpmnc.R;
-import com.example.cnpmnc.adapter.Adapterviewpager;
-import com.example.cnpmnc.adapter.TimKiemDiemDiAdapter;
 import com.example.cnpmnc.fragment.BookingFragment;
 import com.example.cnpmnc.fragment.HomePageFragment;
 import com.example.cnpmnc.fragment.NotifiFragment;
@@ -24,11 +22,8 @@ import com.example.cnpmnc.fragment.PersonFragment;
 import com.example.cnpmnc.model.ChuyenBay;
 import com.example.cnpmnc.model.DiaDiem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.Timer;
-import java.util.TimerTask;
+
 
 public class HomePageActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
     private static final int FRAGMENT_HOMEPAGE = 0;

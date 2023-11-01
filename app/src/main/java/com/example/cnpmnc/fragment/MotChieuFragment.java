@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cnpmnc.R;
+import com.example.cnpmnc.activity.ChonChuyenBayActivity;
 import com.example.cnpmnc.activity.ThongTinChoNgoiActivity;
 import com.example.cnpmnc.activity.ThongTinKhachhangActivity;
 import com.example.cnpmnc.activity.TimKiemActivity;
@@ -136,20 +137,22 @@ public class MotChieuFragment extends Fragment {
         btnTimKiemMotChieu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getContext(), ThongTinKhachhangActivity.class);
+                Intent intent=new Intent(getContext(), ChonChuyenBayActivity.class);
 
                 if(chuyenBay!=null)
                 {
                     HoaDon hoaDon=new HoaDon(chuyenBay.getDiemDi(),chuyenBay.getDiemDen(),tv_countNguoiLon.getText().toString(),tv_countTreEm2_12T.getText().toString(),tv_countTreEm2T.getText().toString());
                     intent.putExtra("ThongTinChuyenBay",chuyenBay);
-                    Toast.makeText(getContext(), "chuyenbay", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), chuyenBay.getDiemDen(), Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+
                 } else if (DiaDiem.getInstance().getDiemDi() != null&&DiaDiem.getInstance().getDiemDen() != null) {
-                    Toast.makeText(getContext(), "abc", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "co diem di,diem den", Toast.LENGTH_SHORT).show();
                     Bundle bundle=new Bundle();
                     bundle.putString("DiemDen",DiaDiem.getInstance().getDiemDen());
                     bundle.putString("DiemDi",DiaDiem.getInstance().getDiemDi());
-//                    Intent intent1=new Intent(getContext(),ThongTinKhachhangActivity.class);
-//                    intent1.putExtra(bundle);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(getContext(), "NGU", Toast.LENGTH_SHORT).show();
                 }
@@ -171,8 +174,8 @@ public class MotChieuFragment extends Fragment {
 
             firebase.getIdSanBayByTenSanBay(chuyenBay.getDiemDen(), new Firebase.getIdSanBayByTenSanBayCallback() {
                 @Override
-                public void onCallBack(String idSanBay) {
-                    tv_idsanbaydiemden.setText(idSanBay);
+                public void onCallBack(String idSanBay1) {
+                    tv_idsanbaydiemden.setText(idSanBay1);
                 }
             });
             tv_tensanbaydiemden.setText(chuyenBay.getDiemDen());

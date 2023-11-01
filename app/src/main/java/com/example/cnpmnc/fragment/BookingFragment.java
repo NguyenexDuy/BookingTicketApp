@@ -18,9 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cnpmnc.R;
-import com.example.cnpmnc.activity.ChonChuyenBayActivity;
-import com.example.cnpmnc.activity.ThongTinKhachhangActivity;
-import com.example.cnpmnc.adapter.TabLayoutAdapter;
+
 import com.example.cnpmnc.adapter.VPBookingAdapter;
 import com.example.cnpmnc.model.ChuyenBay;
 import com.example.cnpmnc.model.HoaDon;
