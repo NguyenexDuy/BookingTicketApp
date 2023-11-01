@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.cnpmnc.R;
@@ -21,16 +22,15 @@ import java.util.List;
 public class ThongTinKhachhangActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
+    private LinearLayout btn_chonChoNgoi;
     private int number;
     HangKhachAdapter hangKhachAdapter;
-    TextView tvThongTinGheNgoi;
+    TextView tvThongTinGheNgoi, tv_giaChuyenBay;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thong_tin_khachhang);
-        tvThongTinGheNgoi=findViewById(R.id.tvThongTinGheNgoi);
-        recyclerView=findViewById(R.id.recyclerview1);
-//        int abc=getIntent().getIntExtra("Soluonghangkhach",0);
+        AnhXa();
          number=5;
 
         HangKhachAdapter hangKhachAdapter=new HangKhachAdapter(number, getListUser());
@@ -43,6 +43,22 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        btn_chonChoNgoi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(ThongTinKhachhangActivity.this,ChonChoNgoiActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void AnhXa()
+    {
+        tvThongTinGheNgoi=findViewById(R.id.tvThongTinGheNgoi);
+        btn_chonChoNgoi=findViewById(R.id.btn_chonChoNgoi);
+        tv_giaChuyenBay=findViewById(R.id.tv_giaChuyenBay);
+        recyclerView=findViewById(R.id.recyclerview1);
+
     }
 
     private ArrayList<HangKhach> getListUser() {

@@ -47,7 +47,7 @@
             android:textStyle="bold"/>
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/tv_giaChuyenBay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="3.423.000 VND"
@@ -114,6 +114,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginLeft="20dp"/>
     <LinearLayout
+        android:id="@+id/btn_chonChoNgoi"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
