@@ -14,10 +14,10 @@ import android.view.ViewGroup;
 
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.adapter.ChuyenBayAdapter;
-import com.example.cnpmnc.model.ChuyenVeTest;
+import com.example.cnpmnc.model.ChuyenBay;
+import com.example.cnpmnc.model.Firebase;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,7 +51,6 @@ public class LoaiVePhoThongFragment extends Fragment {
 
     private RecyclerView rvVePhoThong;
     private ChuyenBayAdapter chuyenBayAdapter;
-    private List<ChuyenVeTest> chuyenVeTests;
     public static LoaiVePhoThongFragment newInstance(String param1, String param2) {
         LoaiVePhoThongFragment fragment = new LoaiVePhoThongFragment();
         Bundle args = new Bundle();
@@ -69,29 +68,40 @@ public class LoaiVePhoThongFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    private Firebase mfirebase;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_loai_ve_pho_thong, container, false);
+        View view = inflater.inflate(R.layout.fragment_loai_ve_pho_thong, container, false);
+        Anhxa( view);
+
+        mfirebase.getAllFlight(new Firebase.FirebaseCallback<ChuyenBay>() {
+            @Override
+            public void onCallback(ArrayList<ChuyenBay> list) {
+                chuyenBayAdapter = new ChuyenBayAdapter(list,getContext());
+                rvVePhoThong.setLayoutManager(new LinearLayoutManager(getActivity()));
+                rvVePhoThong.setAdapter(chuyenBayAdapter);
+            }
+        });
+        return view;
+    }
+
+    private void Anhxa(View view) {
+        mfirebase = new Firebase(getContext());
+        rvVePhoThong = view.findViewById(R.id.rvVePhoThong);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        rvVePhoThong = view.findViewById(R.id.rvVePhoThong);
-        rvVePhoThong.setLayoutManager(new LinearLayoutManager(getActivity()));
+    }
 
-        chuyenVeTests = initData(); // Khởi tạo dữ liệu
-        chuyenBayAdapter = new ChuyenBayAdapter(chuyenVeTests,getContext());
-        rvVePhoThong.setAdapter(chuyenBayAdapter);
-    }
-    private List<ChuyenVeTest> initData() {
-        List<ChuyenVeTest> data = new ArrayList<>();
-        data.add(new ChuyenVeTest("BOEING1307", "13/10/2023", "15/10/2023", "00:20", "14:00", "HAN", "MSP", "22.748.000 VND"));
-        data.add(new ChuyenVeTest("BOEING2307", "13/10/2023", "15/10/2023", "00:20", "14:00", "HAN", "MSP", "22.748.000 VND"));
-        return data;
-    }
+//    private List<ChuyenVeTest> initData() {
+//        List<ChuyenVeTest> data = new ArrayList<>();
+//        data.add(new ChuyenVeTest("BOEING1307", "13/10/2023", "15/10/2023", "00:20", "14:00", "HAN", "MSP", "22.748.000 VND"));
+//        data.add(new ChuyenVeTest("BOEING2307", "13/10/2023", "15/10/2023", "00:20", "14:00", "HAN", "MSP", "22.748.000 VND"));
+//        return data;
+//    }
 }

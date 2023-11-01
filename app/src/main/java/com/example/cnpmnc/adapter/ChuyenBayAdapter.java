@@ -12,15 +12,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.activity.ThongTinKhachhangActivity;
-import com.example.cnpmnc.model.ChuyenVeTest;
+import com.example.cnpmnc.model.ChuyenBay;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class ChuyenBayAdapter extends RecyclerView.Adapter<ChuyenBayAdapter.ChuyenBayVH>{
     private Context mcontext;
-    private List<ChuyenVeTest> chuyenVeTests;
+    private ArrayList<ChuyenBay> chuyenVeTests;
 
-    public ChuyenBayAdapter(List<ChuyenVeTest> chuyenVeTests, Context mcontext) {
+    public ChuyenBayAdapter(ArrayList<ChuyenBay> chuyenVeTests, Context mcontext) {
         this.chuyenVeTests = chuyenVeTests;
         this.mcontext=mcontext;
     }
@@ -29,20 +29,19 @@ public class ChuyenBayAdapter extends RecyclerView.Adapter<ChuyenBayAdapter.Chuy
     @Override
     public ChuyenBayVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_thongtinchuyenbay, parent, false);
-        return new ChuyenBayVH( view);
+        return new ChuyenBayVH(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ChuyenBayVH holder, int position) {
-        ChuyenVeTest chuyenVeTest = chuyenVeTests.get(position);
-        holder.tvMaChuyenBay.setText(chuyenVeTest.getMaChuyenBay());
-        holder.tvNgayBay.setText(chuyenVeTest.getNgayBay());
-        holder.tvNgayDen.setText(chuyenVeTest.getNgayDen());
-        holder.tvGioBay.setText(chuyenVeTest.getGioBay());
-        holder.tvGioDen.setText(chuyenVeTest.getGioDen());
-        holder.tvNoiBay.setText(chuyenVeTest.getNoiBay());
-        holder.tvNoiDen.setText(chuyenVeTest.getNoiDen());
-        holder.tvTongTien.setText(chuyenVeTest.getTongTien());
+        ChuyenBay chuyenVeTest = chuyenVeTests.get(position);
+        holder.tvMaChuyenBay.setText(chuyenVeTest.getIdChuyenBay());
+        holder.tvNgayBay.setText(chuyenVeTest.getNgayDi());
+        holder.tvNgayDen.setText(chuyenVeTest.getNgayVe());
+        holder.tvGioBay.setText(chuyenVeTest.getGioBatDau());
+        holder.tvNoiBay.setText(chuyenVeTest.getDiemDi());
+        holder.tvNoiDen.setText(chuyenVeTest.getDiemDen());
+        holder.tvTongTien.setText(String.format("%,d", Math.round(100000)) + " VNĐ");
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
