@@ -22,7 +22,7 @@ import org.w3c.dom.Text;
 
 public class ChiTietFlightActivity extends AppCompatActivity {
 
-    private ImageView img_chiTietFight;
+    private ImageView img_chiTietFight,imgcc;
     private ChuyenBay chuyenBay;
     private FirebaseFirestore db;
     private Button btn_datve;
