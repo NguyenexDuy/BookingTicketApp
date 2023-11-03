@@ -13,6 +13,12 @@
         android:theme="@style/Theme.Cnpmnc"
         tools:targetApi="31">
         <activity
+            android:name=".activity.FormPersonActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.LichSuDatVeActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.ChonChoNgoiActivity"
             android:exported="true" >
             <intent-filter>
@@ -51,7 +57,7 @@
             android:exported="false" />
         <activity
             android:name=".activity.DangKyActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"
