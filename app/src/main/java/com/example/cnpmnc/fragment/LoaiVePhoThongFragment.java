@@ -25,7 +25,6 @@ import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link LoaiVePhoThongFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class LoaiVePhoThongFragment extends Fragment {
@@ -55,21 +54,10 @@ public class LoaiVePhoThongFragment extends Fragment {
 
     private RecyclerView rvVePhoThong;
     private ChuyenBayAdapter chuyenBayAdapter;
-    private ChuyenBay chuyenBay;
-    public static LoaiVePhoThongFragment newInstance(String param1, String param2) {
-        LoaiVePhoThongFragment fragment = new LoaiVePhoThongFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
-    public static Fragment newInstance(ChuyenBay chuyenBay) {
-        LoaiVePhoThongFragment fragment = new LoaiVePhoThongFragment();
-        fragment.chuyenBay=chuyenBay;
-        return  fragment;
-    }
+    private String diemDi;
+    private String diemDen;
+    private String NgayDi;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,31 +74,25 @@ public class LoaiVePhoThongFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_loai_ve_pho_thong, container, false);
         Anhxa( view);
-
-       if(chuyenBay!=null)
-       {
-           Toast.makeText(getContext(), "Dit det cute dang yeu", Toast.LENGTH_SHORT).show();
-
-           mfirebase.getAllFlighttoCompare(chuyenBay.getDiemDi(), chuyenBay.getDiemDen(), new Firebase.FirebaseCallback<ChuyenBay>() {
-               @Override
-               public void onCallback(ArrayList<ChuyenBay> list) {
-                   chuyenBayAdapter=new ChuyenBayAdapter(list,getContext());
-                   rvVePhoThong.setLayoutManager(new LinearLayoutManager(getActivity()));
-                   rvVePhoThong.setAdapter(chuyenBayAdapter);
-               }
-           });
-       } else if (DiaDiem.getInstance().getDiemDi() != null || DiaDiem.getInstance().getDiemDen() != null) {
-           Toast.makeText(getContext(), "Dit cho de", Toast.LENGTH_SHORT).show();
-           
-       } else {
-           Toast.makeText(getContext(), "Dau chua cut", Toast.LENGTH_SHORT).show();
-       }
+        diemDi = DiaDiem.getInstance().getDiemDi();
+        diemDen = DiaDiem.getInstance().getDiemDen();
+        NgayDi = DiaDiem.getInstance().getNgayDi();
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        rvVePhoThong.setLayoutManager(layoutManager);
+        mfirebase.getAllFlighttoCompare(diemDi, diemDen, NgayDi, new Firebase.FirebaseCallback<ChuyenBay>() {
+            @Override
+            public void onCallback(ArrayList<ChuyenBay> list) {
+                chuyenBayAdapter = new ChuyenBayAdapter(list, getContext());
+                rvVePhoThong.setAdapter(chuyenBayAdapter);
+            }
+        });
         return view;
     }
 
     private void Anhxa(View view) {
         mfirebase = new Firebase(getContext());
         rvVePhoThong = view.findViewById(R.id.rvVePhoThong);
+
     }
 
     @Override

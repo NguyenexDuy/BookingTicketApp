@@ -27,21 +27,17 @@ public class TabLayoutAdapter extends FragmentStateAdapter {
         super(fragmentManager, lifecycle);
     }
 
-    public void setChuyenBay(ChuyenBay chuyenBay) {
-        this.chuyenBay = chuyenBay;
-        notifyDataSetChanged(); // Gọi phương thức notifyDataSetChanged() ở đây sẽ không có tác dụng
-    }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
         switch (position) {
             case 0:
-                return LoaiVePhoThongFragment.newInstance(chuyenBay);
+                return new LoaiVePhoThongFragment();
             case 1:
-                return LoaiVeThuongGiaFragment.newInstance(chuyenBay);
+                return new LoaiVeThuongGiaFragment();
             default:
-                return LoaiVePhoThongFragment.newInstance(chuyenBay);
+                return new LoaiVePhoThongFragment();
         }
     }
 

@@ -21,11 +21,6 @@
         <activity
             android:name=".activity.ChonChoNgoiActivity"
             android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activity.TimKiemActivity"
@@ -50,7 +45,11 @@
         <activity
             android:name=".activity.HomePageActivity"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activity.DangNhapActivity"

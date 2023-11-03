@@ -20,7 +20,6 @@ import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link LoaiVeThuongGiaFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class LoaiVeThuongGiaFragment extends Fragment {
@@ -53,25 +52,6 @@ public class LoaiVeThuongGiaFragment extends Fragment {
 
     private RecyclerView rvVeThuongGia;
     private ChuyenBayAdapter chuyenBayAdapter;
-    ArrayList<ChuyenBay> chuyenBays;
-    private  ChuyenBay chuyenBay;
-
-
-
-    public static LoaiVeThuongGiaFragment newInstance(String param1, String param2) {
-        LoaiVeThuongGiaFragment fragment = new LoaiVeThuongGiaFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    public static Fragment newInstance(ChuyenBay chuyenBay) {
-            LoaiVeThuongGiaFragment fragment = new LoaiVeThuongGiaFragment();
-            fragment.chuyenBay=chuyenBay;
-            return  fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -96,14 +76,6 @@ public class LoaiVeThuongGiaFragment extends Fragment {
         rvVeThuongGia = view.findViewById(R.id.rvVeThuongGia);
         rvVeThuongGia.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-//        chuyenVeTests = initData(); // Khởi tạo dữ liệu
-//        chuyenBayAdapter = new ChuyenBayAdapter(chuyenVeTests,getContext());
-//        rvVeThuongGia.setAdapter(chuyenBayAdapter);
     }
-//    private List<ChuyenVeTest> initData() {
-//        List<ChuyenVeTest> data = new ArrayList<>();
-//        data.add(new ChuyenVeTest("BOEING1307", "13/10/2023", "15/10/2023", "00:20", "14:00", "HAN", "MSP", "22.748.000 VND"));
-//        data.add(new ChuyenVeTest("BOEING2307", "13/10/2023", "15/10/2023", "00:20", "14:00", "HAN", "MSP", "22.748.000 VND"));
-//        return data;
-//    }
+
 }
