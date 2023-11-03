@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.adapter.ChuyenBayAdapter;
-import com.example.cnpmnc.model.ChuyenVeTest;
+import com.example.cnpmnc.model.ChuyenBay;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +53,8 @@ public class LoaiVeThuongGiaFragment extends Fragment {
 
     private RecyclerView rvVeThuongGia;
     private ChuyenBayAdapter chuyenBayAdapter;
-    private List<ChuyenVeTest> chuyenVeTests;
+    ArrayList<ChuyenBay> chuyenBays;
+    private  ChuyenBay chuyenBay;
 
 
 
@@ -64,6 +65,12 @@ public class LoaiVeThuongGiaFragment extends Fragment {
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public static Fragment newInstance(ChuyenBay chuyenBay) {
+            LoaiVeThuongGiaFragment fragment = new LoaiVeThuongGiaFragment();
+            fragment.chuyenBay=chuyenBay;
+            return  fragment;
     }
 
     @Override
@@ -89,14 +96,14 @@ public class LoaiVeThuongGiaFragment extends Fragment {
         rvVeThuongGia = view.findViewById(R.id.rvVeThuongGia);
         rvVeThuongGia.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        chuyenVeTests = initData(); // Khởi tạo dữ liệu
-        chuyenBayAdapter = new ChuyenBayAdapter(chuyenVeTests);
-        rvVeThuongGia.setAdapter(chuyenBayAdapter);
+//        chuyenVeTests = initData(); // Khởi tạo dữ liệu
+//        chuyenBayAdapter = new ChuyenBayAdapter(chuyenVeTests,getContext());
+//        rvVeThuongGia.setAdapter(chuyenBayAdapter);
     }
-    private List<ChuyenVeTest> initData() {
-        List<ChuyenVeTest> data = new ArrayList<>();
-        data.add(new ChuyenVeTest("BOEING1307", "13/10/2023", "15/10/2023", "00:20", "14:00", "HAN", "MSP", "22.748.000 VND"));
-        data.add(new ChuyenVeTest("BOEING2307", "13/10/2023", "15/10/2023", "00:20", "14:00", "HAN", "MSP", "22.748.000 VND"));
-        return data;
-    }
+//    private List<ChuyenVeTest> initData() {
+//        List<ChuyenVeTest> data = new ArrayList<>();
+//        data.add(new ChuyenVeTest("BOEING1307", "13/10/2023", "15/10/2023", "00:20", "14:00", "HAN", "MSP", "22.748.000 VND"));
+//        data.add(new ChuyenVeTest("BOEING2307", "13/10/2023", "15/10/2023", "00:20", "14:00", "HAN", "MSP", "22.748.000 VND"));
+//        return data;
+//    }
 }
