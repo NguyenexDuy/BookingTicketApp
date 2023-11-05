@@ -256,22 +256,40 @@ public class MotChieuFragment extends Fragment {
         btn_plus1MotChieu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                countNguoiLon++;
-                updateCount(tv_countNguoiLon,countNguoiLon);
+                if (countNguoiLon<5)
+                {
+                    countNguoiLon++;
+                    updateCount(tv_countNguoiLon,countNguoiLon);
+                }else {
+                    Toast.makeText(getContext(), "Số lượng hàng khách đã đạt tối đa", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         btn_plus2MotChieu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                countTreEm2_12Tuoi++;
-                updateCount(tv_countTreEm2_12T,countTreEm2_12Tuoi);
+                if(countTreEm2_12Tuoi<4)
+                {
+                    countTreEm2_12Tuoi++;
+                    updateCount(tv_countTreEm2_12T,countTreEm2_12Tuoi);
+                }
+                else {
+                    Toast.makeText(getContext(), "Số lượng hàng khách đã đạt tối đa", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         btn_plus3MotChieu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                countTreEmDuoi2tuoi++;
-                updateCount(tv_countTreEm2T,countTreEmDuoi2tuoi);
+                if(countTreEmDuoi2tuoi<4)
+                {
+                    countTreEmDuoi2tuoi++;
+                    updateCount(tv_countTreEm2T,countTreEmDuoi2tuoi);
+                }
+                else {
+                    Toast.makeText(getContext(), "Số lượng hàng khách đã đạt tối đa", Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
     }
@@ -293,7 +311,7 @@ public class MotChieuFragment extends Fragment {
         tv_tensanbaydiemden=view.findViewById(R.id.tv_tensanbaydiemden);
         firebase = new Firebase(getContext());
         currentDate = new SimpleDateFormat("dd-MM-YYYY", Locale.getDefault()).format(new Date());
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-M-yyyy");
         curdate = LocalDate.parse(currentDate, formatter);
         tv_CalendarNgayDi.setText(currentDate);
     }
