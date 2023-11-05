@@ -71,7 +71,7 @@
             android:id="@+id/TymButton"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@drawable/icon_tym"
+            android:background="@drawable/baseline_favorite_border_24"
             android:button="@null"
             android:checked="false"
             android:layout_alignParentEnd="true"
