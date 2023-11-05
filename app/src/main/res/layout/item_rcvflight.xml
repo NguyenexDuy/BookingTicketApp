@@ -4,15 +4,19 @@
     android:layout_width="150dp"
     android:layout_height="270dp"
     android:layout_marginRight="16dp"
+    android:layout_marginLeft="5dp"
     app:cardCornerRadius="15dp">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ImageView
             android:id="@+id/img_rcvflight"
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
+            android:layout_marginLeft="5dp"
             android:layout_height="match_parent"
             android:src="@drawable/banner2"
+            android:layout_marginBottom="5dp"
             android:scaleType="fitXY">
         </ImageView>
         <ImageView
@@ -55,27 +59,7 @@
             android:textColor="@color/orange"
             android:textSize="13sp"
             android:textStyle="bold"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Yêu thích"
-            android:textColor="#888888"
-            android:textSize="13dp"
-            android:textStyle="bold"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="5dp"
-            android:layout_toStartOf="@+id/TymButton"
-            android:layout_below="@id/tv_priceflight"/>
 
-        <CheckBox
-            android:id="@+id/TymButton"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/baseline_favorite_border_24"
-            android:button="@null"
-            android:checked="false"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@id/tv_priceflight"/>
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
