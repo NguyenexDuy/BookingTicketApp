@@ -137,25 +137,15 @@ public class MotChieuFragment extends Fragment {
         btnTimKiemMotChieu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getContext(), ChonChuyenBayActivity.class);
+                DiaDiem.getInstance().setSoLuongNguoiLon(tv_countNguoiLon.getText().toString());
+                DiaDiem.getInstance().setSoLuongTreEm2Ttoi12T(tv_countTreEm2_12T.getText().toString());
+                DiaDiem.getInstance().setSoLuongTreEmDuoi2T(tv_countTreEm2T.getText().toString());
+                DiaDiem.getInstance().setDiemDi(tv_tensanbaydiemdi.getText().toString());
+                DiaDiem.getInstance().setDiemDen(tv_tensanbaydiemden.getText().toString());
+                DiaDiem.getInstance().setNgayDi(tv_CalendarNgayDi.getText().toString());
 
-                if(chuyenBay!=null)
-                {
-                    HoaDon hoaDon=new HoaDon(chuyenBay.getDiemDi(),chuyenBay.getDiemDen(),tv_countNguoiLon.getText().toString(),tv_countTreEm2_12T.getText().toString(),tv_countTreEm2T.getText().toString());
-                    intent.putExtra("ThongTinChuyenBay",chuyenBay);
-                    Toast.makeText(getContext(), chuyenBay.getDiemDen(), Toast.LENGTH_SHORT).show();
-                    startActivity(intent);
-
-                } else if (DiaDiem.getInstance().getDiemDi() != null&&DiaDiem.getInstance().getDiemDen() != null) {
-                    Toast.makeText(getContext(), "co diem di,diem den", Toast.LENGTH_SHORT).show();
-                    Bundle bundle=new Bundle();
-                    bundle.putString("DiemDen",DiaDiem.getInstance().getDiemDen());
-                    bundle.putString("DiemDi",DiaDiem.getInstance().getDiemDi());
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(getContext(), "NGU", Toast.LENGTH_SHORT).show();
-                }
+                Intent intent = new Intent(getContext(), ChonChuyenBayActivity.class);
+                getContext().startActivity(intent);
             }
         });
 
@@ -179,24 +169,6 @@ public class MotChieuFragment extends Fragment {
                 }
             });
             tv_tensanbaydiemden.setText(chuyenBay.getDiemDen());
-
-//
-//            tv_idsanbaydiemdi.setText(chuyenBay.getDiemDi());
-//            firebase.getTenSanBayBySanBayId(chuyenBay.getDiemDi(), new Firebase.getTenSanBayBySanBayIdCallback() {
-//                @Override
-//                public void onCallback(String tensanbay) {
-//                    tv_tensanbaydiemdi.setText(tensanbay);
-//                }
-//            });
-//
-//
-//            tv_idsanbaydiemden.setText(chuyenBay.getDiemDen());
-//            firebase.getTenSanBayBySanBayId(chuyenBay.getDiemDen(), new Firebase.getTenSanBayBySanBayIdCallback() {
-//                @Override
-//                public void onCallback(String tensanbay) {
-//                    tv_tensanbaydiemden.setText(tensanbay);
-//                }
-//            });
         }
         if (DiaDiem.getInstance().getDiemDi() != null){
             String diemdi = DiaDiem.getInstance().getDiemDi();
