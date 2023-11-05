@@ -38,6 +38,15 @@ public class LoaiVePhoThongFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        // Reset giá trị của ngày đi và ngày về khi Fragment bị destroy
+        DiaDiem.getInstance().setNgayDi(null);
+        DiaDiem.getInstance().setNgayVe(null);
+    }
+
     public LoaiVePhoThongFragment() {
         // Required empty public constructor
     }
@@ -57,7 +66,7 @@ public class LoaiVePhoThongFragment extends Fragment {
 
     private String diemDi;
     private String diemDen;
-    private String NgayDi;
+    private String NgayDi,NgayVe;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,15 +86,34 @@ public class LoaiVePhoThongFragment extends Fragment {
         diemDi = DiaDiem.getInstance().getDiemDi();
         diemDen = DiaDiem.getInstance().getDiemDen();
         NgayDi = DiaDiem.getInstance().getNgayDi();
+        NgayVe=DiaDiem.getInstance().getNgayVe();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rvVePhoThong.setLayoutManager(layoutManager);
-        mfirebase.getAllFlighttoCompare(diemDi, diemDen, NgayDi, new Firebase.FirebaseCallback<ChuyenBay>() {
-            @Override
-            public void onCallback(ArrayList<ChuyenBay> list) {
-                chuyenBayAdapter = new ChuyenBayAdapter(list, getContext());
-                rvVePhoThong.setAdapter(chuyenBayAdapter);
+
+
+
+
+            if(NgayVe!=null)
+            {
+                mfirebase.getAllFlighttoCompareKhuHoi(diemDi, diemDen, NgayDi, NgayVe, new Firebase.FirebaseCallback<ChuyenBay>() {
+                    @Override
+                    public void onCallback(ArrayList<ChuyenBay> list) {
+                        chuyenBayAdapter = new ChuyenBayAdapter(list, getContext());
+                        rvVePhoThong.setAdapter(chuyenBayAdapter);
+                    }
+                });
+            }else {
+                mfirebase.getAllFlighttoCompare(diemDi, diemDen, NgayDi, new Firebase.FirebaseCallback<ChuyenBay>() {
+                    @Override
+                    public void onCallback(ArrayList<ChuyenBay> list) {
+                        chuyenBayAdapter = new ChuyenBayAdapter(list, getContext());
+                        rvVePhoThong.setAdapter(chuyenBayAdapter);
+                    }
+                });
+
             }
-        });
+
+
         return view;
     }
 

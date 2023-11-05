@@ -143,7 +143,6 @@ public class MotChieuFragment extends Fragment {
                 DiaDiem.getInstance().setDiemDi(tv_tensanbaydiemdi.getText().toString());
                 DiaDiem.getInstance().setDiemDen(tv_tensanbaydiemden.getText().toString());
                 DiaDiem.getInstance().setNgayDi(tv_CalendarNgayDi.getText().toString());
-
                 Intent intent = new Intent(getContext(), ChonChuyenBayActivity.class);
                 getContext().startActivity(intent);
             }
@@ -151,46 +150,46 @@ public class MotChieuFragment extends Fragment {
 
     }
 
-    private void setdata(){
-        if (chuyenBay != null){
+        private void setdata(){
+            if (chuyenBay != null){
 
-            firebase.getIdSanBayByTenSanBay(chuyenBay.getDiemDi(), new Firebase.getIdSanBayByTenSanBayCallback() {
-                @Override
-                public void onCallBack(String idSanBay) {
-                    tv_idsanbaydiemdi.setText(idSanBay);
-                }
-            });
-            tv_tensanbaydiemdi.setText(chuyenBay.getDiemDi());
+                firebase.getIdSanBayByTenSanBay(chuyenBay.getDiemDi(), new Firebase.getIdSanBayByTenSanBayCallback() {
+                    @Override
+                    public void onCallBack(String idSanBay) {
+                        tv_idsanbaydiemdi.setText(idSanBay);
+                    }
+                });
+                tv_tensanbaydiemdi.setText(chuyenBay.getDiemDi());
 
-            firebase.getIdSanBayByTenSanBay(chuyenBay.getDiemDen(), new Firebase.getIdSanBayByTenSanBayCallback() {
-                @Override
-                public void onCallBack(String idSanBay1) {
-                    tv_idsanbaydiemden.setText(idSanBay1);
-                }
-            });
-            tv_tensanbaydiemden.setText(chuyenBay.getDiemDen());
+                firebase.getIdSanBayByTenSanBay(chuyenBay.getDiemDen(), new Firebase.getIdSanBayByTenSanBayCallback() {
+                    @Override
+                    public void onCallBack(String idSanBay1) {
+                        tv_idsanbaydiemden.setText(idSanBay1);
+                    }
+                });
+                tv_tensanbaydiemden.setText(chuyenBay.getDiemDen());
+            }
+            if (DiaDiem.getInstance().getDiemDi() != null){
+                String diemdi = DiaDiem.getInstance().getDiemDi();
+                tv_idsanbaydiemdi.setText(diemdi);
+                firebase.getTenSanBayBySanBayId(diemdi, new Firebase.getTenSanBayBySanBayIdCallback() {
+                    @Override
+                    public void onCallback(String tensanbay) {
+                        tv_tensanbaydiemdi.setText(tensanbay);
+                    }
+                });
+            }
+            if (DiaDiem.getInstance().getDiemDen() != null){
+                String diemden = DiaDiem.getInstance().getDiemDen();
+                tv_idsanbaydiemden.setText(diemden);
+                firebase.getTenSanBayBySanBayId(diemden, new Firebase.getTenSanBayBySanBayIdCallback() {
+                    @Override
+                    public void onCallback(String tensanbay) {
+                        tv_tensanbaydiemden.setText(tensanbay);
+                    }
+                });
+            }
         }
-        if (DiaDiem.getInstance().getDiemDi() != null){
-            String diemdi = DiaDiem.getInstance().getDiemDi();
-            tv_idsanbaydiemdi.setText(diemdi);
-            firebase.getTenSanBayBySanBayId(diemdi, new Firebase.getTenSanBayBySanBayIdCallback() {
-                @Override
-                public void onCallback(String tensanbay) {
-                    tv_tensanbaydiemdi.setText(tensanbay);
-                }
-            });
-        }
-        if (DiaDiem.getInstance().getDiemDen() != null){
-            String diemden = DiaDiem.getInstance().getDiemDen();
-            tv_idsanbaydiemden.setText(diemden);
-            firebase.getTenSanBayBySanBayId(diemden, new Firebase.getTenSanBayBySanBayIdCallback() {
-                @Override
-                public void onCallback(String tensanbay) {
-                    tv_tensanbaydiemden.setText(tensanbay);
-                }
-            });
-        }
-    }
     private void showCalendarNgayDi(){
         final Calendar c = Calendar.getInstance();
         long currentDateInMillis = c.getTimeInMillis();

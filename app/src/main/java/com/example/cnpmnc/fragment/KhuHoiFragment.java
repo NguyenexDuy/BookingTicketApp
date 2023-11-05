@@ -1,6 +1,7 @@
 package com.example.cnpmnc.fragment;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,7 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cnpmnc.R;
+import com.example.cnpmnc.activity.ChonChuyenBayActivity;
 import com.example.cnpmnc.model.ChuyenBay;
+import com.example.cnpmnc.model.DiaDiem;
 import com.example.cnpmnc.model.Firebase;
 
 import java.text.SimpleDateFormat;
@@ -97,6 +100,8 @@ public class KhuHoiFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_khu_hoi, container, false);
         Anhxa(view);
+        Action();
+        setdata();
         return view;
     }
 
@@ -115,7 +120,18 @@ public class KhuHoiFragment extends Fragment {
                 showCalendarNgayVe(tv_CalendarNgayDiKhuHoi);
             }
         });
-        Action();
+        btnTimKiemKhuHoi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DiaDiem.getInstance().setDiemDi(tv_tensanbaydiemdi.getText().toString());
+                DiaDiem.getInstance().setDiemDen(tv_tensanbaydiemden.getText().toString());
+                DiaDiem.getInstance().setNgayDi(tv_CalendarNgayDiKhuHoi.getText().toString());
+                DiaDiem.getInstance().setNgayVe(tv_CalendarNgayVeKhuHoi.getText().toString());
+                Toast.makeText(getContext(), DiaDiem.getInstance().getNgayVe(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), ChonChuyenBayActivity.class);
+                getContext().startActivity(intent);
+            }
+        });
     }
 
     private void showCalendarNgayVe(TextView textView) {
@@ -164,7 +180,46 @@ public class KhuHoiFragment extends Fragment {
         tv_CalendarNgayVeKhuHoi.setText(currentDate);
         tv_CalendarNgayDiKhuHoi.setText(currentDate);
     }
+    private void setdata(){
+        if (chuyenBay != null){
 
+            firebase.getIdSanBayByTenSanBay(chuyenBay.getDiemDi(), new Firebase.getIdSanBayByTenSanBayCallback() {
+                @Override
+                public void onCallBack(String idSanBay) {
+                    tv_idsanbaydiemdi.setText(idSanBay);
+                }
+            });
+            tv_tensanbaydiemdi.setText(chuyenBay.getDiemDi());
+
+            firebase.getIdSanBayByTenSanBay(chuyenBay.getDiemDen(), new Firebase.getIdSanBayByTenSanBayCallback() {
+                @Override
+                public void onCallBack(String idSanBay1) {
+                    tv_idsanbaydiemden.setText(idSanBay1);
+                }
+            });
+            tv_tensanbaydiemden.setText(chuyenBay.getDiemDen());
+        }
+        if (DiaDiem.getInstance().getDiemDi() != null){
+            String diemdi = DiaDiem.getInstance().getDiemDi();
+            tv_idsanbaydiemdi.setText(diemdi);
+            firebase.getTenSanBayBySanBayId(diemdi, new Firebase.getTenSanBayBySanBayIdCallback() {
+                @Override
+                public void onCallback(String tensanbay) {
+                    tv_tensanbaydiemdi.setText(tensanbay);
+                }
+            });
+        }
+        if (DiaDiem.getInstance().getDiemDen() != null){
+            String diemden = DiaDiem.getInstance().getDiemDen();
+            tv_idsanbaydiemden.setText(diemden);
+            firebase.getTenSanBayBySanBayId(diemden, new Firebase.getTenSanBayBySanBayIdCallback() {
+                @Override
+                public void onCallback(String tensanbay) {
+                    tv_tensanbaydiemden.setText(tensanbay);
+                }
+            });
+        }
+    }
     private  void Action()
     {
         btn_minus1KhuHoi.setOnClickListener(new View.OnClickListener() {
