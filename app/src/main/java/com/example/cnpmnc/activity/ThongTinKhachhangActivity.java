@@ -21,7 +21,7 @@ import java.util.List;
 
 public class ThongTinKhachhangActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerViewNguoiLon, recyclerViewTreEm;
     private LinearLayout btn_chonChoNgoi;
     private int number;
     HangKhachAdapter hangKhachAdapter;
@@ -33,9 +33,9 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
         AnhXa();
          number=5;
 
-        HangKhachAdapter hangKhachAdapter=new HangKhachAdapter(number, getListUser());
-        recyclerView.setLayoutManager(new LinearLayoutManager(ThongTinKhachhangActivity.this));
-        recyclerView.setAdapter(hangKhachAdapter);
+       hangKhachAdapter=new HangKhachAdapter(number, getListUser());
+        recyclerViewNguoiLon.setLayoutManager(new LinearLayoutManager(ThongTinKhachhangActivity.this));
+        recyclerViewNguoiLon.setAdapter(hangKhachAdapter);
         tvThongTinGheNgoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,7 +57,8 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
         tvThongTinGheNgoi=findViewById(R.id.tvThongTinGheNgoi);
         btn_chonChoNgoi=findViewById(R.id.btn_chonChoNgoi);
         tv_giaChuyenBay=findViewById(R.id.tv_giaChuyenBay);
-        recyclerView=findViewById(R.id.recyclerview1);
+        recyclerViewNguoiLon =findViewById(R.id.rvNguoiLon);
+        recyclerViewTreEm = findViewById(R.id.rvTreEm);
 
     }
 

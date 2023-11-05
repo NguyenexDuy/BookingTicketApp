@@ -15,6 +15,18 @@ public class ChuyenBay implements Serializable {
     private String TrangThai;
     private  String MoTa;
     private  String MoTaDiemDap;
+    public ChuyenBay(){
+
+    }
+    private boolean isYeuThich;
+
+    public boolean isYeuThich() {
+        return isYeuThich;
+    }
+
+    public void setYeuThich(boolean yeuThich) {
+        isYeuThich = yeuThich;
+    }
 
     public ChuyenBay(String idChuyenBay, String diemDen, String diemDi, String gioBatDau, String hinhAnh, String ngayDi, String ngayVe,
                      String soLuongGheTrong, String soLuongGheVipTrong, String trangThai, String moTa, String moTaDiemDap) {
@@ -127,4 +139,6 @@ public class ChuyenBay implements Serializable {
     public void setTrangThai(String trangThai) {
         TrangThai = trangThai;
     }
+
+
 }

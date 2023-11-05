@@ -28,13 +28,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="90dp">
+
             <TextView
                 android:id="@+id/tv_dienThongTin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Điền thông tin"
-                android:textColor="@color/textColor">
-            </TextView>
+                android:textColor="@color/textColor"></TextView>
 
             <ImageView
                 android:id="@+id/iconabc"
