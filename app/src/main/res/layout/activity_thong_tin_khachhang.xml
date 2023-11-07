@@ -39,29 +39,6 @@
 
 
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Giá Vé:"
-                android:textSize="30dp"
-                android:layout_marginLeft="5dp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/tv_giaChuyenBay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="3.423.000 VND"
-                android:textColor="@color/textColor"
-                android:textSize="30dp"
-                android:layout_marginLeft="5dp"
-                android:textStyle="bold"/>
-        </LinearLayout>
 
 <!--         <TextView
             android:id="@+id/textView4"
@@ -371,4 +348,4 @@
 </ScrollView>
 
 
-</LinearLayout>
+</ScrollView>

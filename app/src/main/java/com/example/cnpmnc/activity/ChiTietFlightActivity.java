@@ -71,14 +71,17 @@ public class ChiTietFlightActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
+                    chuyenBay.setYeuThich(true);
                     lưuDulieuLenFirestore(chuyenBay);
                     tymButton.setBackgroundResource(R.drawable.heart_red_24);
                 } else {
+                    chuyenBay.setYeuThich(false);
                     xoaDulieuTrenFirestore(chuyenBay);
                     tymButton.setBackgroundResource(R.drawable.heart_24);
                 }
-                // Cập nhật trạng thái yêu thích
-                isFavorite = isChecked;
+
+                kiemTraTrangThaiYeuThich();
+
             }
         });
     }
@@ -93,12 +96,13 @@ public class ChiTietFlightActivity extends AppCompatActivity {
     }
     private void kiemTraTrangThaiYeuThich() {
         // Kiểm tra xem chuyến bay đã trong danh sách yêu thích hay không và cập nhật nút "tym" tương ứng.
-        if (isFavorite) {
-            tymButton.setChecked(true);
+        if (chuyenBay.isYeuThich()) {
+            tymButton.setChecked(chuyenBay.isYeuThich());
             tymButton.setBackgroundResource(R.drawable.heart_red_24);
+
         } else {
             tymButton.setChecked(false);
-            tymButton.setBackgroundResource(R.drawable.heart_24);
+            tymButton.setBackgroundResource(R.drawable.baseline_favorite_border_24);
         }
     }
     private void lưuDulieuLenFirestore(ChuyenBay chuyenBay) {
@@ -115,6 +119,9 @@ public class ChiTietFlightActivity extends AppCompatActivity {
         yeuThichData.put("SoLuongGheTrong",chuyenBay.getSoLuongGheTrong());
         yeuThichData.put("SoLuongGheVipTrong",chuyenBay.getSoLuongGheVipTrong());
         yeuThichData.put("TrangThai",chuyenBay.getTrangThai());
+        yeuThichData.put("isYeuThich", chuyenBay.isYeuThich());
+
+
 
         yeuThichCollection
                 .document(chuyenBay.getIdChuyenBay())
