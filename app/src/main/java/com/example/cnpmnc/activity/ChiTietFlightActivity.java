@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +23,9 @@ import com.example.cnpmnc.fragment.MotChieuFragment;
 import com.example.cnpmnc.model.ChuyenBay;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.w3c.dom.Text;
@@ -72,8 +75,8 @@ public class ChiTietFlightActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     chuyenBay.setYeuThich(true);
-                    lưuDulieuLenFirestore(chuyenBay);
-                    tymButton.setBackgroundResource(R.drawable.heart_red_24);
+                    Toast.makeText(ChiTietFlightActivity.this, "Thành công cmnr", Toast.LENGTH_SHORT).show();
+                    putChuyenBayYeuThich(chuyenBay);
                 } else {
                     chuyenBay.setYeuThich(false);
                     xoaDulieuTrenFirestore(chuyenBay);
@@ -95,8 +98,8 @@ public class ChiTietFlightActivity extends AppCompatActivity {
         tymButton = findViewById(R.id.TymButton);
     }
     private void kiemTraTrangThaiYeuThich() {
-        // Kiểm tra xem chuyến bay đã trong danh sách yêu thích hay không và cập nhật nút "tym" tương ứng.
-        if (chuyenBay.isYeuThich()) {
+//         Kiểm tra xem chuyến bay đã trong danh sách yêu thích hay không và cập nhật nút "tym" tương ứng.
+        if (chuyenBay.isYeuThich()==true) {
             tymButton.setChecked(chuyenBay.isYeuThich());
             tymButton.setBackgroundResource(R.drawable.heart_red_24);
 
@@ -104,9 +107,11 @@ public class ChiTietFlightActivity extends AppCompatActivity {
             tymButton.setChecked(false);
             tymButton.setBackgroundResource(R.drawable.baseline_favorite_border_24);
         }
+
     }
     private void lưuDulieuLenFirestore(ChuyenBay chuyenBay) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         CollectionReference yeuThichCollection = db.collection("YeuThich");
 
         Map<String, Object> yeuThichData = new HashMap<>();
@@ -139,6 +144,41 @@ public class ChiTietFlightActivity extends AppCompatActivity {
                     public void onFailure(@NonNull Exception e) {
                         // Đã xảy ra lỗi trong quá trình lưu dữ liệu
                         Toast.makeText(ChiTietFlightActivity.this, "Lỗi khi thêm vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private  void putChuyenBayYeuThich(ChuyenBay chuyenBay){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Map<String, Object> favoriteItem = new HashMap<>();
+        favoriteItem.put("itemID", chuyenBay.getIdChuyenBay());
+        favoriteItem.put("userID", userID);
+        favoriteItem.put("DiemDen", chuyenBay.getDiemDen());
+        favoriteItem.put("HinhAnh",chuyenBay.getHinhAnh());
+        favoriteItem.put("DiemDi", chuyenBay.getDiemDi());
+        favoriteItem.put("GioBatDau",chuyenBay.getGioBatDau());
+        favoriteItem.put("NgayDi",chuyenBay.getNgayDi());
+        favoriteItem.put("NgayVe",chuyenBay.getNgayVe());
+        favoriteItem.put("SoLuongGheTrong",chuyenBay.getSoLuongGheTrong());
+        favoriteItem.put("SoLuongGheVipTrong",chuyenBay.getSoLuongGheVipTrong());
+        favoriteItem.put("TrangThai",chuyenBay.getTrangThai());
+        favoriteItem.put("isYeuThich", chuyenBay.isYeuThich());
+        db.collection("favorites")
+                .add(favoriteItem)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        tymButton.setBackgroundResource(R.drawable.heart_red_24);
+                        Toast.makeText(ChiTietFlightActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Xử lý khi thêm item thất bại
+                        Toast.makeText(ChiTietFlightActivity.this, "Lỗi ", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
