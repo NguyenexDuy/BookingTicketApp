@@ -5,6 +5,50 @@ public class DiaDiem {
     private DiaDiem(){
 
     }
+    private String SoLuongNguoiLon;
+    private String SoLuongTreEm2Ttoi12T;
+    private String SoLuongTreEmDuoi2T;
+    private String NgayDi,NgayVe;
+
+    public String getNgayVe() {
+        return NgayVe;
+    }
+
+    public void setNgayVe(String ngayVe) {
+        NgayVe = ngayVe;
+    }
+
+    public String getNgayDi() {
+        return NgayDi;
+    }
+
+    public void setNgayDi(String ngayDi) {
+        NgayDi = ngayDi;
+    }
+
+    public String getSoLuongNguoiLon() {
+        return SoLuongNguoiLon;
+    }
+
+    public void setSoLuongNguoiLon(String soLuongNguoiLon) {
+        SoLuongNguoiLon = soLuongNguoiLon;
+    }
+
+    public String getSoLuongTreEm2Ttoi12T() {
+        return SoLuongTreEm2Ttoi12T;
+    }
+
+    public void setSoLuongTreEm2Ttoi12T(String soLuongTreEm2Ttoi12T) {
+        SoLuongTreEm2Ttoi12T = soLuongTreEm2Ttoi12T;
+    }
+
+    public String getSoLuongTreEmDuoi2T() {
+        return SoLuongTreEmDuoi2T;
+    }
+
+    public void setSoLuongTreEmDuoi2T(String soLuongTreEmDuoi2T) {
+        SoLuongTreEmDuoi2T = soLuongTreEmDuoi2T;
+    }
     private String DiemDi = null;
     private String DiemDen = null;
 

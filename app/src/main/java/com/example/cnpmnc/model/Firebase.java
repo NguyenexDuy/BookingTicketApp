@@ -135,9 +135,13 @@ public class Firebase {
                     }
                 });
     }
-    public void getAllFlight(FirebaseCallback<ChuyenBay> callback) {
+    public void getAllFlighttoCompare(String diemDi, String diemDen,String NgayDi,FirebaseCallback<ChuyenBay> callback) {
         ArrayList<ChuyenBay> flightlist = new ArrayList<>();
         mfirestore.collection("ChuyenBay")
+                .whereEqualTo("DiemDi",diemDi)
+                .whereEqualTo("DiemDen",diemDen)
+                .whereEqualTo("NgayDi",NgayDi)
+                .whereEqualTo("NgayVe","")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -163,11 +167,13 @@ public class Firebase {
                 });
 
     }
-    public void getAllFlighttoCompare(String diemDi, String diemDen,FirebaseCallback<ChuyenBay> callback) {
+    public void getAllFlighttoCompareKhuHoi(String diemDi, String diemDen,String NgayDi,String NgayVe,FirebaseCallback<ChuyenBay> callback) {
         ArrayList<ChuyenBay> flightlist = new ArrayList<>();
         mfirestore.collection("ChuyenBay")
                 .whereEqualTo("DiemDi",diemDi)
                 .whereEqualTo("DiemDen",diemDen)
+                .whereEqualTo("NgayDi",NgayDi)
+                .whereEqualTo("NgayVe",NgayVe)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {

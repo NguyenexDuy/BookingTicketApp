@@ -7,8 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        >
+        android:layout_marginTop="10dp">
         <TextView
             android:id="@+id/tv_hangKhach"
             android:layout_width="wrap_content"
@@ -47,11 +46,11 @@
 
     </LinearLayout>
     <TextView
-        android:id="@+id/textview199"
+        android:id="@+id/tv_tenHangKhach"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Người lớn"
-        android:visibility="invisible"
+        android:visibility="visible"
         >
     </TextView>
 
