@@ -158,11 +158,12 @@ public class PersonFragment extends Fragment {
             }
         });
         if(tvemail.getText().toString().equals("Chưa đăng nhập")&&tvten.getText().toString().equals("Chưa đăng nhập")){
-            tvdangxuat.setText("Đăng nhập");
+            tvdangxuat.setText("Đăng xuất");
             tvttcn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     startActivity(new Intent(getContext(), DangNhapActivity.class));
+
                 }
             });
         }

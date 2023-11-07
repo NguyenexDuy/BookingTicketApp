@@ -21,6 +21,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 //file cua anh Nhan,Duy dung vo chem/ ak.
 public class Firebase {
@@ -36,6 +38,7 @@ public class Firebase {
         mfirebaseAuth = FirebaseAuth.getInstance();
         mfirebaseStorage = FirebaseStorage.getInstance();
         mstorageRef = mfirebaseStorage.getReference();
+        mfirebaseUser=FirebaseAuth.getInstance().getCurrentUser();
         this.mcontext = context;
     }
 
@@ -79,6 +82,10 @@ public class Firebase {
                 });
 
     }
+
+
+
+
     public void getTenSanBayBySanBayId(String sanBayId, getTenSanBayBySanBayIdCallback callback) {
         mfirestore.collection("SanBay")
                 .document(sanBayId)

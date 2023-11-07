@@ -16,7 +16,7 @@ public class ChuyenBay implements Serializable {
     private  String MoTa;
     private  String MoTaDiemDap;
 
-    private boolean isFavorite;
+
 
 
 
