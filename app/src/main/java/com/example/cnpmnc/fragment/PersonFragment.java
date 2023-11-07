@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.activity.DangNhapActivity;
+import com.example.cnpmnc.activity.DanhSachChuyenBayDaThich;
 import com.example.cnpmnc.activity.FormPersonActivity;
 import com.example.cnpmnc.activity.LichSuDatVeActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -148,6 +149,12 @@ public class PersonFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), LichSuDatVeActivity.class));
+            }
+        });
+        tvChuyenBayYeuThich.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), DanhSachChuyenBayDaThich.class));
             }
         });
         if(tvemail.getText().toString().equals("Chưa đăng nhập")&&tvten.getText().toString().equals("Chưa đăng nhập")){

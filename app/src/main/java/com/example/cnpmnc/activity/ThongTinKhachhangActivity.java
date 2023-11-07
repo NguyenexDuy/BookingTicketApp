@@ -19,7 +19,9 @@ import java.util.ArrayList;
 
 public class ThongTinKhachhangActivity extends AppCompatActivity {
 
+
     private RecyclerView rcvTreEm2_12Tuoi, rcvNguoiLon,rcvTreEm2Tuoi;
+
     private LinearLayout btn_chonChoNgoi;
     private int numberTreEm2_12Tuoi, numberNguoiLon, numberTreEm2Tuoi,soLuongHangKhach;
     TextView tvThongTinGheNgoi, tv_giaChuyenBay,tv_SoLuongHangKhach;
@@ -28,6 +30,7 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thong_tin_khachhang);
         AnhXa();
+
         soLuongHangKhach=numberNguoiLon+numberTreEm2Tuoi+numberTreEm2_12Tuoi;
         tv_SoLuongHangKhach.setText(String.valueOf(soLuongHangKhach));
         HangKhachAdapter hangKhach2_12TuoiAdapter=new HangKhachAdapter(numberTreEm2_12Tuoi, getListUser2_12Tuoi());
@@ -39,6 +42,7 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
         rcvNguoiLon.setAdapter(hangKhachNguoiLonAdapter);
         rcvTreEm2Tuoi.setAdapter(hangKhach2Tuoi);
         rcvTreEm2_12Tuoi.setAdapter(hangKhach2_12TuoiAdapter);
+
         tvThongTinGheNgoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,10 +90,12 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
         tvThongTinGheNgoi=findViewById(R.id.tvThongTinGheNgoi);
         btn_chonChoNgoi=findViewById(R.id.btn_chonChoNgoi);
         tv_giaChuyenBay=findViewById(R.id.tv_giaChuyenBay);
+
         rcvTreEm2_12Tuoi =findViewById(R.id.recyclerview2);
         rcvNguoiLon=findViewById(R.id.recyclerview1);
         rcvTreEm2Tuoi=findViewById(R.id.recyclerview3);
         tv_SoLuongHangKhach=findViewById(R.id.tv_SoLuongHangKhach);
+
 
         numberTreEm2_12Tuoi =Integer.parseInt(DiaDiem.getInstance().getSoLuongTreEm2Ttoi12T());
         numberNguoiLon=Integer.parseInt(DiaDiem.getInstance().getSoLuongNguoiLon());
