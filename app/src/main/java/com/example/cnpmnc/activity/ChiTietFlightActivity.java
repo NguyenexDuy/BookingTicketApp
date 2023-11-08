@@ -41,6 +41,9 @@ public class ChiTietFlightActivity extends AppCompatActivity {
     private Button btn_datve;
     private CheckBox tymButton;
     private boolean isFavorite = false;
+    private static final String PREFS_NAME = "MyPrefs";
+    private static final String IS_YEU_THICH = "isYeuThich_";
+    private static final String CHECKBOX_BACKGROUND = "checkBoxBackground_";
     TextView tv_chiTietDiemDi,tv_MoTaChiTietFight,tv_DiemDapChiTiet;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +72,9 @@ public class ChiTietFlightActivity extends AppCompatActivity {
             }
         });
 
-        kiemTraTrangThaiYeuThich();
+        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        boolean isYeuThich = sharedPreferences.getBoolean(IS_YEU_THICH + chuyenBay.getIdChuyenBay(), false);
+        int checkBoxBackground = sharedPreferences.getInt(CHECKBOX_BACKGROUND + chuyenBay.getIdChuyenBay(), R.drawable.baseline_favorite_border_24);
         tymButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -83,7 +88,7 @@ public class ChiTietFlightActivity extends AppCompatActivity {
                     tymButton.setBackgroundResource(R.drawable.heart_24);
                 }
 
-                kiemTraTrangThaiYeuThich();
+
 
             }
         });
@@ -172,6 +177,11 @@ public class ChiTietFlightActivity extends AppCompatActivity {
                     public void onSuccess(DocumentReference documentReference) {
                         tymButton.setBackgroundResource(R.drawable.heart_red_24);
                         Toast.makeText(ChiTietFlightActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
+                        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putBoolean("isYeuThich_" + chuyenBay.getIdChuyenBay(), chuyenBay.isYeuThich());
+                        editor.putInt("checkBoxBackground_" + chuyenBay.getIdChuyenBay(), R.drawable.heart_red_24);
+                        editor.apply();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
