@@ -23,6 +23,7 @@ public class ChuyenBayAdapter extends RecyclerView.Adapter<ChuyenBayAdapter.Chuy
     public ChuyenBayAdapter(ArrayList<ChuyenBay> chuyenVeTests, Context mcontext) {
         this.chuyenVeTests = chuyenVeTests;
         this.mcontext=mcontext;
+
     }
 
     @NonNull
@@ -35,6 +36,12 @@ public class ChuyenBayAdapter extends RecyclerView.Adapter<ChuyenBayAdapter.Chuy
     @Override
     public void onBindViewHolder(@NonNull ChuyenBayVH holder, int position) {
         ChuyenBay chuyenVeTest = chuyenVeTests.get(position);
+
+
+
+
+
+
         holder.tvMaChuyenBay.setText(chuyenVeTest.getIdChuyenBay());
         holder.tvNgayBay.setText(chuyenVeTest.getNgayDi());
         holder.tvNgayDen.setText(chuyenVeTest.getNgayVe());
@@ -47,6 +54,7 @@ public class ChuyenBayAdapter extends RecyclerView.Adapter<ChuyenBayAdapter.Chuy
             public void onClick(View view) {
                 Intent intent=new Intent(mcontext, ThongTinKhachhangActivity.class);
                 mcontext.startActivity(intent);
+                
             }
         });
     }

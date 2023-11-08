@@ -143,7 +143,6 @@ public class MotChieuFragment extends Fragment {
                 DiaDiem.getInstance().setDiemDi(tv_tensanbaydiemdi.getText().toString());
                 DiaDiem.getInstance().setDiemDen(tv_tensanbaydiemden.getText().toString());
                 DiaDiem.getInstance().setNgayDi(tv_CalendarNgayDi.getText().toString());
-
                 Intent intent = new Intent(getContext(), ChonChuyenBayActivity.class);
                 getContext().startActivity(intent);
             }
@@ -151,46 +150,46 @@ public class MotChieuFragment extends Fragment {
 
     }
 
-    private void setdata(){
-        if (chuyenBay != null){
+        private void setdata(){
+            if (chuyenBay != null){
 
-            firebase.getIdSanBayByTenSanBay(chuyenBay.getDiemDi(), new Firebase.getIdSanBayByTenSanBayCallback() {
-                @Override
-                public void onCallBack(String idSanBay) {
-                    tv_idsanbaydiemdi.setText(idSanBay);
-                }
-            });
-            tv_tensanbaydiemdi.setText(chuyenBay.getDiemDi());
+                firebase.getIdSanBayByTenSanBay(chuyenBay.getDiemDi(), new Firebase.getIdSanBayByTenSanBayCallback() {
+                    @Override
+                    public void onCallBack(String idSanBay) {
+                        tv_idsanbaydiemdi.setText(idSanBay);
+                    }
+                });
+                tv_tensanbaydiemdi.setText(chuyenBay.getDiemDi());
 
-            firebase.getIdSanBayByTenSanBay(chuyenBay.getDiemDen(), new Firebase.getIdSanBayByTenSanBayCallback() {
-                @Override
-                public void onCallBack(String idSanBay1) {
-                    tv_idsanbaydiemden.setText(idSanBay1);
-                }
-            });
-            tv_tensanbaydiemden.setText(chuyenBay.getDiemDen());
+                firebase.getIdSanBayByTenSanBay(chuyenBay.getDiemDen(), new Firebase.getIdSanBayByTenSanBayCallback() {
+                    @Override
+                    public void onCallBack(String idSanBay1) {
+                        tv_idsanbaydiemden.setText(idSanBay1);
+                    }
+                });
+                tv_tensanbaydiemden.setText(chuyenBay.getDiemDen());
+            }
+            if (DiaDiem.getInstance().getDiemDi() != null){
+                String diemdi = DiaDiem.getInstance().getDiemDi();
+                tv_idsanbaydiemdi.setText(diemdi);
+                firebase.getTenSanBayBySanBayId(diemdi, new Firebase.getTenSanBayBySanBayIdCallback() {
+                    @Override
+                    public void onCallback(String tensanbay) {
+                        tv_tensanbaydiemdi.setText(tensanbay);
+                    }
+                });
+            }
+            if (DiaDiem.getInstance().getDiemDen() != null){
+                String diemden = DiaDiem.getInstance().getDiemDen();
+                tv_idsanbaydiemden.setText(diemden);
+                firebase.getTenSanBayBySanBayId(diemden, new Firebase.getTenSanBayBySanBayIdCallback() {
+                    @Override
+                    public void onCallback(String tensanbay) {
+                        tv_tensanbaydiemden.setText(tensanbay);
+                    }
+                });
+            }
         }
-        if (DiaDiem.getInstance().getDiemDi() != null){
-            String diemdi = DiaDiem.getInstance().getDiemDi();
-            tv_idsanbaydiemdi.setText(diemdi);
-            firebase.getTenSanBayBySanBayId(diemdi, new Firebase.getTenSanBayBySanBayIdCallback() {
-                @Override
-                public void onCallback(String tensanbay) {
-                    tv_tensanbaydiemdi.setText(tensanbay);
-                }
-            });
-        }
-        if (DiaDiem.getInstance().getDiemDen() != null){
-            String diemden = DiaDiem.getInstance().getDiemDen();
-            tv_idsanbaydiemden.setText(diemden);
-            firebase.getTenSanBayBySanBayId(diemden, new Firebase.getTenSanBayBySanBayIdCallback() {
-                @Override
-                public void onCallback(String tensanbay) {
-                    tv_tensanbaydiemden.setText(tensanbay);
-                }
-            });
-        }
-    }
     private void showCalendarNgayDi(){
         final Calendar c = Calendar.getInstance();
         long currentDateInMillis = c.getTimeInMillis();
@@ -256,22 +255,40 @@ public class MotChieuFragment extends Fragment {
         btn_plus1MotChieu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                countNguoiLon++;
-                updateCount(tv_countNguoiLon,countNguoiLon);
+                if (countNguoiLon<5)
+                {
+                    countNguoiLon++;
+                    updateCount(tv_countNguoiLon,countNguoiLon);
+                }else {
+                    Toast.makeText(getContext(), "Số lượng hàng khách đã đạt tối đa", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         btn_plus2MotChieu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                countTreEm2_12Tuoi++;
-                updateCount(tv_countTreEm2_12T,countTreEm2_12Tuoi);
+                if(countTreEm2_12Tuoi<4)
+                {
+                    countTreEm2_12Tuoi++;
+                    updateCount(tv_countTreEm2_12T,countTreEm2_12Tuoi);
+                }
+                else {
+                    Toast.makeText(getContext(), "Số lượng hàng khách đã đạt tối đa", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         btn_plus3MotChieu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                countTreEmDuoi2tuoi++;
-                updateCount(tv_countTreEm2T,countTreEmDuoi2tuoi);
+                if(countTreEmDuoi2tuoi<4)
+                {
+                    countTreEmDuoi2tuoi++;
+                    updateCount(tv_countTreEm2T,countTreEmDuoi2tuoi);
+                }
+                else {
+                    Toast.makeText(getContext(), "Số lượng hàng khách đã đạt tối đa", Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
     }
@@ -293,7 +310,7 @@ public class MotChieuFragment extends Fragment {
         tv_tensanbaydiemden=view.findViewById(R.id.tv_tensanbaydiemden);
         firebase = new Firebase(getContext());
         currentDate = new SimpleDateFormat("dd-MM-YYYY", Locale.getDefault()).format(new Date());
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-M-yyyy");
         curdate = LocalDate.parse(currentDate, formatter);
         tv_CalendarNgayDi.setText(currentDate);
     }

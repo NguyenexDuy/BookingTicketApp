@@ -8,7 +8,15 @@ public class DiaDiem {
     private String SoLuongNguoiLon;
     private String SoLuongTreEm2Ttoi12T;
     private String SoLuongTreEmDuoi2T;
-    private String NgayDi;
+    private String NgayDi,NgayVe;
+
+    public String getNgayVe() {
+        return NgayVe;
+    }
+
+    public void setNgayVe(String ngayVe) {
+        NgayVe = ngayVe;
+    }
 
     public String getNgayDi() {
         return NgayDi;

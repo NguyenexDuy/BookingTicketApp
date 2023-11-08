@@ -3,7 +3,6 @@ package com.example.cnpmnc.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,7 +35,9 @@ public class HangKhachAdapter extends  RecyclerView.Adapter<HangKhachAdapter.Han
     @Override
     public void onBindViewHolder(@NonNull HangKhachViewHolder holder, int position) {
         HangKhach hangKhach=mHangKhach.get(position);
-        holder.textView1.setText(hangKhach.getHoTen());
+        holder.tv_tenHangKhach.setText(hangKhach.getHoTen());
+        holder.tv_loaiHangKhach.setText(hangKhach.getType());
+
     }
 
     @Override
@@ -46,11 +47,10 @@ public class HangKhachAdapter extends  RecyclerView.Adapter<HangKhachAdapter.Han
 
     public class HangKhachViewHolder extends RecyclerView.ViewHolder{
 
-        TextView textView1,tv_hangKhach,tv_loaiHangKhach,tv_dienThongTin,textview199;
-        ImageView iconabc;
+        TextView tv_tenHangKhach,tv_hangKhach,tv_loaiHangKhach,tv_dienThongTin,textview199;
         public HangKhachViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView1=itemView.findViewById(R.id.textview199);
+            tv_tenHangKhach =itemView.findViewById(R.id.tv_tenHangKhach);
             tv_hangKhach=itemView.findViewById(R.id.tv_hangKhach);
             tv_loaiHangKhach=itemView.findViewById(R.id.tv_loaiHangKhach);
             tv_dienThongTin=itemView.findViewById(R.id.tv_dienThongTin);

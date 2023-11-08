@@ -21,6 +21,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 //file cua anh Nhan,Duy dung vo chem/ ak.
 public class Firebase {
@@ -36,6 +38,7 @@ public class Firebase {
         mfirebaseAuth = FirebaseAuth.getInstance();
         mfirebaseStorage = FirebaseStorage.getInstance();
         mstorageRef = mfirebaseStorage.getReference();
+        mfirebaseUser=FirebaseAuth.getInstance().getCurrentUser();
         this.mcontext = context;
     }
 
@@ -79,6 +82,10 @@ public class Firebase {
                 });
 
     }
+
+
+
+
     public void getTenSanBayBySanBayId(String sanBayId, getTenSanBayBySanBayIdCallback callback) {
         mfirestore.collection("SanBay")
                 .document(sanBayId)
@@ -141,6 +148,39 @@ public class Firebase {
                 .whereEqualTo("DiemDi",diemDi)
                 .whereEqualTo("DiemDen",diemDen)
                 .whereEqualTo("NgayDi",NgayDi)
+                .whereEqualTo("NgayVe","")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            ChuyenBay chuyenBay = new ChuyenBay(document.getId(),
+                                    document.getString("DiemDen"),
+                                    document.getString("DiemDi"),
+                                    document.getString("GioBatDau"),
+                                    document.getString("HinhAnh"),
+                                    document.getString("NgayDi"),
+                                    document.getString("NgayVe"),
+                                    document.getString("SoLuongGheTrong"),
+                                    document.getString("SoLuongGheVipTrong"),
+                                    document.getString("TrangThai"),
+                                    document.getString("MoTa"),
+                                    document.getString("MoTaDiemDap"));
+                            flightlist.add(chuyenBay);
+                        }
+                        callback.onCallback(flightlist);
+                    } else {
+                        Log.w(TAG, "Error getting documents.", task.getException());
+                    }
+                });
+
+    }
+    public void getAllFlighttoCompareKhuHoi(String diemDi, String diemDen,String NgayDi,String NgayVe,FirebaseCallback<ChuyenBay> callback) {
+        ArrayList<ChuyenBay> flightlist = new ArrayList<>();
+        mfirestore.collection("ChuyenBay")
+                .whereEqualTo("DiemDi",diemDi)
+                .whereEqualTo("DiemDen",diemDen)
+                .whereEqualTo("NgayDi",NgayDi)
+                .whereEqualTo("NgayVe",NgayVe)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {

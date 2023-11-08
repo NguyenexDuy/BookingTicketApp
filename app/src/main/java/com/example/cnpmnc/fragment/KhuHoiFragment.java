@@ -1,6 +1,10 @@
 package com.example.cnpmnc.fragment;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,8 +21,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cnpmnc.R;
+import com.example.cnpmnc.activity.ChonChuyenBayActivity;
+import com.example.cnpmnc.activity.DangNhapActivity;
 import com.example.cnpmnc.model.ChuyenBay;
+import com.example.cnpmnc.model.DiaDiem;
 import com.example.cnpmnc.model.Firebase;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -91,18 +100,24 @@ public class KhuHoiFragment extends Fragment {
     private String NgayVe;
     private String currentDate;
     private LocalDate curdate;
+    FirebaseUser firebaseUser;
+    private static final int LOGIN_REQUEST_CODE = 123;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_khu_hoi, container, false);
         Anhxa(view);
+        Action();
+        setdata();
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
         tv_CalendarNgayVeKhuHoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,9 +130,69 @@ public class KhuHoiFragment extends Fragment {
                 showCalendarNgayVe(tv_CalendarNgayDiKhuHoi);
             }
         });
-        Action();
+        btnTimKiemKhuHoi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
+                if(firebaseUser!=null)
+                {
+                    ThucHienHanhDong();
+                    Toast.makeText(getContext(), "Co user", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(getContext(), "ko co user", Toast.LENGTH_SHORT).show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+                    builder.setTitle("Xác nhận");
+                    builder.setMessage("Quý khách cần phải đăng nhập để thực hiện đặt chuyến bay?");
+
+
+                    builder.setPositiveButton("Đăng nhập", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent=new Intent(getContext(), DangNhapActivity.class);
+                            startActivityForResult(intent, LOGIN_REQUEST_CODE);
+                        }
+                    });
+
+                    builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Thực hiện hành động khi người dùng chọn "Không" ở đây
+                            dialog.dismiss(); // Dismiss dialog khi chọn "Không"
+                        }
+                    });
+
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+
+                }
+
+
+            }
+        });
     }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == LOGIN_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                ThucHienHanhDong();
+            } else {
+                Toast.makeText(getContext(), "Khong thanh cong", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    private void ThucHienHanhDong()
+    {
+        DiaDiem.getInstance().setDiemDi(tv_tensanbaydiemdi.getText().toString());
+        DiaDiem.getInstance().setDiemDen(tv_tensanbaydiemden.getText().toString());
+        DiaDiem.getInstance().setNgayDi(tv_CalendarNgayDiKhuHoi.getText().toString());
+        DiaDiem.getInstance().setNgayVe(tv_CalendarNgayVeKhuHoi.getText().toString());
+        Toast.makeText(getContext(), DiaDiem.getInstance().getNgayVe(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getContext(), ChonChuyenBayActivity.class);
+        getContext().startActivity(intent);
+    }
     private void showCalendarNgayVe(TextView textView) {
         final Calendar c = Calendar.getInstance();
         long currentDateInMillis = c.getTimeInMillis();
@@ -164,7 +239,46 @@ public class KhuHoiFragment extends Fragment {
         tv_CalendarNgayVeKhuHoi.setText(currentDate);
         tv_CalendarNgayDiKhuHoi.setText(currentDate);
     }
+    private void setdata(){
+        if (chuyenBay != null){
 
+            firebase.getIdSanBayByTenSanBay(chuyenBay.getDiemDi(), new Firebase.getIdSanBayByTenSanBayCallback() {
+                @Override
+                public void onCallBack(String idSanBay) {
+                    tv_idsanbaydiemdi.setText(idSanBay);
+                }
+            });
+            tv_tensanbaydiemdi.setText(chuyenBay.getDiemDi());
+
+            firebase.getIdSanBayByTenSanBay(chuyenBay.getDiemDen(), new Firebase.getIdSanBayByTenSanBayCallback() {
+                @Override
+                public void onCallBack(String idSanBay1) {
+                    tv_idsanbaydiemden.setText(idSanBay1);
+                }
+            });
+            tv_tensanbaydiemden.setText(chuyenBay.getDiemDen());
+        }
+        if (DiaDiem.getInstance().getDiemDi() != null){
+            String diemdi = DiaDiem.getInstance().getDiemDi();
+            tv_idsanbaydiemdi.setText(diemdi);
+            firebase.getTenSanBayBySanBayId(diemdi, new Firebase.getTenSanBayBySanBayIdCallback() {
+                @Override
+                public void onCallback(String tensanbay) {
+                    tv_tensanbaydiemdi.setText(tensanbay);
+                }
+            });
+        }
+        if (DiaDiem.getInstance().getDiemDen() != null){
+            String diemden = DiaDiem.getInstance().getDiemDen();
+            tv_idsanbaydiemden.setText(diemden);
+            firebase.getTenSanBayBySanBayId(diemden, new Firebase.getTenSanBayBySanBayIdCallback() {
+                @Override
+                public void onCallback(String tensanbay) {
+                    tv_tensanbaydiemden.setText(tensanbay);
+                }
+            });
+        }
+    }
     private  void Action()
     {
         btn_minus1KhuHoi.setOnClickListener(new View.OnClickListener() {

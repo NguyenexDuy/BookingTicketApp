@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape
+            android:shape="rectangle">
+            <solid android:color="#FF0000" /> <!-- Màu đỏ -->
+        </shape>
+    </item>
+    <item
+        android:drawable="@drawable/heart_red_24" /> <!-- Icon tym (hoặc drawable tương tự) -->
+</layer-list>
