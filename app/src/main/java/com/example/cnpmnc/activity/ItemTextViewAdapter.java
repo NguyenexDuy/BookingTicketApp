@@ -14,7 +14,7 @@ public class ItemTextViewAdapter {
         TextView textView;
         public ItemTextViewViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView=itemView.findViewById(R.id.tvNumber);
+//            textView=itemView.findViewById(R.id.tvNumber);
         }
     }
 }
