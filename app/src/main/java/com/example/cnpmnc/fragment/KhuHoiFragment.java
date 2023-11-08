@@ -94,9 +94,9 @@ public class KhuHoiFragment extends Fragment {
     ImageButton btn_minus1KhuHoi,btn_plus1KhuHoi,btn_minus2KhuHoi,btn_plus2KhuHoi,btn_minus3KhuHoi,btn_plus3KhuHoi;
     Firebase firebase;
     Button btnTimKiemKhuHoi;
-    int countNguoiLon=0;
-    int countTreEm2_12Tuoi=0;
-    int countTreEmDuoi2tuoi=0;
+    int countNguoiLon=1;
+    int countTreEm2_12Tuoi=1;
+    int countTreEmDuoi2tuoi=1;
     private String NgayVe;
     private String currentDate;
     private LocalDate curdate;
@@ -284,7 +284,7 @@ public class KhuHoiFragment extends Fragment {
         btn_minus1KhuHoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(countNguoiLon>0)
+                if(countNguoiLon>1)
                 {
                     countNguoiLon--;
                     updateCount(tv_countNguoiLonKhuHoi,countNguoiLon);
@@ -295,7 +295,7 @@ public class KhuHoiFragment extends Fragment {
         btn_minus2KhuHoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(countTreEm2_12Tuoi>0)
+                if(countTreEm2_12Tuoi>1)
                 {
                     countTreEm2_12Tuoi--;
                     updateCount(tv_count2NguoiLonKhuHoi,countTreEm2_12Tuoi);
@@ -306,7 +306,7 @@ public class KhuHoiFragment extends Fragment {
         btn_minus3KhuHoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(countTreEmDuoi2tuoi>0)
+                if(countTreEmDuoi2tuoi>1)
                 {
                     countTreEmDuoi2tuoi--;
                     updateCount(tv_count3NguoiLonKhuHoi,countTreEmDuoi2tuoi);
@@ -317,22 +317,38 @@ public class KhuHoiFragment extends Fragment {
         btn_plus1KhuHoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                countNguoiLon++;
-                updateCount(tv_countNguoiLonKhuHoi,countNguoiLon);
+                if(countNguoiLon<5)
+                {
+                    countNguoiLon++;
+                    updateCount(tv_countNguoiLonKhuHoi,countNguoiLon);
+                }else {
+                    Toast.makeText(getContext(), "Số lượng hàng khách đã đạt tối đa", Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
         btn_plus2KhuHoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                countTreEm2_12Tuoi++;
-                updateCount(tv_count2NguoiLonKhuHoi,countTreEm2_12Tuoi);
+                if(countTreEm2_12Tuoi<4)
+                {
+                    countTreEm2_12Tuoi++;
+                    updateCount(tv_count2NguoiLonKhuHoi,countTreEm2_12Tuoi);
+                }else {
+                    Toast.makeText(getContext(), "Số lượng hàng khách đã đạt tối đa", Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
         btn_plus3KhuHoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                countTreEmDuoi2tuoi++;
-                updateCount(tv_count3NguoiLonKhuHoi,countTreEmDuoi2tuoi);
+                if(countTreEmDuoi2tuoi<4){
+                    countTreEmDuoi2tuoi++;
+                    updateCount(tv_count3NguoiLonKhuHoi,countTreEmDuoi2tuoi);
+                }else {
+                    Toast.makeText(getContext(), "Số lượng hàng khách đã đạt tối đa", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

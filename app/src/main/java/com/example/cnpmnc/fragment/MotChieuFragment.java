@@ -222,7 +222,7 @@ public class MotChieuFragment extends Fragment {
         btn_minus1MotChieu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(countNguoiLon>0)
+                if(countNguoiLon>1)
                 {
                     countNguoiLon--;
                     updateCount(tv_countNguoiLon,countNguoiLon);
@@ -233,7 +233,7 @@ public class MotChieuFragment extends Fragment {
         btn_minus2MotChieu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(countTreEm2_12Tuoi>0)
+                if(countTreEm2_12Tuoi>1)
                 {
                     countTreEm2_12Tuoi--;
                     updateCount(tv_countTreEm2_12T,countTreEm2_12Tuoi);
@@ -244,7 +244,7 @@ public class MotChieuFragment extends Fragment {
         btn_minus3MotChieu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(countTreEmDuoi2tuoi>0)
+                if(countTreEmDuoi2tuoi>1)
                 {
                     countTreEmDuoi2tuoi--;
                     updateCount(tv_countTreEm2T,countTreEmDuoi2tuoi);
@@ -255,13 +255,15 @@ public class MotChieuFragment extends Fragment {
         btn_plus1MotChieu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (countNguoiLon<5)
-                {
-                    countNguoiLon++;
+//                if (countNguoiLon<5)
+//                {
+//                    countNguoiLon++;
+//                    updateCount(tv_countNguoiLon,countNguoiLon);
+//                }else {
+//                    Toast.makeText(getContext(), "Số lượng hàng khách đã đạt tối đa", Toast.LENGTH_SHORT).show();
+//                }
+                countNguoiLon++;
                     updateCount(tv_countNguoiLon,countNguoiLon);
-                }else {
-                    Toast.makeText(getContext(), "Số lượng hàng khách đã đạt tối đa", Toast.LENGTH_SHORT).show();
-                }
             }
         });
         btn_plus2MotChieu.setOnClickListener(new View.OnClickListener() {

@@ -16,6 +16,7 @@
     import com.google.firebase.auth.FirebaseAuth;
     import com.google.firebase.firestore.CollectionReference;
     import com.google.firebase.firestore.FirebaseFirestore;
+    import com.google.firebase.firestore.Query;
     import com.google.firebase.firestore.QueryDocumentSnapshot;
     import com.google.firebase.firestore.QuerySnapshot;
 
@@ -45,7 +46,8 @@
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
             CollectionReference yeuThichCollection = db.collection("favorites");
-            yeuThichCollection.get().addOnCompleteListener(task -> {
+            Query query=yeuThichCollection.whereEqualTo("userID",userID);
+            query.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     danhSachYeuThich.clear();
                     for (QueryDocumentSnapshot document : task.getResult()) {
