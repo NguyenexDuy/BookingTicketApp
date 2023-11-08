@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:id="@+id/tv_hangKhach"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hàng khách:"
+            android:textStyle="bold">
+        </TextView>
+
+        <TextView
+            android:id="@+id/tv_loaiHangKhach"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Người lớn"
+            android:layout_marginLeft="5dp">
+        </TextView>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="90dp">
+
+            <TextView
+                android:id="@+id/tv_dienThongTin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Điền thông tin"
+                android:textColor="@color/textColor"></TextView>
+
+            <ImageView
+                android:id="@+id/iconabc"
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_dienthongtin"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_tenHangKhach"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Người lớn"
+        android:visibility="visible"
+        >
+    </TextView>
+
+</LinearLayout>

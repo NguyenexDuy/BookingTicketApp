@@ -11,17 +11,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.adapter.ChuyenBayAdapter;
-import com.example.cnpmnc.model.ChuyenVeTest;
+import com.example.cnpmnc.model.ChuyenBay;
+import com.example.cnpmnc.model.DiaDiem;
+import com.example.cnpmnc.model.Firebase;
+
+import org.checkerframework.checker.units.qual.C;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link LoaiVePhoThongFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class LoaiVePhoThongFragment extends Fragment {
@@ -34,6 +37,15 @@ public class LoaiVePhoThongFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        // Reset giá trị của ngày đi và ngày về khi Fragment bị destroy
+        DiaDiem.getInstance().setNgayDi(null);
+        DiaDiem.getInstance().setNgayVe(null);
+    }
 
     public LoaiVePhoThongFragment() {
         // Required empty public constructor
@@ -51,15 +63,10 @@ public class LoaiVePhoThongFragment extends Fragment {
 
     private RecyclerView rvVePhoThong;
     private ChuyenBayAdapter chuyenBayAdapter;
-    private List<ChuyenVeTest> chuyenVeTests;
-    public static LoaiVePhoThongFragment newInstance(String param1, String param2) {
-        LoaiVePhoThongFragment fragment = new LoaiVePhoThongFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+
+    private String diemDi;
+    private String diemDen;
+    private String NgayDi,NgayVe;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,29 +76,58 @@ public class LoaiVePhoThongFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    private Firebase mfirebase;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_loai_ve_pho_thong, container, false);
+        View view = inflater.inflate(R.layout.fragment_loai_ve_pho_thong, container, false);
+        Anhxa( view);
+        diemDi = DiaDiem.getInstance().getDiemDi();
+        diemDen = DiaDiem.getInstance().getDiemDen();
+        NgayDi = DiaDiem.getInstance().getNgayDi();
+        NgayVe=DiaDiem.getInstance().getNgayVe();
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        rvVePhoThong.setLayoutManager(layoutManager);
+
+
+
+
+            if(NgayVe!=null)
+            {
+                mfirebase.getAllFlighttoCompareKhuHoi(diemDi, diemDen, NgayDi, NgayVe, new Firebase.FirebaseCallback<ChuyenBay>() {
+                    @Override
+                    public void onCallback(ArrayList<ChuyenBay> list) {
+                        chuyenBayAdapter = new ChuyenBayAdapter(list, getContext());
+                        rvVePhoThong.setAdapter(chuyenBayAdapter);
+                    }
+                });
+            }else {
+                mfirebase.getAllFlighttoCompare(diemDi, diemDen, NgayDi, new Firebase.FirebaseCallback<ChuyenBay>() {
+                    @Override
+                    public void onCallback(ArrayList<ChuyenBay> list) {
+                        chuyenBayAdapter = new ChuyenBayAdapter(list, getContext());
+                        rvVePhoThong.setAdapter(chuyenBayAdapter);
+                    }
+                });
+
+            }
+
+
+        return view;
+    }
+
+    private void Anhxa(View view) {
+        mfirebase = new Firebase(getContext());
+        rvVePhoThong = view.findViewById(R.id.rvVePhoThong);
+
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        rvVePhoThong = view.findViewById(R.id.rvVePhoThong);
-        rvVePhoThong.setLayoutManager(new LinearLayoutManager(getActivity()));
+    }
 
-        chuyenVeTests = initData(); // Khởi tạo dữ liệu
-        chuyenBayAdapter = new ChuyenBayAdapter(chuyenVeTests);
-        rvVePhoThong.setAdapter(chuyenBayAdapter);
-    }
-    private List<ChuyenVeTest> initData() {
-        List<ChuyenVeTest> data = new ArrayList<>();
-        data.add(new ChuyenVeTest("BOEING1307", "13/10/2023", "15/10/2023", "00:20", "14:00", "HAN", "MSP", "22.748.000 VND"));
-        data.add(new ChuyenVeTest("BOEING2307", "13/10/2023", "15/10/2023", "00:20", "14:00", "HAN", "MSP", "22.748.000 VND"));
-        return data;
-    }
+
 }

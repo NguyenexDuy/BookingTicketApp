@@ -3,10 +3,15 @@ package com.example.cnpmnc.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.adapter.TabLayoutAdapter;
+import com.example.cnpmnc.fragment.LoaiVePhoThongFragment;
+import com.example.cnpmnc.model.ChuyenBay;
+import com.example.cnpmnc.model.DiaDiem;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -14,6 +19,7 @@ public class ChonChuyenBayActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
     private TabLayoutAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,5 +45,6 @@ public class ChonChuyenBayActivity extends AppCompatActivity {
                     tab.setText(position + 1);
             }
         }).attach();
+
     }
 }
