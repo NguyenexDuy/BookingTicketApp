@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 
 import com.example.cnpmnc.R;
-import com.example.cnpmnc.adapter.TimKiemDiemDenAdapter;
 import com.example.cnpmnc.adapter.TimKiemDiemDiAdapter;
 import com.example.cnpmnc.model.ChuyenBay;
 import com.example.cnpmnc.model.Firebase;
@@ -23,15 +22,21 @@ public class TimKiemActivity extends AppCompatActivity {
     private ArrayList<SanBay> sanBaysList;
     private  SearchView searchView;
     private TimKiemDiemDiAdapter timKiemFlightAdapter;
-    private TimKiemDiemDenAdapter timKiemDiemDenAdapter;
     private Firebase firebase;
+    private ChuyenBay chuyenBay;
+    private String key;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tim_kiem);
         Anhxa();
-        String key = getIntent().getStringExtra("Timkiem");
-        check(key);
+        key = getIntent().getStringExtra("Timkiem");
+        if (key.equals("diemdi")){
+            checkdiemdi();
+        }else {
+
+        }
+        checkdiemdi();
         searchView.requestFocus();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -42,31 +47,40 @@ public class TimKiemActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 ArrayList<SanBay> filteredList = filter(sanBaysList, newText);
                 timKiemFlightAdapter.setData(filteredList);
-                timKiemDiemDenAdapter.setData(filteredList);
-                timKiemDiemDenAdapter.notifyDataSetChanged();
                 timKiemFlightAdapter.notifyDataSetChanged();
+
                 return true;
             }
         });
     }
-
-
-
     private void Anhxa() {
         firebase = new Firebase(TimKiemActivity.this);
         rcv_nameitemFlight=findViewById(R.id.rcv_nameitemFlight);
         rcv_nameitemFlight.setLayoutManager(new LinearLayoutManager(this));
         searchView = findViewById(R.id.searchView);
     }
-    private  void check(String key){
-        firebase.getAllSanBay(new Firebase.FirebaseCallback<SanBay>() {
-            @Override
-            public void onCallback(ArrayList<SanBay> list) {
-                sanBaysList = list;
-                timKiemFlightAdapter=new TimKiemDiemDiAdapter(TimKiemActivity.this,sanBaysList, key);
-                rcv_nameitemFlight.setAdapter(timKiemFlightAdapter);
-            }
-        });
+    private  void checkdiemdi(){
+        if (getIntent().getSerializableExtra("Chuyenbay") != null){
+            chuyenBay = (ChuyenBay) getIntent().getSerializableExtra("Chuyenbay");
+            firebase.getAllSanBay(new Firebase.FirebaseCallback<SanBay>() {
+                @Override
+                public void onCallback(ArrayList<SanBay> list) {
+                    sanBaysList = list;
+                    timKiemFlightAdapter=new TimKiemDiemDiAdapter(TimKiemActivity.this,sanBaysList,chuyenBay);
+                    rcv_nameitemFlight.setAdapter(timKiemFlightAdapter);
+                }
+            });
+        }else {
+            firebase.getAllSanBay(new Firebase.FirebaseCallback<SanBay>() {
+                @Override
+                public void onCallback(ArrayList<SanBay> list) {
+                    sanBaysList = list;
+                    timKiemFlightAdapter=new TimKiemDiemDiAdapter(TimKiemActivity.this,sanBaysList);
+                    rcv_nameitemFlight.setAdapter(timKiemFlightAdapter);
+                }
+            });
+        }
+
     }
     private ArrayList<SanBay> filter(List<SanBay> sanBays, String query) {
         query = query.toLowerCase().trim();

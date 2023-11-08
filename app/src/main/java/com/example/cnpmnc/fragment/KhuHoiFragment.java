@@ -1,10 +1,6 @@
 package com.example.cnpmnc.fragment;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,18 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cnpmnc.R;
-import com.example.cnpmnc.activity.ChonChuyenBayActivity;
-import com.example.cnpmnc.activity.DangNhapActivity;
 import com.example.cnpmnc.model.ChuyenBay;
-import com.example.cnpmnc.model.DiaDiem;
 import com.example.cnpmnc.model.Firebase;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -90,25 +80,23 @@ public class KhuHoiFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-    TextView tv_idsanbaydiemden, tv_tensanbaydiemden, tv_idsanbaydiemdi, tv_tensanbaydiemdi,tv_CalendarNgayVeKhuHoi,tv_CalendarNgayDiKhuHoi,tv_countNguoiLonKhuHoi,tv_count2NguoiLonKhuHoi,tv_count3NguoiLonKhuHoi;
-    ImageButton btn_minus1KhuHoi,btn_plus1KhuHoi,btn_minus2KhuHoi,btn_plus2KhuHoi,btn_minus3KhuHoi,btn_plus3KhuHoi;
+    TextView tv_idsanbaydiemden, tv_tensanbaydiemden, tv_idsanbaydiemdi, tv_tensanbaydiemdi,tv_CalendarNgayVeKhuHoi,tv_CalendarNgayDiKhuHoi;
     Firebase firebase;
+
     Button btnTimKiemKhuHoi;
     int countNguoiLon=1;
     int countTreEm2_12Tuoi=1;
     int countTreEmDuoi2tuoi=1;
+
     private String NgayVe;
     private String currentDate;
     private LocalDate curdate;
-    FirebaseUser firebaseUser;
-    private static final int LOGIN_REQUEST_CODE = 123;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_khu_hoi, container, false);
         Anhxa(view);
-        Action();
         setdata();
         return view;
     }
@@ -116,8 +104,6 @@ public class KhuHoiFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
         tv_CalendarNgayVeKhuHoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,69 +116,8 @@ public class KhuHoiFragment extends Fragment {
                 showCalendarNgayVe(tv_CalendarNgayDiKhuHoi);
             }
         });
-        btnTimKiemKhuHoi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
-                if(firebaseUser!=null)
-                {
-                    ThucHienHanhDong();
-                    Toast.makeText(getContext(), "Co user", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(getContext(), "ko co user", Toast.LENGTH_SHORT).show();
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-
-                    builder.setTitle("Xác nhận");
-                    builder.setMessage("Quý khách cần phải đăng nhập để thực hiện đặt chuyến bay?");
-
-
-                    builder.setPositiveButton("Đăng nhập", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent=new Intent(getContext(), DangNhapActivity.class);
-                            startActivityForResult(intent, LOGIN_REQUEST_CODE);
-                        }
-                    });
-
-                    builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // Thực hiện hành động khi người dùng chọn "Không" ở đây
-                            dialog.dismiss(); // Dismiss dialog khi chọn "Không"
-                        }
-                    });
-
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-
-                }
-
-
-            }
-        });
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == LOGIN_REQUEST_CODE) {
-            if (resultCode == Activity.RESULT_OK) {
-                ThucHienHanhDong();
-            } else {
-                Toast.makeText(getContext(), "Khong thanh cong", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-    private void ThucHienHanhDong()
-    {
-        DiaDiem.getInstance().setDiemDi(tv_tensanbaydiemdi.getText().toString());
-        DiaDiem.getInstance().setDiemDen(tv_tensanbaydiemden.getText().toString());
-        DiaDiem.getInstance().setNgayDi(tv_CalendarNgayDiKhuHoi.getText().toString());
-        DiaDiem.getInstance().setNgayVe(tv_CalendarNgayVeKhuHoi.getText().toString());
-        Toast.makeText(getContext(), DiaDiem.getInstance().getNgayVe(), Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(getContext(), ChonChuyenBayActivity.class);
-        getContext().startActivity(intent);
-    }
     private void showCalendarNgayVe(TextView textView) {
         final Calendar c = Calendar.getInstance();
         long currentDateInMillis = c.getTimeInMillis();
@@ -215,22 +140,40 @@ public class KhuHoiFragment extends Fragment {
         rentDatePickerDialog.getDatePicker().setMinDate(currentDateInMillis);
         rentDatePickerDialog.show();
     }
+
+    private void setdata(){
+        if (chuyenBay != null){
+            tv_idsanbaydiemdi.setText(chuyenBay.getDiemDi());
+            firebase.getTenSanBayBySanBayId(chuyenBay.getDiemDi(), new Firebase.getTenSanBayBySanBayIdCallback() {
+                @Override
+                public void onCallback(String tensanbay) {
+                    tv_tensanbaydiemdi.setText(tensanbay);
+                }
+            });
+            tv_idsanbaydiemden.setText(chuyenBay.getDiemDen());
+            firebase.getTenSanBayBySanBayId(chuyenBay.getDiemDen(), new Firebase.getTenSanBayBySanBayIdCallback() {
+                @Override
+                public void onCallback(String tensanbay) {
+                    tv_tensanbaydiemden.setText(tensanbay);
+                }
+            });
+        }
+        else if (DiemDi != null){
+            tv_idsanbaydiemdi.setText(DiemDi);
+            firebase.getTenSanBayBySanBayId(DiemDi, new Firebase.getTenSanBayBySanBayIdCallback() {
+                @Override
+                public void onCallback(String tensanbay) {
+                    tv_tensanbaydiemdi.setText(tensanbay);
+                }
+            });
+        }
+    }
     private void Anhxa(View view){
         firebase = new Firebase(getContext());
-        btnTimKiemKhuHoi=view.findViewById(R.id.btnTimKiemKhuHoi);
-        btn_minus1KhuHoi=view.findViewById(R.id.btn_minusKhuHoi);
-        btn_minus2KhuHoi=view.findViewById(R.id.btn_minus2KhuHoi);
-        btn_minus3KhuHoi=view.findViewById(R.id.btn_minus3KhuHoi);
-        btn_plus1KhuHoi=view.findViewById(R.id.btn_plusKhuHoi);
-        btn_plus2KhuHoi=view.findViewById(R.id.btn_plus2KhuHoi);
-        btn_plus3KhuHoi=view.findViewById(R.id.btn_plus3KhuHoi);
-        tv_countNguoiLonKhuHoi=view.findViewById(R.id.tv_countNguoiLonKhuHoi);
-        tv_count2NguoiLonKhuHoi=view.findViewById(R.id.tv_countTreEm2_12KhuHoi);
-        tv_count3NguoiLonKhuHoi=view.findViewById(R.id.tv_count3TreEm2TKhuHoi);
         tv_CalendarNgayVeKhuHoi=view.findViewById(R.id.tv_CalendarNgayVeKhuHoi);
         tv_CalendarNgayDiKhuHoi=view.findViewById(R.id.tv_CalendarNgayDiKhuHoi);
-        tv_idsanbaydiemdi = view.findViewById(R.id.tv_idsanbaydiemdi);
-        tv_tensanbaydiemdi = view.findViewById(R.id.tv_tensanbaydiemdi);
+        tv_idsanbaydiemdi = view.findViewById(R.id.tv_idsanbaydiemdiKhuHoi);
+        tv_tensanbaydiemdi = view.findViewById(R.id.tv_tensanbaydiemdiKhuHoi);
         tv_idsanbaydiemden = view.findViewById(R.id.tv_idsanbaydiemden);
         tv_tensanbaydiemden = view.findViewById(R.id.tv_tensanbaydiemden);
         currentDate = new SimpleDateFormat("dd-MM-YYYY", Locale.getDefault()).format(new Date());
@@ -239,6 +182,7 @@ public class KhuHoiFragment extends Fragment {
         tv_CalendarNgayVeKhuHoi.setText(currentDate);
         tv_CalendarNgayDiKhuHoi.setText(currentDate);
     }
+<<<<<<< HEAD
     private void setdata(){
         if (chuyenBay != null){
 
@@ -355,4 +299,6 @@ public class KhuHoiFragment extends Fragment {
     private void updateCount(TextView text,int count) {
         text.setText(String.format("%02d", count));
     }
+=======
+>>>>>>> parent of 12bff98 (Merge branch 'main' of https://github.com/racingboy2/BookingTicketApp)
 }

@@ -28,10 +28,17 @@
         app:tabSelectedTextColor="@color/orange" />
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
-        android:layout_marginTop="30dp"
-        android:layout_width="wrap_content"
-        android:layout_height="500dp"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
         android:contentDescription="@string/app_name" />
-
-
+    <Button
+        android:id="@+id/btnTimKiem"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:text="Tìm kiếm chuyến bay"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:backgroundTint="@color/textColor"
+        android:layout_marginHorizontal="10dp"/>
 </LinearLayout>

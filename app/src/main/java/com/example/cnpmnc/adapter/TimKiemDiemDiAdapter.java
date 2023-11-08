@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.activity.HomePageActivity;
 import com.example.cnpmnc.model.ChuyenBay;
-import com.example.cnpmnc.model.DiaDiem;
 import com.example.cnpmnc.model.SanBay;
 
 import java.util.ArrayList;
@@ -27,34 +26,38 @@ public class TimKiemDiemDiAdapter extends RecyclerView.Adapter<TimKiemDiemDiAdap
     private Context mcontext;
     private ArrayList<SanBay> msanBays;
     private ChuyenBay chuyenBay;
-    private String key;
-    public TimKiemDiemDiAdapter(Context context, ArrayList<SanBay> sanBays, String key) {
+    public TimKiemDiemDiAdapter(Context context, ArrayList<SanBay> sanBays) {
         this.mcontext = context;
         this.msanBays = sanBays;
-        this.key = key;
+    }
+    public TimKiemDiemDiAdapter(Context context, ArrayList<SanBay> sanBays, ChuyenBay chuyenbay) {
+        this.mcontext = context;
+        this.msanBays = sanBays;
+        this.chuyenBay = chuyenbay;
     }
 
     @NonNull
     @Override
     public TimKiemDiemDiAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_muctimkiem   , parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_muctimkiem, parent, false);
         return new TimKiemDiemDiAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull TimKiemDiemDiAdapter.ViewHolder holder, int position) {
-        SanBay sanBay=  msanBays.get(position);
+        SanBay sanBay= msanBays.get(position);
         holder.tv_SanBay1.setText(sanBay.getTenSanBay());
         holder.tv_SanBay1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (key.equals("diemdi")){
+                if (chuyenBay!= null){
+                    chuyenBay.setDiemDi(sanBay.getIdSanBay());
                     Intent i = new Intent(mcontext, HomePageActivity.class);
-                    DiaDiem.getInstance().setDiemDi(sanBay.getIdSanBay());
+                    i.putExtra("Chuyenbay", chuyenBay);
                     mcontext.startActivity(i);
-                }else if (key.equals("diemden")){
+                }else {
                     Intent i = new Intent(mcontext, HomePageActivity.class);
-                    DiaDiem.getInstance().setDiemDen(sanBay.getIdSanBay());
+                    i.putExtra("DiemDi", sanBay.getIdSanBay());
                     mcontext.startActivity(i);
                 }
             }
@@ -62,32 +65,32 @@ public class TimKiemDiemDiAdapter extends RecyclerView.Adapter<TimKiemDiemDiAdap
     }
     @Override
     public Filter getFilter() {
-            return new Filter() {
-                @Override
-                protected FilterResults performFiltering(CharSequence charSequence) {
-                    String searchText = charSequence.toString().toLowerCase();
-                    List<SanBay> filteredList = new ArrayList<>();
-                    if (searchText.isEmpty()) {
-                        filteredList.addAll(msanBays);
-                    } else {
-                        for (SanBay sanBay : msanBays) {
-                            if (sanBay.getTenSanBay().toLowerCase().contains(searchText)) {
-                                filteredList.add(sanBay);
-                            }
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String searchText = charSequence.toString().toLowerCase();
+                List<SanBay> filteredList = new ArrayList<>();
+                if (searchText.isEmpty()) {
+                    filteredList.addAll(msanBays);
+                } else {
+                    for (SanBay sanBay : msanBays) {
+                        if (sanBay.getTenSanBay().toLowerCase().contains(searchText)) {
+                            filteredList.add(sanBay);
                         }
                     }
-                    FilterResults filterResults = new FilterResults();
-                    filterResults.values = filteredList;
-                    return filterResults;
                 }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = filteredList;
+                return filterResults;
+            }
 
-                @Override
-                protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                    msanBays.clear();
-                    msanBays.addAll((List<SanBay>) filterResults.values);
-                    notifyDataSetChanged();
-                }
-            };
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                msanBays.clear();
+                msanBays.addAll((List<SanBay>) filterResults.values);
+                notifyDataSetChanged();
+            }
+        };
     }
     public void setData(ArrayList<SanBay> filteredList) {
         this.msanBays = filteredList;

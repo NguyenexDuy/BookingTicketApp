@@ -15,12 +15,18 @@ import com.example.cnpmnc.model.ChuyenBay;
 
 public class VPBookingAdapter extends FragmentStatePagerAdapter {
     private ChuyenBay chuyenBay;
+    private String DiemDi,DiemDen;
     public VPBookingAdapter(@NonNull FragmentManager fm, int behavior, ChuyenBay chuyenBay) {
         super(fm, behavior);
         this.chuyenBay = chuyenBay;
     }
     public VPBookingAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
+    }
+    public VPBookingAdapter(@NonNull FragmentManager fm, int behavior, String diemdi, String diemden) {
+        super(fm, behavior);
+        this.DiemDi = diemdi;
+        this.DiemDen = diemden;
     }
     @NonNull
     @Override
@@ -31,6 +37,17 @@ public class VPBookingAdapter extends FragmentStatePagerAdapter {
                     return new KhuHoiFragment(chuyenBay);
                 case 1:
                     return new MotChieuFragment(chuyenBay);
+                case 2:
+                    return new NhieuChangFragment();
+                default:
+                    return new MotChieuFragment();
+            }
+        }else  if (DiemDi != null){
+            switch (position) {
+                case 0:
+                    return new KhuHoiFragment(DiemDi, null);
+                case 1:
+                    return new MotChieuFragment(DiemDi, null);
                 case 2:
                     return new NhieuChangFragment();
                 default:

@@ -1,6 +1,5 @@
 package com.example.cnpmnc.activity;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -67,13 +66,9 @@ public class DangNhapActivity extends AppCompatActivity {
                                     progressDialog.dismiss();
                                     if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
-//                                        Intent intent = new Intent(DangNhapActivity.this, HomePageActivity.class);
-
-                                        Toast.makeText(DangNhapActivity.this, "dangnhapthanhcong", Toast.LENGTH_SHORT).show();
-
-                                        Intent intent = new Intent();
-                                        setResult(Activity.RESULT_OK, intent);
-                                        finish();
+                                        Intent intent = new Intent(DangNhapActivity.this, HomePageActivity.class);
+                                        startActivity(intent);
+                                        finishAffinity();
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Toast.makeText(DangNhapActivity.this, "Đăng nhập thất bại.",

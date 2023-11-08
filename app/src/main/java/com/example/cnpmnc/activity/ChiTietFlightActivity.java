@@ -1,49 +1,39 @@
 package com.example.cnpmnc.activity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.fragment.MotChieuFragment;
 import com.example.cnpmnc.model.ChuyenBay;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.w3c.dom.Text;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class ChiTietFlightActivity extends AppCompatActivity {
 
-    private ImageView img_chiTietFight,imgcc;
+    private ImageView img_chiTietFight;
     private ChuyenBay chuyenBay;
     private FirebaseFirestore db;
     private Button btn_datve;
+<<<<<<< HEAD
     private CheckBox tymButton;
     private boolean isFavorite = false;
     private static final String PREFS_NAME = "MyPrefs";
     private static final String IS_YEU_THICH = "isYeuThich_";
     private static final String CHECKBOX_BACKGROUND = "checkBoxBackground_";
+=======
+>>>>>>> parent of 12bff98 (Merge branch 'main' of https://github.com/racingboy2/BookingTicketApp)
     TextView tv_chiTietDiemDi,tv_MoTaChiTietFight,tv_DiemDapChiTiet;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +61,7 @@ public class ChiTietFlightActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+<<<<<<< HEAD
 
         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         boolean isYeuThich = sharedPreferences.getBoolean(IS_YEU_THICH + chuyenBay.getIdChuyenBay(), false);
@@ -92,6 +83,8 @@ public class ChiTietFlightActivity extends AppCompatActivity {
 
             }
         });
+=======
+>>>>>>> parent of 12bff98 (Merge branch 'main' of https://github.com/racingboy2/BookingTicketApp)
     }
 
     private void Anhxa() {
@@ -100,8 +93,8 @@ public class ChiTietFlightActivity extends AppCompatActivity {
         tv_chiTietDiemDi=findViewById(R.id.tv_chiTietDiemDi);
         tv_MoTaChiTietFight=findViewById(R.id.tv_MoTaChiTietFight);
         tv_DiemDapChiTiet=findViewById(R.id.tv_DiemDapChiTiet);
-        tymButton = findViewById(R.id.TymButton);
     }
+<<<<<<< HEAD
     private void kiemTraTrangThaiYeuThich() {
 //         Kiểm tra xem chuyến bay đã trong danh sách yêu thích hay không và cập nhật nút "tym" tương ứng.
         if (chuyenBay.isYeuThich()==true) {
@@ -214,4 +207,6 @@ public class ChiTietFlightActivity extends AppCompatActivity {
                 });
     }
 
+=======
+>>>>>>> parent of 12bff98 (Merge branch 'main' of https://github.com/racingboy2/BookingTicketApp)
 }

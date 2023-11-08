@@ -23,19 +23,6 @@
                     android:src="@drawable/ur2mrg23d91mex03l4mw"
                     android:scaleType="center"
                     />
-
-
-                <CheckBox
-                    android:id="@+id/TymButton"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_marginTop="170dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@drawable/baseline_favorite_border_24"
-                    android:checked="false"
-                    android:button="@null"
-                    android:layout_alignParentEnd="true">
-                </CheckBox>
                 <ImageView
                     android:id="@+id/back"
                     android:layout_width="42dp"
@@ -72,7 +59,7 @@
                             android:id="@+id/tv_chiTietDiemDi"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Đà lạtttt"
+                            android:text="Đà lạt"
                             android:textColor="@color/black"/>
                     </LinearLayout>
                     <LinearLayout

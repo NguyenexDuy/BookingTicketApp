@@ -24,62 +24,63 @@
         android:layout_marginTop="20dp"
         android:textColor="@color/green"
         android:visibility="gone">
-   </TextView>-->
-<!--    <EditText-->
-<!--        android:id="@+id/edtHoTen"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:hint="Họ tên"-->
-<!--        android:inputType="text"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:padding="10dp"-->
-<!--        android:layout_marginTop="50dp"-->
-<!--        android:layout_marginLeft="30dp"-->
-<!--        android:layout_marginRight="30dp"/>-->
-<!--    <EditText-->
-<!--        android:id="@+id/edtNgaySinh"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:hint="Ngày sinh"-->
-<!--        android:inputType="datetime"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:padding="10dp"-->
-<!--        android:layout_marginTop="15dp"-->
-<!--        android:layout_marginLeft="30dp"-->
-<!--        android:layout_marginRight="30dp"/>-->
-<!--    <EditText-->
-<!--        android:id="@+id/edtGioiTinh"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:hint="Giới tính"-->
-<!--        android:inputType="text"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:padding="10dp"-->
-<!--        android:layout_marginTop="15dp"-->
-<!--        android:layout_marginLeft="30dp"-->
-<!--        android:layout_marginRight="30dp"/>-->
-<!--    <EditText-->
-<!--        android:id="@+id/edtSDT"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:hint="Số điện thoại"-->
-<!--        android:inputType="phone"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:padding="10dp"-->
-<!--        android:layout_marginTop="15dp"-->
-<!--        android:layout_marginLeft="30dp"-->
-<!--        android:layout_marginRight="30dp"/>-->
-<!--    <EditText-->
-<!--        android:id="@+id/edtQuocTich"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:hint="Quốc tịch"-->
-<!--        android:inputType="text"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:padding="10dp"-->
-<!--        android:layout_marginTop="15dp"-->
-<!--        android:layout_marginLeft="30dp"-->
-<!--        android:layout_marginRight="30dp"/>-->
+
+    </TextView>
+    <EditText
+        android:id="@+id/edtHoTen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Họ tên"
+        android:inputType="text"
+        android:textColor="@color/black"
+        android:padding="10dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"/>
+    <EditText
+        android:id="@+id/edtNgaySinh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ngày sinh"
+        android:inputType="datetime"
+        android:textColor="@color/black"
+        android:padding="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"/>
+    <EditText
+        android:id="@+id/edtGioiTinh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Giới tính"
+        android:inputType="text"
+        android:textColor="@color/black"
+        android:padding="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"/>
+    <EditText
+        android:id="@+id/edtSDT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Số điện thoại"
+        android:inputType="phone"
+        android:textColor="@color/black"
+        android:padding="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"/>
+    <EditText
+        android:id="@+id/edtQuocTich"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Quốc tịch"
+        android:inputType="text"
+        android:textColor="@color/black"
+        android:padding="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"/>
     <EditText
         android:id="@+id/edtEmailDangKy"
         android:layout_width="match_parent"
