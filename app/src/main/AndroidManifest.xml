@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Cnpmnc"
         tools:targetApi="31">
         <activity
+            android:name=".activity.TesstTingActivity"
+            android:exported="true" />
+        <activity
             android:name=".activity.DanhSachChuyenBayDaThich"
             android:exported="false" />
         <activity
@@ -23,17 +26,13 @@
             android:exported="false" />
         <activity
             android:name=".activity.ChonChoNgoiActivity"
-
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".activity.TimKiemActivity"
             android:exported="false" />
         <activity
             android:name=".activity.SplashScreenActivity"
-            android:exported="true">
-
-
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".activity.ChiTietFlightActivity"
             android:exported="false" />
@@ -42,10 +41,10 @@
             android:exported="false" />
         <activity
             android:name=".activity.ThongTinKhachhangActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".activity.ChonChuyenBayActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".activity.HomePageActivity"
             android:exported="true">
@@ -55,7 +54,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.DangNhapActivity"
             android:exported="false" />
