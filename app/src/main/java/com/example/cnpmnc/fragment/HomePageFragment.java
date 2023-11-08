@@ -11,7 +11,9 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.adapter.Adapterviewpager;
@@ -75,6 +77,7 @@ public class HomePageFragment extends Fragment {
     private RcvCateFlightAdapter rcvCateFlightAdapter1,rcvCateFlightAdapter2, rcvCateFlightAdapter3;
     private ArrayList<ChuyenBay> flightlist1, flightlist2, flightlist3;
     private Firebase firebase;
+
     private ProgressBar progressBar;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -93,6 +96,7 @@ public class HomePageFragment extends Fragment {
         rcv_flightFromHN = (RecyclerView) view.findViewById(R.id.rcv_flightFromHN);
         rcv_flightFromDaNang = (RecyclerView) view.findViewById(R.id.rcv_flightFromDaNang);
         progressBar=(ProgressBar) view.findViewById(R.id.progressBarid);
+
     }
     private void setDataForRcv(){
         progressBar.setVisibility(View.VISIBLE);
@@ -102,7 +106,7 @@ public class HomePageFragment extends Fragment {
         rcv_flightFromTPHCM.setLayoutManager(layoutManager1);
         rcv_flightFromHN.setLayoutManager(layoutManager2);
         rcv_flightFromDaNang.setLayoutManager(layoutManager3);
-        firebase.getAllFlightByDiemDi("SGN", new Firebase.FirebaseCallback<ChuyenBay>() {
+        firebase.getAllFlightByDiemDi("Tp. Hồ Chí Minh", new Firebase.FirebaseCallback<ChuyenBay>() {
             @Override
             public void onCallback(ArrayList<ChuyenBay> list) {
                 flightlist1 = list;
@@ -111,7 +115,7 @@ public class HomePageFragment extends Fragment {
                 progressBar.setVisibility(View.GONE);
             }
         });
-        firebase.getAllFlightByDiemDi("HAN", new Firebase.FirebaseCallback<ChuyenBay>() {
+        firebase.getAllFlightByDiemDi("Hà Nội", new Firebase.FirebaseCallback<ChuyenBay>() {
             @Override
             public void onCallback(ArrayList<ChuyenBay> list2) {
                 flightlist2 = list2;
@@ -119,7 +123,7 @@ public class HomePageFragment extends Fragment {
                 rcv_flightFromHN.setAdapter(rcvCateFlightAdapter2);
             }
         });
-        firebase.getAllFlightByDiemDi("DAD", new Firebase.FirebaseCallback<ChuyenBay>() {
+        firebase.getAllFlightByDiemDi("Đà Nẵng", new Firebase.FirebaseCallback<ChuyenBay>() {
             @Override
             public void onCallback(ArrayList<ChuyenBay> list3) {
                 flightlist3 = list3;

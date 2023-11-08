@@ -13,12 +13,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cnpmnc.R;
-import com.example.cnpmnc.activity.ChonChuyenBayActivity;
+
 import com.example.cnpmnc.adapter.VPBookingAdapter;
 import com.example.cnpmnc.model.ChuyenBay;
+import com.example.cnpmnc.model.HoaDon;
 import com.google.android.material.tabs.TabLayout;
 
 /**
@@ -44,11 +47,6 @@ public class BookingFragment extends Fragment {
     public BookingFragment(ChuyenBay chuyenbay) {
         this.chuyenBay = chuyenbay;
     }
-    public BookingFragment(String diemdi, String diemden) {
-        this.DiemDi = diemdi;
-        this.DiemDen =diemden;
-    }
-
     // TODO: Rename and change types and number of parameters
     public static BookingFragment newInstance(String param1, String param2) {
         BookingFragment fragment = new BookingFragment();
@@ -69,7 +67,8 @@ public class BookingFragment extends Fragment {
     }
     private TabLayout mtabLayout;
     private ViewPager mviewPager;
-    private Button btnTimKiem;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -82,32 +81,26 @@ public class BookingFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         if (chuyenBay != null){
-            VPBookingAdapter viewPagerAdapter = new VPBookingAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, chuyenBay);
-            mviewPager.setAdapter(viewPagerAdapter);
-            mtabLayout.setupWithViewPager(mviewPager);
-        }else if (DiemDi != null){
-            VPBookingAdapter viewPagerAdapter = new VPBookingAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, DiemDi, null);
-            mviewPager.setAdapter(viewPagerAdapter);
+            VPBookingAdapter viewPagerAdapter1 = new VPBookingAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT, chuyenBay);
+            mviewPager.setAdapter(viewPagerAdapter1);
             mtabLayout.setupWithViewPager(mviewPager);
         }
         else {
-            VPBookingAdapter viewPagerAdapter = new VPBookingAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-            mviewPager.setAdapter(viewPagerAdapter);
+            VPBookingAdapter viewPagerAdapter2 = new VPBookingAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+            mviewPager.setAdapter(viewPagerAdapter2);
             mtabLayout.setupWithViewPager(mviewPager);
         }
-        btnTimKiem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(getContext(), ChonChuyenBayActivity.class);
-                startActivity(intent);
-            }
-        });
+
+
     }
+
+
 
     private void Anhxa(View view) {
         mtabLayout = view.findViewById(R.id.tab_layout);
         mviewPager = view.findViewById(R.id.view_pager);
-        btnTimKiem=view.findViewById(R.id.btnTimKiem);
+
     }
 }

@@ -21,6 +21,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 //file cua anh Nhan,Duy dung vo chem/ ak.
 public class Firebase {
@@ -36,6 +38,7 @@ public class Firebase {
         mfirebaseAuth = FirebaseAuth.getInstance();
         mfirebaseStorage = FirebaseStorage.getInstance();
         mstorageRef = mfirebaseStorage.getReference();
+        mfirebaseUser=FirebaseAuth.getInstance().getCurrentUser();
         this.mcontext = context;
     }
 
@@ -45,6 +48,11 @@ public class Firebase {
     public interface getTenSanBayBySanBayIdCallback {
         void onCallback(String tensanbay);
     }
+    public interface getIdSanBayByTenSanBayCallback{
+        void onCallBack(String idSanBay);
+    }
+
+
     public void getAllFlightByDiemDi(String diemdi,FirebaseCallback<ChuyenBay> callback) {
         ArrayList<ChuyenBay> flightlist = new ArrayList<>();
         mfirestore.collection("ChuyenBay")
@@ -74,6 +82,10 @@ public class Firebase {
                 });
 
     }
+
+
+
+
     public void getTenSanBayBySanBayId(String sanBayId, getTenSanBayBySanBayIdCallback callback) {
         mfirestore.collection("SanBay")
                 .document(sanBayId)
@@ -89,6 +101,27 @@ public class Firebase {
                         }
                     } else {
                         Log.w(TAG, "Error getting document", task.getException());
+                    }
+                });
+    }
+    public void getIdSanBayByTenSanBay(String tenSanBay,getIdSanBayByTenSanBayCallback callback )
+    {
+        mfirestore.collection("SanBay")
+                .document(tenSanBay)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()){
+                        DocumentSnapshot documentSnapshot= task.getResult();
+                        if(documentSnapshot.exists())
+                        {
+                            String idSanBay=documentSnapshot.getId();
+                            callback.onCallBack(idSanBay);
+                        }else {
+                            Log.d(TAG,"No such document");
+                        }
+
+                    }else {
+                        Log.w(TAG,"Error getting document",task.getException());
                     }
                 });
     }
@@ -108,5 +141,69 @@ public class Firebase {
                         Log.w(TAG, "Error getting documents.", task.getException());
                     }
                 });
+    }
+    public void getAllFlighttoCompare(String diemDi, String diemDen,String NgayDi,FirebaseCallback<ChuyenBay> callback) {
+        ArrayList<ChuyenBay> flightlist = new ArrayList<>();
+        mfirestore.collection("ChuyenBay")
+                .whereEqualTo("DiemDi",diemDi)
+                .whereEqualTo("DiemDen",diemDen)
+                .whereEqualTo("NgayDi",NgayDi)
+                .whereEqualTo("NgayVe","")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            ChuyenBay chuyenBay = new ChuyenBay(document.getId(),
+                                    document.getString("DiemDen"),
+                                    document.getString("DiemDi"),
+                                    document.getString("GioBatDau"),
+                                    document.getString("HinhAnh"),
+                                    document.getString("NgayDi"),
+                                    document.getString("NgayVe"),
+                                    document.getString("SoLuongGheTrong"),
+                                    document.getString("SoLuongGheVipTrong"),
+                                    document.getString("TrangThai"),
+                                    document.getString("MoTa"),
+                                    document.getString("MoTaDiemDap"));
+                            flightlist.add(chuyenBay);
+                        }
+                        callback.onCallback(flightlist);
+                    } else {
+                        Log.w(TAG, "Error getting documents.", task.getException());
+                    }
+                });
+
+    }
+    public void getAllFlighttoCompareKhuHoi(String diemDi, String diemDen,String NgayDi,String NgayVe,FirebaseCallback<ChuyenBay> callback) {
+        ArrayList<ChuyenBay> flightlist = new ArrayList<>();
+        mfirestore.collection("ChuyenBay")
+                .whereEqualTo("DiemDi",diemDi)
+                .whereEqualTo("DiemDen",diemDen)
+                .whereEqualTo("NgayDi",NgayDi)
+                .whereEqualTo("NgayVe",NgayVe)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            ChuyenBay chuyenBay = new ChuyenBay(document.getId(),
+                                    document.getString("DiemDen"),
+                                    document.getString("DiemDi"),
+                                    document.getString("GioBatDau"),
+                                    document.getString("HinhAnh"),
+                                    document.getString("NgayDi"),
+                                    document.getString("NgayVe"),
+                                    document.getString("SoLuongGheTrong"),
+                                    document.getString("SoLuongGheVipTrong"),
+                                    document.getString("TrangThai"),
+                                    document.getString("MoTa"),
+                                    document.getString("MoTaDiemDap"));
+                            flightlist.add(chuyenBay);
+                        }
+                        callback.onCallback(flightlist);
+                    } else {
+                        Log.w(TAG, "Error getting documents.", task.getException());
+                    }
+                });
+
     }
 }

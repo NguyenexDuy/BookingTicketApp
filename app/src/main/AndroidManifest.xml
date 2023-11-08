@@ -13,6 +13,19 @@
         android:theme="@style/Theme.Cnpmnc"
         tools:targetApi="31">
         <activity
+            android:name=".activity.DanhSachChuyenBayDaThich"
+            android:exported="false" />
+        <activity
+            android:name=".activity.FormPersonActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.LichSuDatVeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ChonChoNgoiActivity"
+
+            android:exported="true"></activity>
+        <activity
             android:name=".activity.TimKiemActivity"
             android:exported="false" />
         <activity
@@ -21,9 +34,6 @@
 
 
         </activity>
-<!--        <activity-->
-<!--            android:name=".activity.CalendarActivity"-->
-<!--            android:exported="true"></activity>-->
         <activity
             android:name=".activity.ChiTietFlightActivity"
             android:exported="false" />
@@ -35,7 +45,7 @@
             android:exported="false" />
         <activity
             android:name=".activity.ChonChuyenBayActivity"
-            android:exported="false" />
+            android:exported="true"></activity>
         <activity
             android:name=".activity.HomePageActivity"
             android:exported="true">
@@ -45,14 +55,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activity.DangNhapActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".activity.DangKyActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"

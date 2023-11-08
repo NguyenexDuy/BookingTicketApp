@@ -27,7 +27,7 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
             <TextView
-                android:id="@+id/tv_idsanbaydiemdiMotChieu"
+                android:id="@+id/tv_idsanbaydiemdi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="SGN"
@@ -35,7 +35,7 @@
                 android:textSize="35sp" />
 
             <TextView
-                android:id="@+id/tv_tensanbaydiemdiMotChieu"
+                android:id="@+id/tv_tensanbaydiemdi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Tp Hồ Chí Minh, VN"
@@ -92,7 +92,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_idsanbaydiemdenMotChieu"
+                android:id="@+id/tv_idsanbaydiemden"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="SGN"
@@ -100,7 +100,7 @@
                 android:textSize="35sp" />
 
             <TextView
-                android:id="@+id/tv_tensanbaydiemdenMotChieu"
+                android:id="@+id/tv_tensanbaydiemden"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Tp Hồ Chí Minh, VN"
@@ -199,7 +199,7 @@
                 android:background="@color/primaryColor"
                 android:src="@drawable/button_minus" />
             <TextView
-                android:id="@+id/tv_count2NguoiLonMotChieu"
+                android:id="@+id/tv_countTreEm2_12TMotChieu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="19dp"
@@ -228,7 +228,7 @@
                 android:background="@color/primaryColor"
                 android:src="@drawable/button_minus" />
             <TextView
-                android:id="@+id/tv_count3NguoiLonMotChieu"
+                android:id="@+id/tv_countTrEm2TMotChieu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="19dp"
@@ -242,4 +242,14 @@
                 android:src="@drawable/button_plus" />
         </LinearLayout>
     </RelativeLayout>
+    <Button
+        android:id="@+id/btnTimKiemMotChieu"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:text="Tìm kiếm chuyến bay"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:backgroundTint="@color/textColor"
+        android:layout_marginHorizontal="10dp"/>
 </LinearLayout>
