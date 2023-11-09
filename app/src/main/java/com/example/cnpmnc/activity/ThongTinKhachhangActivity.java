@@ -38,9 +38,11 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
 
         soLuongHangKhach=numberNguoiLon+numberTreEm2Tuoi+numberTreEm2_12Tuoi;
         tv_SoLuongHangKhach.setText(String.valueOf(soLuongHangKhach));
+
         HangKhachAdapter hangKhach2_12TuoiAdapter=new HangKhachAdapter(numberTreEm2_12Tuoi, getListUser2_12Tuoi(),ThongTinKhachhangActivity.this);
         HangKhachAdapter hangKhach2Tuoi=new HangKhachAdapter(numberTreEm2Tuoi, getListUser2Tuoi(),ThongTinKhachhangActivity.this);
-        HangKhachAdapter hangKhachNguoiLonAdapter=new HangKhachAdapter(numberNguoiLon, getListUserNguioLon(),ThongTinKhachhangActivity.this);
+        HangKhachAdapter hangKhachNguoiLonAdapter=new HangKhachAdapter(numberNguoiLon, DiaDiem.getInstance().getHangKhachNguoiLonList(), ThongTinKhachhangActivity.this);
+
         rcvNguoiLon.setLayoutManager(new LinearLayoutManager(ThongTinKhachhangActivity.this));
         rcvNguoiLon.setAdapter(hangKhachNguoiLonAdapter);
         rcvTreEm2Tuoi.setLayoutManager(new LinearLayoutManager(ThongTinKhachhangActivity.this));
