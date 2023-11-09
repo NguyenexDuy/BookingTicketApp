@@ -1,4 +1,4 @@
-package com.example.cnpmnc.activity;
+package com.example.cnpmnc.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
