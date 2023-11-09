@@ -51,7 +51,7 @@ public class ChiTietFlightActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chi_tiet_flight);
 
         Anhxa();
-        chuyenBay=(ChuyenBay)getIntent().getSerializableExtra("ThongTinChuyenBay");
+            chuyenBay=(ChuyenBay)getIntent().getSerializableExtra("ThongTinChuyenBay");
 
         Glide.with(ChiTietFlightActivity.this).load(chuyenBay.getHinhAnh()).into(img_chiTietFight);
         db=FirebaseFirestore.getInstance();

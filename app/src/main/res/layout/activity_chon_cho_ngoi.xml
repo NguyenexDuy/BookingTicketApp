@@ -127,14 +127,12 @@
 
         </LinearLayout>
     </FrameLayout>
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+
     <LinearLayout
         android:paddingHorizontal="10dp"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
@@ -213,17 +211,28 @@
             </LinearLayout>
 
         </LinearLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-
-
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"/>
+        </ScrollView>
 
 
     </LinearLayout>
-</ScrollView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="80dp"
+        android:backgroundTint="@color/textColor"
+        android:text="Tiếp tục"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
 
 </LinearLayout>
 
