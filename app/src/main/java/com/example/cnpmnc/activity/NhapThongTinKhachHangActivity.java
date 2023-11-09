@@ -24,7 +24,7 @@ public class NhapThongTinKhachHangActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nhap_thong_tin_khach_hang);
         AnhXa();
-
+        int positon=getIntent().getIntExtra("position",0);
         btnHoanThanh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -33,6 +33,7 @@ public class NhapThongTinKhachHangActivity extends AppCompatActivity {
                 HangKhach hangKhach = new HangKhach("", hoTen, "");
                 intent.putExtra("tenHangKhach",hangKhach);
                 startActivity(intent);
+                finish();
             }
         });
 

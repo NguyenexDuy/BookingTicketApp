@@ -255,13 +255,13 @@ public class MotChieuFragment extends Fragment {
         btn_plus1MotChieu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if (countNguoiLon<5)
-//                {
-//                    countNguoiLon++;
-//                    updateCount(tv_countNguoiLon,countNguoiLon);
-//                }else {
-//                    Toast.makeText(getContext(), "Số lượng hàng khách đã đạt tối đa", Toast.LENGTH_SHORT).show();
-//                }
+                if (countNguoiLon<5)
+                {
+                    countNguoiLon++;
+                    updateCount(tv_countNguoiLon,countNguoiLon);
+                }else {
+                    Toast.makeText(getContext(), "Số lượng hàng khách đã đạt tối đa", Toast.LENGTH_SHORT).show();
+                }
                 countNguoiLon++;
                     updateCount(tv_countNguoiLon,countNguoiLon);
             }

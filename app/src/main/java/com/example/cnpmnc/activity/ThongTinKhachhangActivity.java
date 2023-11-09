@@ -33,27 +33,16 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thong_tin_khachhang);
         AnhXa();
-        String name="CON CAC";
-        if(getIntent().getSerializableExtra("tenHangKhach")!=null){
-            hangKhach=(HangKhach) getIntent().getSerializableExtra("tenHangKhach");
-            name=hangKhach.getHoTen();
-            HangKhachAdapter hangKhachNguoiLonAdapter=new HangKhachAdapter(numberNguoiLon, getListUserNguioLon(name),ThongTinKhachhangActivity.this);
-            rcvNguoiLon.setLayoutManager(new LinearLayoutManager(ThongTinKhachhangActivity.this));
-            rcvNguoiLon.setAdapter(hangKhachNguoiLonAdapter);
-            Toast.makeText(this, "co doi tuong hang khach"+hangKhach.getHoTen(), Toast.LENGTH_SHORT).show();
 
-        }
-        else {
-            HangKhachAdapter hangKhachNguoiLonAdapter=new HangKhachAdapter(numberNguoiLon, getListUserNguioLon(name),ThongTinKhachhangActivity.this);
-            rcvNguoiLon.setLayoutManager(new LinearLayoutManager(ThongTinKhachhangActivity.this));
-            rcvNguoiLon.setAdapter(hangKhachNguoiLonAdapter);
-            Toast.makeText(this, "Khong co doi tuong hang khach", Toast.LENGTH_SHORT).show();
-        }
+
 
         soLuongHangKhach=numberNguoiLon+numberTreEm2Tuoi+numberTreEm2_12Tuoi;
         tv_SoLuongHangKhach.setText(String.valueOf(soLuongHangKhach));
         HangKhachAdapter hangKhach2_12TuoiAdapter=new HangKhachAdapter(numberTreEm2_12Tuoi, getListUser2_12Tuoi(),ThongTinKhachhangActivity.this);
         HangKhachAdapter hangKhach2Tuoi=new HangKhachAdapter(numberTreEm2Tuoi, getListUser2Tuoi(),ThongTinKhachhangActivity.this);
+        HangKhachAdapter hangKhachNguoiLonAdapter=new HangKhachAdapter(numberNguoiLon, getListUserNguioLon(),ThongTinKhachhangActivity.this);
+        rcvNguoiLon.setLayoutManager(new LinearLayoutManager(ThongTinKhachhangActivity.this));
+        rcvNguoiLon.setAdapter(hangKhachNguoiLonAdapter);
         rcvTreEm2Tuoi.setLayoutManager(new LinearLayoutManager(ThongTinKhachhangActivity.this));
         rcvTreEm2_12Tuoi.setLayoutManager(new LinearLayoutManager(ThongTinKhachhangActivity.this));
         rcvTreEm2Tuoi.setAdapter(hangKhach2Tuoi);
@@ -80,16 +69,30 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
         ArrayList<HangKhach> list=new ArrayList<>();
         for (int i = 0; i< numberTreEm2Tuoi; i++)
         {
-            list.add(new HangKhach("Trẻ em(Dưới 2 tuổi","",""));
+
+            list.add(new HangKhach("Trẻ em(Dưới 2 tuổi)","",""));
         }
         return list;
     }
 
-    private ArrayList<HangKhach> getListUserNguioLon(String name) {
+    private ArrayList<HangKhach> getListUserNguioLon() {
         ArrayList<HangKhach> list=new ArrayList<>();
+        String ten="Tên hàng khách";
+
         for (int i = 0; i< numberNguoiLon; i++)
         {
-            list.add(new HangKhach("Người lớn",name,"","","",""));
+            if(getIntent().getSerializableExtra("tenHangKhach")!=null){
+                hangKhach=(HangKhach) getIntent().getSerializableExtra("tenHangKhach");
+                ten=hangKhach.getHoTen();
+
+                Toast.makeText(this, "co doi tuong hang khach"+hangKhach.getHoTen(), Toast.LENGTH_SHORT).show();
+
+            }
+            else {
+
+                Toast.makeText(this, "Khong co doi tuong hang khach", Toast.LENGTH_SHORT).show();
+            }
+            list.add(new HangKhach("Người lớn",ten,"","","",""));
         }
         return list;
     }
