@@ -125,13 +125,13 @@
 
 
     <TextView
+        android:background="@color/textColor"
+        android:textAlignment="center"
         android:id="@+id/tvDangXuat"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/hinhlogout"
-        android:layout_marginLeft="20dp"
         android:layout_marginTop="120dp"
-        android:textColor="@color/black"
+        android:textColor="#FFFFFF"
         android:drawablePadding="15dp"
         android:fontFamily="@font/opensans_medium"
         android:textSize="25dp"
