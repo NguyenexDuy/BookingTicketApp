@@ -8,79 +8,80 @@
     tools:context=".activity.ChonChuyenBayActivity">
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:backgroundTint="#004578">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:id="@+id/back"
-                android:layout_width="42dp"
-                android:layout_height="28dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="23dp"
-                android:src="@drawable/backve">
-            </ImageView>
-            <TextView
+            android:orientation="vertical">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="25dp"
-                android:text="Chọn chuyến bay"
-                android:textSize="25sp"
-                android:textColor="@color/white">
-            </TextView>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="42dp"
-                android:layout_height="28dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="120dp"
-                android:src="@drawable/imgfly">
-            </ImageView>
-            <TextView
-                android:id="@+id/tvDiemDi"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="42dp"
+                    android:layout_height="28dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="23dp"
+                    android:src="@drawable/backve">
+                </ImageView>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="25dp"
+                    android:text="Chọn chuyến bay"
+                    android:textSize="25sp"
+                    android:textColor="@color/white">
+                </TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="90dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Ho Chi Minh City"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:layout_marginTop="120dp">
-            </TextView>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="42dp"
+                    android:layout_height="28dp"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/imgfly">
+                </ImageView>
+                <TextView
+                    android:id="@+id/tvDiemDi"
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    android:text="Ho Chi Minh City"
+                    android:textColor="@color/white"
+                    android:textSize="20sp">
+                </TextView>
 
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="28dp"
-                android:layout_marginTop="120dp"
-                android:layout_marginLeft="-180dp"
-                android:src="@drawable/imgmuitensangphai">
-            </ImageView>
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/imgmuitensangphai">
+                </ImageView>
+                <TextView
+                    android:id="@+id/tvDiemDen"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ha Noi City"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="20sp">
+                </TextView>
+            </LinearLayout>
             <TextView
-                android:id="@+id/tvDiemDen"
+                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Ha Noi City"
-                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:text="Xin mời quý khách chọn loại vé"
                 android:textColor="@color/white"
-                android:textSize="20sp"
-                android:layout_marginTop="120dp">
+                android:textSize="20sp">
             </TextView>
         </LinearLayout>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:text="Xin mời quý khách chọn loại vé"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:layout_marginTop="160dp">
-        </TextView>
     </androidx.cardview.widget.CardView>
 
     <com.google.android.material.tabs.TabLayout

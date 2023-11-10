@@ -32,6 +32,7 @@ public class TimKiemDiemDenAdapter extends RecyclerView.Adapter<TimKiemDiemDenAd
         this.msanBays = msanBays;
     }
 
+
     public TimKiemDiemDenAdapter(Context mcontext, ArrayList<SanBay> msanBays, ChuyenBay chuyenBay) {
         this.mcontext = mcontext;
         this.msanBays = msanBays;

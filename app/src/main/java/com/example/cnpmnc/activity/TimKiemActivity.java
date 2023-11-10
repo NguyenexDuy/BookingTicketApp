@@ -24,6 +24,9 @@ public class TimKiemActivity extends AppCompatActivity {
     private  SearchView searchView;
     private TimKiemDiemDiAdapter timKiemFlightAdapter;
     private TimKiemDiemDenAdapter timKiemDiemDenAdapter;
+    private TimKiemDiemDiAdapter timKiemDiemDiAdapter;
+
+
     private Firebase firebase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,16 +61,29 @@ public class TimKiemActivity extends AppCompatActivity {
         rcv_nameitemFlight.setLayoutManager(new LinearLayoutManager(this));
         searchView = findViewById(R.id.searchView);
     }
-    private  void check(String key){
-        firebase.getAllSanBay(new Firebase.FirebaseCallback<SanBay>() {
-            @Override
-            public void onCallback(ArrayList<SanBay> list) {
-                sanBaysList = list;
-                timKiemFlightAdapter=new TimKiemDiemDiAdapter(TimKiemActivity.this,sanBaysList, key);
-                rcv_nameitemFlight.setAdapter(timKiemFlightAdapter);
-            }
-        });
-    }
+//    private  void check(String key){
+//        firebase.getAllSanBay(new Firebase.FirebaseCallback<SanBay>() {
+//            @Override
+//            public void onCallback(ArrayList<SanBay> list) {
+//                sanBaysList = list;
+//                timKiemFlightAdapter=new TimKiemDiemDiAdapter(TimKiemActivity.this,sanBaysList, key);
+//                rcv_nameitemFlight.setAdapter(timKiemFlightAdapter);
+//            }
+//        });
+//    }
+private void check(String key){
+    firebase.getAllSanBay(new Firebase.FirebaseCallback<SanBay>() {
+        @Override
+        public void onCallback(ArrayList<SanBay> list) {
+            sanBaysList = list;
+            timKiemFlightAdapter = new TimKiemDiemDiAdapter(TimKiemActivity.this, sanBaysList, key);
+            timKiemDiemDenAdapter = new TimKiemDiemDenAdapter(TimKiemActivity.this, sanBaysList);
+            timKiemDiemDiAdapter = new TimKiemDiemDiAdapter(TimKiemActivity.this, sanBaysList);
+            rcv_nameitemFlight.setAdapter(timKiemFlightAdapter);
+        }
+    });
+}
+
     private ArrayList<SanBay> filter(List<SanBay> sanBays, String query) {
         query = query.toLowerCase().trim();
 

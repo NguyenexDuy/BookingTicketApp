@@ -28,6 +28,11 @@ public class TimKiemDiemDiAdapter extends RecyclerView.Adapter<TimKiemDiemDiAdap
     private ArrayList<SanBay> msanBays;
     private ChuyenBay chuyenBay;
     private String key;
+
+    public TimKiemDiemDiAdapter(Context mcontext, ArrayList<SanBay> msanBays) {
+        this.mcontext = mcontext;
+        this.msanBays = msanBays;
+    }
     public TimKiemDiemDiAdapter(Context context, ArrayList<SanBay> sanBays, String key) {
         this.mcontext = context;
         this.msanBays = sanBays;
