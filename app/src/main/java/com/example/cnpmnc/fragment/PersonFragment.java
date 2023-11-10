@@ -130,6 +130,7 @@ public class PersonFragment extends Fragment {
                 tvten.setText("Lỗi khi lấy dữ liệu từ Firestore");
             });
         } else {
+            Toast.makeText(getContext(), "Khong co tai khoan", Toast.LENGTH_SHORT).show();
 
             tvemail.setText("Chưa đăng nhập");
             tvten.setText("Chưa đăng nhập");
@@ -156,9 +157,16 @@ public class PersonFragment extends Fragment {
         tvChuyenBayYeuThich.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                Toast.makeText(getContext(), userID, Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getContext(), DanhSachChuyenBayDaThich.class));
+                if(firebaseUser!=null)
+                {
+                    String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    Toast.makeText(getContext(), userID, Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getContext(), DanhSachChuyenBayDaThich.class));
+                }
+                else{
+                    Toast.makeText(getContext(), "Cần phair đăng nhập", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         if(tvemail.getText().toString().equals("Chưa đăng nhập")&&tvten.getText().toString().equals("Chưa đăng nhập")){

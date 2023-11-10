@@ -135,10 +135,12 @@
                 android:id="@+id/btnHoanThanh"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="100dp"
+                android:layout_marginHorizontal="40dp"
+                android:layout_marginTop="40dp"
                 android:backgroundTint="@color/textColor"
-                android:layout_marginTop="7dp"
-                android:text="Hoàn Thành" />
+                android:text="Hoàn Thành"
+                android:textSize="20dp"
+                android:textStyle="bold"  />
 
         </LinearLayout>
     </ScrollView>
