@@ -23,7 +23,6 @@ public class TimKiemActivity extends AppCompatActivity {
     private ArrayList<SanBay> sanBaysList;
     private  SearchView searchView;
     private TimKiemDiemDiAdapter timKiemFlightAdapter;
-    private TimKiemDiemDenAdapter timKiemDiemDenAdapter;
     private Firebase firebase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +41,6 @@ public class TimKiemActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 ArrayList<SanBay> filteredList = filter(sanBaysList, newText);
                 timKiemFlightAdapter.setData(filteredList);
-                timKiemDiemDenAdapter.setData(filteredList);
-                timKiemDiemDenAdapter.notifyDataSetChanged();
                 timKiemFlightAdapter.notifyDataSetChanged();
                 return true;
             }
