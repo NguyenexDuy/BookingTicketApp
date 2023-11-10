@@ -1,6 +1,8 @@
 package com.example.cnpmnc.model;
 
-public class HangKhach {
+import java.io.Serializable;
+
+public class HangKhach implements Serializable {
     private String HoTen;
     private String Tuoi;
     private String Type;
@@ -8,13 +10,18 @@ public class HangKhach {
     private String SDT;
     private String Email;
 
+    public HangKhach() {
+    }
+
     public HangKhach(String type, String hoTen, String tuoi) {
         HoTen = hoTen;
         Tuoi = tuoi;
         Type=type;
     }
 
-    public HangKhach(String type,String hoTen, String tuoi,  String cccd, String SDT, String email) {
+
+
+    public HangKhach(String type, String hoTen, String tuoi, String cccd, String SDT, String email) {
         HoTen = hoTen;
         Tuoi = tuoi;
         Type = type;

@@ -7,10 +7,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.activity.DangNhapActivity;
@@ -154,15 +156,18 @@ public class PersonFragment extends Fragment {
         tvChuyenBayYeuThich.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                Toast.makeText(getContext(), userID, Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getContext(), DanhSachChuyenBayDaThich.class));
             }
         });
         if(tvemail.getText().toString().equals("Chưa đăng nhập")&&tvten.getText().toString().equals("Chưa đăng nhập")){
-            tvdangxuat.setText("Đăng nhập");
+            tvdangxuat.setText("Đăng xuất");
             tvttcn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     startActivity(new Intent(getContext(), DangNhapActivity.class));
+
                 }
             });
         }

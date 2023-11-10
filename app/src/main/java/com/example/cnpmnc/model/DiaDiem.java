@@ -1,10 +1,30 @@
 package com.example.cnpmnc.model;
 
+import java.util.ArrayList;
+
 public class DiaDiem {
     private static DiaDiem instance;
     private DiaDiem(){
 
     }
+    private ArrayList<HangKhach> HangKhachNguoiLonList;
+
+    public ArrayList<HangKhach> getHangKhachNguoiLonList() {
+        if (HangKhachNguoiLonList == null || HangKhachNguoiLonList.isEmpty()) {
+            HangKhachNguoiLonList = new ArrayList<>();
+
+            for (int i = 0; i < 5; i++) {
+                HangKhach defaultHangKhach = new HangKhach("Người lớn", "Tên khách hàng " , "");
+                HangKhachNguoiLonList.add(defaultHangKhach);
+            }
+        }
+        return HangKhachNguoiLonList;
+    }
+
+    public void setHangKhachNguoiLonList(ArrayList<HangKhach> hangKhachList) {
+        HangKhachNguoiLonList = hangKhachList;
+    }
+
     private String SoLuongNguoiLon;
     private String SoLuongTreEm2Ttoi12T;
     private String SoLuongTreEmDuoi2T;
