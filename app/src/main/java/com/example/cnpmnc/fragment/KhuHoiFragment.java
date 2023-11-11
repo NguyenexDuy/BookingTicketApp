@@ -139,6 +139,7 @@ public class KhuHoiFragment extends Fragment {
                 {
                     ThucHienHanhDong();
                     Toast.makeText(getContext(), "Co user", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), DiaDiem.getInstance().getDiemDen(), Toast.LENGTH_SHORT).show();
                 }
                 else {
                     Toast.makeText(getContext(), "ko co user", Toast.LENGTH_SHORT).show();
@@ -300,7 +301,6 @@ public class KhuHoiFragment extends Fragment {
                     countTreEm2_12Tuoi--;
                     updateCount(tv_count2NguoiLonKhuHoi,countTreEm2_12Tuoi);
                 }
-
             }
         });
         btn_minus3KhuHoi.setOnClickListener(new View.OnClickListener() {

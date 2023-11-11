@@ -1,6 +1,11 @@
 package com.example.cnpmnc.fragment;
 
+import static android.content.ContentValues.TAG;
+
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -8,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +26,7 @@ import android.widget.Toast;
 
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.activity.ChonChuyenBayActivity;
+import com.example.cnpmnc.activity.DangNhapActivity;
 import com.example.cnpmnc.activity.ThongTinChoNgoiActivity;
 import com.example.cnpmnc.activity.ThongTinKhachhangActivity;
 import com.example.cnpmnc.activity.TimKiemActivity;
@@ -28,6 +35,14 @@ import com.example.cnpmnc.model.ChuyenBay;
 import com.example.cnpmnc.model.DiaDiem;
 import com.example.cnpmnc.model.Firebase;
 import com.example.cnpmnc.model.HoaDon;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -93,6 +108,10 @@ public class MotChieuFragment extends Fragment {
     private Button btnTimKiemMotChieu;
     private String currentDate;
     private LocalDate curdate;
+    FirebaseUser firebaseUser;
+    private static final int LOGIN_REQUEST_CODE = 123;
+
+
     private ImageButton btn_plus1MotChieu,btn_plus2MotChieu,btn_plus3MotChieu,btn_minus1MotChieu,btn_minus2MotChieu,btn_minus3MotChieu;
     private TextView tv_countNguoiLon,tv_countTreEm2_12T,tv_countTreEm2T,tv_idsanbaydiemdi,tv_tensanbaydiemdi,tv_idsanbaydiemden,tv_tensanbaydiemden;
     Firebase firebase;
@@ -103,6 +122,17 @@ public class MotChieuFragment extends Fragment {
         Anhxa(view);
         Action();
         setdata();
+        if(chuyenBay!=null)
+        {
+            Toast.makeText(getContext(), "Co chuyen bay", Toast.LENGTH_SHORT).show();
+        }
+        else if (DiaDiem.getInstance().getDiemDen()!=null) {
+            Toast.makeText(getContext(), "Co diem den", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(getContext(), "Khong co gi ca", Toast.LENGTH_SHORT).show();
+        }
+
 
         return view;
     }
@@ -137,27 +167,103 @@ public class MotChieuFragment extends Fragment {
         btnTimKiemMotChieu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DiaDiem.getInstance().setSoLuongNguoiLon(tv_countNguoiLon.getText().toString());
-                DiaDiem.getInstance().setSoLuongTreEm2Ttoi12T(tv_countTreEm2_12T.getText().toString());
-                DiaDiem.getInstance().setSoLuongTreEmDuoi2T(tv_countTreEm2T.getText().toString());
-                DiaDiem.getInstance().setDiemDi(tv_tensanbaydiemdi.getText().toString());
-                DiaDiem.getInstance().setDiemDen(tv_tensanbaydiemden.getText().toString());
-                DiaDiem.getInstance().setNgayDi(tv_CalendarNgayDi.getText().toString());
-                Intent intent = new Intent(getContext(), ChonChuyenBayActivity.class);
-                getContext().startActivity(intent);
+                firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
+                if(firebaseUser!=null)
+                {
+                    ThucHienHanhDong2();
+                    Toast.makeText(getContext(), "Co user", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), DiaDiem.getInstance().getDiemDi(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), DiaDiem.getInstance().getDiemDen(), Toast.LENGTH_SHORT).show();
+
+                }
+                else {
+                    Toast.makeText(getContext(), "ko co user", Toast.LENGTH_SHORT).show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+                    builder.setTitle("Xác nhận");
+                    builder.setMessage("Quý khách cần phải đăng nhập để thực hiện đặt chuyến bay?");
+
+
+                    builder.setPositiveButton("Đăng nhập", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent=new Intent(getContext(), DangNhapActivity.class);
+                            startActivityForResult(intent, LOGIN_REQUEST_CODE);
+                        }
+                    });
+
+                    builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Thực hiện hành động khi người dùng chọn "Không" ở đây
+                            dialog.dismiss(); // Dismiss dialog khi chọn "Không"
+                        }
+                    });
+
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+
+                }
             }
         });
 
+    }
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == LOGIN_REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+                ThucHienHanhDong2();
+            } else {
+                Toast.makeText(getContext(), "Khong thanh cong", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        DiaDiem.getInstance().reset();
+    }
+
+    private void ThucHienHanhDong2()
+    {
+        DiaDiem.getInstance().setSoLuongNguoiLon(tv_countNguoiLon.getText().toString());
+        DiaDiem.getInstance().setSoLuongTreEm2Ttoi12T(tv_countTreEm2_12T.getText().toString());
+        DiaDiem.getInstance().setSoLuongTreEmDuoi2T(tv_countTreEm2T.getText().toString());
+        DiaDiem.getInstance().setDiemDi(tv_tensanbaydiemdi.getText().toString());
+        DiaDiem.getInstance().setDiemDen(tv_tensanbaydiemden.getText().toString());
+        DiaDiem.getInstance().setNgayDi(tv_CalendarNgayDi.getText().toString());
+        Intent intent = new Intent(getContext(), ChonChuyenBayActivity.class);
+        getContext().startActivity(intent);
     }
 
         private void setdata(){
             if (chuyenBay != null){
 
-                firebase.getIdSanBayByTenSanBay(chuyenBay.getDiemDi(), new Firebase.getIdSanBayByTenSanBayCallback() {
+//                firebase.getIdSanBayByTenSanBay(chuyenBay.getDiemDi(), new Firebase.getIdSanBayByTenSanBayCallback() {
+//                    @Override
+//                    public void onCallBack(String idSanBay) {
+//                        tv_idsanbaydiemdi.setText(idSanBay);
+//                    }
+//                });
+                String tenCanTimKiem=chuyenBay.getDiemDi();
+
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                Query query=db.collection("SanBay").whereEqualTo("TenSanBay",tenCanTimKiem);
+                query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public void onCallBack(String idSanBay) {
-                        tv_idsanbaydiemdi.setText(idSanBay);
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                // Lấy id của document
+                                String documentId = document.getId();
+                                tv_idsanbaydiemdi.setText(documentId);
+                                Log.d(TAG, "Document ID: " + documentId);
+                            }
+                        }else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
                     }
+
                 });
                 tv_tensanbaydiemdi.setText(chuyenBay.getDiemDi());
 
