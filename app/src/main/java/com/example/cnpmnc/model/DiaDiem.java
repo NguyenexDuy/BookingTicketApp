@@ -7,6 +7,20 @@ public class DiaDiem {
     private DiaDiem(){
 
     }
+    public void reset() {
+        if (HangKhachNguoiLonList != null) {
+            HangKhachNguoiLonList.clear();
+            HangKhachNguoiLonList = null;
+        }
+
+        SoLuongNguoiLon = null;
+        SoLuongTreEm2Ttoi12T = null;
+        SoLuongTreEmDuoi2T = null;
+        NgayDi = null;
+        NgayVe = null;
+        DiemDi = null;
+        DiemDen = null;
+    }
     private ArrayList<HangKhach> HangKhachNguoiLonList;
 
     public ArrayList<HangKhach> getHangKhachNguoiLonList() {
