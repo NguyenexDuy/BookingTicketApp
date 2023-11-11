@@ -39,9 +39,9 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
         soLuongHangKhach=numberNguoiLon+numberTreEm2Tuoi+numberTreEm2_12Tuoi;
         tv_SoLuongHangKhach.setText(String.valueOf(soLuongHangKhach));
 
-        HangKhachAdapter hangKhach2_12TuoiAdapter=new HangKhachAdapter(numberTreEm2_12Tuoi, getListUser2_12Tuoi(),ThongTinKhachhangActivity.this);
-        HangKhachAdapter hangKhach2Tuoi=new HangKhachAdapter(numberTreEm2Tuoi, getListUser2Tuoi(),ThongTinKhachhangActivity.this);
-        HangKhachAdapter hangKhachNguoiLonAdapter=new HangKhachAdapter(numberNguoiLon, DiaDiem.getInstance().getHangKhachNguoiLonList(), ThongTinKhachhangActivity.this);
+        HangKhachAdapter hangKhach2_12TuoiAdapter=new HangKhachAdapter(numberTreEm2_12Tuoi, DiaDiem.getInstance().getHangKhachTreEm2_12TList(),ThongTinKhachhangActivity.this,2);
+        HangKhachAdapter hangKhach2Tuoi=new HangKhachAdapter(numberTreEm2Tuoi, getListUser2Tuoi(),ThongTinKhachhangActivity.this,2);
+        HangKhachAdapter hangKhachNguoiLonAdapter=new HangKhachAdapter(numberNguoiLon, DiaDiem.getInstance().getHangKhachNguoiLonList(), ThongTinKhachhangActivity.this,1);
 
         rcvNguoiLon.setLayoutManager(new LinearLayoutManager(ThongTinKhachhangActivity.this));
         rcvNguoiLon.setAdapter(hangKhachNguoiLonAdapter);
@@ -77,27 +77,7 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
         return list;
     }
 
-    private ArrayList<HangKhach> getListUserNguioLon() {
-        ArrayList<HangKhach> list=new ArrayList<>();
-        String ten="Tên hàng khách";
 
-        for (int i = 0; i< numberNguoiLon; i++)
-        {
-            if(getIntent().getSerializableExtra("tenHangKhach")!=null){
-                hangKhach=(HangKhach) getIntent().getSerializableExtra("tenHangKhach");
-                ten=hangKhach.getHoTen();
-
-                Toast.makeText(this, "co doi tuong hang khach"+hangKhach.getHoTen(), Toast.LENGTH_SHORT).show();
-
-            }
-            else {
-
-                Toast.makeText(this, "Khong co doi tuong hang khach", Toast.LENGTH_SHORT).show();
-            }
-            list.add(new HangKhach("Người lớn",ten,"","","",""));
-        }
-        return list;
-    }
     private ArrayList<HangKhach> getListUser2_12Tuoi() {
         ArrayList<HangKhach> list=new ArrayList<>();
         for (int i = 0; i< numberTreEm2_12Tuoi; i++)

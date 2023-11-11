@@ -2,7 +2,6 @@ package com.example.cnpmnc.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,22 +11,24 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cnpmnc.R;
-import com.example.cnpmnc.activity.NhapThongTinKhachHangActivity;
+import com.example.cnpmnc.activity.NhapThongTinHangKhachNguoiLonActivity;
+import com.example.cnpmnc.activity.NhapThongTinHangKhachTreEmActivity;
 import com.example.cnpmnc.model.HangKhach;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class HangKhachAdapter extends  RecyclerView.Adapter<HangKhachAdapter.HangKhachViewHolder> {
     private int number;
     private Context context;
     private ArrayList<HangKhach> mHangKhach;
+    private int adapterType;
 
 
-    public HangKhachAdapter(int number, ArrayList<HangKhach> mHangKhach,Context mcontext) {
+    public HangKhachAdapter(int number, ArrayList<HangKhach> mHangKhach,Context mcontext,int adapterType) {
         this.number = number;
         this.mHangKhach = mHangKhach;
         this.context=mcontext;
+        this.adapterType=adapterType;
     }
 
 
@@ -47,9 +48,19 @@ public class HangKhachAdapter extends  RecyclerView.Adapter<HangKhachAdapter.Han
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(context, NhapThongTinKhachHangActivity.class);
-                intent.putExtra("position",position);
-                context.startActivity(intent);
+               switch (adapterType)
+               {
+                   case 1:
+                       Intent intent=new Intent(context, NhapThongTinHangKhachNguoiLonActivity.class);
+                       intent.putExtra("position",position);
+                       context.startActivity(intent);
+                       break;
+                   case 2:
+                       Intent intent1=new Intent(context, NhapThongTinHangKhachTreEmActivity.class);
+                       intent1.putExtra("position1",position);
+                       context.startActivity(intent1);
+                       break;
+               }
             }
         });
 

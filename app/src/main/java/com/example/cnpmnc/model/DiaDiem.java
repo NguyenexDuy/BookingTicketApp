@@ -22,17 +22,34 @@ public class DiaDiem {
         DiemDen = null;
     }
     private ArrayList<HangKhach> HangKhachNguoiLonList;
+    private ArrayList<HangKhach> HangKhachTreEm2_12TList;
 
     public ArrayList<HangKhach> getHangKhachNguoiLonList() {
         if (HangKhachNguoiLonList == null || HangKhachNguoiLonList.isEmpty()) {
             HangKhachNguoiLonList = new ArrayList<>();
 
             for (int i = 0; i < 5; i++) {
-                HangKhach defaultHangKhach = new HangKhach("Người lớn", "Tên khách hàng " , "");
+                HangKhach defaultHangKhach = new HangKhach("Người lớn", "abc","","","","");
                 HangKhachNguoiLonList.add(defaultHangKhach);
             }
         }
         return HangKhachNguoiLonList;
+    }
+    public ArrayList<HangKhach> getHangKhachTreEm2_12TList() {
+        if(HangKhachTreEm2_12TList ==null|| HangKhachTreEm2_12TList.isEmpty())
+        {
+            HangKhachTreEm2_12TList =new ArrayList<>();
+            for(int i=0;i<4;i++)
+            {
+                HangKhach hangkhachTreEm=new HangKhach("Trẻ em","Tên khách hàng","");
+                HangKhachTreEm2_12TList.add(hangkhachTreEm);
+            }
+        }
+        return HangKhachTreEm2_12TList;
+    }
+
+    public void setHangKhachTreEm2_12TList(ArrayList<HangKhach> hangKhachTreEm2_12TList) {
+        HangKhachTreEm2_12TList = hangKhachTreEm2_12TList;
     }
 
     public void setHangKhachNguoiLonList(ArrayList<HangKhach> hangKhachList) {
