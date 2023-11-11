@@ -4,13 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.NhapThongTinHangKhachNguoiLonActivity">
+    tools:context=".activity.NhapThongTinHangKhachTreEmActivity">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="-16dp"
         tools:layout_editor_absoluteY="95dp">
-
         <LinearLayout
             android:layout_marginHorizontal="15dp"
             android:layout_marginTop="10dp"
@@ -28,22 +27,7 @@
                 android:textColor="@color/primaryColor"
                 android:text="Thông tin cơ bản" />
 
-            <TextView
-                android:id="@+id/textView30"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18dp"
-                android:layout_marginTop="20dp"
-                android:text="Danh xưng*" />
 
-            <EditText
-                android:id="@+id/edtDanhXung"
-                android:layout_width="400dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="7dp"
-                android:ems="10"
-                android:hint="VD: Ông/Bà"
-                android:inputType="textPersonName" />
 
             <TextView
                 android:id="@+id/textView34"
@@ -54,7 +38,7 @@
                 android:text="Họ và Tên*" />
 
             <EditText
-                android:id="@+id/edtHoTen"
+                android:id="@+id/edtHoTenTreEm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
@@ -71,57 +55,16 @@
                 android:text="Ngày sinh*" />
 
             <EditText
-                android:id="@+id/edtDateOfBirth"
+                android:id="@+id/edtDateOfBirthTreEm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
                 android:ems="10"
                 android:inputType="textPersonName" />
 
-            <TextView
-                android:id="@+id/textView33"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="30dp"
-                android:textStyle="bold"
-                android:textColor="@color/primaryColor"
-                android:layout_marginTop="7dp"
-                android:text="Thông tin liên hệ" />
-
-            <TextView
-                android:id="@+id/textView35"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:textSize="18dp"
-                android:text="Thư điện tử (email)*" />
-
-            <EditText
-                android:id="@+id/edtGmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:ems="10"
-                android:inputType="textPersonName" />
-
-            <TextView
-                android:id="@+id/textView37"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:textSize="18dp"
-                android:text="Điện thoại di động*" />
-
-            <EditText
-                android:id="@+id/edtPhoneNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:ems="10"
-                android:inputType="phone" />
 
             <Button
-                android:id="@+id/btnHoanThanh"
+                android:id="@+id/btnHoanThanhTreEm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="40dp"
@@ -133,5 +76,4 @@
 
         </LinearLayout>
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

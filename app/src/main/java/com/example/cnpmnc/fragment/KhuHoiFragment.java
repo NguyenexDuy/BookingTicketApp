@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.activity.ChonChuyenBayActivity;
 import com.example.cnpmnc.activity.DangNhapActivity;
+import com.example.cnpmnc.activity.TimKiemActivity;
 import com.example.cnpmnc.model.ChuyenBay;
 import com.example.cnpmnc.model.DiaDiem;
 import com.example.cnpmnc.model.Firebase;
@@ -117,6 +118,22 @@ public class KhuHoiFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        tv_idsanbaydiemdi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getContext(), TimKiemActivity.class);
+                intent.putExtra("Timkiem", "diemdi");
+                startActivity(intent);
+            }
+        });
+        tv_idsanbaydiemden.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getContext(), TimKiemActivity.class);
+                intent.putExtra("Timkiem","diemden");
+                startActivity(intent);
+            }
+        });
 
         tv_CalendarNgayVeKhuHoi.setOnClickListener(new View.OnClickListener() {
             @Override
