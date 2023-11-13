@@ -40,7 +40,7 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
         tv_SoLuongHangKhach.setText(String.valueOf(soLuongHangKhach));
 
         HangKhachAdapter hangKhach2_12TuoiAdapter=new HangKhachAdapter(numberTreEm2_12Tuoi, DiaDiem.getInstance().getHangKhachTreEm2_12TList(),ThongTinKhachhangActivity.this,2);
-        HangKhachAdapter hangKhach2Tuoi=new HangKhachAdapter(numberTreEm2Tuoi, getListUser2Tuoi(),ThongTinKhachhangActivity.this,2);
+        HangKhachAdapter hangKhach2Tuoi=new HangKhachAdapter(numberTreEm2Tuoi, DiaDiem.getInstance().getHangKhachTreEmDuoi2TList(),ThongTinKhachhangActivity.this,3);
         HangKhachAdapter hangKhachNguoiLonAdapter=new HangKhachAdapter(numberNguoiLon, DiaDiem.getInstance().getHangKhachNguoiLonList(), ThongTinKhachhangActivity.this,1);
 
         rcvNguoiLon.setLayoutManager(new LinearLayoutManager(ThongTinKhachhangActivity.this));
@@ -78,14 +78,7 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
     }
 
 
-    private ArrayList<HangKhach> getListUser2_12Tuoi() {
-        ArrayList<HangKhach> list=new ArrayList<>();
-        for (int i = 0; i< numberTreEm2_12Tuoi; i++)
-        {
-            list.add(new HangKhach("Trẻ em(2-12 tuổi)","",""));
-        }
-        return list;
-    }
+
 
     private void AnhXa()
     {

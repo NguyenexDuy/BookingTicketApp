@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.activity.NhapThongTinHangKhachNguoiLonActivity;
+import com.example.cnpmnc.activity.NhapThongTinHangKhachTreEm2TActivity;
 import com.example.cnpmnc.activity.NhapThongTinHangKhachTreEmActivity;
 import com.example.cnpmnc.model.HangKhach;
 
@@ -60,6 +61,10 @@ public class HangKhachAdapter extends  RecyclerView.Adapter<HangKhachAdapter.Han
                        intent1.putExtra("position1",position);
                        context.startActivity(intent1);
                        break;
+                   case 3:
+                       Intent intent2=new Intent(context, NhapThongTinHangKhachTreEm2TActivity.class);
+                       intent2.putExtra("position2",position);
+                       context.startActivity(intent2);
                }
             }
         });
