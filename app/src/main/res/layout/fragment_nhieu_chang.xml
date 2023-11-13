@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
     tools:context=".fragment.NhieuChangFragment">
 
         <LinearLayout
@@ -432,5 +431,15 @@
                 </LinearLayout>
 
             </LinearLayout>
+            <Button
+                android:id="@+id/btnTimKiemMotChieu"
+                android:layout_marginTop="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="Tìm kiếm chuyến bay"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:backgroundTint="@color/textColor"
+                android:layout_marginHorizontal="10dp"/>
         </LinearLayout>
     </ScrollView>
