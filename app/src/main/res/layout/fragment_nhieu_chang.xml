@@ -294,145 +294,140 @@
             </RelativeLayout>
 
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp"
-                android:text="Hàng khách"
-                android:textColor="#71AFE5"
-                android:textSize="14dp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
+                android:orientation="vertical">
                 <TextView
-                    android:layout_width="130dp"
+                    android:id="@+id/textview1"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
+                    android:text="Hàng khách"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:textColor="#71AFE5"/>
+                <TextView
+                    android:id="@+id/textview2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textview1"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginVertical="5dp"
                     android:text="Người lớn"
                     android:textColor="@color/white"
-                    android:textSize="14dp" />
-
-                <LinearLayout
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/textview3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="120dp"
-                    android:orientation="horizontal">
-
-                    <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="19dp"
-                        android:background="@color/primaryColor"
-                        android:src="@drawable/button_minus" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="19dp"
-                        android:text="00"
-                        android:textColor="@color/white" />
-
-                    <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/primaryColor"
-                        android:src="@drawable/button_plus" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="130dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
+                    android:layout_below="@+id/textview2"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginVertical="5dp"
                     android:text="Trẻ em(2-12 tuổi)"
                     android:textColor="@color/white"
-                    android:textSize="14dp" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="120dp"
-                    android:orientation="horizontal">
-
-                    <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="19dp"
-                        android:background="@color/primaryColor"
-                        android:src="@drawable/button_minus" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="19dp"
-                        android:text="00"
-                        android:textColor="@color/white" />
-
-                    <ImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/primaryColor"
-                        android:src="@drawable/button_plus" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
+                    android:textSize="14sp" />
 
                 <TextView
                     android:layout_width="130dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
+                    android:layout_below="@+id/textview3"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginVertical="5dp"
                     android:text="Trẻ em dưới 2 tuổi"
                     android:textColor="@color/white"
-                    android:textSize="14dp" />
+                    android:textSize="14sp" />
 
                 <LinearLayout
+                    android:id="@+id/LinearLayout1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="120dp"
-                    android:orientation="horizontal">
+                    android:layout_below="@+id/textview1"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginVertical="5dp"
 
+                    android:orientation="horizontal">
                     <ImageButton
+                        android:id="@+id/btn_minusNhieuChang"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="19dp"
                         android:background="@color/primaryColor"
                         android:src="@drawable/button_minus" />
-
                     <TextView
+                        android:id="@+id/tv_countNguoiLonNhieuChang"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="19dp"
                         android:text="00"
                         android:textColor="@color/white" />
-
                     <ImageButton
+                        android:id="@+id/btn_plusNhieuChang"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@color/primaryColor"
                         android:src="@drawable/button_plus" />
                 </LinearLayout>
-
-            </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/LinearLayout2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/LinearLayout1"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginVertical="5dp"
+                    android:orientation="horizontal">
+                    <ImageButton
+                        android:id="@+id/btn_minus2NhieuChang"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="19dp"
+                        android:background="@color/primaryColor"
+                        android:src="@drawable/button_minus" />
+                    <TextView
+                        android:id="@+id/tv_countTreEm2_12TNhieuChang"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="19dp"
+                        android:text="00"
+                        android:textColor="@color/white" />
+                    <ImageButton
+                        android:id="@+id/btn_plus2NhieuChang"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/primaryColor"
+                        android:src="@drawable/button_plus" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/LinearLayout3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/LinearLayout2"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginVertical="5dp"
+                    android:orientation="horizontal">
+                    <ImageButton
+                        android:id="@+id/btn_minus3NhieuChang"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="19dp"
+                        android:background="@color/primaryColor"
+                        android:src="@drawable/button_minus" />
+                    <TextView
+                        android:id="@+id/tv_countTrEm2NhieuChang"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="19dp"
+                        android:text="00"
+                        android:textColor="@color/white" />
+                    <ImageButton
+                        android:id="@+id/btn_plus3NhieuChang"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/primaryColor"
+                        android:src="@drawable/button_plus" />
+                </LinearLayout>
+            </RelativeLayout>
             <Button
-                android:id="@+id/btnTimKiemMotChieu"
+                android:id="@+id/btnTimKiemNhieuChang"
                 android:layout_marginTop="50dp"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
