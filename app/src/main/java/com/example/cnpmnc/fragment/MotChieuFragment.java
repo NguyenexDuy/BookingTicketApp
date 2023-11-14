@@ -368,7 +368,6 @@ public class MotChieuFragment extends Fragment {
                 }else {
                     Toast.makeText(getContext(), "Số lượng hàng khách đã đạt tối đa", Toast.LENGTH_SHORT).show();
                 }
-                    updateCount(tv_countNguoiLon,countNguoiLon);
             }
         });
         btn_plus2MotChieu.setOnClickListener(new View.OnClickListener() {

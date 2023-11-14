@@ -78,7 +78,15 @@ public class DiaDiem {
     private String SoLuongNguoiLon;
     private String SoLuongTreEm2Ttoi12T;
     private String SoLuongTreEmDuoi2T;
-    private String NgayDi,NgayVe;
+    private String NgayDi,NgayVe,SoLuongGheTrong;
+
+    public String getSoLuongGheTrong() {
+        return SoLuongGheTrong;
+    }
+
+    public void setSoLuongGheTrong(String soLuongGheTrong) {
+        SoLuongGheTrong = soLuongGheTrong;
+    }
 
     public String getNgayVe() {
         return NgayVe;

@@ -15,6 +15,7 @@ import java.util.List;
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
 
     private List<String> itemList;
+    private int selectedPosition = RecyclerView.NO_POSITION;
 
     public ItemAdapter(List<String> itemList) {
         this.itemList = itemList;
@@ -30,7 +31,11 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         String item = itemList.get(position);
-//        holder.bind(item);
+        holder.checkBox.setChecked(position==selectedPosition);
+        holder.checkBox.setOnClickListener(v -> {
+            selectedPosition = holder.getAdapterPosition();
+            notifyDataSetChanged();
+        });
     }
 
     @Override

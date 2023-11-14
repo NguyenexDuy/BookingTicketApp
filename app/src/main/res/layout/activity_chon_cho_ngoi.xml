@@ -20,9 +20,10 @@
             android:src="@drawable/backve">
         </ImageView>
         <TextView
+            android:layout_marginLeft="20dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Chọn chuyến bay"
+            android:text="Chọn chỗ ngồi"
             android:textSize="25sp"
             android:textColor="@color/white">
         </TextView>
@@ -225,6 +226,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/btn_tiepTuc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="80dp"

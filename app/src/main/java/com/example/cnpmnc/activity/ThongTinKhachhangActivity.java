@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,7 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
 
     private LinearLayout btn_chonChoNgoi;
     private HangKhach hangKhach;
+    private Button btn_ThanhToan;
     private int numberTreEm2_12Tuoi, numberNguoiLon, numberTreEm2Tuoi,soLuongHangKhach;
     TextView tvThongTinGheNgoi, tv_giaChuyenBay,tv_SoLuongHangKhach;
     @Override
@@ -64,6 +66,13 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        btn_ThanhToan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(ThongTinKhachhangActivity.this,PaymentOptions.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -90,6 +99,7 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
         rcvNguoiLon=findViewById(R.id.recyclerview1);
         rcvTreEm2Tuoi=findViewById(R.id.recyclerview3);
         tv_SoLuongHangKhach=findViewById(R.id.tv_SoLuongHangKhach);
+        btn_ThanhToan=findViewById(R.id.btn_ThanhToan);
 
 
         numberTreEm2_12Tuoi =Integer.parseInt(DiaDiem.getInstance().getSoLuongTreEm2Ttoi12T());

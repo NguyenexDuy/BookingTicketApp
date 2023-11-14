@@ -96,8 +96,8 @@ public class KhuHoiFragment extends Fragment {
     Firebase firebase;
     Button btnTimKiemKhuHoi;
     int countNguoiLon=1;
-    int countTreEm2_12Tuoi=1;
-    int countTreEmDuoi2tuoi=1;
+    int countTreEm2_12Tuoi=0;
+    int countTreEmDuoi2tuoi=0;
     private String NgayVe;
     private String currentDate;
     private LocalDate curdate;
@@ -203,6 +203,9 @@ public class KhuHoiFragment extends Fragment {
     }
     private void ThucHienHanhDong()
     {
+        DiaDiem.getInstance().setSoLuongNguoiLon(tv_countNguoiLonKhuHoi.getText().toString());
+        DiaDiem.getInstance().setSoLuongTreEm2Ttoi12T(tv_count2NguoiLonKhuHoi.getText().toString());
+        DiaDiem.getInstance().setSoLuongTreEmDuoi2T(tv_count3NguoiLonKhuHoi.getText().toString());
         DiaDiem.getInstance().setDiemDi(tv_tensanbaydiemdi.getText().toString());
         DiaDiem.getInstance().setDiemDen(tv_tensanbaydiemden.getText().toString());
         DiaDiem.getInstance().setNgayDi(tv_CalendarNgayDiKhuHoi.getText().toString());
@@ -313,7 +316,7 @@ public class KhuHoiFragment extends Fragment {
         btn_minus2KhuHoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(countTreEm2_12Tuoi>1)
+                if(countTreEm2_12Tuoi>0)
                 {
                     countTreEm2_12Tuoi--;
                     updateCount(tv_count2NguoiLonKhuHoi,countTreEm2_12Tuoi);
@@ -323,7 +326,7 @@ public class KhuHoiFragment extends Fragment {
         btn_minus3KhuHoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(countTreEmDuoi2tuoi>1)
+                if(countTreEmDuoi2tuoi>0)
                 {
                     countTreEmDuoi2tuoi--;
                     updateCount(tv_count3NguoiLonKhuHoi,countTreEmDuoi2tuoi);
