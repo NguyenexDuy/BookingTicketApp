@@ -66,7 +66,7 @@ public class LoaiVePhoThongFragment extends Fragment {
 
     private String diemDi;
     private String diemDen;
-    private String NgayDi,NgayVe;
+    private String NgayDi,NgayVe,SoLuongGheTrong;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,6 +87,7 @@ public class LoaiVePhoThongFragment extends Fragment {
         diemDen = DiaDiem.getInstance().getDiemDen();
         NgayDi = DiaDiem.getInstance().getNgayDi();
         NgayVe=DiaDiem.getInstance().getNgayVe();
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rvVePhoThong.setLayoutManager(layoutManager);
 

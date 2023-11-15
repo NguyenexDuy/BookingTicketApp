@@ -14,7 +14,7 @@ import com.example.cnpmnc.model.DiaDiem;
 import com.example.cnpmnc.model.HangKhach;
 
 import java.util.ArrayList;
-public class NhapThongTinKhachHangActivity extends AppCompatActivity {
+public class NhapThongTinHangKhachNguoiLonActivity extends AppCompatActivity {
     EditText edtDanhXung,edtHoTen,edtDateOfBirth,edtGmail,edtSDT;
     Button btnHoanThanh;
     int position;
@@ -34,10 +34,10 @@ public class NhapThongTinKhachHangActivity extends AppCompatActivity {
                     HangKhach hangKhach = hangKhachList.get(position);
                     hangKhach.setHoTen(hoTen);
                 } else {
-                    Toast.makeText(NhapThongTinKhachHangActivity.this, "Invalid position", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NhapThongTinHangKhachNguoiLonActivity.this, "Invalid position", Toast.LENGTH_SHORT).show();
                 }
                 diaDiem.setHangKhachNguoiLonList(hangKhachList);
-                Intent intent = new Intent(NhapThongTinKhachHangActivity.this, ThongTinKhachhangActivity.class);
+                Intent intent = new Intent(NhapThongTinHangKhachNguoiLonActivity.this, ThongTinKhachhangActivity.class);
                 startActivity(intent);
                 finish();
             }

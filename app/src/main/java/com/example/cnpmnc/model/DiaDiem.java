@@ -7,18 +7,68 @@ public class DiaDiem {
     private DiaDiem(){
 
     }
+    public void reset() {
+        if (HangKhachNguoiLonList != null) {
+            HangKhachNguoiLonList.clear();
+            HangKhachNguoiLonList = null;
+        }
+
+        SoLuongNguoiLon = null;
+        SoLuongTreEm2Ttoi12T = null;
+        SoLuongTreEmDuoi2T = null;
+        NgayDi = null;
+        NgayVe = null;
+        DiemDi = null;
+        DiemDen = null;
+    }
     private ArrayList<HangKhach> HangKhachNguoiLonList;
+    private ArrayList<HangKhach> HangKhachTreEm2_12TList;
+    private ArrayList<HangKhach> HangKhachTreEmDuoi2TList;
 
     public ArrayList<HangKhach> getHangKhachNguoiLonList() {
         if (HangKhachNguoiLonList == null || HangKhachNguoiLonList.isEmpty()) {
             HangKhachNguoiLonList = new ArrayList<>();
 
             for (int i = 0; i < 5; i++) {
-                HangKhach defaultHangKhach = new HangKhach("Người lớn", "Tên khách hàng " , "");
+                HangKhach defaultHangKhach = new HangKhach("Người lớn", "abc","","","","");
                 HangKhachNguoiLonList.add(defaultHangKhach);
             }
         }
         return HangKhachNguoiLonList;
+    }
+
+    public ArrayList<HangKhach> getHangKhachTreEmDuoi2TList() {
+        if(HangKhachTreEmDuoi2TList==null|| HangKhachTreEmDuoi2TList.isEmpty())
+        {
+            HangKhachTreEmDuoi2TList=new ArrayList<>();
+            for (int i=0;i<4;i++)
+            {
+                HangKhach hangKhachTreEmDuoi2T=new HangKhach("Trẻ em (dưới 2 tuổi)","Tên trẻ em","");
+                HangKhachTreEmDuoi2TList.add(hangKhachTreEmDuoi2T);
+            }
+        }
+        return HangKhachTreEmDuoi2TList;
+    }
+
+    public void setHangKhachTreEmDuoi2TList(ArrayList<HangKhach> hangKhachTreEmDuoi2TList) {
+        HangKhachTreEmDuoi2TList = hangKhachTreEmDuoi2TList;
+    }
+
+    public ArrayList<HangKhach> getHangKhachTreEm2_12TList() {
+        if(HangKhachTreEm2_12TList ==null|| HangKhachTreEm2_12TList.isEmpty())
+        {
+            HangKhachTreEm2_12TList =new ArrayList<>();
+            for(int i=0;i<4;i++)
+            {
+                HangKhach hangkhachTreEm=new HangKhach("Trẻ em(2-12 tuổi)","Tên khách hàng","");
+                HangKhachTreEm2_12TList.add(hangkhachTreEm);
+            }
+        }
+        return HangKhachTreEm2_12TList;
+    }
+
+    public void setHangKhachTreEm2_12TList(ArrayList<HangKhach> hangKhachTreEm2_12TList) {
+        HangKhachTreEm2_12TList = hangKhachTreEm2_12TList;
     }
 
     public void setHangKhachNguoiLonList(ArrayList<HangKhach> hangKhachList) {
@@ -28,7 +78,15 @@ public class DiaDiem {
     private String SoLuongNguoiLon;
     private String SoLuongTreEm2Ttoi12T;
     private String SoLuongTreEmDuoi2T;
-    private String NgayDi,NgayVe;
+    private String NgayDi,NgayVe,SoLuongGheTrong;
+
+    public String getSoLuongGheTrong() {
+        return SoLuongGheTrong;
+    }
+
+    public void setSoLuongGheTrong(String soLuongGheTrong) {
+        SoLuongGheTrong = soLuongGheTrong;
+    }
 
     public String getNgayVe() {
         return NgayVe;

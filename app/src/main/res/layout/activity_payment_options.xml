@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_height="match_parent" android:layout_width="match_parent">
+    xmlns:tools="http://schemas.android.com/tools" android:layout_height="match_parent" android:layout_width="match_parent"
+    tools:context=".activity.PaymentOptions">
 
     <FrameLayout android:id="@+id/frameAndroidLarge"
         android:layout_height="match_parent"
@@ -13,7 +13,8 @@
             android:layout_gravity="start"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
-            android:layout_width="match_parent" android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:orientation="vertical">
             <androidx.appcompat.widget.Toolbar android:gravity="start"
                 android:id="@+id/toolbarToolbar"
                 android:layout_height="wrap_content"
@@ -51,8 +52,7 @@
             </androidx.appcompat.widget.Toolbar>
             <LinearLayout android:gravity="start"
                 android:id="@+id/linearColumntngcng"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="17dp"
+                android:layout_height="match_parent"
                 android:layout_width="match_parent"
                 android:orientation="vertical"
                 android:background="@drawable/rectangle_bg_white_a700"
@@ -137,6 +137,7 @@
                         />
                 </LinearLayout>
                 <FrameLayout android:id="@+id/frameStackone"
+                    android:layout_marginHorizontal="10dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_height="80dp"
                     android:layout_marginTop="13dp"
@@ -149,7 +150,7 @@
                         android:layout_marginBottom="10dp"
                         android:layout_width="match_parent"
                         android:singleLine="true"
-                        android:text="------------------------------------------------------"
+                        android:text="--------------------------------------------------"
                         android:textSize="25dp"
 		                android:textColor="@color/gray_700"
                         />

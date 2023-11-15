@@ -2,10 +2,7 @@ package com.example.cnpmnc.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,7 +16,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.cnpmnc.R;
-import com.example.cnpmnc.fragment.MotChieuFragment;
 import com.example.cnpmnc.model.ChuyenBay;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,8 +23,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,7 +38,7 @@ public class ChiTietFlightActivity extends AppCompatActivity {
     private static final String PREFS_NAME = "MyPrefs";
     private static final String IS_YEU_THICH = "isYeuThich_";
     private static final String CHECKBOX_BACKGROUND = "checkBoxBackground_";
-    TextView tv_chiTietDiemDi,tv_MoTaChiTietFight,tv_DiemDapChiTiet;
+    TextView tv_chiTietDiemDen,tv_MoTaChiTietFight,tv_DiemDapChiTiet;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,10 +50,10 @@ public class ChiTietFlightActivity extends AppCompatActivity {
         Glide.with(ChiTietFlightActivity.this).load(chuyenBay.getHinhAnh()).into(img_chiTietFight);
         db=FirebaseFirestore.getInstance();
 
-        String tv_chitietDiemDi=chuyenBay.getDiemDen();
+        String tv_chitietDiemDen=chuyenBay.getDiemDen();
         String tv_mota= chuyenBay.getMoTa();
         String tv_diemdapchitiet=chuyenBay.getMoTaDiemDap();
-        tv_chiTietDiemDi.setText(tv_chitietDiemDi);
+        tv_chiTietDiemDen.setText(tv_chitietDiemDen);
         tv_MoTaChiTietFight.setText(tv_mota);
         tv_DiemDapChiTiet.setText(tv_diemdapchitiet);
 
@@ -97,7 +91,7 @@ public class ChiTietFlightActivity extends AppCompatActivity {
     private void Anhxa() {
         btn_datve =findViewById(R.id.btn_datve);
         img_chiTietFight=findViewById(R.id.img_chiTietFight);
-        tv_chiTietDiemDi=findViewById(R.id.tv_chiTietDiemDi);
+        tv_chiTietDiemDen =findViewById(R.id.tv_chiTietDiemDi);
         tv_MoTaChiTietFight=findViewById(R.id.tv_MoTaChiTietFight);
         tv_DiemDapChiTiet=findViewById(R.id.tv_DiemDapChiTiet);
         tymButton = findViewById(R.id.TymButton);

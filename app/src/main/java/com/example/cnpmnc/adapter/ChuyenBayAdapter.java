@@ -13,12 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.activity.ThongTinKhachhangActivity;
 import com.example.cnpmnc.model.ChuyenBay;
+import com.example.cnpmnc.model.DiaDiem;
 
 import java.util.ArrayList;
 
 public class ChuyenBayAdapter extends RecyclerView.Adapter<ChuyenBayAdapter.ChuyenBayVH>{
     private Context mcontext;
     private ArrayList<ChuyenBay> chuyenVeTests;
+    DiaDiem diaDiem;
 
     public ChuyenBayAdapter(ArrayList<ChuyenBay> chuyenVeTests, Context mcontext) {
         this.chuyenVeTests = chuyenVeTests;
@@ -48,7 +50,9 @@ public class ChuyenBayAdapter extends RecyclerView.Adapter<ChuyenBayAdapter.Chuy
         holder.tvGioBay.setText(chuyenVeTest.getGioBatDau());
         holder.tvNoiBay.setText(chuyenVeTest.getDiemDi());
         holder.tvNoiDen.setText(chuyenVeTest.getDiemDen());
+        holder.tv_SoLuongVe.setText(chuyenVeTest.getSoLuongGheTrong());
         holder.tvTongTien.setText(String.format("%,d", Math.round(100000)) + " VNĐ");
+        diaDiem.getInstance().setSoLuongGheTrong(holder.tv_SoLuongVe.getText().toString());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,10 +76,11 @@ public class ChuyenBayAdapter extends RecyclerView.Adapter<ChuyenBayAdapter.Chuy
         public TextView tvGioDen;
         public TextView tvNoiBay;
         public TextView tvNoiDen;
-        public TextView tvTongTien;
+        public TextView tvTongTien,tv_SoLuongVe;
 
         public ChuyenBayVH(@NonNull View itemView) {
             super(itemView);
+            tv_SoLuongVe=itemView.findViewById(R.id.tv_SoLuongVe);
             tvMaChuyenBay = itemView.findViewById(R.id.tvMaChuyenBay);
             tvNgayBay = itemView.findViewById(R.id.tvNgayBay);
             tvNgayDen = itemView.findViewById(R.id.tvNgayDen);
