@@ -36,14 +36,15 @@ import java.util.Map;
 public class FormPersonActivity extends AppCompatActivity {
     String userEmail; // The userEmail will store the currently logged-in user's email
 
+    ActionBar actionBar;
+
     EditText mSDT, memail, edten, mngaysinh;
     FirebaseFirestore db;
     Button btnluu;
     private Spinner spinnerGioiTinh, spinnerQuocTich;
     private ArrayAdapter<String> gioiTinhAdapter;
     private ArrayAdapter<String> quoctichAdapter;
-    //App bar
-    ActionBar actionBar;
+    FirebaseUser firebaseUser;
     private final int GALLERY_REQ_CODE = 1000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,17 +82,13 @@ public class FormPersonActivity extends AppCompatActivity {
                 updateUserInfoInFirestore();
             }
         });
-
-        // Fetch the user information from Firestore using userEmail
         fetchUserInfoFromFirestore();
-
-        // ... (rest of the code)
     }
 
 
 
     private void fetchUserInfoFromFirestore() {
-        DocumentReference docRef = db.collection("KhachHang").document(userEmail);
+        DocumentReference docRef = db.collection("KhachHang").document("Email");
 
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -160,7 +157,6 @@ public class FormPersonActivity extends AppCompatActivity {
 //                    if (task.getResult().size() > 0) {
 //                        showError(mSDT, "Số điện thoại đã tồn tại.");
                     {
-
                         Map<String, Object> userMap = new HashMap<>();
                         userMap.put("HoTen", hoten);
                         userMap.put("NgaySinh", ngaysinh);
