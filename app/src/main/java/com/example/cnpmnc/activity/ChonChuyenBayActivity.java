@@ -5,6 +5,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cnpmnc.R;
@@ -19,12 +20,17 @@ public class ChonChuyenBayActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
     private TabLayoutAdapter adapter;
+    private TextView tvDiemDi,tvDiemDen;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chon_chuyen_bay);
+        tvDiemDi=findViewById(R.id.tvDiemDi);
+        tvDiemDen=findViewById(R.id.tvDiemDen);
+        tvDiemDi.setText(DiaDiem.getInstance().getDiemDi());
+        tvDiemDen.setText(DiaDiem.getInstance().getDiemDen());
 
         tabLayout = findViewById(R.id.tab_ChonChuyenBay);
         viewPager = findViewById(R.id.ChonChonBay_pager);

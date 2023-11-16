@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class ThongTinKhachhangActivity extends AppCompatActivity {
 
 
-    private RecyclerView rcvTreEm2_12Tuoi, rcvNguoiLon,rcvTreEm2Tuoi;
+    private RecyclerView rcvTreEm2_12Tuoi, rcvNguoiLon,rcvTreEm2Tuoi,rcv_hangKhachChonCHo;
 
     private LinearLayout btn_chonChoNgoi;
     private HangKhach hangKhach;
@@ -35,9 +35,9 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thong_tin_khachhang);
         AnhXa();
+        String ghe=String.valueOf(DiaDiem.getInstance().getSelectedSeatPosition());
 
-
-
+        Toast.makeText(this,ghe , Toast.LENGTH_SHORT).show();
         soLuongHangKhach=numberNguoiLon+numberTreEm2Tuoi+numberTreEm2_12Tuoi;
         tv_SoLuongHangKhach.setText(String.valueOf(soLuongHangKhach));
 
@@ -76,15 +76,6 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
 
     }
 
-    private ArrayList<HangKhach> getListUser2Tuoi() {
-        ArrayList<HangKhach> list=new ArrayList<>();
-        for (int i = 0; i< numberTreEm2Tuoi; i++)
-        {
-
-            list.add(new HangKhach("Trẻ em(Dưới 2 tuổi)","",""));
-        }
-        return list;
-    }
 
 
 
