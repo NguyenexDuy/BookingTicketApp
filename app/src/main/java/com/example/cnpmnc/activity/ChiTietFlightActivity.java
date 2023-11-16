@@ -49,6 +49,8 @@ public class ChiTietFlightActivity extends AppCompatActivity {
 
         Glide.with(ChiTietFlightActivity.this).load(chuyenBay.getHinhAnh()).into(img_chiTietFight);
         db=FirebaseFirestore.getInstance();
+        String idchuyenbay=chuyenBay.getIdChuyenBay();
+        Toast.makeText(this, idchuyenbay, Toast.LENGTH_SHORT).show();
 
         String tv_chitietDiemDen=chuyenBay.getDiemDen();
         String tv_mota= chuyenBay.getMoTa();
