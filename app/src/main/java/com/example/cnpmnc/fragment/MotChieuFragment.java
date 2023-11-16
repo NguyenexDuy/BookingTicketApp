@@ -172,8 +172,7 @@ public class MotChieuFragment extends Fragment {
                 {
                     ThucHienHanhDong2();
                     Toast.makeText(getContext(), "Co user", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getContext(), DiaDiem.getInstance().getDiemDi(), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getContext(), DiaDiem.getInstance().getDiemDen(), Toast.LENGTH_SHORT).show();
+
 
                 }
                 else {

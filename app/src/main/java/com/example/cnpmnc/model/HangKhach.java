@@ -30,6 +30,11 @@ public class HangKhach implements Serializable {
         Email = email;
     }
 
+    public HangKhach(String hoTen, String type) {
+        HoTen = hoTen;
+        Type = type;
+    }
+
     public String getType() {
         return Type;
     }
