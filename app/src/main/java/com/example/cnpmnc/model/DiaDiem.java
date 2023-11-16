@@ -152,6 +152,23 @@ public class DiaDiem {
     }
     private String DiemDi = null;
     private String DiemDen = null;
+    private String IdChuyenBay=null;
+
+    public ArrayList<HangKhach> getAllHangKhach() {
+        return AllHangKhach;
+    }
+
+    public void setAllHangKhach(ArrayList<HangKhach> allHangKhach) {
+        AllHangKhach = allHangKhach;
+    }
+
+    public String getIdChuyenBay() {
+        return IdChuyenBay;
+    }
+
+    public void setIdChuyenBay(String idChuyenBay) {
+        IdChuyenBay = idChuyenBay;
+    }
 
     public static void setInstance(DiaDiem instance) {
         DiaDiem.instance = instance;

@@ -14,17 +14,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cnpmnc.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
 
-    private List<String> itemList;
+    private ArrayList<String> itemList;
     private int selectedPosition = RecyclerView.NO_POSITION;
     private OnSeatClickListener onSeatClickListener;
     public interface OnSeatClickListener {
         void onSeatClick(int position);
     }
-    public ItemAdapter(List<String> itemList,OnSeatClickListener listener) {
+
+    public ItemAdapter(ArrayList<String> itemList,OnSeatClickListener listener) {
+
         this.itemList = itemList;
         this.onSeatClickListener=listener;
     }
