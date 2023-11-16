@@ -72,9 +72,9 @@ public class ChonChoNgoiActivity extends AppCompatActivity implements ItemAdapte
         rcv_hangKhachChonCHo.setAdapter(hangKhachChonGheAdapter);
         ghes=new ArrayList<>();
         GetAllGhe();
+        rcv_choNgoi.setLayoutManager(new GridLayoutManager(this,6));
         gheAdapter=new GheAdapter(ChonChoNgoiActivity.this,ghes);
         rcv_choNgoi.setAdapter(gheAdapter);
-        rcv_choNgoi.setLayoutManager(new GridLayoutManager(this,6));
 
 
 
@@ -127,7 +127,7 @@ public class ChonChoNgoiActivity extends AppCompatActivity implements ItemAdapte
         tv_ngayDi=findViewById(R.id.tv_ngayDi);
         tv_diemDi=findViewById(R.id.tv_diemDi);
         tv_diemDen=findViewById(R.id.tv_diemDen);
-
+        rcv_choNgoi=findViewById(R.id.rcv_choNgoi);
         rcv_hangKhachChonCHo=findViewById(R.id.rcv_hangKhachChonCHo);
         numberTreEm2_12Tuoi =Integer.parseInt(DiaDiem.getInstance().getSoLuongTreEm2Ttoi12T());
         numberNguoiLon=Integer.parseInt(DiaDiem.getInstance().getSoLuongNguoiLon());
