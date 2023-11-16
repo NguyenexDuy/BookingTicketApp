@@ -15,7 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cnpmnc.R;
+
 import com.example.cnpmnc.adapter.GheAdapter;
+
 import com.example.cnpmnc.adapter.HangKhachChonGheAdapter;
 import com.example.cnpmnc.adapter.ItemAdapter;
 import com.example.cnpmnc.model.ChuyenBay;
@@ -36,6 +38,7 @@ public class ChonChoNgoiActivity extends AppCompatActivity implements ItemAdapte
     private DiaDiem diaDiem;
     int soLuongGhe,soLuongHangKhach,numberTreEm2_12Tuoi, numberNguoiLon, numberTreEm2Tuoi;
     private Button btn_tiepTuc;
+
     private TextView tv_diemDi,tv_diemDen,tv_ngayDi;
     private RecyclerView rcv_hangKhachChonCHo,rcv_choNgoi;
     private HangKhachChonGheAdapter hangKhachChonGheAdapter;
@@ -44,14 +47,17 @@ public class ChonChoNgoiActivity extends AppCompatActivity implements ItemAdapte
     private ChuyenBay chuyenBay;
     private ArrayList<Ghe> ghes;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chon_cho_ngoi);
         AnhXa();
+
         if(DiaDiem.getInstance().getIdChuyenBay()!=null)
         {
             Toast.makeText(this, "co id", Toast.LENGTH_SHORT).show();
+
         }
         else
         {
@@ -71,20 +77,25 @@ public class ChonChoNgoiActivity extends AppCompatActivity implements ItemAdapte
         rcv_choNgoi.setLayoutManager(new GridLayoutManager(this,6));
 
 
+
+
         btn_tiepTuc=findViewById(R.id.btn_tiepTuc);
         btn_tiepTuc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
 //                int selectedSeatPosition = DiaDiem.getInstance().getSelectedSeatPosition();
 
                 // Truyền vị trí ghế vào DiaDiem
 //                DiaDiem.getInstance().setSelectedSeatPosition(selectedSeatPosition);
 //                Toast.makeText(ChonChoNgoiActivity.this, String.valueOf(selectedSeatPosition), Toast.LENGTH_SHORT).show();
+
                 Intent intent=new Intent(ChonChoNgoiActivity.this, ThongTinKhachhangActivity.class);
                 startActivity(intent);
             }
         });
     }
+
     private void GetAllGhe(){
 
         firebaseFirestore.collection("ghe").whereEqualTo("IdChuyenBay",DiaDiem.getInstance().getIdChuyenBay()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -104,17 +115,19 @@ public class ChonChoNgoiActivity extends AppCompatActivity implements ItemAdapte
         });
     }
 
+
     @Override
     public void onSeatClick(int position) {
         DiaDiem.getInstance().setSelectedSeatPosition(position);
     }
     private void AnhXa()
     {
+
         firebaseFirestore=FirebaseFirestore.getInstance();
         tv_ngayDi=findViewById(R.id.tv_ngayDi);
         tv_diemDi=findViewById(R.id.tv_diemDi);
         tv_diemDen=findViewById(R.id.tv_diemDen);
-        rcv_choNgoi=findViewById(R.id.rcv_choNgoi);
+
         rcv_hangKhachChonCHo=findViewById(R.id.rcv_hangKhachChonCHo);
         numberTreEm2_12Tuoi =Integer.parseInt(DiaDiem.getInstance().getSoLuongTreEm2Ttoi12T());
         numberNguoiLon=Integer.parseInt(DiaDiem.getInstance().getSoLuongNguoiLon());

@@ -25,7 +25,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     public interface OnSeatClickListener {
         void onSeatClick(int position);
     }
+
     public ItemAdapter(ArrayList<String> itemList,OnSeatClickListener listener) {
+
         this.itemList = itemList;
         this.onSeatClickListener=listener;
     }
