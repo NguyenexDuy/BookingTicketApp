@@ -22,14 +22,13 @@
             android:layout_height="match_parent"
             android:background="@drawable/background_itemrcv">
         </ImageView>
-        <TextView
-            android:id="@+id/tvXoaItemDathich"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableTop="@drawable/baseline_clear_24"
-            android:lineHeight="18sp"
-            android:layout_marginLeft="130dp"
-            android:layout_marginTop="10dp"/>
+        <ImageView
+            android:id="@+id/img_liked"
+            android:layout_marginStart="110dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/heart_red_24"/>
         <TextView
             android:id="@+id/tv_nameflight"
             android:layout_width="wrap_content"
