@@ -21,9 +21,19 @@ public class DiaDiem {
         DiemDi = null;
         DiemDen = null;
     }
+    private int selectedSeatPosition = -1;
+
+    public int getSelectedSeatPosition() {
+        return selectedSeatPosition;
+    }
+
+    public void setSelectedSeatPosition(int selectedSeatPosition) {
+        this.selectedSeatPosition = selectedSeatPosition;
+    }
     private ArrayList<HangKhach> HangKhachNguoiLonList;
     private ArrayList<HangKhach> HangKhachTreEm2_12TList;
     private ArrayList<HangKhach> HangKhachTreEmDuoi2TList;
+    private ArrayList<HangKhach> AllHangKhach;
 
     public ArrayList<HangKhach> getHangKhachNguoiLonList() {
         if (HangKhachNguoiLonList == null || HangKhachNguoiLonList.isEmpty()) {
@@ -65,6 +75,19 @@ public class DiaDiem {
             }
         }
         return HangKhachTreEm2_12TList;
+    }
+    public ArrayList<HangKhach> getAllHangKhach(int soLuongHangKhach){
+        if(AllHangKhach==null|| AllHangKhach.isEmpty())
+        {
+            AllHangKhach=new ArrayList<>();
+
+            for(int i=0;i<soLuongHangKhach;i++)
+            {
+                HangKhach allHangKhach=new HangKhach("Ten","Loai ");
+                AllHangKhach.add(allHangKhach);
+            }
+        }
+        return AllHangKhach;
     }
 
     public void setHangKhachTreEm2_12TList(ArrayList<HangKhach> hangKhachTreEm2_12TList) {
@@ -129,6 +152,23 @@ public class DiaDiem {
     }
     private String DiemDi = null;
     private String DiemDen = null;
+    private String IdChuyenBay=null;
+
+    public ArrayList<HangKhach> getAllHangKhach() {
+        return AllHangKhach;
+    }
+
+    public void setAllHangKhach(ArrayList<HangKhach> allHangKhach) {
+        AllHangKhach = allHangKhach;
+    }
+
+    public String getIdChuyenBay() {
+        return IdChuyenBay;
+    }
+
+    public void setIdChuyenBay(String idChuyenBay) {
+        IdChuyenBay = idChuyenBay;
+    }
 
     public static void setInstance(DiaDiem instance) {
         DiaDiem.instance = instance;

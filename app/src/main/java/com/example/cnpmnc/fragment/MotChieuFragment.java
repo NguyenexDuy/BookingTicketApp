@@ -172,8 +172,7 @@ public class MotChieuFragment extends Fragment {
                 {
                     ThucHienHanhDong2();
                     Toast.makeText(getContext(), "Co user", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getContext(), DiaDiem.getInstance().getDiemDi(), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getContext(), DiaDiem.getInstance().getDiemDen(), Toast.LENGTH_SHORT).show();
+
 
                 }
                 else {
@@ -232,6 +231,7 @@ public class MotChieuFragment extends Fragment {
         DiaDiem.getInstance().setDiemDi(tv_tensanbaydiemdi.getText().toString());
         DiaDiem.getInstance().setDiemDen(tv_tensanbaydiemden.getText().toString());
         DiaDiem.getInstance().setNgayDi(tv_CalendarNgayDi.getText().toString());
+        DiaDiem.getInstance().setIdChuyenBay(chuyenBay.getIdChuyenBay());
         Intent intent = new Intent(getContext(), ChonChuyenBayActivity.class);
         getContext().startActivity(intent);
     }

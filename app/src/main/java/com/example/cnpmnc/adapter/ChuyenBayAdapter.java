@@ -40,10 +40,6 @@ public class ChuyenBayAdapter extends RecyclerView.Adapter<ChuyenBayAdapter.Chuy
         ChuyenBay chuyenVeTest = chuyenVeTests.get(position);
 
 
-
-
-
-
         holder.tvMaChuyenBay.setText(chuyenVeTest.getIdChuyenBay());
         holder.tvNgayBay.setText(chuyenVeTest.getNgayDi());
         holder.tvNgayDen.setText(chuyenVeTest.getNgayVe());

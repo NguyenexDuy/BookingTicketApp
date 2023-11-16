@@ -1,5 +1,9 @@
 package com.example.cnpmnc.adapter;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +14,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cnpmnc.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
 
-    private List<String> itemList;
+    private ArrayList<String> itemList;
     private int selectedPosition = RecyclerView.NO_POSITION;
-
-    public ItemAdapter(List<String> itemList) {
-        this.itemList = itemList;
+    private OnSeatClickListener onSeatClickListener;
+    public interface OnSeatClickListener {
+        void onSeatClick(int position);
     }
+
+    public ItemAdapter(ArrayList<String> itemList,OnSeatClickListener listener) {
+
+        this.itemList = itemList;
+        this.onSeatClickListener=listener;
+    }
+
 
     @NonNull
     @Override
@@ -28,13 +40,16 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         return new ItemViewHolder(view);
     }
 
+
+
+
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        String item = itemList.get(position);
         holder.checkBox.setChecked(position==selectedPosition);
         holder.checkBox.setOnClickListener(v -> {
             selectedPosition = holder.getAdapterPosition();
             notifyDataSetChanged();
+            onSeatClickListener.onSeatClick(selectedPosition);
         });
     }
 
@@ -49,9 +64,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
         ItemViewHolder(@NonNull View itemView) {
             super(itemView);
-//            textView1 = itemView.findViewById(R.id.textView1);
-//            textView2 = itemView.findViewById(R.id.textView2);
-//            textView3 = itemView.findViewById(R.id.textView3);
             checkBox=itemView.findViewById(R.id.checkbox);
         }
 
