@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout android:gravity="center_horizontal"
+        android:id="@+id/linearActivitymomoTw"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical" style="@style/groupStylewhite_A700">
+        <androidx.appcompat.widget.Toolbar android:gravity="start"
+            android:id="@+id/toolbarToolbar"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent" app:contentInsetStart="0dp">
+            <LinearLayout android:gravity="start"
+                android:id="@+id/linearRowmomo"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="horizontal" style="@style/groupStylepink_600">
+
+                <ImageView
+                    android:id="@+id/imageImageTwo"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="11dp"
+                    android:layout_marginBottom="11dp"
+
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/img_image1" />
+                <TextView android:ellipsize="end"
+                    android:id="@+id/txtMoMo"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="17dp"
+                    android:layout_marginEnd="134dp"
+                    android:layout_marginStart="69dp"
+                    android:layout_marginTop="17dp"
+
+                    android:layout_weight="0.65"
+                    android:layout_width="0dp" android:singleLine="true"
+                    android:text="MoMo"
+                    style="@style/txtInterbold30" />
+            </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
+        <TextView android:ellipsize="end"
+            android:gravity="center_horizontal"
+            android:id="@+id/txtQukhchvuil"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="19dp"
+
+            android:layout_width="match_parent"
+            android:singleLine="true"
+            android:text="Quý khách vui lòng nhập mã xác nhận:"
+            style="@style/txtInterregular18" />
+        <TextView android:ellipsize="end" android:id="@+id/tvTime"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"
+
+            android:layout_width="wrap_content"
+            android:singleLine="true"
+            android:text="00:00"
+            style="@style/txtInterregular22"/>
+        <EditText android:ellipsize="end"
+            android:gravity="center_horizontal"
+            android:id="@+id/edtCode"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp"
+
+            android:singleLine="true"
+            style="@style/txtSolidRoundedOutline"/>
+        <TextView android:ellipsize="end" android:id="@+id/txtGilim"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="24dp"
+            android:layout_width="wrap_content"
+            android:singleLine="true"
+            android:text="Gửi lại mã"
+            style="@style/txtInterregular18_2" textUnderline="true" />
+        <LinearLayout android:id="@+id/linearRowtngtin"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="248dp"
+            android:layout_width="match_parent" android:orientation="horizontal">
+            <TextView android:ellipsize="end"
+                android:id="@+id/txtTngtin"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_weight="0.44" android:layout_width="0dp"
+                android:singleLine="true"
+                android:text="Tổng tiền"
+                style="@style/txtInterregular18_1" />
+            <TextView android:ellipsize="end"
+                android:id="@+id/txt1400000"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:layout_marginStart="188dp"
+                android:layout_weight="0.56" android:layout_width="0dp"
+                android:singleLine="true"
+                android:text="1.400.000đ"
+                style="@style/txtInterbold18_2" />
+        </LinearLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:ellipsize="end" android:gravity="center"
+            android:id="@+id/btnXcNhn"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="23dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:paddingBottom="11dp"
+            android:paddingEnd="30dp"
+            android:paddingStart="30dp"
+            android:paddingTop="11dp"
+
+            android:singleLine="true"
+            android:text="Xác nhận"
+            android:textAllCaps="false"
+            style="@style/btnSolidRoundedOutline_1"
+            />
+    </LinearLayout>
+</layout>
