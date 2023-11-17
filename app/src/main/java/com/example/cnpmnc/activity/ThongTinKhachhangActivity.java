@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.adapter.HangKhachAdapter;
+import com.example.cnpmnc.model.ChuyenBay;
 import com.example.cnpmnc.model.DiaDiem;
 import com.example.cnpmnc.model.HangKhach;
 
@@ -28,6 +29,7 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
     private LinearLayout btn_chonChoNgoi;
     private HangKhach hangKhach;
     private Button btn_ThanhToan;
+    ChuyenBay chuyenBay;
     private int numberTreEm2_12Tuoi, numberNguoiLon, numberTreEm2Tuoi,soLuongHangKhach, price;
     TextView tvThongTinGheNgoi, tv_giaChuyenBay,tv_SoLuongHangKhach;
     @Override
@@ -35,25 +37,23 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thong_tin_khachhang);
         AnhXa();
+        chuyenBay=(ChuyenBay) getIntent().getSerializableExtra("ChuyenBayData");
+//        Toast.makeText(this, chuyenBay.getIdChuyenBay(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(ThongTinKhachhangActivity.this, DiaDiem.getInstance().getSoLuongTreEmDuoi2T(), Toast.LENGTH_SHORT).show();
         String ghe=String.valueOf(DiaDiem.getInstance().getSelectedSeatPosition());
 
-        Toast.makeText(this,ghe , Toast.LENGTH_SHORT).show();
         soLuongHangKhach=numberNguoiLon+numberTreEm2Tuoi+numberTreEm2_12Tuoi;
-        price=Integer.valueOf(DiaDiem.getInstance().getGiaVe());
+        price=Integer.valueOf(chuyenBay.getGiaVe());
         int GiaVeTong=price*soLuongHangKhach;
         tv_SoLuongHangKhach.setText(String.valueOf(soLuongHangKhach));
         tv_giaChuyenBay.setText(String.valueOf(GiaVeTong));
 
-        HangKhachAdapter hangKhach2_12TuoiAdapter=new HangKhachAdapter(numberTreEm2_12Tuoi, DiaDiem.getInstance().getHangKhachTreEm2_12TList(),ThongTinKhachhangActivity.this,2);
-        HangKhachAdapter hangKhach2Tuoi=new HangKhachAdapter(numberTreEm2Tuoi, DiaDiem.getInstance().getHangKhachTreEmDuoi2TList(),ThongTinKhachhangActivity.this,3);
-        HangKhachAdapter hangKhachNguoiLonAdapter=new HangKhachAdapter(numberNguoiLon, DiaDiem.getInstance().getHangKhachNguoiLonList(), ThongTinKhachhangActivity.this,1);
 
         rcvNguoiLon.setLayoutManager(new LinearLayoutManager(ThongTinKhachhangActivity.this));
-        rcvNguoiLon.setAdapter(hangKhachNguoiLonAdapter);
         rcvTreEm2Tuoi.setLayoutManager(new LinearLayoutManager(ThongTinKhachhangActivity.this));
         rcvTreEm2_12Tuoi.setLayoutManager(new LinearLayoutManager(ThongTinKhachhangActivity.this));
-        rcvTreEm2Tuoi.setAdapter(hangKhach2Tuoi);
-        rcvTreEm2_12Tuoi.setAdapter(hangKhach2_12TuoiAdapter);
+
+        setdata();
 
         tvThongTinGheNgoi.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +66,7 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(ThongTinKhachhangActivity.this,ChonChoNgoiActivity.class);
+                intent.putExtra("ChuyenBayDT", chuyenBay);
                 startActivity(intent);
             }
         });
@@ -79,9 +80,21 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setdata();
+    }
 
+    private void setdata() {
+        HangKhachAdapter hangKhach2_12TuoiAdapter=new HangKhachAdapter(numberTreEm2_12Tuoi, DiaDiem.getInstance().getHangKhachTreEm2_12TList(),ThongTinKhachhangActivity.this,2);
+        HangKhachAdapter hangKhach2Tuoi=new HangKhachAdapter(numberTreEm2Tuoi, DiaDiem.getInstance().getHangKhachTreEmDuoi2TList(),ThongTinKhachhangActivity.this,3);
+        HangKhachAdapter hangKhachNguoiLonAdapter=new HangKhachAdapter(numberNguoiLon, DiaDiem.getInstance().getHangKhachNguoiLonList(), ThongTinKhachhangActivity.this,1);
 
-
+        rcvTreEm2Tuoi.setAdapter(hangKhach2Tuoi);
+        rcvTreEm2_12Tuoi.setAdapter(hangKhach2_12TuoiAdapter);
+        rcvNguoiLon.setAdapter(hangKhachNguoiLonAdapter);
+    }
 
     private void AnhXa()
     {
@@ -99,8 +112,5 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
         numberTreEm2_12Tuoi =Integer.parseInt(DiaDiem.getInstance().getSoLuongTreEm2Ttoi12T());
         numberNguoiLon=Integer.parseInt(DiaDiem.getInstance().getSoLuongNguoiLon());
         numberTreEm2Tuoi=Integer.parseInt(DiaDiem.getInstance().getSoLuongTreEmDuoi2T());
-
     }
-
-
 }

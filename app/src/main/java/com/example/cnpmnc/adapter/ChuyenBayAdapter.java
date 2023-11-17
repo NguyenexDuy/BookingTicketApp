@@ -48,14 +48,13 @@ public class ChuyenBayAdapter extends RecyclerView.Adapter<ChuyenBayAdapter.Chuy
         holder.tvNoiDen.setText(chuyenVeTest.getDiemDen());
         holder.tv_SoLuongVe.setText(chuyenVeTest.getSoLuongGheTrong());
         holder.tvTongTien.setText(chuyenVeTest.getGiaVe());
-        DiaDiem.getInstance().setGiaVe(chuyenVeTest.getGiaVe());
-        diaDiem.getInstance().setSoLuongGheTrong(holder.tv_SoLuongVe.getText().toString());
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(mcontext, ThongTinKhachhangActivity.class);
+                intent.putExtra("ChuyenBayData", chuyenVeTest);
                 mcontext.startActivity(intent);
-                
             }
         });
     }

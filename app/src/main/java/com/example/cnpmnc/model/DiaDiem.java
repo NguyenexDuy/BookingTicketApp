@@ -59,11 +59,6 @@ public class DiaDiem {
         }
         return HangKhachTreEmDuoi2TList;
     }
-
-    public void setHangKhachTreEmDuoi2TList(ArrayList<HangKhach> hangKhachTreEmDuoi2TList) {
-        HangKhachTreEmDuoi2TList = hangKhachTreEmDuoi2TList;
-    }
-
     public ArrayList<HangKhach> getHangKhachTreEm2_12TList() {
         if(HangKhachTreEm2_12TList ==null|| HangKhachTreEm2_12TList.isEmpty())
         {
@@ -76,6 +71,12 @@ public class DiaDiem {
         }
         return HangKhachTreEm2_12TList;
     }
+
+    public void setHangKhachTreEmDuoi2TList(ArrayList<HangKhach> hangKhachTreEmDuoi2TList) {
+        HangKhachTreEmDuoi2TList = hangKhachTreEmDuoi2TList;
+    }
+
+
     public ArrayList<HangKhach> getAllHangKhach(int soLuongHangKhach){
         if(AllHangKhach==null|| AllHangKhach.isEmpty())
         {
