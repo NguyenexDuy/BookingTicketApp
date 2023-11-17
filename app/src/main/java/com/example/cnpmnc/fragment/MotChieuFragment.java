@@ -101,7 +101,7 @@ public class MotChieuFragment extends Fragment {
 
     }
     private TextView tv_CalendarNgayDi;
-    int countNguoiLon=0;
+    int countNguoiLon=1;
     int countTreEm2_12Tuoi=0;
     int countTreEmDuoi2tuoi=0;
     private String NgayDi;
@@ -170,10 +170,14 @@ public class MotChieuFragment extends Fragment {
                 firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
                 if(firebaseUser!=null)
                 {
-                    ThucHienHanhDong2();
+                    if(tv_tensanbaydiemdi==null||tv_idsanbaydiemden==null)
+                    {
+                        Toast.makeText(getContext(), "Khong co dia diem", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        ThucHienHanhDong2();
+                    }
                     Toast.makeText(getContext(), "Co user", Toast.LENGTH_SHORT).show();
-
-
                 }
                 else {
                     Toast.makeText(getContext(), "ko co user", Toast.LENGTH_SHORT).show();
@@ -225,26 +229,34 @@ public class MotChieuFragment extends Fragment {
 
     private void ThucHienHanhDong2()
     {
-        DiaDiem.getInstance().setSoLuongNguoiLon(tv_countNguoiLon.getText().toString());
-        DiaDiem.getInstance().setSoLuongTreEm2Ttoi12T(tv_countTreEm2_12T.getText().toString());
-        DiaDiem.getInstance().setSoLuongTreEmDuoi2T(tv_countTreEm2T.getText().toString());
-        DiaDiem.getInstance().setDiemDi(tv_tensanbaydiemdi.getText().toString());
-        DiaDiem.getInstance().setDiemDen(tv_tensanbaydiemden.getText().toString());
-        DiaDiem.getInstance().setNgayDi(tv_CalendarNgayDi.getText().toString());
-        DiaDiem.getInstance().setIdChuyenBay(chuyenBay.getIdChuyenBay());
-        Intent intent = new Intent(getContext(), ChonChuyenBayActivity.class);
-        getContext().startActivity(intent);
+
+            DiaDiem.getInstance().setSoLuongNguoiLon(tv_countNguoiLon.getText().toString());
+            DiaDiem.getInstance().setSoLuongTreEm2Ttoi12T(tv_countTreEm2_12T.getText().toString());
+            DiaDiem.getInstance().setSoLuongTreEmDuoi2T(tv_countTreEm2T.getText().toString());
+            DiaDiem.getInstance().setDiemDi(tv_tensanbaydiemdi.getText().toString());
+            DiaDiem.getInstance().setDiemDen(tv_tensanbaydiemden.getText().toString());
+            DiaDiem.getInstance().setNgayDi(tv_CalendarNgayDi.getText().toString());
+            if (chuyenBay!=null)
+            {
+                Intent intent = new Intent(getContext(), ChonChuyenBayActivity.class);
+                getContext().startActivity(intent);
+            }
+            if (DiaDiem.getInstance().getDiemDi()!=null||DiaDiem.getInstance().getDiemDen()!=null)
+            {
+                Intent intent = new Intent(getContext(), ChonChuyenBayActivity.class);
+                getContext().startActivity(intent);
+            }
+
+
+
+
+
     }
 
         private void setdata(){
             if (chuyenBay != null){
 
-//                firebase.getIdSanBayByTenSanBay(chuyenBay.getDiemDi(), new Firebase.getIdSanBayByTenSanBayCallback() {
-//                    @Override
-//                    public void onCallBack(String idSanBay) {
-//                        tv_idsanbaydiemdi.setText(idSanBay);
-//                    }
-//                });
+
                 String tenCanTimKiem=chuyenBay.getDiemDi();
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -295,6 +307,7 @@ public class MotChieuFragment extends Fragment {
                     }
                 });
             }
+            
         }
     private void showCalendarNgayDi(){
         final Calendar c = Calendar.getInstance();
@@ -339,7 +352,7 @@ public class MotChieuFragment extends Fragment {
         btn_minus2MotChieu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(countTreEm2_12Tuoi>1)
+                if(countTreEm2_12Tuoi>0)
                 {
                     countTreEm2_12Tuoi--;
                     updateCount(tv_countTreEm2_12T,countTreEm2_12Tuoi);
@@ -350,7 +363,7 @@ public class MotChieuFragment extends Fragment {
         btn_minus3MotChieu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(countTreEmDuoi2tuoi>1)
+                if(countTreEmDuoi2tuoi>0)
                 {
                     countTreEmDuoi2tuoi--;
                     updateCount(tv_countTreEm2T,countTreEmDuoi2tuoi);

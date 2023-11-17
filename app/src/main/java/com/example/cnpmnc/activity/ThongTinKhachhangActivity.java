@@ -28,7 +28,7 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
     private LinearLayout btn_chonChoNgoi;
     private HangKhach hangKhach;
     private Button btn_ThanhToan;
-    private int numberTreEm2_12Tuoi, numberNguoiLon, numberTreEm2Tuoi,soLuongHangKhach;
+    private int numberTreEm2_12Tuoi, numberNguoiLon, numberTreEm2Tuoi,soLuongHangKhach, price;
     TextView tvThongTinGheNgoi, tv_giaChuyenBay,tv_SoLuongHangKhach;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,10 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
 
         Toast.makeText(this,ghe , Toast.LENGTH_SHORT).show();
         soLuongHangKhach=numberNguoiLon+numberTreEm2Tuoi+numberTreEm2_12Tuoi;
+        price=Integer.valueOf(DiaDiem.getInstance().getGiaVe());
+        int GiaVeTong=price*soLuongHangKhach;
         tv_SoLuongHangKhach.setText(String.valueOf(soLuongHangKhach));
+        tv_giaChuyenBay.setText(String.valueOf(GiaVeTong));
 
         HangKhachAdapter hangKhach2_12TuoiAdapter=new HangKhachAdapter(numberTreEm2_12Tuoi, DiaDiem.getInstance().getHangKhachTreEm2_12TList(),ThongTinKhachhangActivity.this,2);
         HangKhachAdapter hangKhach2Tuoi=new HangKhachAdapter(numberTreEm2Tuoi, DiaDiem.getInstance().getHangKhachTreEmDuoi2TList(),ThongTinKhachhangActivity.this,3);

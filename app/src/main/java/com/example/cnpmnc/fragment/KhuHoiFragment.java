@@ -210,9 +210,17 @@ public class KhuHoiFragment extends Fragment {
         DiaDiem.getInstance().setDiemDen(tv_tensanbaydiemden.getText().toString());
         DiaDiem.getInstance().setNgayDi(tv_CalendarNgayDiKhuHoi.getText().toString());
         DiaDiem.getInstance().setNgayVe(tv_CalendarNgayVeKhuHoi.getText().toString());
-        Toast.makeText(getContext(), DiaDiem.getInstance().getNgayVe(), Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(getContext(), ChonChuyenBayActivity.class);
-        getContext().startActivity(intent);
+
+        if (chuyenBay!=null)
+        {
+            Intent intent = new Intent(getContext(), ChonChuyenBayActivity.class);
+            getContext().startActivity(intent);
+        }
+        if (DiaDiem.getInstance().getDiemDi()!=null||DiaDiem.getInstance().getDiemDen()!=null)
+        {
+            Intent intent = new Intent(getContext(), ChonChuyenBayActivity.class);
+            getContext().startActivity(intent);
+        }
     }
     private void showCalendarNgayVe(TextView textView) {
         final Calendar c = Calendar.getInstance();

@@ -15,10 +15,15 @@ public class ChuyenBay implements Serializable {
     private String TrangThai;
     private  String MoTa;
     private  String MoTaDiemDap;
+    private String GiaVe;
 
+    public String getGiaVe() {
+        return GiaVe;
+    }
 
-
-
+    public void setGiaVe(String giaVe) {
+        GiaVe = giaVe;
+    }
 
     public ChuyenBay(){
 
@@ -52,7 +57,7 @@ public class ChuyenBay implements Serializable {
         this.isYeuThich = isYeuThich;
     }
     public ChuyenBay(String idChuyenBay, String diemDen, String diemDi, String gioBatDau, String hinhAnh, String ngayDi, String ngayVe,
-                     String soLuongGheTrong, String soLuongGheVipTrong, String trangThai, String moTa, String moTaDiemDap) {
+                     String soLuongGheTrong, String soLuongGheVipTrong, String trangThai, String moTa, String moTaDiemDap,String giaVe) {
         IdChuyenBay = idChuyenBay;
         DiemDen = diemDen;
         DiemDi = diemDi;
@@ -65,6 +70,7 @@ public class ChuyenBay implements Serializable {
         TrangThai = trangThai;
         MoTa=moTa;
         MoTaDiemDap=moTaDiemDap;
+        GiaVe=giaVe;
     }
 
     public String getMoTa() {

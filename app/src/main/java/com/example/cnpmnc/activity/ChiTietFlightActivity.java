@@ -38,7 +38,7 @@ public class ChiTietFlightActivity extends AppCompatActivity {
     private static final String PREFS_NAME = "MyPrefs";
     private static final String IS_YEU_THICH = "isYeuThich_";
     private static final String CHECKBOX_BACKGROUND = "checkBoxBackground_";
-    TextView tv_chiTietDiemDen,tv_MoTaChiTietFight,tv_DiemDapChiTiet;
+    TextView tv_chiTietDiemDen,tv_MoTaChiTietFight,tv_DiemDapChiTiet,tv_GiaVe;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,10 +55,11 @@ public class ChiTietFlightActivity extends AppCompatActivity {
         String tv_chitietDiemDen=chuyenBay.getDiemDen();
         String tv_mota= chuyenBay.getMoTa();
         String tv_diemdapchitiet=chuyenBay.getMoTaDiemDap();
+        String tv_giave=chuyenBay.getGiaVe();
         tv_chiTietDiemDen.setText(tv_chitietDiemDen);
         tv_MoTaChiTietFight.setText(tv_mota);
         tv_DiemDapChiTiet.setText(tv_diemdapchitiet);
-
+        tv_GiaVe.setText(tv_giave);
         btn_datve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,6 +93,7 @@ public class ChiTietFlightActivity extends AppCompatActivity {
 
     private void Anhxa() {
         btn_datve =findViewById(R.id.btn_datve);
+        tv_GiaVe=findViewById(R.id.tv_GiaVe);
         img_chiTietFight=findViewById(R.id.img_chiTietFight);
         tv_chiTietDiemDen =findViewById(R.id.tv_chiTietDiemDi);
         tv_MoTaChiTietFight=findViewById(R.id.tv_MoTaChiTietFight);

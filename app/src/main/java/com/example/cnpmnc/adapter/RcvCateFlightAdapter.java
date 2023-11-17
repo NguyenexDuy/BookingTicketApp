@@ -63,7 +63,7 @@ public class RcvCateFlightAdapter extends RecyclerView.Adapter<RcvCateFlightAdap
     @Override
     public void onBindViewHolder(@NonNull RcvCateFlightAdapter.ViewHolder holder, int position) {
         ChuyenBay currentFlight = flightlist.get(position);
-        holder.priceflight.setText(String.format("%,d", Math.round(100000)) + " VNĐ");
+        holder.priceflight.setText(currentFlight.getGiaVe()+ " VNĐ");
         holder.nameflight.setText(currentFlight.getDiemDen());
         Glide.with(context).load(currentFlight.getHinhAnh()).into(holder.imageflight);
         holder.imageflight.setOnClickListener(new View.OnClickListener() {
