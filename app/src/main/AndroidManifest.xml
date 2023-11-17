@@ -13,10 +13,25 @@
         android:theme="@style/Theme.Cnpmnc"
         tools:targetApi="31">
         <activity
-            android:name=".activity.PaymentOptions"
+            android:name=".activity.HomePageActivity"
             android:exported="true" />
         <activity
             android:name=".activity.NhapThongTinHangKhachTreEm2TActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ThanhToanShopeePay"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ThanhToanShopeePay2"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ThanhToanATM"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ThanhToanATM2"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ThanhToanThanhCong"
             android:exported="false" />
         <activity
             android:name=".activity.NhapThongTinHangKhachTreEmActivity"
@@ -71,7 +86,14 @@
             android:name=".activity.ChonChuyenBayActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.HomePageActivity"
+            android:name=".activity.ThanhToanMoMo"
+            android:exported="true" />
+        <activity
+            android:name=".activity.ThanhToanMoMo2"
+            android:exported="true" />
+
+        <activity
+            android:name=".activity.PaymentOptions"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -13,5 +13,9 @@
     <color name="black_900">#000000</color>
     <color name="cyan_900">#004578</color>
     <color name="gray_700">#5e5e5e</color>
-
+    <color name="gray_400">#b7aeae</color>
+    <color name="gray_401">#bbb3b3</color>
+    <color name="deep_orange_600">#ef681c</color>
+    <color name="pink_600">#d7247a</color>
+    <color name="gray_50">#fffafa</color>
 </resources>
