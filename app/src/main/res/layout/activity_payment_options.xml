@@ -112,7 +112,7 @@
                     android:layout_marginTop="19dp"
                     android:layout_width="match_parent" android:orientation="horizontal">
                     <TextView android:ellipsize="end"
-                        android:id="@+id/txtThthanhton"
+                        android:id="@+id/tvOnlPm"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="2dp"
                         android:layout_marginTop="1dp"
@@ -136,12 +136,48 @@
                         tools:src="@drawable/img_image28"
                         />
                 </LinearLayout>
-                <FrameLayout android:id="@+id/frameStackone"
+                <FrameLayout
+                    android:id="@+id/frameStackone"
                     android:layout_marginHorizontal="10dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_height="80dp"
                     android:layout_marginTop="13dp"
                     android:layout_width="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="30dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvATM"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="7dp"
+                            android:layout_marginTop="13dp"
+                            android:layout_marginEnd="18dp"
+                            android:layout_marginBottom="13dp"
+                            android:ellipsize="end"
+                            android:gravity="top|start"
+                            android:singleLine="true"
+                            android:text="Thẻ ATM, Internet banking"
+                            android:textColor="@color/black_900"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/imageImageTwentyNine"
+                            android:layout_width="50dp"
+                            android:layout_height="55dp"
+                            android:layout_marginEnd="22dp"
+                            android:layout_marginStart="62dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/img_image29"
+                            tools:ignore="ContentDescription"
+                            tools:src="@drawable/img_image29" />
+                    </LinearLayout>
+
                     <TextView android:ellipsize="end"
                         android:id="@+id/txtOne"
                         android:gravity="center_horizontal"
@@ -150,36 +186,9 @@
                         android:layout_marginBottom="10dp"
                         android:layout_width="match_parent"
                         android:singleLine="true"
-                        android:text="--------------------------------------------------"
+                        android:text="------------------------------------------------------"
                         android:textSize="25dp"
 		                android:textColor="@color/gray_700"
-                        />
-                    <TextView android:ellipsize="end"
-                        android:gravity="top|start"
-                        android:id="@+id/txtThATMIntern"
-                        android:layout_gravity="bottom|start"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="13dp"
-                        android:layout_marginEnd="18dp"
-                        android:layout_marginStart="17dp"
-                        android:layout_marginTop="13dp"
-                        android:layout_width="match_parent"
-                        android:singleLine="true"
-                        android:textStyle="bold"
-                        android:text="Thẻ ATM, Internet banking"
-                        android:textSize="20dp"
-                        android:textColor="@color/black_900"
-                        />
-                    <ImageView android:id="@+id/imageImageTwentyNine"
-                        android:layout_gravity="bottom|end"
-                        android:layout_height="55dp"
-                        android:layout_marginEnd="22dp"
-                        android:layout_marginStart="19dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_width="50dp"
-                        android:scaleType="fitXY"
-                        tools:ignore="ContentDescription"
-                        tools:src="@drawable/img_image29"
                         />
                 </FrameLayout>
                 <TextView android:ellipsize="end"
@@ -189,7 +198,7 @@
                     android:layout_marginTop="1dp"
                     android:layout_width="match_parent"
                     android:singleLine="true"
-                    android:text="-------------------------------------------------------"
+                    android:text="------------------------------------------------------"
                     android:textSize="25dp"
                     android:textColor="@color/gray_700"
                     />
@@ -198,7 +207,7 @@
                     android:layout_width="match_parent"
                     android:orientation="horizontal">
                     <TextView android:ellipsize="end"
-                        android:id="@+id/txtMoMo"
+                        android:id="@+id/tvMoMo"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:layout_marginStart="17dp"
@@ -218,7 +227,8 @@
                         android:layout_width="40dp"
                         android:scaleType="fitXY"
                         android:src="@drawable/img_image30"
-                        tools:ignore="ContentDescription" tools:src="@drawable/img_image30"/>
+                        tools:ignore="ContentDescription"
+                        tools:src="@drawable/img_image30"/>
                 </LinearLayout>
                 <TextView android:ellipsize="end"
                     android:gravity="center_horizontal"
@@ -250,7 +260,7 @@
                         />
 
                     <TextView
-                        android:id="@+id/txtShopeePay"
+                        android:id="@+id/tvShopeePay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="top|start"
