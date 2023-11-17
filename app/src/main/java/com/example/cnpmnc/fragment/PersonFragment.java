@@ -72,7 +72,7 @@ public class PersonFragment extends Fragment {
     }
 
 
-    TextView tvten,tvemail,tvdangxuat,tvttcn,tvLichSuDatVe,tvChuyenBayYeuThich,tvDangXuat;
+    TextView tvten,tvemail,tvdangxuat,tvttcn,tvLichSuDatVe,tvChuyenBayYeuThich;
 
     FirebaseFirestore db;
     FirebaseAuth firebaseAuth;
@@ -91,7 +91,6 @@ public class PersonFragment extends Fragment {
         tvttcn=view.findViewById(R.id.tvinfo);
         tvLichSuDatVe = view.findViewById(R.id.tvLicSuDatVe);
         tvChuyenBayYeuThich = view.findViewById(R.id.tvChuyenBayDaThich);
-        tvdangxuat = view.findViewById(R.id.tvDangXuat);
         tvten=view.findViewById(R.id.tvten);
         tvemail=view.findViewById(R.id.tvemail);
         firebaseAuth=FirebaseAuth.getInstance();
@@ -99,18 +98,15 @@ public class PersonFragment extends Fragment {
         tvdangxuat=view.findViewById(R.id.tvDangXuat);
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseUser=firebaseAuth.getCurrentUser();
+
         if (firebaseUser != null) {
             String userUid = firebaseUser.getUid();
-
-            // Tạo reference đến tài liệu Firestore "NguoiDung" tương ứng với user UID
             DocumentReference nguoiDungDocRef = db.collection("Customer").document(userUid);
 
             nguoiDungDocRef.get().addOnSuccessListener(nguoiDungDocumentSnapshot -> {
                 if (nguoiDungDocumentSnapshot.exists()) {
-                    String email = nguoiDungDocumentSnapshot.getString("Email");
-
-                    // Tạo reference đến tài liệu Firestore "KhachHang" tương ứng với user email
-                    DocumentReference khachHangDocRef = db.collection("KhachHang").document(email);
+                    String Gmail = nguoiDungDocumentSnapshot.getString("Gmail");
+                    DocumentReference khachHangDocRef = db.collection("KhachHang").document(userUid);
 
                     khachHangDocRef.get().addOnSuccessListener(khachHangDocumentSnapshot -> {
                         if (khachHangDocumentSnapshot.exists()) {
@@ -124,21 +120,21 @@ public class PersonFragment extends Fragment {
                     });
 
                     // Set the email to the email TextView
-                    tvemail.setText(email);
+                    tvemail.setText(Gmail);
                 } else {
-                    tvemail.setText("Document không tồn tại");
-                    tvten.setText("Họ và tên không có trong Firestore");
+                    tvemail.setText("Email không tồn tại");
+                    tvten.setText("Họ Tên Không tồn tại");
                 }
             }).addOnFailureListener(e -> {
                 tvemail.setText("Lỗi khi lấy dữ liệu từ Firestore");
                 tvten.setText("Lỗi khi lấy dữ liệu từ Firestore");
             });
         } else {
-            // Người dùng chưa đăng nhập, xử lý thông báo tương ứng
+            Toast.makeText(getContext(), "Khong co tai khoan", Toast.LENGTH_SHORT).show();
+
             tvemail.setText("Chưa đăng nhập");
             tvten.setText("Chưa đăng nhập");
         }
-
         tvdangxuat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,18 +142,10 @@ public class PersonFragment extends Fragment {
                 signOutUser();
             }
         });
-
         tvttcn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), FormPersonActivity.class));
-            }
-        });
-
-        tvChuyenBayYeuThich.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), DanhSachChuyenBayDaThich.class));
             }
         });
         tvLichSuDatVe.setOnClickListener(new View.OnClickListener() {
@@ -166,12 +154,28 @@ public class PersonFragment extends Fragment {
                 startActivity(new Intent(getContext(), LichSuDatVeActivity.class));
             }
         });
+        tvChuyenBayYeuThich.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(firebaseUser!=null)
+                {
+                    String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    Toast.makeText(getContext(), userID, Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getContext(), DanhSachChuyenBayDaThich.class));
+                }
+                else{
+                    Toast.makeText(getContext(), "Cần phair đăng nhập", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
         if(tvemail.getText().toString().equals("Chưa đăng nhập")&&tvten.getText().toString().equals("Chưa đăng nhập")){
-            tvdangxuat.setText("Đăng nhập");
+            tvdangxuat.setText("Đăng xuất");
             tvttcn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     startActivity(new Intent(getContext(), DangNhapActivity.class));
+
                 }
             });
         }

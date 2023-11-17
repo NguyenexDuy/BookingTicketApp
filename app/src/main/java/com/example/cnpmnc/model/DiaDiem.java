@@ -153,6 +153,15 @@ public class DiaDiem {
     private String DiemDi = null;
     private String DiemDen = null;
     private String IdChuyenBay=null;
+    private String GiaVe=null;
+
+    public String getGiaVe() {
+        return GiaVe;
+    }
+
+    public void setGiaVe(String giaVe) {
+        GiaVe = giaVe;
+    }
 
     public ArrayList<HangKhach> getAllHangKhach() {
         return AllHangKhach;
