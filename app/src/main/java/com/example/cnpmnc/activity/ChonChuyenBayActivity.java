@@ -31,7 +31,6 @@ public class ChonChuyenBayActivity extends AppCompatActivity {
         tvDiemDen=findViewById(R.id.tvDiemDen);
         tvDiemDi.setText(DiaDiem.getInstance().getDiemDi());
         tvDiemDen.setText(DiaDiem.getInstance().getDiemDen());
-
         tabLayout = findViewById(R.id.tab_ChonChuyenBay);
         viewPager = findViewById(R.id.ChonChonBay_pager);
         adapter = new TabLayoutAdapter(this);

@@ -39,7 +39,7 @@ public class ChonChoNgoiActivity extends AppCompatActivity implements ItemAdapte
     int soLuongGhe,soLuongHangKhach,numberTreEm2_12Tuoi, numberNguoiLon, numberTreEm2Tuoi;
     private Button btn_tiepTuc;
 
-    private TextView tv_diemDi,tv_diemDen,tv_ngayDi;
+    private TextView tv_diemDi,tv_diemDen,tv_ngayDi,tv_tongGiaVe;
     private RecyclerView rcv_hangKhachChonCHo,rcv_choNgoi;
     private HangKhachChonGheAdapter hangKhachChonGheAdapter;
     private FirebaseFirestore firebaseFirestore;
@@ -54,27 +54,23 @@ public class ChonChoNgoiActivity extends AppCompatActivity implements ItemAdapte
         setContentView(R.layout.activity_chon_cho_ngoi);
         AnhXa();
 
-        if(DiaDiem.getInstance().getIdChuyenBay()!=null)
-        {
-            Toast.makeText(this, "co id", Toast.LENGTH_SHORT).show();
+        chuyenBay=(ChuyenBay) getIntent().getSerializableExtra("ChuyenBayDT");
+        GetAllGhe();
 
-        }
-        else
-        {
-            Toast.makeText(this, "khong co id", Toast.LENGTH_SHORT).show();
-        }
-        tv_diemDi.setText(DiaDiem.getInstance().getDiemDi());
-        tv_diemDen.setText(DiaDiem.getInstance().getDiemDen());
-        tv_ngayDi.setText(DiaDiem.getInstance().getNgayDi());
+        Toast.makeText(this, chuyenBay.getIdChuyenBay(), Toast.LENGTH_SHORT).show();
+        tv_diemDi.setText(chuyenBay.getDiemDi());
+        tv_diemDen.setText(chuyenBay.getDiemDen());
+        tv_ngayDi.setText(chuyenBay.getNgayDi());
+        tv_tongGiaVe.setText(chuyenBay.getGiaVe());
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(ChonChoNgoiActivity.this, LinearLayoutManager.HORIZONTAL, false);
         rcv_hangKhachChonCHo.setLayoutManager(layoutManager1);
         hangKhachChonGheAdapter=new HangKhachChonGheAdapter(ChonChoNgoiActivity.this,DiaDiem.getInstance().getAllHangKhach(soLuongHangKhach), soLuongHangKhach);
         rcv_hangKhachChonCHo.setAdapter(hangKhachChonGheAdapter);
         ghes=new ArrayList<>();
-        GetAllGhe();
         rcv_choNgoi.setLayoutManager(new GridLayoutManager(this,6));
         gheAdapter=new GheAdapter(ChonChoNgoiActivity.this,ghes);
         rcv_choNgoi.setAdapter(gheAdapter);
+
 
 
 
@@ -98,7 +94,7 @@ public class ChonChoNgoiActivity extends AppCompatActivity implements ItemAdapte
 
     private void GetAllGhe(){
 
-        firebaseFirestore.collection("ghe").whereEqualTo("IdChuyenBay",DiaDiem.getInstance().getIdChuyenBay()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        firebaseFirestore.collection("ghe").whereEqualTo("IdChuyenBay",String.valueOf(chuyenBay.getIdChuyenBay())).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 for (QueryDocumentSnapshot documentSnapshot: task.getResult())
@@ -126,6 +122,7 @@ public class ChonChoNgoiActivity extends AppCompatActivity implements ItemAdapte
         firebaseFirestore=FirebaseFirestore.getInstance();
         tv_ngayDi=findViewById(R.id.tv_ngayDi);
         tv_diemDi=findViewById(R.id.tv_diemDi);
+        tv_tongGiaVe=findViewById(R.id.tv_tongGiaVe);
         tv_diemDen=findViewById(R.id.tv_diemDen);
         rcv_choNgoi=findViewById(R.id.rcv_choNgoi);
         rcv_hangKhachChonCHo=findViewById(R.id.rcv_hangKhachChonCHo);
