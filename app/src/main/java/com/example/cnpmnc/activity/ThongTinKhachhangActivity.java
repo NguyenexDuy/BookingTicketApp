@@ -38,8 +38,6 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
         setContentView(R.layout.activity_thong_tin_khachhang);
         AnhXa();
         chuyenBay=(ChuyenBay) getIntent().getSerializableExtra("ChuyenBayData");
-//        Toast.makeText(this, chuyenBay.getIdChuyenBay(), Toast.LENGTH_SHORT).show();
-//        Toast.makeText(ThongTinKhachhangActivity.this, DiaDiem.getInstance().getSoLuongTreEmDuoi2T(), Toast.LENGTH_SHORT).show();
         String ghe=String.valueOf(DiaDiem.getInstance().getSelectedSeatPosition());
 
         soLuongHangKhach=numberNguoiLon+numberTreEm2Tuoi+numberTreEm2_12Tuoi;
