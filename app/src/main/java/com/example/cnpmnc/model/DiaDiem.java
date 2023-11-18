@@ -11,6 +11,12 @@ public class DiaDiem {
         if (HangKhachNguoiLonList != null) {
             HangKhachNguoiLonList.clear();
             HangKhachNguoiLonList = null;
+        }if(HangKhachTreEm2_12TList!=null){
+            HangKhachTreEm2_12TList.clear();
+            HangKhachTreEm2_12TList=null;
+        }if(HangKhachTreEmDuoi2TList!=null){
+            HangKhachTreEmDuoi2TList.clear();
+            HangKhachTreEmDuoi2TList=null;
         }
 
         SoLuongNguoiLon = null;
@@ -39,7 +45,7 @@ public class DiaDiem {
         if (HangKhachNguoiLonList == null || HangKhachNguoiLonList.isEmpty()) {
             HangKhachNguoiLonList = new ArrayList<>();
 
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < Integer.parseInt(DiaDiem.getInstance().getSoLuongNguoiLon()) ; i++) {
                 HangKhach defaultHangKhach = new HangKhach("Người lớn", "abc","","","","");
                 HangKhachNguoiLonList.add(defaultHangKhach);
             }
@@ -51,7 +57,7 @@ public class DiaDiem {
         if(HangKhachTreEmDuoi2TList==null|| HangKhachTreEmDuoi2TList.isEmpty())
         {
             HangKhachTreEmDuoi2TList=new ArrayList<>();
-            for (int i=0;i<4;i++)
+            for (int i=0;i< Integer.parseInt(DiaDiem.getInstance().getSoLuongTreEmDuoi2T());i++)
             {
                 HangKhach hangKhachTreEmDuoi2T=new HangKhach("Trẻ em (dưới 2 tuổi)","Tên trẻ em","");
                 HangKhachTreEmDuoi2TList.add(hangKhachTreEmDuoi2T);
@@ -63,7 +69,7 @@ public class DiaDiem {
         if(HangKhachTreEm2_12TList ==null|| HangKhachTreEm2_12TList.isEmpty())
         {
             HangKhachTreEm2_12TList =new ArrayList<>();
-            for(int i=0;i<4;i++)
+            for(int i=0;i< Integer.parseInt(DiaDiem.getInstance().getSoLuongTreEm2Ttoi12T());i++)
             {
                 HangKhach hangkhachTreEm=new HangKhach("Trẻ em(2-12 tuổi)","Tên khách hàng","");
                 HangKhachTreEm2_12TList.add(hangkhachTreEm);
@@ -74,21 +80,6 @@ public class DiaDiem {
 
     public void setHangKhachTreEmDuoi2TList(ArrayList<HangKhach> hangKhachTreEmDuoi2TList) {
         HangKhachTreEmDuoi2TList = hangKhachTreEmDuoi2TList;
-    }
-
-
-    public ArrayList<HangKhach> getAllHangKhach(int soLuongHangKhach){
-        if(AllHangKhach==null|| AllHangKhach.isEmpty())
-        {
-            AllHangKhach=new ArrayList<>();
-
-            for(int i=0;i<soLuongHangKhach;i++)
-            {
-                HangKhach allHangKhach=new HangKhach("Ten","Loai ");
-                AllHangKhach.add(allHangKhach);
-            }
-        }
-        return AllHangKhach;
     }
 
     public void setHangKhachTreEm2_12TList(ArrayList<HangKhach> hangKhachTreEm2_12TList) {

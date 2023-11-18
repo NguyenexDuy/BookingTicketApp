@@ -3,11 +3,22 @@ package com.example.cnpmnc.model;
 public class Ghe {
     private String idGhe;
     private String idChuyenBay;
+    private Long soGhe;
     private Boolean state;
 
-    public Ghe(String idGhe, String idChuyenBay, Boolean state) {
+    public Long getSoGhe() {
+        return soGhe;
+    }
+
+    public long setSoGhe(Long soGhe) {
+        this.soGhe = soGhe;
+        return 0;
+    }
+
+    public Ghe(String idGhe, String idChuyenBay, Long soGhe, Boolean state) {
         this.idGhe = idGhe;
         this.idChuyenBay = idChuyenBay;
+        this.soGhe=soGhe;
         this.state = state;
     }
 
