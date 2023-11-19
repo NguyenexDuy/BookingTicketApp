@@ -8,6 +8,7 @@
 
     import android.content.Intent;
     import android.os.Bundle;
+    import android.os.Parcelable;
     import android.view.View;
     import android.widget.Button;
     import android.widget.TextView;
@@ -22,8 +23,10 @@
     import com.example.cnpmnc.model.DiaDiem;
     import com.example.cnpmnc.model.Ghe;
     import com.example.cnpmnc.model.HangKhach;
+    import com.example.cnpmnc.model.HangKhachDataHolder;
     import com.google.android.gms.tasks.OnCompleteListener;
     import com.google.android.gms.tasks.Task;
+    import com.google.firebase.auth.FirebaseAuth;
     import com.google.firebase.firestore.FirebaseFirestore;
     import com.google.firebase.firestore.QueryDocumentSnapshot;
     import com.google.firebase.firestore.QuerySnapshot;
@@ -32,6 +35,8 @@
     import java.util.Collection;
     import java.util.Collections;
     import java.util.Comparator;
+    import java.util.HashMap;
+    import java.util.Map;
 
     public class ChonChoNgoiActivity extends AppCompatActivity {
 
@@ -76,15 +81,7 @@
             rcv_choNgoi.setLayoutManager(new GridLayoutManager(this,6));
             gheAdapter=new GheAdapter(ChonChoNgoiActivity.this,ghes,AllKhachHang.size());
 
-//            gheAdapter.setOnSeatSelectedListener(new GheAdapter.OnSeatSelectedListener() {
-//                @Override
-//                public void onSeatSelected(int position, long seatNumber) {
-//                    HangKhachChonGheAdapter adapter = (HangKhachChonGheAdapter) rcv_hangKhachChonCHo.getAdapter();
-//                    if (adapter != null) {
-//                        adapter.setSelectedSeat(position, seatNumber);
-//                    }
-//                }
-//            });
+
             gheAdapter.setOnSeatSelectedListener(new GheAdapter.OnSeatSelectedListener() {
                 @Override
                 public void onSeatSelected(long seatNumber) {
@@ -94,6 +91,7 @@
                     }
                 }
             });
+
             rcv_choNgoi.setAdapter(gheAdapter);
 
             btn_tiepTuc=findViewById(R.id.btn_tiepTuc);
@@ -103,6 +101,8 @@
                     onBackPressed();
                 }
             });
+            HangKhachDataHolder dataHolder = HangKhachDataHolder.getInstance();
+            dataHolder.setHangKhachList(AllKhachHang);
         }
 
 

@@ -1,5 +1,7 @@
 package com.example.cnpmnc.model;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 
 public class DiaDiem {
@@ -40,6 +42,7 @@ public class DiaDiem {
     private ArrayList<HangKhach> HangKhachTreEm2_12TList;
     private ArrayList<HangKhach> HangKhachTreEmDuoi2TList;
     private ArrayList<HangKhach> AllHangKhach;
+
 
     public ArrayList<HangKhach> getHangKhachNguoiLonList() {
         if (HangKhachNguoiLonList == null || HangKhachNguoiLonList.isEmpty()) {
@@ -155,13 +158,7 @@ public class DiaDiem {
         GiaVe = giaVe;
     }
 
-    public ArrayList<HangKhach> getAllHangKhach() {
-        return AllHangKhach;
-    }
 
-    public void setAllHangKhach(ArrayList<HangKhach> allHangKhach) {
-        AllHangKhach = allHangKhach;
-    }
 
     public String getIdChuyenBay() {
         return IdChuyenBay;

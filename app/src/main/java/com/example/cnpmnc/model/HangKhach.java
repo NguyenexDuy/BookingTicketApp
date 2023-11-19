@@ -36,9 +36,10 @@ public class HangKhach implements Serializable {
         Email = email;
     }
 
-    public HangKhach(String hoTen, String type) {
+    public HangKhach(String hoTen, String type,Long soGhe) {
         HoTen = hoTen;
         Type = type;
+        Soghe=soGhe;
     }
 
     public String getType() {
