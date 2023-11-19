@@ -74,6 +74,9 @@ public class HangKhachChonGheAdapter extends RecyclerView.Adapter<HangKhachChonG
 //        }
 //
 //    }
+public ArrayList<HangKhach> getHangKhaches() {
+    return hangKhaches;
+}
 public void setSelectedSeat(long seatNumber) {
     if (positonOK >= 0 && positonOK < hangKhaches.size()) {
         HangKhach hangKhach = hangKhaches.get(positonOK);

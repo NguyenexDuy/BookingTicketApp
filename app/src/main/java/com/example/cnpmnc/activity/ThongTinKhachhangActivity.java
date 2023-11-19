@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -15,19 +16,27 @@ import android.widget.Toast;
 
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.adapter.HangKhachAdapter;
+import com.example.cnpmnc.adapter.HangKhachChonGheAdapter;
 import com.example.cnpmnc.model.ChuyenBay;
 import com.example.cnpmnc.model.DiaDiem;
 import com.example.cnpmnc.model.HangKhach;
+import com.example.cnpmnc.model.HangKhachDataHolder;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ThongTinKhachhangActivity extends AppCompatActivity {
 
 
-    private RecyclerView rcvTreEm2_12Tuoi, rcvNguoiLon,rcvTreEm2Tuoi,rcv_hangKhachChonCHo;
+    private RecyclerView rcvTreEm2_12Tuoi, rcvNguoiLon,rcvTreEm2Tuoi;
 
     private LinearLayout btn_chonChoNgoi;
     private HangKhach hangKhach;
+    private int GiaVeTong;
     private Button btn_ThanhToan;
     ChuyenBay chuyenBay;
     private int numberTreEm2_12Tuoi, numberNguoiLon, numberTreEm2Tuoi,soLuongHangKhach, price;
@@ -42,7 +51,7 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
 
         soLuongHangKhach=numberNguoiLon+numberTreEm2Tuoi+numberTreEm2_12Tuoi;
         price=Integer.valueOf(chuyenBay.getGiaVe());
-        int GiaVeTong=price*soLuongHangKhach;
+        GiaVeTong=price*soLuongHangKhach;
         tv_SoLuongHangKhach.setText(String.valueOf(soLuongHangKhach));
         tv_giaChuyenBay.setText(String.valueOf(GiaVeTong));
 
@@ -71,10 +80,52 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
         btn_ThanhToan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AddVeMayBay();
                 Intent intent=new Intent(ThongTinKhachhangActivity.this,PaymentOptions.class);
                 startActivity(intent);
             }
         });
+
+    }
+    private void AddVeMayBay()
+    {
+
+        HangKhachDataHolder dataHolder = HangKhachDataHolder.getInstance();
+        ArrayList<HangKhach> hangKhachList = dataHolder.getHangKhachList();
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String idChuyenBay=chuyenBay.getIdChuyenBay();
+        String diemDi=chuyenBay.getDiemDi();
+        String diemDen=chuyenBay.getDiemDen();
+        String giaVe= String.valueOf(GiaVeTong);
+        String ngayBay=chuyenBay.getNgayDi();
+
+
+
+        Map<String, Object> hangKhachData = new HashMap<>();
+        for (int i = 0; i < hangKhachList.size(); i++) {
+            HangKhach hangKhach = hangKhachList.get(i);
+            Map<String, Object> hangKhachMap = new HashMap<>();
+            hangKhachMap.put("name", hangKhach.getHoTen());
+            hangKhachMap.put("type", hangKhach.getType());
+            hangKhachMap.put("soGhe",hangKhach.getSoghe());
+
+            hangKhachData.put("hangKhach_" + i, hangKhachMap);
+        }
+        hangKhachData.put("idChuyenBay",idChuyenBay);
+        hangKhachData.put("diemDi",diemDi);
+        hangKhachData.put("diemDen",diemDen);
+        hangKhachData.put("giaVe",giaVe);
+        hangKhachData.put("ngayBatDau",ngayBay);
+
+        db.collection("VeMayBay").document(userId).set(hangKhachData)
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(this, "Thanh toán thành công", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
+                });
 
     }
 
