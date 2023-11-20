@@ -20,6 +20,7 @@
     import com.google.android.gms.tasks.OnSuccessListener;
     import com.google.android.gms.tasks.Task;
     import com.google.firebase.auth.FirebaseAuth;
+    import com.google.firebase.auth.FirebaseUser;
     import com.google.firebase.firestore.CollectionReference;
     import com.google.firebase.firestore.DocumentReference;
     import com.google.firebase.firestore.FieldPath;
@@ -51,31 +52,35 @@
             LinearLayoutManager layoutManager = new GridLayoutManager(this,2);
             rvDanhSachYeuThich.setLayoutManager(layoutManager);
         }
-        private void ChuyenBayDaThich()
-        {
-            db=FirebaseFirestore.getInstance();
-            db.collection("favorites").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    for(QueryDocumentSnapshot documentSnapshot : task.getResult()){
-                        String IdChuyenBayNe = documentSnapshot.getId();
-                        String DiemDen = (String) documentSnapshot.get("DiemDen");
-                        String DiemDi = (String) documentSnapshot.get("DiemDi");
-                        String GioBatDau = (String) documentSnapshot.get("GioBatDau");
-                        String HinhAnh = (String) documentSnapshot.get("HinhAnh");
-                        String NgayDi = (String) documentSnapshot.get("NgayDi");
-                        String NgayVe = (String) documentSnapshot.get("NgayVe");
-                        String SoLuongGheTrong = (String) documentSnapshot.get("SoLuongGheTrong");
-                        String SoLuongGheVipTrong = (String) documentSnapshot.get("SoLuongGheVipTrong");
-                        String TrangThai = (String) documentSnapshot.get("TrangThai");
-                        String MoTa  = (String) documentSnapshot.get("MoTa");
-                        String MoTaDiemDap = (String) documentSnapshot.get("MoTaDiemDap");
-                        Boolean isYeuThich = (Boolean) documentSnapshot.get("isYeuThich");
-                        ChuyenBay chuyenBay = new ChuyenBay(IdChuyenBayNe,DiemDen,DiemDi,GioBatDau,HinhAnh,NgayDi,NgayVe,SoLuongGheTrong,SoLuongGheVipTrong,TrangThai,MoTa,MoTaDiemDap,isYeuThich);
-                        chuyenBays.add(chuyenBay);
+        private void ChuyenBayDaThich() {
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+            if (currentUser != null) {
+                String currentUserId = currentUser.getUid();
+                db = FirebaseFirestore.getInstance();
+                db.collection("favorites").whereEqualTo("userID", currentUserId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                            String IdChuyenBayNe = documentSnapshot.getId();
+                            String DiemDen = (String) documentSnapshot.get("DiemDen");
+                            String DiemDi = (String) documentSnapshot.get("DiemDi");
+                            String GioBatDau = (String) documentSnapshot.get("GioBatDau");
+                            String HinhAnh = (String) documentSnapshot.get("HinhAnh");
+                            String NgayDi = (String) documentSnapshot.get("NgayDi");
+                            String NgayVe = (String) documentSnapshot.get("NgayVe");
+                            String SoLuongGheTrong = (String) documentSnapshot.get("SoLuongGheTrong");
+                            String SoLuongGheVipTrong = (String) documentSnapshot.get("SoLuongGheVipTrong");
+                            String TrangThai = (String) documentSnapshot.get("TrangThai");
+                            String MoTa = (String) documentSnapshot.get("MoTa");
+                            String MoTaDiemDap = (String) documentSnapshot.get("MoTaDiemDap");
+                            Boolean isYeuThich = (Boolean) documentSnapshot.get("isYeuThich");
+                            ChuyenBay chuyenBay = new ChuyenBay(IdChuyenBayNe, DiemDen, DiemDi, GioBatDau, HinhAnh, NgayDi, NgayVe, SoLuongGheTrong, SoLuongGheVipTrong, TrangThai, MoTa, MoTaDiemDap, isYeuThich);
+                            chuyenBays.add(chuyenBay);
+                        }
+                        chuyenBayDaThichAdapter.notifyDataSetChanged();
                     }
-                    chuyenBayDaThichAdapter.notifyDataSetChanged();
-                }
-            });
+                });
+            }
         }
     }
