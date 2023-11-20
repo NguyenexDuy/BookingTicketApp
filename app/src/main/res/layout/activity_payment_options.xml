@@ -135,6 +135,7 @@
                         tools:ignore="ContentDescription"
                         tools:src="@drawable/img_image28"
                         />
+
                 </LinearLayout>
                 <FrameLayout android:id="@+id/frameStackone"
                     android:layout_marginHorizontal="10dp"
@@ -303,7 +304,13 @@
                         android:scaleType="fitXY"
                         android:src="@drawable/img_image32"
                         tools:ignore="ContentDescription" tools:src="@drawable/img_image32"/>
+
                 </LinearLayout>
+                <Button
+                    android:id="@+id/btn_ThanhToanStripe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Button"/>
                 <TextView android:ellipsize="end"
                     android:gravity="center_horizontal"
                     android:id="@+id/txtFive"
@@ -317,6 +324,10 @@
                     android:textColor="@color/gray_700"
                     />
             </LinearLayout>
+
+
         </LinearLayout>
+
     </FrameLayout>
+
 </LinearLayout>
