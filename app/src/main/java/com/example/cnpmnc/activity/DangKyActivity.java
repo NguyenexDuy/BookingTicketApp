@@ -1,5 +1,6 @@
 package com.example.cnpmnc.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import com.example.cnpmnc.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,161 +35,76 @@ import java.util.Map;
 
 public class DangKyActivity extends AppCompatActivity {
 
-    String userID;
-    private EditText edtEmailDangKy,edtPassDangKy,edtRepassDangKy,edtHoten,edtGioiTinh,edtNgaySinh,edtSDT,edtQuocTich;
-    private Button BtnDangKy,BtnReSendCode;
+    AppCompatButton ToLogin;
 
-    private TextView Layout_Dang_Ky;
+    EditText edtEmailDki,edtPasworDK, edtPrePass;
+    AppCompatButton btdangKi;
     private FirebaseAuth mAuth;
-    FirebaseFirestore firestore;
-    DocumentReference dr;
+    private FirebaseFirestore firestore;
 
+    @SuppressLint("WrongViewCast")
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dang_ky);
 
-        initUI();
-        Layout_Dang_Ky.setOnClickListener(new View.OnClickListener() {
+//        ActionBar actionBar = getSupportActionBar();
+//        actionBar.hide();
+
+        //Chuyển qua trang đăng nhập
+        ToLogin = findViewById(R.id.layout_dangnhap);
+        ToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DangKyActivity.this,DangNhapActivity.class);
-                startActivity(intent);
+            public void onClick(View v) {
+                Intent i = new Intent(DangKyActivity.this, DangNhapActivity.class);
+                startActivity(i);
             }
         });
-        BtnDangKy.setOnClickListener(new View.OnClickListener() {
+
+        mAuth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance();
+
+        edtEmailDki = findViewById(R.id.edtEmailDangKy);
+        edtPasworDK = findViewById(R.id.edtPassDangKy);
+        edtPrePass = findViewById(R.id.edtRePassDangKy);
+
+        btdangKi = findViewById(R.id.BtnDangKy);
+
+        btdangKi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 register();
             }
         });
-//        BtnDangKy.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                String strEmail = edtEmail.getText().toString().trim();
-//                String strPass = edtPass.getText().toString().trim();
-//                String strRePass = edtRepass.getText().toString().trim();
-//
-//                String strHoten = edtHoten.getText().toString();
-//                String strGioiTinh = edtGioiTinh.getText().toString();
-//                String strNgaySinh = edtNgaySinh.getText().toString();
-//                String strSDT = edtSDT.getText().toString();
-//                String strQuocTich = edtQuocTich.getText().toString();
-//
-//                FirebaseAuth mAuth = FirebaseAuth.getInstance();
-//
-//                if (strHoten.isEmpty()) {
-//                    Toast.makeText(DangKyActivity.this, "Vui lòng điền họ và tên", Toast.LENGTH_SHORT).show();
-//
-//                }  if (strNgaySinh.isEmpty()) {
-//                    Toast.makeText(DangKyActivity.this, "Vui lòng điền ngày sinh", Toast.LENGTH_SHORT).show();
-//
-//                }if (strGioiTinh.isEmpty()){
-//                    Toast.makeText(DangKyActivity.this, "Vui lòng điền giới tính", Toast.LENGTH_SHORT).show();
-//
-//                }
-//                if (strSDT.isEmpty()) {
-//                    Toast.makeText(DangKyActivity.this, "Vui lòng điền số điện thoại", Toast.LENGTH_SHORT).show();
-//
-//                }  if (strQuocTich.isEmpty()) {
-//                    Toast.makeText(DangKyActivity.this, "Vui lòng điền quốc tịch", Toast.LENGTH_SHORT).show();
-//
-//                }if (strEmail.isEmpty()){
-//                    Toast.makeText(DangKyActivity.this, "Vui lòng điền Email", Toast.LENGTH_SHORT).show();
-//                }if (TextUtils.isEmpty(strPass) || strPass.length() < 6) {
-//                    Toast.makeText(DangKyActivity.this, "Mật khẩu phải có ít nhất 6 kí tự", Toast.LENGTH_SHORT).show();
-//
-//                }if (!strPass.equals(strRePass)) {
-//                    // Passwords do not match
-//                    Toast.makeText(DangKyActivity.this, "Mật khẩu không trùng khớp", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    mAuth.createUserWithEmailAndPassword(strEmail, strPass)
-//                            .addOnCompleteListener(DangKyActivity.this, new OnCompleteListener<AuthResult>() {
-//                                @Override
-//                                public void onComplete(@NonNull Task<AuthResult> task) {
-//                                    if (task.isSuccessful()) {
-//                                        // Sign in success, update UI with the signed-in user's information
-//                                        Map<String, String> khachHang=new HashMap<>();
-//                                        khachHang.put("Gmail",strEmail);
-//                                        khachHang.put("Password",strPass);
-//                                        khachHang.put("HoTen",strHoten);
-//                                        khachHang.put("GioiTinh",strGioiTinh);
-//                                        khachHang.put("NgaySinh",strNgaySinh);
-//                                        khachHang.put("Sdt",strSDT);
-//                                        khachHang.put("QuocTich",strQuocTich);
-//
-//                                        firestore.collection("KhachHang")
-//                                                .add(khachHang)
-//                                                .addOnSuccessListener(documentReference -> {
-//
-//                                                })
-//                                                .addOnFailureListener(e -> {
-//
-//                                                });
-//                                        Toast.makeText(DangKyActivity.this, "Tạo tài khoản thành công.",
-//                                                Toast.LENGTH_SHORT).show();
-//                                        Intent intent = new Intent(DangKyActivity.this,DangNhapActivity.class);
-//                                        startActivity(intent);
-//                                        finish();
-//                                        FirebaseUser User = mAuth.getCurrentUser();
-//                                        sendEmailVerification(User);
-//                                        User.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                            @Override
-//                                            public void onSuccess(Void aVoid) {
-//                                                Toast.makeText(DangKyActivity.this, "Mã xác thực đã được gửi", Toast.LENGTH_SHORT).show();
-//
-//
-//
-//                                            }
-//                                        }).addOnFailureListener(new OnFailureListener() {
-//                                            @Override
-//                                            public void onFailure(@NonNull Exception e) {
-//                                                Toast.makeText(DangKyActivity.this, "Tài khoản Gmail không tồn tại", Toast.LENGTH_SHORT).show();
-//
-//                                            }
-//                                        });
-//
-//                                    } else {
-//                                        // If sign in fails, display a message to the user.
-//                                        Toast.makeText(DangKyActivity.this, "Tạo tài khoản thất bại.",
-//                                                Toast.LENGTH_SHORT).show();
-//                                    }
-//                                }
-//                            });
-//
-//                }
-//            }});
-
     }
     private void register() {
         String email, pass,repass;
-        email = edtEmailDangKy.getText().toString();
-        pass = edtPassDangKy.getText().toString();
-        repass= edtRepassDangKy.getText().toString();
-
+        email = edtEmailDki.getText().toString();
+        pass = edtPasworDK.getText().toString();
+        repass= edtPrePass.getText().toString();
 
         if(TextUtils.isEmpty(email)){
-            showError(edtEmailDangKy,"Vui lòng nhập Email!!");
-            edtEmailDangKy.requestFocus();
+            showError(edtEmailDki,"Vui lòng nhập Email!!");
+            edtEmailDki.requestFocus();
             return;
         }
         if(TextUtils.isEmpty(pass)){
-            showError(edtPassDangKy,"Vui lòng nhập password");
+            showError(edtPasworDK,"Vui lòng nhập password");
             return;
         }
         if(!pass.equals(repass)){
-            showError(edtRepassDangKy,"Mật khẩu không khớp!");
-            edtRepassDangKy.requestFocus();
+            showError(edtPrePass,"Mật khẩu không khớp!");
+            edtPrePass.requestFocus();
             return;
         }
         if(!email.contains("@gmail.com")){
-            showError(edtEmailDangKy, "Email đăng ký không hợp lệ");
-            edtEmailDangKy.requestFocus();
+            showError(edtEmailDki, "Email đăng ký không hợp lệ");
+            edtEmailDki.requestFocus();
             return;
         }
         if (!isPasswordValid(pass)) {
-            showError(edtPassDangKy,"Mật khẩu không đủ điều kiện");
-            edtPassDangKy.requestFocus();
+            showError(edtPasworDK,"Mật khẩu không đủ điều kiện");
+            edtPasworDK.requestFocus();
             return;
         }
         firestore.collection("Customer").whereEqualTo("Gmail",email).get()
@@ -205,12 +122,11 @@ public class DangKyActivity extends AppCompatActivity {
                                         if(task.isSuccessful()){
                                             Toast.makeText(DangKyActivity.this, "Tạo tài khoản thành công!!", Toast.LENGTH_SHORT).show();
                                             startActivity(new Intent(DangKyActivity.this,DangNhapActivity.class));
-                                            FirebaseUser nguoidung=mAuth.getCurrentUser();
+                                            FirebaseUser nguoidung = mAuth.getCurrentUser();
                                             DocumentReference dr=firestore.collection("Customer").document(nguoidung.getUid());
                                             Map<String,Object> nguoidunginfo=new HashMap<>();
                                             nguoidunginfo.put("Gmail",email);
                                             nguoidunginfo.put("MatKhau",pass);
-                                            nguoidunginfo.put("ReMatKhau",repass);
                                             dr.set(nguoidunginfo);
                                         }
                                         else {
@@ -219,7 +135,6 @@ public class DangKyActivity extends AppCompatActivity {
                                         }
                                     }
                                 });
-
                             }
                         }
                         else {
@@ -227,48 +142,6 @@ public class DangKyActivity extends AppCompatActivity {
                         }
                     }
                 });
-    }
-    private void checkIfEmailVerified(FirebaseUser user) {
-        if (user.isEmailVerified()) {
-            // Tài khoản đã được xác thực email
-            Intent intent = new Intent(DangKyActivity.this,HomePageActivity.class);
-            startActivity(intent);
-            finish();
-        } else {
-            // Tài khoản chưa được xác thực email
-            Toast.makeText(DangKyActivity.this, "Vui lòng xác thực email để đăng nhập", Toast.LENGTH_SHORT).show();
-        }
-
-    }
-    private void sendEmailVerification(@NonNull FirebaseUser user) {
-        user.sendEmailVerification()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        // Gửi email xác thực thành công
-                        Toast.makeText(DangKyActivity.this, "Vui lòng kiểm tra email để xác thực tài khoản", Toast.LENGTH_SHORT).show();
-                        checkIfEmailVerified(user);
-
-                    } else {
-                        // Gửi email xác thực thất bại
-                        Toast.makeText(DangKyActivity.this, "Gửi email xác thực thất bại", Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
-    private void initUI(){
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        firestore = FirebaseFirestore.getInstance();
-        edtEmailDangKy = findViewById(R.id.edtEmailDangKy);
-        edtPassDangKy = findViewById(R.id.edtPassDangKy);
-        edtRepassDangKy = findViewById(R.id.edtRePassDangKy);
-        BtnDangKy = findViewById(R.id.BtnDangKy);
-        Layout_Dang_Ky = findViewById(R.id.layout_dangnhap);
-//        edtHoten = findViewById(R.id.edtHoTen);
-//        edtGioiTinh = findViewById(R.id.edtGioiTinh);
-//        edtNgaySinh = findViewById(R.id.edtNgaySinh);
-//        edtSDT = findViewById(R.id.edtSDT);
-//        edtQuocTich = findViewById(R.id.edtQuocTich);
-        BtnReSendCode = findViewById(R.id.Btn_XacThuc);
-
     }
     private void showError(EditText mEdt, String s)
     {

@@ -104,23 +104,27 @@ public class PersonFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
         if (firebaseUser != null) {
             String userUid = firebaseUser.getUid();
+            // Tạo reference đến tài liệu Firestore "NguoiDung" tương ứng với user UID
             DocumentReference nguoiDungDocRef = db.collection("Customer").document(userUid);
 
             nguoiDungDocRef.get().addOnSuccessListener(nguoiDungDocumentSnapshot -> {
                 if (nguoiDungDocumentSnapshot.exists()) {
+                    progressBar.setVisibility(View.VISIBLE);
                     String email = nguoiDungDocumentSnapshot.getString("Gmail");
-
                     DocumentReference khachHangDocRef = db.collection("KhachHang").document(email);
-
                     khachHangDocRef.get().addOnSuccessListener(khachHangDocumentSnapshot -> {
                         if (khachHangDocumentSnapshot.exists()) {
-                            String hoVaTen = khachHangDocumentSnapshot.getString("hoTen");
+                            progressBar.setVisibility(View.VISIBLE);
+                            String hoVaTen = khachHangDocumentSnapshot.getString("HoTen");
                             tvten.setText(hoVaTen);
+                            progressBar.setVisibility(View.VISIBLE);
                         } else {
                             tvten.setText("");
+                            progressBar.setVisibility(View.VISIBLE);
                         }
                     }).addOnFailureListener(e -> {
                         tvten.setText("Bạn chưa chỉnh sửa TTCN");
+                        progressBar.setVisibility(View.VISIBLE);
                     });
 
                     // Set the email to the email TextView
@@ -128,6 +132,7 @@ public class PersonFragment extends Fragment {
                 } else {
                     tvemail.setText("Document không tồn tại");
                     tvten.setText("Họ và tên không có trong Firestore");
+                    progressBar.setVisibility(View.VISIBLE);
                 }
             }).addOnFailureListener(e -> {
                 tvemail.setText("Lỗi khi lấy dữ liệu từ Firestore");

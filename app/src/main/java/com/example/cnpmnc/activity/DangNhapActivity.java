@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cnpmnc.R;
+import com.example.cnpmnc.fragment.HomePageFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -23,7 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class DangNhapActivity extends AppCompatActivity {
 
     private ProgressDialog progressDialog;
-     TextView Layout_Dang_Ky;
+    TextView Layout_Dang_Ky;
     private EditText edtEmailDangNhap,edtPassDangNhap;
     Button BtnDangNhap;
 
@@ -71,8 +72,9 @@ public class DangNhapActivity extends AppCompatActivity {
 
                                         Toast.makeText(DangNhapActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
 
-                                     Intent intent = new Intent(DangNhapActivity.this,HomePageActivity.class);
-                                     startActivity(intent);
+                                        Intent intent = new Intent(DangNhapActivity.this, HomePageActivity.class);
+                                        startActivity(intent);
+                                        finish();
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Toast.makeText(DangNhapActivity.this, "Đăng nhập thất bại.",
