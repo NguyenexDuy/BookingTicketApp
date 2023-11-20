@@ -190,7 +190,7 @@ public class DangKyActivity extends AppCompatActivity {
             edtPassDangKy.requestFocus();
             return;
         }
-        firestore.collection("Customer").whereEqualTo("Email",email).get()
+        firestore.collection("Customer").whereEqualTo("Gmail",email).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -208,8 +208,9 @@ public class DangKyActivity extends AppCompatActivity {
                                             FirebaseUser nguoidung=mAuth.getCurrentUser();
                                             DocumentReference dr=firestore.collection("Customer").document(nguoidung.getUid());
                                             Map<String,Object> nguoidunginfo=new HashMap<>();
-                                            nguoidunginfo.put("Email",email);
+                                            nguoidunginfo.put("Gmail",email);
                                             nguoidunginfo.put("MatKhau",pass);
+                                            nguoidunginfo.put("ReMatKhau",repass);
                                             dr.set(nguoidunginfo);
                                         }
                                         else {
