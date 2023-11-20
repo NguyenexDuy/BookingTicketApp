@@ -146,9 +146,4 @@
         android:gravity="center"
         android:text="Đăng xuất"
         android:textStyle="bold" />
-
-
-
-
-
 </LinearLayout>

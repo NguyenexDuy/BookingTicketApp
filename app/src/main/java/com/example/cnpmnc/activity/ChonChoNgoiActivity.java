@@ -61,7 +61,6 @@
 
             chuyenBay=(ChuyenBay) getIntent().getSerializableExtra("ChuyenBayDT");
             GetAllGhe();
-
             tv_diemDi.setText(chuyenBay.getDiemDi());
             tv_diemDen.setText(chuyenBay.getDiemDen());
             tv_ngayDi.setText(chuyenBay.getNgayDi());
@@ -80,7 +79,6 @@
             ghes=new ArrayList<>();
             rcv_choNgoi.setLayoutManager(new GridLayoutManager(this,6));
             gheAdapter=new GheAdapter(ChonChoNgoiActivity.this,ghes,AllKhachHang.size());
-
 
             gheAdapter.setOnSeatSelectedListener(new GheAdapter.OnSeatSelectedListener() {
                 @Override
@@ -110,6 +108,7 @@
 
             firebaseFirestore.collection("ghe")
                     .whereEqualTo("IdChuyenBay",String.valueOf(chuyenBay.getIdChuyenBay()))
+                    .whereEqualTo("loaighe","PhoThong")
                     .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {

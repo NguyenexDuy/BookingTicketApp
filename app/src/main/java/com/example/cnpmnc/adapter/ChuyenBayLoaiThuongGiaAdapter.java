@@ -2,7 +2,6 @@ package com.example.cnpmnc.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +17,12 @@ import com.example.cnpmnc.model.DiaDiem;
 
 import java.util.ArrayList;
 
-public class ChuyenBayAdapter extends RecyclerView.Adapter<ChuyenBayAdapter.ChuyenBayVH>{
+public class ChuyenBayLoaiThuongGiaAdapter extends RecyclerView.Adapter<ChuyenBayLoaiThuongGiaAdapter.ChuyenBayVH> {
     private Context mcontext;
     private ArrayList<ChuyenBay> chuyenVeTests;
     DiaDiem diaDiem;
 
-    public ChuyenBayAdapter(ArrayList<ChuyenBay> chuyenVeTests, Context mcontext) {
+    public ChuyenBayLoaiThuongGiaAdapter(ArrayList<ChuyenBay> chuyenVeTests, Context mcontext) {
         this.chuyenVeTests = chuyenVeTests;
         this.mcontext=mcontext;
 
@@ -31,13 +30,13 @@ public class ChuyenBayAdapter extends RecyclerView.Adapter<ChuyenBayAdapter.Chuy
 
     @NonNull
     @Override
-    public ChuyenBayVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ChuyenBayLoaiThuongGiaAdapter.ChuyenBayVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_thongtinchuyenbay, parent, false);
-        return new ChuyenBayVH(view);
+        return new ChuyenBayLoaiThuongGiaAdapter.ChuyenBayVH(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ChuyenBayVH holder, int position) {
+    public void onBindViewHolder(@NonNull ChuyenBayLoaiThuongGiaAdapter.ChuyenBayVH holder, int position) {
         ChuyenBay chuyenVeTest = chuyenVeTests.get(position);
 
 
@@ -47,18 +46,14 @@ public class ChuyenBayAdapter extends RecyclerView.Adapter<ChuyenBayAdapter.Chuy
         holder.tvGioBay.setText(chuyenVeTest.getGioBatDau());
         holder.tvNoiBay.setText(chuyenVeTest.getDiemDi());
         holder.tvNoiDen.setText(chuyenVeTest.getDiemDen());
-        holder.tv_SoLuongVe.setText(chuyenVeTest.getSoLuongGheTrong());
+        holder.tv_SoLuongVe.setText(chuyenVeTest.getSoLuongGheVipTrong());
         holder.tvTongTien.setText(chuyenVeTest.getGiaVe());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(mcontext, ThongTinKhachhangActivity.class);
-                Bundle bundle=new Bundle();
-                String fm="PhoThong";
-                bundle.putString("fragment",fm);
                 intent.putExtra("ChuyenBayData", chuyenVeTest);
-                intent.putExtras(bundle);
                 mcontext.startActivity(intent);
             }
         });
@@ -93,4 +88,5 @@ public class ChuyenBayAdapter extends RecyclerView.Adapter<ChuyenBayAdapter.Chuy
 
         }
     }
+
 }
