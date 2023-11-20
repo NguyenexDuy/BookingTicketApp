@@ -136,15 +136,14 @@
 
         </TextView>
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/layout_dangnhap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Đăng nhập"
             android:textSize="15dp"
             android:textColor="@color/textColor">
-
-        </TextView>
+    </androidx.appcompat.widget.AppCompatButton>
 
     </LinearLayout>
     <Button
