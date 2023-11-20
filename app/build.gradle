@@ -58,5 +58,11 @@ dependencies {
     //Circleindicator
     implementation 'me.relex:circleindicator:2.1.6'
 
+    implementation 'com.stripe:stripe-android:20.28.0'
+    implementation 'com.stripe:stripe-java:22.2.0'
+    implementation 'com.android.volley:volley:1.2.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2'
+
+
 
 }
