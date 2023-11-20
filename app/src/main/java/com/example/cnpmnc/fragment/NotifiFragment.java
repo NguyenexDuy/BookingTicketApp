@@ -2,13 +2,27 @@ package com.example.cnpmnc.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.cnpmnc.R;
+import com.example.cnpmnc.adapter.NotifiCationAdapter;
+import com.example.cnpmnc.model.VeMayBay;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,15 +44,7 @@ public class NotifiFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment NotifiFragment.
-     */
-    // TODO: Rename and change types and number of parameters
+
     public static NotifiFragment newInstance(String param1, String param2) {
         NotifiFragment fragment = new NotifiFragment();
         Bundle args = new Bundle();
@@ -57,10 +63,47 @@ public class NotifiFragment extends Fragment {
         }
     }
 
+    RecyclerView rcv_notifi;
+    ArrayList<VeMayBay> veMayBays;
+    NotifiCationAdapter notifiCationAdapter;
+    FirebaseFirestore firebaseFirestore;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_notifi, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        rcv_notifi=view.findViewById(R.id.rcv_notifi);
+        veMayBays= new ArrayList<>();
+        firebaseFirestore=FirebaseFirestore.getInstance();
+        String userId= FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        firebaseFirestore.collection("VeMayBay").whereEqualTo("KhachHangID",userId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                for (QueryDocumentSnapshot documentSnapshot: task.getResult()){
+                    String idVe=documentSnapshot.getId();
+                    String idHangKhach= (String) documentSnapshot.get("KhachHangID");
+                    String idChuyenBay= (String) documentSnapshot.get("ChuyenBayID");
+                    String diemDi= (String) documentSnapshot.get("diemDi");
+                    String diemDen=(String) documentSnapshot.get("diemDen");
+                    String ngayBatDau=(String) documentSnapshot.get("ngayBatDau");
+                    String giaVe=(String) documentSnapshot.get("giaVe");
+                    VeMayBay veMayBay=new VeMayBay(idVe,idChuyenBay,idHangKhach,diemDi,diemDen,ngayBatDau,giaVe);
+                    veMayBays.add(veMayBay);
+                }
+                notifiCationAdapter.notifyDataSetChanged();
+            }
+        });
+        notifiCationAdapter=new NotifiCationAdapter(getContext(),veMayBays);
+        rcv_notifi.setAdapter(notifiCationAdapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+        rcv_notifi.setLayoutManager(layoutManager);
+
     }
 }
