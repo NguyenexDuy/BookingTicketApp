@@ -109,15 +109,11 @@ public class PersonFragment extends Fragment {
 
             nguoiDungDocRef.get().addOnSuccessListener(nguoiDungDocumentSnapshot -> {
                 if (nguoiDungDocumentSnapshot.exists()) {
-<<<<<<< Updated upstream
                     progressBar.setVisibility(View.VISIBLE);
                     String email = nguoiDungDocumentSnapshot.getString("Gmail");
                     DocumentReference khachHangDocRef = db.collection("KhachHang").document(email);
-=======
-                    String Gmail = nguoiDungDocumentSnapshot.getString("Email");
-                    DocumentReference khachHangDocRef = db.collection("KhachHang").document(userUid);
 
->>>>>>> Stashed changes
+
                     khachHangDocRef.get().addOnSuccessListener(khachHangDocumentSnapshot -> {
                         if (khachHangDocumentSnapshot.exists()) {
                             progressBar.setVisibility(View.VISIBLE);
