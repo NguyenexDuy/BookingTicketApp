@@ -113,16 +113,23 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
 
             hangKhachData.put("hangKhach_" + i, hangKhachMap);
         }
-        hangKhachData.put("idChuyenBay",idChuyenBay);
+        hangKhachData.put("ChuyenBayID",idChuyenBay);
+        hangKhachData.put("KhachHangID",userId);
         hangKhachData.put("diemDi",diemDi);
         hangKhachData.put("diemDen",diemDen);
         hangKhachData.put("giaVe",giaVe);
         hangKhachData.put("ngayBatDau",ngayBay);
 
-        db.collection("VeMayBay").document(userId).set(hangKhachData)
-                .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(this, "Thanh toán thành công", Toast.LENGTH_SHORT).show();
-                })
+//        db.collection("VeMayBay").document(userId).set(hangKhachData)
+//                .addOnSuccessListener(aVoid -> {
+//                    Toast.makeText(this, "Thanh toán thành công", Toast.LENGTH_SHORT).show();
+//                })
+//                .addOnFailureListener(e -> {
+//                    Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
+//                });
+        db.collection("VeMayBay").add(hangKhachData).addOnSuccessListener(documentReference -> {
+            Toast.makeText(this, "Tải thành công", Toast.LENGTH_SHORT).show();
+        })
                 .addOnFailureListener(e -> {
                     Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
                 });
