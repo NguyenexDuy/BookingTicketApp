@@ -12,16 +12,12 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.example.cnpmnc.R;
 
 import com.example.cnpmnc.adapter.VPBookingAdapter;
 import com.example.cnpmnc.model.ChuyenBay;
-import com.example.cnpmnc.model.HoaDon;
 import com.google.android.material.tabs.TabLayout;
 
 /**

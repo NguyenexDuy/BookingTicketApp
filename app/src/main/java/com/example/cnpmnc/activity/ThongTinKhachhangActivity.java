@@ -101,8 +101,6 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
         String giaVe= String.valueOf(GiaVeTong);
         String ngayBay=chuyenBay.getNgayDi();
 
-
-
         Map<String, Object> hangKhachData = new HashMap<>();
         for (int i = 0; i < hangKhachList.size(); i++) {
             HangKhach hangKhach = hangKhachList.get(i);
@@ -120,13 +118,7 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
         hangKhachData.put("giaVe",giaVe);
         hangKhachData.put("ngayBatDau",ngayBay);
 
-//        db.collection("VeMayBay").document(userId).set(hangKhachData)
-//                .addOnSuccessListener(aVoid -> {
-//                    Toast.makeText(this, "Thanh toán thành công", Toast.LENGTH_SHORT).show();
-//                })
-//                .addOnFailureListener(e -> {
-//                    Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
-//                });
+
         db.collection("VeMayBay").add(hangKhachData).addOnSuccessListener(documentReference -> {
             Toast.makeText(this, "Tải thành công", Toast.LENGTH_SHORT).show();
         })
@@ -151,7 +143,6 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
         rcvTreEm2_12Tuoi.setAdapter(hangKhach2_12TuoiAdapter);
         rcvNguoiLon.setAdapter(hangKhachNguoiLonAdapter);
     }
-
     private void AnhXa()
     {
         tvThongTinGheNgoi=findViewById(R.id.tvThongTinGheNgoi);
@@ -163,8 +154,6 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
         rcvTreEm2Tuoi=findViewById(R.id.recyclerview3);
         tv_SoLuongHangKhach=findViewById(R.id.tv_SoLuongHangKhach);
         btn_ThanhToan=findViewById(R.id.btn_ThanhToan);
-
-
         numberTreEm2_12Tuoi =Integer.parseInt(DiaDiem.getInstance().getSoLuongTreEm2Ttoi12T());
         numberNguoiLon=Integer.parseInt(DiaDiem.getInstance().getSoLuongNguoiLon());
         numberTreEm2Tuoi=Integer.parseInt(DiaDiem.getInstance().getSoLuongTreEmDuoi2T());
