@@ -15,7 +15,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.cnpmnc.R;
-import com.example.cnpmnc.fragment.HomePageFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -70,10 +69,10 @@ public class DangNhapActivity extends AppCompatActivity {
                                         // Sign in success, update UI with the signed-in user's information
 //                                        Intent intent = new Intent(DangNhapActivity.this, HomePageActivity.class);
 
-                                        Toast.makeText(DangNhapActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(DangNhapActivity.this, "dangnhapthanhcong", Toast.LENGTH_SHORT).show();
 
-                                        Intent intent = new Intent(DangNhapActivity.this, HomePageActivity.class);
-                                        startActivity(intent);
+                                        Intent intent = new Intent();
+                                        setResult(Activity.RESULT_OK, intent);
                                         finish();
                                     } else {
                                         // If sign in fails, display a message to the user.

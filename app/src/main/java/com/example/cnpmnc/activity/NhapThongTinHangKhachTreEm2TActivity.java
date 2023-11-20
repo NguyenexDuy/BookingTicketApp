@@ -43,8 +43,7 @@ public class NhapThongTinHangKhachTreEm2TActivity extends AppCompatActivity {
                     Toast.makeText(NhapThongTinHangKhachTreEm2TActivity.this, "Invalid position", Toast.LENGTH_SHORT).show();
                 }
                 diaDiem.setHangKhachTreEmDuoi2TList(hangKhaches);
-                Intent intent=new Intent(NhapThongTinHangKhachTreEm2TActivity.this,ThongTinKhachhangActivity.class);
-                startActivity(intent);
+                onBackPressed();
                 finish();
             }
         });

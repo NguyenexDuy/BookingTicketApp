@@ -136,7 +136,7 @@
 
         </TextView>
 
-        <androidx.appcompat.widget.AppCompatButton
+        <TextView
             android:id="@+id/layout_dangnhap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -144,7 +144,7 @@
             android:textSize="15dp"
             android:textColor="@color/textColor">
 
-        </androidx.appcompat.widget.AppCompatButton>
+        </TextView>
 
     </LinearLayout>
     <Button
