@@ -13,7 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.adapter.ChuyenBayAdapter;
+import com.example.cnpmnc.adapter.ChuyenBayLoaiThuongGiaAdapter;
 import com.example.cnpmnc.model.ChuyenBay;
+import com.example.cnpmnc.model.DiaDiem;
+import com.example.cnpmnc.model.Firebase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,8 +54,12 @@ public class LoaiVeThuongGiaFragment extends Fragment {
 
 
     private RecyclerView rvVeThuongGia;
-    private ChuyenBayAdapter chuyenBayAdapter;
+    private ChuyenBayLoaiThuongGiaAdapter chuyenBayLoaiThuongGiaAdapter;
 
+    private String diemDi;
+    private String diemDen;
+    private String NgayDi,NgayVe,SoLuongGheVipTrong,SoLuongGheTrong;
+    private Firebase mfirebase;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,17 +72,50 @@ public class LoaiVeThuongGiaFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_loai_ve_thuong_gia, container, false);
+        View view = inflater.inflate(R.layout.fragment_loai_ve_thuong_gia, container, false);
+        Anhxa( view);
+        diemDi = DiaDiem.getInstance().getDiemDi();
+        diemDen = DiaDiem.getInstance().getDiemDen();
+        NgayDi = DiaDiem.getInstance().getNgayDi();
+        NgayVe=DiaDiem.getInstance().getNgayVe();
+        SoLuongGheTrong = DiaDiem.getInstance().getSoLuongGheTrong();
+        SoLuongGheVipTrong = DiaDiem.getInstance().getSoLuongGheVipTrong();
+
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        rvVeThuongGia.setLayoutManager(layoutManager);
+        if(NgayVe!=null)
+        {
+            mfirebase.getAllFlighttoCompareKhuHoi(diemDi, diemDen, NgayDi, NgayVe, new Firebase.FirebaseCallback<ChuyenBay>() {
+                @Override
+                public void onCallback(ArrayList<ChuyenBay> list) {
+                    chuyenBayLoaiThuongGiaAdapter = new ChuyenBayLoaiThuongGiaAdapter(list, getContext());
+                    rvVeThuongGia.setAdapter(chuyenBayLoaiThuongGiaAdapter);
+                }
+            });
+        }else {
+            mfirebase.getAllFlighttoCompare(diemDi, diemDen, NgayDi, new Firebase.FirebaseCallback<ChuyenBay>() {
+                @Override
+                public void onCallback(ArrayList<ChuyenBay> list) {
+                    chuyenBayLoaiThuongGiaAdapter = new ChuyenBayLoaiThuongGiaAdapter(list, getContext());
+                    rvVeThuongGia.setAdapter(chuyenBayLoaiThuongGiaAdapter);
+                }
+            });
+        }
+        return view;
+
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        rvVeThuongGia = view.findViewById(R.id.rvVeThuongGia);
         rvVeThuongGia.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+    }
+    private void Anhxa(View view) {
+        mfirebase = new Firebase(getContext());
+        rvVeThuongGia = view.findViewById(R.id.rvVeThuongGia);
     }
 
 }

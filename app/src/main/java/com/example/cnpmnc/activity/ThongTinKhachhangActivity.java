@@ -56,6 +56,9 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
         tv_giaChuyenBay.setText(String.valueOf(GiaVeTong));
 
 
+
+        Bundle bundle=getIntent().getExtras();
+        String giaTri=bundle.getString("fragment");
         rcvNguoiLon.setLayoutManager(new LinearLayoutManager(ThongTinKhachhangActivity.this));
         rcvTreEm2Tuoi.setLayoutManager(new LinearLayoutManager(ThongTinKhachhangActivity.this));
         rcvTreEm2_12Tuoi.setLayoutManager(new LinearLayoutManager(ThongTinKhachhangActivity.this));
@@ -73,6 +76,7 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(ThongTinKhachhangActivity.this,ChonChoNgoiActivity.class);
+
                 intent.putExtra("ChuyenBayDT", chuyenBay);
                 startActivity(intent);
             }

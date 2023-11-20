@@ -4,6 +4,7 @@ public class Ghe {
     private String idGhe;
     private String idChuyenBay;
     private Long soGhe;
+    private String LoaiGhe;
     private Boolean state;
 
     public Long getSoGhe() {
@@ -20,6 +21,22 @@ public class Ghe {
         this.idChuyenBay = idChuyenBay;
         this.soGhe=soGhe;
         this.state = state;
+    }
+
+    public Ghe(String idGhe, String idChuyenBay, Long soGhe, String loaiGhe, Boolean state) {
+        this.idGhe = idGhe;
+        this.idChuyenBay = idChuyenBay;
+        this.soGhe = soGhe;
+        LoaiGhe = loaiGhe;
+        this.state = state;
+    }
+
+    public String getLoaiGhe() {
+        return LoaiGhe;
+    }
+
+    public void setLoaiGhe(String loaiGhe) {
+        LoaiGhe = loaiGhe;
     }
 
     public String getIdGhe() {

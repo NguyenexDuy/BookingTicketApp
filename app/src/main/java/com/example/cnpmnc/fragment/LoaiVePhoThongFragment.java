@@ -90,7 +90,6 @@ public class    LoaiVePhoThongFragment extends Fragment {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rvVePhoThong.setLayoutManager(layoutManager);
-
             if(NgayVe!=null)
             {
                 mfirebase.getAllFlighttoCompareKhuHoi(diemDi, diemDen, NgayDi, NgayVe, new Firebase.FirebaseCallback<ChuyenBay>() {
@@ -117,7 +116,6 @@ public class    LoaiVePhoThongFragment extends Fragment {
     private void Anhxa(View view) {
         mfirebase = new Firebase(getContext());
         rvVePhoThong = view.findViewById(R.id.rvVePhoThong);
-
     }
 
     @Override

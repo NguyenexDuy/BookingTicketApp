@@ -96,10 +96,19 @@ public class DiaDiem {
     private String SoLuongNguoiLon;
     private String SoLuongTreEm2Ttoi12T;
     private String SoLuongTreEmDuoi2T;
-    private String NgayDi,NgayVe,SoLuongGheTrong;
+    private String NgayDi,NgayVe,SoLuongGheTrong,SoLuongGheVipTrong;
 
     public String getSoLuongGheTrong() {
         return SoLuongGheTrong;
+    }
+
+
+    public String getSoLuongGheVipTrong() {
+        return SoLuongGheVipTrong;
+    }
+
+    public void setSoLuongGheVipTrong(String soLuongGheVipTrong) {
+        SoLuongGheVipTrong = soLuongGheVipTrong;
     }
 
     public void setSoLuongGheTrong(String soLuongGheTrong) {
