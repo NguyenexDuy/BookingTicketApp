@@ -107,7 +107,6 @@ public class    LoaiVePhoThongFragment extends Fragment {
                         rvVePhoThong.setAdapter(chuyenBayAdapter);
                     }
                 });
-
             }
 
 
