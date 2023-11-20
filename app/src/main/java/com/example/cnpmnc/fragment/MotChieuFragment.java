@@ -27,14 +27,11 @@ import android.widget.Toast;
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.activity.ChonChuyenBayActivity;
 import com.example.cnpmnc.activity.DangNhapActivity;
-import com.example.cnpmnc.activity.ThongTinChoNgoiActivity;
-import com.example.cnpmnc.activity.ThongTinKhachhangActivity;
+
 import com.example.cnpmnc.activity.TimKiemActivity;
-import com.example.cnpmnc.adapter.TimKiemDiemDiAdapter;
 import com.example.cnpmnc.model.ChuyenBay;
 import com.example.cnpmnc.model.DiaDiem;
 import com.example.cnpmnc.model.Firebase;
-import com.example.cnpmnc.model.HoaDon;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -73,15 +70,7 @@ public class MotChieuFragment extends Fragment {
     public MotChieuFragment(ChuyenBay chuyenBay) {
         this.chuyenBay = chuyenBay;
     }
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MotChieuFragment.
-     */
-    // TODO: Rename and change types and number of parameters
+
     public static MotChieuFragment newInstance(String param1, String param2) {
         MotChieuFragment fragment = new MotChieuFragment();
         Bundle args = new Bundle();
