@@ -68,7 +68,7 @@ public class DangNhapActivity extends AppCompatActivity {
                                     progressDialog.dismiss();
                                     if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
-//                                        Intent intent = new Intent(DangNhapActivity.this, HomePageActivity.class);
+                                        //                                        Intent intent = new Intent(DangNhapActivity.this, HomePageActivity.class);
 
                                         Toast.makeText(DangNhapActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
 
