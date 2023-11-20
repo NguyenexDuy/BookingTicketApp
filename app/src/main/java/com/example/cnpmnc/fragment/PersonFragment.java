@@ -89,6 +89,7 @@ public class PersonFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
         tvttcn=view.findViewById(R.id.tvinfo);
         tvLichSuDatVe = view.findViewById(R.id.tvLicSuDatVe);
         tvChuyenBayYeuThich = view.findViewById(R.id.tvChuyenBayDaThich);
