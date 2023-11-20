@@ -91,6 +91,9 @@ public class LoaiVePhoThongFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rvVePhoThong.setLayoutManager(layoutManager);
 
+
+
+
             if(NgayVe!=null)
             {
                 mfirebase.getAllFlighttoCompareKhuHoi(diemDi, diemDen, NgayDi, NgayVe, new Firebase.FirebaseCallback<ChuyenBay>() {

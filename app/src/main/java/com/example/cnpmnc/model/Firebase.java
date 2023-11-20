@@ -72,9 +72,7 @@ public class Firebase {
                                     document.getString("SoLuongGheVipTrong"),
                                     document.getString("TrangThai"),
                                     document.getString("MoTa"),
-                                    document.getString("MoTaDiemDap"),
-                                    document.getString("Gia"));
-
+                                    document.getString("MoTaDiemDap"));
                             flightlist.add(chuyenBay);
                         }
                         callback.onCallback(flightlist);
@@ -166,8 +164,7 @@ public class Firebase {
                                     document.getString("SoLuongGheVipTrong"),
                                     document.getString("TrangThai"),
                                     document.getString("MoTa"),
-                                    document.getString("MoTaDiemDap"),
-                                    document.getString("Gia"));
+                                    document.getString("MoTaDiemDap"));
                             flightlist.add(chuyenBay);
                         }
                         callback.onCallback(flightlist);
@@ -199,8 +196,7 @@ public class Firebase {
                                     document.getString("SoLuongGheVipTrong"),
                                     document.getString("TrangThai"),
                                     document.getString("MoTa"),
-                                    document.getString("MoTaDiemDap"),
-                                    document.getString("Gia"));
+                                    document.getString("MoTaDiemDap"));
                             flightlist.add(chuyenBay);
                         }
                         callback.onCallback(flightlist);

@@ -38,7 +38,7 @@ public class ChiTietFlightActivity extends AppCompatActivity {
     private static final String PREFS_NAME = "MyPrefs";
     private static final String IS_YEU_THICH = "isYeuThich_";
     private static final String CHECKBOX_BACKGROUND = "checkBoxBackground_";
-    TextView tv_chiTietDiemDen,tv_MoTaChiTietFight,tv_DiemDapChiTiet,tv_GiaVe;
+    TextView tv_chiTietDiemDen,tv_MoTaChiTietFight,tv_DiemDapChiTiet;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,11 +55,10 @@ public class ChiTietFlightActivity extends AppCompatActivity {
         String tv_chitietDiemDen=chuyenBay.getDiemDen();
         String tv_mota= chuyenBay.getMoTa();
         String tv_diemdapchitiet=chuyenBay.getMoTaDiemDap();
-        String tv_giave=chuyenBay.getGiaVe();
         tv_chiTietDiemDen.setText(tv_chitietDiemDen);
         tv_MoTaChiTietFight.setText(tv_mota);
         tv_DiemDapChiTiet.setText(tv_diemdapchitiet);
-        tv_GiaVe.setText(tv_giave);
+
         btn_datve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,7 +92,6 @@ public class ChiTietFlightActivity extends AppCompatActivity {
 
     private void Anhxa() {
         btn_datve =findViewById(R.id.btn_datve);
-        tv_GiaVe=findViewById(R.id.tv_GiaVe);
         img_chiTietFight=findViewById(R.id.img_chiTietFight);
         tv_chiTietDiemDen =findViewById(R.id.tv_chiTietDiemDi);
         tv_MoTaChiTietFight=findViewById(R.id.tv_MoTaChiTietFight);
@@ -151,12 +149,50 @@ public class ChiTietFlightActivity extends AppCompatActivity {
                 });
     }
 
+//    private  void putChuyenBayYeuThich(ChuyenBay chuyenBay){
+//        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//
+//        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//        Map<String, Object> favoriteItem = new HashMap<>();
+//        favoriteItem.put("itemID", chuyenBay.getIdChuyenBay());
+//        favoriteItem.put("userID", userID);
+//        favoriteItem.put("DiemDen", chuyenBay.getDiemDen());
+//        favoriteItem.put("HinhAnh",chuyenBay.getHinhAnh());
+//        favoriteItem.put("DiemDi", chuyenBay.getDiemDi());
+//        favoriteItem.put("GioBatDau",chuyenBay.getGioBatDau());
+//        favoriteItem.put("NgayDi",chuyenBay.getNgayDi());
+//        favoriteItem.put("NgayVe",chuyenBay.getNgayVe());
+//        favoriteItem.put("SoLuongGheTrong",chuyenBay.getSoLuongGheTrong());
+//        favoriteItem.put("SoLuongGheVipTrong",chuyenBay.getSoLuongGheVipTrong());
+//        favoriteItem.put("TrangThai",chuyenBay.getTrangThai());
+//        favoriteItem.put("isYeuThich", chuyenBay.isYeuThich());
+//        db.collection("favorites")
+//                .add(favoriteItem)
+//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                    @Override
+//                    public void onSuccess(DocumentReference documentReference) {
+//                        tymButton.setBackgroundResource(R.drawable.heart_red_24);
+//                        Toast.makeText(ChiTietFlightActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
+//                        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+//                        SharedPreferences.Editor editor = sharedPreferences.edit();
+//                        editor.putBoolean("isYeuThich_" + chuyenBay.getIdChuyenBay(), chuyenBay.isYeuThich());
+//                        editor.putInt("checkBoxBackground_" + chuyenBay.getIdChuyenBay(), R.drawable.heart_red_24);
+//                        editor.apply();
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        // Xử lý khi thêm item thất bại
+//                        Toast.makeText(ChiTietFlightActivity.this, "Lỗi ", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//    }
     private  void putChuyenBayYeuThich(ChuyenBay chuyenBay){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         Map<String, Object> favoriteItem = new HashMap<>();
-        favoriteItem.put("itemID", chuyenBay.getIdChuyenBay());
         favoriteItem.put("userID", userID);
         favoriteItem.put("DiemDen", chuyenBay.getDiemDen());
         favoriteItem.put("HinhAnh",chuyenBay.getHinhAnh());
@@ -169,10 +205,11 @@ public class ChiTietFlightActivity extends AppCompatActivity {
         favoriteItem.put("TrangThai",chuyenBay.getTrangThai());
         favoriteItem.put("isYeuThich", chuyenBay.isYeuThich());
         db.collection("favorites")
-                .add(favoriteItem)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                .document(chuyenBay.getIdChuyenBay())
+                .set(favoriteItem)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
+                    public void onSuccess(Void aVoid) {
                         tymButton.setBackgroundResource(R.drawable.heart_red_24);
                         Toast.makeText(ChiTietFlightActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
                         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
@@ -190,11 +227,10 @@ public class ChiTietFlightActivity extends AppCompatActivity {
                     }
                 });
     }
-
     private void xoaDulieuTrenFirestore(ChuyenBay chuyenBay) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        CollectionReference yeuThichCollection = db.collection("YeuThich");
+        CollectionReference yeuThichCollection = db.collection("favorites");
         yeuThichCollection
                 .document(chuyenBay.getIdChuyenBay()) // Chúng ta sử dụng ID của chuyến bay làm tên tài liệu
                 .delete()
