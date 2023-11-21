@@ -112,6 +112,7 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
             hangKhachMap.put("name", hangKhach.getHoTen());
             hangKhachMap.put("type", hangKhach.getType());
             hangKhachMap.put("soGhe",hangKhach.getSoghe());
+//            hangKhachData.put("loaighe",hangKhach.getLoaiGhe());
             hangKhachData.put("hangKhach_" + i, hangKhachMap);
         }
         hangKhachData.put("ChuyenBayID",idChuyenBay);

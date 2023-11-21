@@ -92,10 +92,20 @@
                     if(adapter!=null){
                         adapter.setSelectedSeat(seatNumber);
                     }
-//                    String currentSeatType = gheAdapter.getCurrentSeatType();
-//                    Toast.makeText(ChonChoNgoiActivity.this, "Loại ghế: " + currentSeatType, Toast.LENGTH_SHORT).show();
+                 String currentSeatType = gheAdapter.getCurrentSeatType();
+                  Toast.makeText(ChonChoNgoiActivity.this, "Loại ghế: " + currentSeatType, Toast.LENGTH_SHORT).show();
+                    int giaVe = Integer.parseInt(chuyenBay.getGiaVe());
+
+                    if (currentSeatType.equals("ThuongGia")) {
+                        giaVe *= 4;
+                    }
+                    tv_tongGiaVe.setText(String.valueOf(giaVe));
+                    gheAdapter.notifyDataSetChanged();
                 }
+
             });
+
+
 
             rcv_choNgoi.setAdapter(gheAdapter);
 
@@ -129,6 +139,7 @@
 
                         Ghe ghe=new Ghe(idGhe,idChuyenBay, soGhe,loaighe,state);
                         ghes.add(ghe);
+                        chuyenBay.setLoaiGhe(ghe.getLoaiGhe());
                     }
                     Collections.sort(ghes, new Comparator<Ghe>() {
                         @Override

@@ -10,6 +10,19 @@ public class HangKhach implements Serializable {
     private String SDT;
     private String Email;
     private Long Soghe;
+    private String loaighe;
+
+    public void setSoghe(Long soghe) {
+        Soghe = soghe;
+    }
+
+    public String getLoaiGhe() {
+        return loaighe;
+    }
+
+    public void setLoaiGhe(String loaighe) {
+        this.loaighe = loaighe;
+    }
 
     public Long getSoghe() {
         return Soghe;
@@ -36,10 +49,11 @@ public class HangKhach implements Serializable {
         Email = email;
     }
 
-    public HangKhach(String hoTen, String type,Long soGhe) {
+    public HangKhach(String hoTen, String type,Long soGhe,String loaiGhe) {
         HoTen = hoTen;
         Type = type;
         Soghe=soGhe;
+        loaighe  = loaiGhe;
     }
 
     public String getType() {

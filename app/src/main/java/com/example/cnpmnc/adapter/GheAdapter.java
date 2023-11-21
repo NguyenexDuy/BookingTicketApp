@@ -90,6 +90,8 @@ public class GheAdapter extends RecyclerView.Adapter<GheAdapter.GheViewHolder>  
                 currentSelections--;
             }
         });
+
+
     }
 
     private void updateFirestoreState(Ghe ghe) {
@@ -139,6 +141,19 @@ public class GheAdapter extends RecyclerView.Adapter<GheAdapter.GheViewHolder>  
                         listener.onGetGheInfoFailure();
                     }
                 });
+    }
+    public String getCurrentSeatType() {
+        if (!ghes.isEmpty()) {
+            String firstSeatType = ghes.get(0).getLoaiGhe();
+            for (Ghe ghe : ghes) {
+                if (!ghe.getLoaiGhe().equals(firstSeatType)) {
+                    return "Có 2 loại ghế !!";
+                }
+            }
+
+            return firstSeatType;
+        }
+        return "";
     }
 
 }
