@@ -7,6 +7,7 @@ public class ChuyenBay implements Serializable {
     private String DiemDen;
     private String DiemDi;
     private String GioBatDau;
+    private String GioVe;
     private String HinhAnh;
     private String NgayDi;
     private String NgayVe;
@@ -16,6 +17,8 @@ public class ChuyenBay implements Serializable {
     private  String MoTa;
     private  String MoTaDiemDap;
     private String GiaVe;
+
+
 
     public String getGiaVe() {
         return GiaVe;
@@ -35,7 +38,13 @@ public class ChuyenBay implements Serializable {
     }
 
 
+    public String getGioVe() {
+        return GioVe;
+    }
 
+    public void setGioVe(String gioVe) {
+        GioVe = gioVe;
+    }
 
     public void setYeuThich(boolean yeuThich) {
         isYeuThich = yeuThich;
@@ -56,12 +65,13 @@ public class ChuyenBay implements Serializable {
         MoTaDiemDap = moTaDiemDap;
         this.isYeuThich = isYeuThich;
     }
-    public ChuyenBay(String idChuyenBay, String diemDen, String diemDi, String gioBatDau, String hinhAnh, String ngayDi, String ngayVe,
+    public ChuyenBay(String idChuyenBay, String diemDen, String diemDi, String gioBatDau,String gioVe, String hinhAnh, String ngayDi, String ngayVe,
                      String soLuongGheTrong, String soLuongGheVipTrong, String trangThai, String moTa, String moTaDiemDap,String giaVe) {
         IdChuyenBay = idChuyenBay;
         DiemDen = diemDen;
         DiemDi = diemDi;
         GioBatDau = gioBatDau;
+        GioVe=gioVe;
         HinhAnh = hinhAnh;
         NgayDi = ngayDi;
         NgayVe = ngayVe;

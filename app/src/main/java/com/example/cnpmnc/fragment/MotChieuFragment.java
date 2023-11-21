@@ -244,8 +244,7 @@ public class MotChieuFragment extends Fragment {
 
         private void setdata(){
             if (chuyenBay != null){
-
-
+                
                 String tenCanTimKiem=chuyenBay.getDiemDi();
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();

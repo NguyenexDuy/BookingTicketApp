@@ -1,6 +1,10 @@
 package com.example.cnpmnc.model;
 
-public class VeMayBay {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Map;
+
+public class VeMayBay implements Serializable {
 
     String idVe;
     String idChuyenBay;
@@ -10,18 +14,54 @@ public class VeMayBay {
     String ngayBatDau;
     String ngayVe;
     String giaVe;
+    String gioDi;
+    String gioVe;
 
-    public VeMayBay(String idVe, String idChuyenBay, String idHangKhach, String diemDiVe, String diemDenVe, String ngayBatDau, String giaVe) {
+    public String getGioDi() {
+        return gioDi;
+    }
+
+    public void setGioDi(String gioDi) {
+        this.gioDi = gioDi;
+    }
+
+    public String getGioVe() {
+        return gioVe;
+    }
+
+    public void setGioVe(String gioVe) {
+        this.gioVe = gioVe;
+    }
+
+    public ArrayList<Map<String, Object>> getHangKhaches() {
+        return hangKhaches;
+    }
+
+    public void setHangKhaches(ArrayList<Map<String, Object>> hangKhaches) {
+        this.hangKhaches = hangKhaches;
+    }
+
+    ArrayList<Map<String,Object>> hangKhaches;
+    public VeMayBay(String idVe, String idChuyenBay, String idHangKhach, String diemDiVe, String diemDenVe,String giodi,String giove, String ngayBatDau,String ngayVe, String giaVe,ArrayList<Map<String,Object>> hangKhaches) {
         this.idVe = idVe;
         this.idChuyenBay = idChuyenBay;
         this.idHangKhach = idHangKhach;
         this.diemDiVe = diemDiVe;
         this.diemDenVe = diemDenVe;
+        this.gioDi=giodi;
+        this.gioVe=giove;
         this.ngayBatDau = ngayBatDau;
+        this.ngayVe=ngayVe;
         this.giaVe = giaVe;
+        this.hangKhaches=hangKhaches;
     }
 
-    public String getIdVe() {
+
+
+
+
+
+        public String getIdVe() {
         return idVe;
     }
 

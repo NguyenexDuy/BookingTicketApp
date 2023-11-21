@@ -201,6 +201,11 @@ public class    KhuHoiFragment extends Fragment {
             }
         }
     }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        DiaDiem.getInstance().reset();
+    }
     private void ThucHienHanhDong()
     {
         DiaDiem.getInstance().setSoLuongNguoiLon(tv_countNguoiLonKhuHoi.getText().toString());
