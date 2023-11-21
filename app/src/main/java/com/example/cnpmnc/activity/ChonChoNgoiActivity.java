@@ -60,6 +60,11 @@
             AnhXa();
 
             chuyenBay=(ChuyenBay) getIntent().getSerializableExtra("ChuyenBayDT");
+//            Bundle bundle = getIntent().getExtras();
+//            if(bundle != null){
+//                String loaighe = bundle.getString("LoaiGhe","");
+//                GetAllGhe(loaighe);
+//            }
             GetAllGhe();
             tv_diemDi.setText(chuyenBay.getDiemDi());
             tv_diemDen.setText(chuyenBay.getDiemDen());
@@ -87,6 +92,8 @@
                     if(adapter!=null){
                         adapter.setSelectedSeat(seatNumber);
                     }
+//                    String currentSeatType = gheAdapter.getCurrentSeatType();
+//                    Toast.makeText(ChonChoNgoiActivity.this, "Loại ghế: " + currentSeatType, Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -99,16 +106,15 @@
                     onBackPressed();
                 }
             });
+
+
             HangKhachDataHolder dataHolder = HangKhachDataHolder.getInstance();
             dataHolder.setHangKhachList(AllKhachHang);
         }
-
-
         private void GetAllGhe(){
 
             firebaseFirestore.collection("ghe")
                     .whereEqualTo("IdChuyenBay",String.valueOf(chuyenBay.getIdChuyenBay()))
-                    .whereEqualTo("loaighe","PhoThong")
                     .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -117,8 +123,11 @@
                         String idGhe=documentSnapshot.getId();
                         String idChuyenBay=(String)documentSnapshot.get("IdChuyenBay");
                         Long soGhe= documentSnapshot.getLong("soGhe");
+                        String loaighe = (String) documentSnapshot.get("loaighe");
                         Boolean state=(Boolean) documentSnapshot.get("state");
-                        Ghe ghe=new Ghe(idGhe,idChuyenBay, soGhe,state);
+
+
+                        Ghe ghe=new Ghe(idGhe,idChuyenBay, soGhe,loaighe,state);
                         ghes.add(ghe);
                     }
                     Collections.sort(ghes, new Comparator<Ghe>() {

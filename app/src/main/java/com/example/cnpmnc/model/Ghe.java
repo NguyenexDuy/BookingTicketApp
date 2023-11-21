@@ -16,12 +16,13 @@ public class Ghe {
         return 0;
     }
 
-    public Ghe(String idGhe, String idChuyenBay, Long soGhe, Boolean state) {
-        this.idGhe = idGhe;
-        this.idChuyenBay = idChuyenBay;
-        this.soGhe=soGhe;
-        this.state = state;
-    }
+
+//    public Ghe(String idGhe, String idChuyenBay, Long soGhe, Boolean state) {
+//        this.idGhe = idGhe;
+//        this.idChuyenBay = idChuyenBay;
+//        this.soGhe=soGhe;
+//        this.state = state;
+//    }
 
     public Ghe(String idGhe, String idChuyenBay, Long soGhe, String loaiGhe, Boolean state) {
         this.idGhe = idGhe;

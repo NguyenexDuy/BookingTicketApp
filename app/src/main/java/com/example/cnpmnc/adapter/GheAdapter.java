@@ -1,6 +1,7 @@
 package com.example.cnpmnc.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,10 @@ public class GheAdapter extends RecyclerView.Adapter<GheAdapter.GheViewHolder>  
     private ArrayList<Ghe> ghes;
     int maxSelect;
     private int currentSelections = 0;
+    public interface OnGetGheInfoListener {
+        void onGetGheInfoSuccess(long soGhe, String loaiGhe);
+        void onGetGheInfoFailure();
+    }
     public interface OnSeatSelectedListener {
         void onSeatSelected( long seatNumber);
     }
@@ -49,29 +54,41 @@ public class GheAdapter extends RecyclerView.Adapter<GheAdapter.GheViewHolder>  
     public void onBindViewHolder(@NonNull GheViewHolder holder, int position) {
         Ghe ghe=ghes.get(position);
         holder.checkBox.setChecked(ghe.getState());
+        holder.checkBox.setTag(ghe.getLoaiGhe());
         holder.checkBox.setOnClickListener(view -> {
+            getGheInfoFromFirestore(ghe.getIdGhe(), new OnGetGheInfoListener() {
+                @Override
+                public void onGetGheInfoSuccess(long soGhe, String loaiGhe) {
+                    if (loaiGhe != null) {
+                        Toast.makeText(context, "Số ghế: " + soGhe + ", Loại ghế: " + loaiGhe, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "Không thể lấy thông tin loại ghế", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                @Override
+                public void onGetGheInfoFailure() {
+                    Toast.makeText(context, "Không thể lấy thông tin ghế tương ứng", Toast.LENGTH_SHORT).show();
+                }
+            });
+
             if (holder.checkBox.isChecked()) {
-                if(currentSelections<maxSelect)
-                {
+                if (currentSelections < maxSelect) {
                     ghe.setState(true);
                     updateFirestoreState(ghe);
                     currentSelections++;
                     if (mListener != null) {
-                        mListener.onSeatSelected( ghe.getSoGhe());
-                        Toast.makeText(context, String.valueOf(ghe.getSoGhe()), Toast.LENGTH_SHORT).show();// Gửi vị trí khi ghế được chọn
+                        mListener.onSeatSelected(ghe.getSoGhe());
+                        Toast.makeText(context, String.valueOf(ghe.getSoGhe()), Toast.LENGTH_SHORT).show(); // Gửi vị trí khi ghế được chọn
                     }
-                }
-                else {
+                } else {
                     holder.checkBox.setChecked(false);
                     Toast.makeText(context, "Đã đủ số ghế", Toast.LENGTH_SHORT).show();
                 }
-
-            }else {
+            } else {
                 ghe.setState(false);
                 updateFirestoreState(ghe);
                 currentSelections--;
             }
-
         });
     }
 
@@ -99,4 +116,29 @@ public class GheAdapter extends RecyclerView.Adapter<GheAdapter.GheViewHolder>  
             checkBox=itemView.findViewById(R.id.checkbox);
         }
     }
+    private void getGheInfoFromFirestore(String idGhe, OnGetGheInfoListener listener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference documentReference = db.collection("ghe").document(idGhe);
+        documentReference.get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        long soGhe = documentSnapshot.getLong("soGhe");
+                        String loaiGhe = documentSnapshot.getString("loaighe");
+                        if (listener != null) {
+                            listener.onGetGheInfoSuccess(soGhe, loaiGhe);
+                        }
+                    } else {
+                        // Không tìm thấy tài liệu
+                        if (listener != null) {
+                            listener.onGetGheInfoFailure();
+                        }
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    if (listener != null) {
+                        listener.onGetGheInfoFailure();
+                    }
+                });
+    }
+
 }

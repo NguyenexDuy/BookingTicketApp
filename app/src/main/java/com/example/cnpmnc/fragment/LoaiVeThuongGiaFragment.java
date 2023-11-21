@@ -80,8 +80,6 @@ public class LoaiVeThuongGiaFragment extends Fragment {
         NgayVe=DiaDiem.getInstance().getNgayVe();
         SoLuongGheTrong = DiaDiem.getInstance().getSoLuongGheTrong();
         SoLuongGheVipTrong = DiaDiem.getInstance().getSoLuongGheVipTrong();
-
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rvVeThuongGia.setLayoutManager(layoutManager);
         if(NgayVe!=null)
