@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +24,7 @@ public class ChonChuyenBayActivity extends AppCompatActivity {
     private ViewPager2 viewPager;
     private TabLayoutAdapter adapter;
     private TextView tvDiemDi,tvDiemDen;
+    private ImageView image_back;
 
 
     @Override
@@ -29,6 +33,13 @@ public class ChonChuyenBayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chon_chuyen_bay);
         tvDiemDi=findViewById(R.id.tvDiemDi);
         tvDiemDen=findViewById(R.id.tvDiemDen);
+        image_back=findViewById(R.id.image_back);
+        image_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
         tvDiemDi.setText(DiaDiem.getInstance().getDiemDi());
         tvDiemDen.setText(DiaDiem.getInstance().getDiemDen());
         tabLayout = findViewById(R.id.tab_ChonChuyenBay);

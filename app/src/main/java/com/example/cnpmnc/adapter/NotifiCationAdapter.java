@@ -1,6 +1,7 @@
 package com.example.cnpmnc.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cnpmnc.R;
+import com.example.cnpmnc.activity.ChiTietVeMayBayActivity;
 import com.example.cnpmnc.model.ChuyenBay;
 import com.example.cnpmnc.model.VeMayBay;
 
@@ -40,7 +42,9 @@ public class NotifiCationAdapter extends RecyclerView.Adapter<NotifiCationAdapte
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Lum", Toast.LENGTH_SHORT).show();
+                Intent intent= new Intent(context, ChiTietVeMayBayActivity.class);
+                intent.putExtra("VeMayBay",notifi);
+                context.startActivity(intent);
             }
         });
     }
