@@ -49,7 +49,7 @@ public class ChuyenBayAdapter extends RecyclerView.Adapter<ChuyenBayAdapter.Chuy
         holder.tvNoiDen.setText(chuyenVeTest.getDiemDen());
         holder.tv_SoLuongVe.setText(chuyenVeTest.getSoLuongGheTrong());
         holder.tvTongTien.setText(chuyenVeTest.getGiaVe());
-
+        holder.tvGioDen.setText(chuyenVeTest.getGioVe());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

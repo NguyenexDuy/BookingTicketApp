@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.adapter.NotifiCationAdapter;
@@ -18,11 +19,13 @@ import com.example.cnpmnc.model.VeMayBay;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,32 +81,81 @@ public class NotifiFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        rcv_notifi=view.findViewById(R.id.rcv_notifi);
-        veMayBays= new ArrayList<>();
-        firebaseFirestore=FirebaseFirestore.getInstance();
-        String userId= FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        firebaseFirestore.collection("VeMayBay").whereEqualTo("KhachHangID",userId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                for (QueryDocumentSnapshot documentSnapshot: task.getResult()){
-                    String idVe=documentSnapshot.getId();
-                    String idHangKhach= (String) documentSnapshot.get("KhachHangID");
-                    String idChuyenBay= (String) documentSnapshot.get("ChuyenBayID");
-                    String diemDi= (String) documentSnapshot.get("diemDi");
-                    String diemDen=(String) documentSnapshot.get("diemDen");
-                    String ngayBatDau=(String) documentSnapshot.get("ngayBatDau");
-                    String giaVe=(String) documentSnapshot.get("giaVe");
-                    VeMayBay veMayBay=new VeMayBay(idVe,idChuyenBay,idHangKhach,diemDi,diemDen,ngayBatDau,giaVe);
-                    veMayBays.add(veMayBay);
-                }
-                notifiCationAdapter.notifyDataSetChanged();
-            }
-        });
-        notifiCationAdapter=new NotifiCationAdapter(getContext(),veMayBays);
+        rcv_notifi = view.findViewById(R.id.rcv_notifi);
+        veMayBays = new ArrayList<>();
+        Notification2();
+        notifiCationAdapter = new NotifiCationAdapter(getContext(), veMayBays);
         rcv_notifi.setAdapter(notifiCationAdapter);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
         rcv_notifi.setLayoutManager(layoutManager);
 
     }
+
+//    private void Notification() {
+//        FirebaseUser current = FirebaseAuth.getInstance().getCurrentUser();
+//        if (current != null) {
+//            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//            firebaseFirestore = FirebaseFirestore.getInstance();
+//            firebaseFirestore.collection("VeMayBay").whereEqualTo("KhachHangID", userId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                @Override
+//                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+//                        String idVe = documentSnapshot.getId();
+//                        String idHangKhach = (String) documentSnapshot.get("KhachHangID");
+//                        String idChuyenBay = (String) documentSnapshot.get("ChuyenBayID");
+//                        String diemDi = (String) documentSnapshot.get("diemDi");
+//                        String diemDen = (String) documentSnapshot.get("diemDen");
+//                        String ngayBatDau = (String) documentSnapshot.get("ngayBatDau");
+//                        String giaVe = (String) documentSnapshot.get("giaVe");
+//                        VeMayBay veMayBay = new VeMayBay(idVe, idChuyenBay, idHangKhach, diemDi, diemDen, ngayBatDau, giaVe);
+//                        veMayBays.add(veMayBay);
+//                    }
+//                    notifiCationAdapter.notifyDataSetChanged();
+//                }
+//            });
+//        }
+//
+//
+//    }
+
+    private void Notification2() {
+        FirebaseUser current = FirebaseAuth.getInstance().getCurrentUser();
+        if (current != null) {
+            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            firebaseFirestore = FirebaseFirestore.getInstance();
+            firebaseFirestore.collection("VeMayBay").whereEqualTo("KhachHangID", userId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                        String idVe = documentSnapshot.getId();
+                        String idHangKhach = (String) documentSnapshot.get("KhachHangID");
+                        String idChuyenBay = (String) documentSnapshot.get("ChuyenBayID");
+                        String diemDi = (String) documentSnapshot.get("diemDi");
+                        String diemDen = (String) documentSnapshot.get("diemDen");
+                        String gioDi=(String) documentSnapshot.get("gioDi");
+                        String gioVe=(String) documentSnapshot.get("gioVe");
+                        String ngayBatDau = (String) documentSnapshot.get("ngayBatDau");
+                        String ngayVe=(String) documentSnapshot.get("ngayVe");
+                        String giaVe = (String) documentSnapshot.get("giaVe");
+
+                        ArrayList<Map<String, Object>> hangKhachList = new ArrayList<>();
+                        int index = 0;
+                        while (documentSnapshot.contains("hangKhach_" + index)) {
+                            Map<String, Object> hangKhachMap = (Map<String, Object>) documentSnapshot.get("hangKhach_" + index);
+                            if (hangKhachMap != null) {
+                                hangKhachList.add(hangKhachMap);
+                            }
+                            index++;
+                        }
+                            VeMayBay veMayBay = new VeMayBay(idVe, idChuyenBay, idHangKhach, diemDi, diemDen,gioDi,gioVe, ngayBatDau,ngayVe, giaVe, hangKhachList);
+                            veMayBays.add(veMayBay);
+                        }
+                        notifiCationAdapter.notifyDataSetChanged();
+                    }
+
+            });
+        }
+    }
+
+
 }

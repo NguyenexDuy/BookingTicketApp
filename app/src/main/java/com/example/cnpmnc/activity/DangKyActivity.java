@@ -115,8 +115,7 @@ public class DangKyActivity extends AppCompatActivity {
 
         if(TextUtils.isEmpty(email)){
             showError(edtEmailDki,"Vui lòng nhập Email!!");
-            edtEmailDki.requestFocus();
-            return;
+            edtEmailDki.requestFocus();return;
         }
         if(TextUtils.isEmpty(pass)){
             showError(edtPasworDK,"Vui lòng nhập password");
@@ -176,8 +175,7 @@ public class DangKyActivity extends AppCompatActivity {
                                 });
                             }
                         }
-                        else {
-                            Toast.makeText(DangKyActivity.this, "Lỗi kiểm tra email!", Toast.LENGTH_SHORT).show();
+                        else {Toast.makeText(DangKyActivity.this, "Lỗi kiểm tra email!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
