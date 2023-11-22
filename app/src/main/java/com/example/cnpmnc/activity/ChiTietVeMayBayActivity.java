@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,9 +14,12 @@ import android.widget.Toast;
 
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.adapter.TongHopHangKhachNotifiAdapter;
+import com.example.cnpmnc.model.HangKhach;
+import com.example.cnpmnc.model.HangKhachDataHolder;
 import com.example.cnpmnc.model.VeMayBay;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -53,6 +57,8 @@ public class ChiTietVeMayBayActivity extends AppCompatActivity {
                                 Toast.makeText(ChiTietVeMayBayActivity.this, "Hủy vé thất bại", Toast.LENGTH_SHORT).show();
                             }
                         });
+
+                updateSoLuongGheTrong();
             }
         });
     }
@@ -85,6 +91,42 @@ public class ChiTietVeMayBayActivity extends AppCompatActivity {
         tv_ngayVeCT.setText(ngayVe);
         Toast.makeText(this, String.valueOf(hangKhachList.size()), Toast.LENGTH_SHORT).show();
 
+    }
+    private void updateSoLuongGheTrong() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String idChuyenBay = veMayBay.getIdChuyenBay();
+
+        // Tìm và cập nhật số lượng ghế trống sau khi thanh toán
+        db.collection("ChuyenBay")
+                .document(idChuyenBay)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            String soLuongGheTrong = document.getString("SoLuongGheTrong");
+                            ArrayList<Map<String, Object>> hangKhachList = veMayBay.getHangKhaches();
+
+                            int soLuongGheTrongInt = Integer.parseInt(soLuongGheTrong);
+                            soLuongGheTrongInt += hangKhachList.size();
+                            String updatedSoLuongGheTrong = String.valueOf(soLuongGheTrongInt);
+
+                            db.collection("ChuyenBay")
+                                    .document(idChuyenBay)
+                                    .update("SoLuongGheTrong", updatedSoLuongGheTrong)
+                                    .addOnSuccessListener(aVoid -> {
+                                        Log.d("PaymentOptions", "Số lượng ghế trống đã được cập nhật.");
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        Log.w("PaymentOptions", "Lỗi khi cập nhật số lượng ghế trống.", e);
+                                    });
+                        } else {
+                            Log.d("PaymentOptions", "Không tìm thấy tài liệu.");
+                        }
+                    } else {
+                        Log.d("PaymentOptions", "Lỗi khi truy cập dữ liệu: ", task.getException());
+                    }
+                });
     }
     private void AnhXa()
     {

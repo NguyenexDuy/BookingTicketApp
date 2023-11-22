@@ -75,7 +75,6 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent=new Intent(ThongTinKhachhangActivity.this,ChonChoNgoiActivity.class);
                 intent.putExtra("ChuyenBayDT", chuyenBay);
-                intent.putExtra("LoaiGhe","PhoThong");
                 startActivity(intent);
             }
         });

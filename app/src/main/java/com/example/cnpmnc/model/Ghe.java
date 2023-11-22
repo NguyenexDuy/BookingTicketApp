@@ -5,7 +5,9 @@ public class Ghe {
     private String idChuyenBay;
     private Long soGhe;
     private String LoaiGhe;
+    String ghe;
     private Boolean state;
+    private Boolean isBooking;
 
     public Long getSoGhe() {
         return soGhe;
@@ -17,19 +19,29 @@ public class Ghe {
     }
 
 
-//    public Ghe(String idGhe, String idChuyenBay, Long soGhe, Boolean state) {
-//        this.idGhe = idGhe;
-//        this.idChuyenBay = idChuyenBay;
-//        this.soGhe=soGhe;
-//        this.state = state;
-//    }
+    public Boolean getBooking() {
+        return isBooking;
+    }
 
-    public Ghe(String idGhe, String idChuyenBay, Long soGhe, String loaiGhe, Boolean state) {
+    public void setBooking(Boolean booking) {
+        isBooking = booking;
+    }
+
+    public Ghe(String idGhe, String idChuyenBay, Long soGhe, String loaiGhe, Boolean state,Boolean isbooking) {
         this.idGhe = idGhe;
         this.idChuyenBay = idChuyenBay;
         this.soGhe = soGhe;
         LoaiGhe = loaiGhe;
         this.state = state;
+        this.isBooking=isbooking;
+    }
+
+    public String getGhe() {
+        return ghe;
+    }
+
+    public void setGhe(String ghe) {
+        this.ghe = ghe;
     }
 
     public String getLoaiGhe() {

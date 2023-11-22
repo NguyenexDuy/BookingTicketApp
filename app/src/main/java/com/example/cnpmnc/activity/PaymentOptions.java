@@ -1,5 +1,6 @@
 package com.example.cnpmnc.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,11 +19,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.cnpmnc.R;
+import com.example.cnpmnc.fragment.HomePageFragment;
 import com.example.cnpmnc.model.ChuyenBay;
 import com.example.cnpmnc.model.DiaDiem;
 import com.example.cnpmnc.model.HangKhach;
 import com.example.cnpmnc.model.HangKhachDataHolder;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.stripe.android.PaymentConfiguration;
 import com.stripe.android.paymentsheet.PaymentSheet;
@@ -82,7 +85,6 @@ public class PaymentOptions extends AppCompatActivity {
                 if (CustomerId != null) {
                     paymentFlow();
                 } else {
-                    Toast.makeText(PaymentOptions.this, "Error: Customer ID is null", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -120,7 +122,7 @@ public class PaymentOptions extends AppCompatActivity {
         hangKhachData.put("diemDen",diemDen);
         hangKhachData.put("gioDi",gioDi);
         hangKhachData.put("gioVe",gioVe);
-        hangKhachData.put("giaVe",giaVe);
+        hangKhachData.put("giaVe",giaVe+ "VND");
         hangKhachData.put("ngayBatDau",ngayBay);
         hangKhachData.put("ngayVe",ngayVe);
 
@@ -132,10 +134,46 @@ public class PaymentOptions extends AppCompatActivity {
                     Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
                 });
 
+
     }
 
 
+    private void updateSoLuongGheTrong() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String idChuyenBay = chuyenBay.getIdChuyenBay();
 
+        // Tìm và cập nhật số lượng ghế trống sau khi thanh toán
+        db.collection("ChuyenBay")
+                .document(idChuyenBay)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            String soLuongGheTrong = document.getString("SoLuongGheTrong");
+                            ArrayList<HangKhach> hangKhachList = HangKhachDataHolder.getInstance().getHangKhachList();
+
+                            int soLuongGheTrongInt = Integer.parseInt(soLuongGheTrong);
+                            soLuongGheTrongInt -= hangKhachList.size();
+                            String updatedSoLuongGheTrong = String.valueOf(soLuongGheTrongInt);
+
+                            db.collection("ChuyenBay")
+                                    .document(idChuyenBay)
+                                    .update("SoLuongGheTrong", updatedSoLuongGheTrong)
+                                    .addOnSuccessListener(aVoid -> {
+                                        Log.d("PaymentOptions", "Số lượng ghế trống đã được cập nhật.");
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        Log.w("PaymentOptions", "Lỗi khi cập nhật số lượng ghế trống.", e);
+                                    });
+                        } else {
+                            Log.d("PaymentOptions", "Không tìm thấy tài liệu.");
+                        }
+                    } else {
+                        Log.d("PaymentOptions", "Lỗi khi truy cập dữ liệu: ", task.getException());
+                    }
+                });
+    }
     private void createStripeCustomer() {
         StringRequest request = new StringRequest(Request.Method.POST, "https://api.stripe.com/v1/customers",
                 response -> {
@@ -223,7 +261,7 @@ public class PaymentOptions extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
                 params.put("customer", customerId);
                 params.put("amount", String.valueOf(GiaVeTong));
-                params.put("currency", "VND"); // Replace with your currency
+                params.put("currency", "USD"); // Replace with your currency
                 // Add any other necessary parameters
                 return params;
             }
@@ -243,8 +281,10 @@ public class PaymentOptions extends AppCompatActivity {
         }
     }
 
+
     private void onPaymentResult(PaymentSheetResult paymentSheetResult) {
         if (paymentSheetResult instanceof PaymentSheetResult.Completed) {
+            updateSoLuongGheTrong();
             AddVeMayBay();
             Toast.makeText(this, "Payment Success", Toast.LENGTH_SHORT).show();
         }

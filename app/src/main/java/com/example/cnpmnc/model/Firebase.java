@@ -111,10 +111,7 @@ public class Firebase {
                     }
                 });
     }
-//    public void getTenUserById(String idUser, getTenUserByIdCallback callback)
-//    {
-//        mfirestore.collection("")
-//    }
+
     public void getIdSanBayByTenSanBay(String tenSanBay,getIdSanBayByTenSanBayCallback callback )
     {
         mfirestore.collection("SanBay")

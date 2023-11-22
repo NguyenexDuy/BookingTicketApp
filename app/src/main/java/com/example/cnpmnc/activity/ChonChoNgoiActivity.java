@@ -61,11 +61,8 @@
             AnhXa();
 
             chuyenBay=(ChuyenBay) getIntent().getSerializableExtra("ChuyenBayDT");
-//            Bundle bundle = getIntent().getExtras();
-//            if(bundle != null){
-//                String loaighe = bundle.getString("LoaiGhe","");
-//                GetAllGhe(loaighe);
-//            }
+
+
             GetAllGhe();
             tv_diemDi.setText(chuyenBay.getDiemDi());
             tv_diemDen.setText(chuyenBay.getDiemDen());
@@ -93,7 +90,6 @@
                     if(adapter!=null){
                         adapter.setSelectedSeat(seatNumber,loaiGhe);
                     }
-                  Toast.makeText(ChonChoNgoiActivity.this, "Loại ghế: " + loaiGhe, Toast.LENGTH_SHORT).show();
                     int giaVe = Integer.parseInt(chuyenBay.getGiaVe());
 
                     if (loaiGhe.equals("ThuongGia")) {
@@ -104,6 +100,7 @@
                 }
 
             });
+
 
 
 
@@ -135,9 +132,10 @@
                         Long soGhe= documentSnapshot.getLong("soGhe");
                         String loaighe = (String) documentSnapshot.get("loaighe");
                         Boolean state=(Boolean) documentSnapshot.get("state");
+                        Boolean isBooking=(Boolean) documentSnapshot.get("isBooked");
 
 
-                        Ghe ghe=new Ghe(idGhe,idChuyenBay, soGhe,loaighe,state);
+                        Ghe ghe=new Ghe(idGhe,idChuyenBay, soGhe,loaighe,state,isBooking);
                         ghes.add(ghe);
                         giaVe = Integer.parseInt(chuyenBay.getGiaVe());
                         if (loaighe.equals("ThuongGia")){
