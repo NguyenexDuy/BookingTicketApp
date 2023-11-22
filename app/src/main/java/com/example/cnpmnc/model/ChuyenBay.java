@@ -18,7 +18,14 @@ public class ChuyenBay implements Serializable {
     private  String MoTaDiemDap;
     private String GiaVe;
 
+    private String loaiGhe;
+    public String getLoaiGhe() {
+        return loaiGhe;
+    }
 
+    public void setLoaiGhe(String loaiGhe) {
+        this.loaiGhe = loaiGhe;
+    }
 
     public String getGiaVe() {
         return GiaVe;

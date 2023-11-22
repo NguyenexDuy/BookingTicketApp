@@ -76,8 +76,8 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(ThongTinKhachhangActivity.this,ChonChoNgoiActivity.class);
-
                 intent.putExtra("ChuyenBayDT", chuyenBay);
+                intent.putExtra("LoaiGhe","PhoThong");
                 startActivity(intent);
             }
         });
@@ -127,7 +127,6 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
         hangKhachData.put("giaVe",giaVe);
         hangKhachData.put("ngayBatDau",ngayBay);
         hangKhachData.put("ngayVe",ngayVe);
-
 
         db.collection("VeMayBay").add(hangKhachData).addOnSuccessListener(documentReference -> {
             Toast.makeText(this, "Tải thành công", Toast.LENGTH_SHORT).show();

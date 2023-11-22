@@ -108,8 +108,6 @@ public class    LoaiVePhoThongFragment extends Fragment {
                     }
                 });
             }
-
-
         return view;
     }
 
@@ -123,6 +121,4 @@ public class    LoaiVePhoThongFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
     }
-
-
 }

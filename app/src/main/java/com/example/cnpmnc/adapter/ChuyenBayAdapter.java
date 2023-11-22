@@ -54,10 +54,9 @@ public class ChuyenBayAdapter extends RecyclerView.Adapter<ChuyenBayAdapter.Chuy
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(mcontext, ThongTinKhachhangActivity.class);
-                Bundle bundle=new Bundle();
-                String fm="PhoThong";
-                bundle.putString("fragment",fm);
                 intent.putExtra("ChuyenBayData", chuyenVeTest);
+                Bundle bundle = new Bundle();
+                bundle.putString("LoaiGhe","PhoThong");
                 intent.putExtras(bundle);
                 mcontext.startActivity(intent);
             }
