@@ -55,8 +55,6 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
         tv_SoLuongHangKhach.setText(String.valueOf(soLuongHangKhach));
         tv_giaChuyenBay.setText(String.valueOf(GiaVeTong));
 
-
-
         Bundle bundle=getIntent().getExtras();
         String giaTri=bundle.getString("fragment");
         rcvNguoiLon.setLayoutManager(new LinearLayoutManager(ThongTinKhachhangActivity.this));
@@ -151,7 +149,9 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
         rcvTreEm2Tuoi.setAdapter(hangKhach2Tuoi);
         rcvTreEm2_12Tuoi.setAdapter(hangKhach2_12TuoiAdapter);
         rcvNguoiLon.setAdapter(hangKhachNguoiLonAdapter);
+
     }
+
     private void AnhXa()
     {
         tvThongTinGheNgoi=findViewById(R.id.tvThongTinGheNgoi);

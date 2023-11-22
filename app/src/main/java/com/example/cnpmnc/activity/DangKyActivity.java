@@ -46,8 +46,9 @@ public class DangKyActivity extends AppCompatActivity {
     AppCompatButton btdangKi;
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestore;
-    private Spinner spinnerGioiTinh;
+    private Spinner spinnerGioiTinh,spinnerQuocTich;
     private ArrayAdapter<String> gioiTinhAdapter;
+    private ArrayAdapter<String> quoctichAdapter;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -62,6 +63,14 @@ public class DangKyActivity extends AppCompatActivity {
         spinnerGioiTinh.setAdapter(gioiTinhAdapter);
         String[] gioiTinhOptions = new String[]{"Nam", "Nữ", "Khác"};
         gioiTinhAdapter.addAll(gioiTinhOptions);
+
+
+        spinnerQuocTich =findViewById(R.id.spinnerQuocTichDangKi);
+        quoctichAdapter = new ArrayAdapter<>(getApplication().getApplicationContext(), R.layout.spinner_item);
+        quoctichAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerQuocTich.setAdapter(quoctichAdapter);
+        String[] quocTichOptions = new String[]{"VietNam", "USA", "China","EngLand","France","Germany","Italy","Spain","Canada","Korea","Iran"};
+        quoctichAdapter.addAll(quocTichOptions);
 
 //        ActionBar actionBar = getSupportActionBar();
 //        actionBar.hide();
@@ -85,7 +94,6 @@ public class DangKyActivity extends AppCompatActivity {
         edtHoTen =findViewById(R.id.edtHoTenDangKi);
         edtNgaySinh = findViewById(R.id.edtNgaySinhDangKi);
         edtSDT = findViewById(R.id.edtSDTDangKi);
-        edtQuocTich =findViewById(R.id.edtQuocTichDangKi);
 
         btdangKi = findViewById(R.id.BtnDangKy);
         edtNgaySinh.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +118,7 @@ public class DangKyActivity extends AppCompatActivity {
         String hoten = edtHoTen.getText().toString();
         String ngaysinh = edtNgaySinh.getText().toString();
         String gioitinh = spinnerGioiTinh.getSelectedItem().toString();
-        String quoctich =edtQuocTich.getText().toString();
+        String quoctich =spinnerQuocTich.getSelectedItem().toString();
         String sdt = edtSDT.getText().toString();
 
         if(TextUtils.isEmpty(email)){
