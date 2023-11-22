@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -27,6 +28,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Calendar;
@@ -81,47 +83,76 @@ public class FormPersonActivity extends AppCompatActivity {
                 updateUserInfoInFirestore();
             }
         });
-
-        // Fetch the user information from Firestore using userEmail
         fetchUserInfoFromFirestore();
 
-        // ... (rest of the code)
     }
-
 
 
     private void fetchUserInfoFromFirestore() {
-        DocumentReference docRef = db.collection("KhachHang").document(userEmail);
+        db.collection("KhachHang")
+                .whereEqualTo("Gmail", userEmail)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            // Duyệt qua tất cả các tài liệu kết quả (thường chỉ có 1)
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String hoten = document.getString("HoTen");
+                                String ngaysinh = document.getString("NgaySinh");
+                                String quoctich = document.getString("QuocTich");
+                                String sdt = document.getString("Sdt");
+                                String gioiTinh = document.getString("GioiTinh");
+                                int gioiTinhIndex = gioiTinhAdapter.getPosition(String.valueOf(gioiTinh));
+                                spinnerGioiTinh.setSelection(gioiTinhIndex);
+                                int quocTichIndex = quoctichAdapter.getPosition(String.valueOf(quoctich));
+                                spinnerQuocTich.setSelection(quocTichIndex);
+                                edten.setText(hoten);
+                                mngaysinh.setText(ngaysinh);
+                                spinnerGioiTinh.setTag(gioiTinh);
+                                mSDT.setText(sdt);
+                                memail.setText(userEmail);
+                                memail.setEnabled(false);
+                            }
+                        } else {
 
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.exists()) {
-                    // Document exists, retrieve data
-                    String hoten = documentSnapshot.getString("HoTen");
-                    String ngaysinh = documentSnapshot.getString("NgaySinh");
-                    String quoctich = documentSnapshot.getString("QuocTich");
-                    String sdt = documentSnapshot.getString("Sdt");
-                    String gioiTinh = documentSnapshot.getString("GioiTinh");
-                    int gioiTinhIndex = gioiTinhAdapter.getPosition(String.valueOf(gioiTinh));
-                    spinnerGioiTinh.setSelection(gioiTinhIndex);
-                    int quocTichIndex = quoctichAdapter.getPosition(String.valueOf(quoctich));
-                    spinnerQuocTich.setSelection(quocTichIndex);
-                    // Set the fetched data to the EditText fields
-                    edten.setText(hoten);
-                    mngaysinh.setText(ngaysinh);
-                    spinnerGioiTinh.setTag(gioiTinh);
-                    mSDT.setText(sdt);
-                    memail.setText(userEmail);
-                    memail.setEnabled(false);
-                } else {
-                    // Document does not exist, leave EditText fields empty
-                    memail.setText("");
-
-                }
-            }
-        });
+                        }
+                    }
+                });
     }
+
+//    private void fetchUserInfoFromFirestore() {
+//        DocumentReference docRef = db.collection("KhachHang").document(userEmail);
+//
+//        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//            @Override
+//            public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                if (documentSnapshot.exists()) {
+//                    // Document exists, retrieve data
+//                    String hoten = documentSnapshot.getString("HoTen");
+//                    String Email = documentSnapshot.getString("Gmail");
+//                    String ngaysinh = documentSnapshot.getString("NgaySinh");
+//                    String quoctich = documentSnapshot.getString("QuocTich");
+//                    String sdt = documentSnapshot.getString("Sdt");
+//                    String gioiTinh = documentSnapshot.getString("GioiTinh");
+//                    int gioiTinhIndex = gioiTinhAdapter.getPosition(String.valueOf(gioiTinh));
+//                    spinnerGioiTinh.setSelection(gioiTinhIndex);
+//                    int quocTichIndex = quoctichAdapter.getPosition(String.valueOf(quoctich));
+//                    spinnerQuocTich.setSelection(quocTichIndex);
+//                    edten.setText(hoten);
+//                    mngaysinh.setText(ngaysinh);
+//                    spinnerGioiTinh.setTag(gioiTinh);
+//                    mSDT.setText(sdt);
+//                    memail.setText(Email);
+//                    memail.setEnabled(false);
+//                } else {
+//                    // Document does not exist, leave EditText fields empty
+//                    memail.setText("");
+//
+//                }
+//            }
+//        });
+//    }
     private void initView() {
         memail = findViewById(R.id.edtEmail);
         edten = findViewById(R.id.edthovaten);
@@ -136,21 +167,16 @@ public class FormPersonActivity extends AppCompatActivity {
         });
     }
     private void updateUserInfoInFirestore() {
-        // Get the updated user information from EditText fields
         String hoten = edten.getText().toString();
         String ngaysinh = mngaysinh.getText().toString();
         String gioitinh = spinnerGioiTinh.getSelectedItem().toString();
         String quoctich = spinnerQuocTich.getSelectedItem().toString();
         String sdt = mSDT.getText().toString();
-
         if (sdt.length() < 8 || sdt.length() > 10 || !sdt.matches("\\d+")) {
             showError(mSDT, "Số điện thoại không hợp lệ.");
             return;
         }
-
-        // Create a query to search for the phone number in Firestore
         Query query = db.collection("KhachHang").whereEqualTo("Gmail", userEmail);
-
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -160,10 +186,7 @@ public class FormPersonActivity extends AppCompatActivity {
                     } else {
                         DocumentSnapshot document = task.getResult().getDocuments().get(0);
                         String documentId = document.getId();
-
-                        // Kiểm tra xem thông tin người dùng đã thay đổi hay chưa
                         if (isUserInfoChanged(document, hoten, ngaysinh, gioitinh, quoctich, sdt)) {
-                            // Nếu có sự thay đổi, thực hiện cập nhật
                             Map<String, Object> userMap = new HashMap<>();
                             userMap.put("HoTen", hoten);
                             userMap.put("NgaySinh", ngaysinh);
@@ -205,96 +228,6 @@ public class FormPersonActivity extends AppCompatActivity {
                 || !document.getString("Sdt").equals(sdt);
     }
 
-//    private void updateUserInfoInFirestore() {
-//        // Get the updated user information from EditText fields
-//        String hoten = edten.getText().toString();
-//        String ngaysinh = mngaysinh.getText().toString();
-//        String gioitinh = spinnerGioiTinh.getSelectedItem().toString();
-//        String quoctich = spinnerQuocTich.getSelectedItem().toString();
-//        String sdt = mSDT.getText().toString();
-//
-//        if (sdt.length() < 8 || sdt.length() > 10) {
-//            showError(mSDT, "Số điện thoại phải có từ 8 đến 10 ký tự.");
-//            return;
-//        }
-//
-//        // Create a query to search for the phone number in Firestore
-//        Query query = db.collection("KhachHang").whereEqualTo("Sdt", sdt);
-//        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    for (DocumentSnapshot document : task.getResult()) {
-//                        String documentId = document.getId();
-//                        Map<String, Object> userMap = new HashMap<>();
-//                        userMap.put("HoTen", hoten);
-//                        userMap.put("NgaySinh", ngaysinh);
-//                        userMap.put("GioiTinh", gioitinh);
-//                        userMap.put("QuocTich", quoctich);
-//                        userMap.put("Sdt", sdt);
-//
-//                        db.collection("KhachHang").document(documentId)
-//                                .update(userMap)
-//                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                    @Override
-//                                    public void onSuccess(Void unused) {
-//                                        Toast.makeText(FormPersonActivity.this, "User information updated successfully.", Toast.LENGTH_SHORT).show();
-//                                    }
-//                                })
-//                                .addOnFailureListener(new OnFailureListener() {
-//                                    @Override
-//                                    public void onFailure(@NonNull Exception e) {
-//                                        Toast.makeText(FormPersonActivity.this, "Failed to update user information. Please try again.", Toast.LENGTH_SHORT).show();
-//                                    }
-//                                });
-//                    }
-//                } else {
-//                    // An error occurred while performing the query
-//                    Toast.makeText(FormPersonActivity.this, "Failed to check phone number. Please try again.", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-//
-//        // Perform the query
-////        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-////            @Override
-////            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-////                if (task.isSuccessful()) {
-//////                    if (task.getResult().size() > 0) {
-//////                        showError(mSDT, "Số điện thoại đã tồn tại.");
-////                    {
-////
-////                        Map<String, Object> userMap = new HashMap<>();
-////
-////                        userMap.put("HoTen", hoten);
-////                        userMap.put("NgaySinh", ngaysinh);
-////                        userMap.put("GioiTinh", gioitinh);
-////                        userMap.put("QuocTich", quoctich);
-////                        userMap.put("Sdt", sdt);
-////
-////
-////                        db.collection("KhachHang").document(userEmail)
-////                                .set(userMap)
-////                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-////                                    @Override
-////                                    public void onSuccess(Void unused) {
-////                                        Toast.makeText(FormPersonActivity.this, "User information updated successfully.", Toast.LENGTH_SHORT).show();
-////                                    }
-////                                })
-////                                .addOnFailureListener(new OnFailureListener() {
-////                                    @Override
-////                                    public void onFailure(@NonNull Exception e) {
-////                                        Toast.makeText(FormPersonActivity.this, "Failed to update user information. Please try again.", Toast.LENGTH_SHORT).show();
-////                                    }
-////                                });
-////                    }
-////                } else {
-////                    // An error occurred while performing the query
-////                    Toast.makeText(FormPersonActivity.this, "Failed to check phone number. Please try again.", Toast.LENGTH_SHORT).show();
-////                }
-////            }
-////        });
-//    }
 
     private void openDialog1() {
         final Calendar c = Calendar.getInstance();

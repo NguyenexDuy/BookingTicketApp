@@ -1,5 +1,6 @@
 package com.example.cnpmnc.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -42,7 +43,7 @@ public class HangKhachAdapter extends  RecyclerView.Adapter<HangKhachAdapter.Han
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HangKhachViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull HangKhachViewHolder holder, @SuppressLint("RecyclerView") int position) {
         HangKhach hangKhach=mHangKhach.get(position);
         holder.tv_tenHangKhach.setText(hangKhach.getHoTen());
         holder.tv_loaiHangKhach.setText(hangKhach.getType());

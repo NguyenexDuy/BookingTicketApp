@@ -102,51 +102,30 @@ public class PersonFragment extends Fragment {
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseUser=firebaseAuth.getCurrentUser();
         progressBar.setVisibility(View.VISIBLE);
+
         if (firebaseUser != null) {
-            String userUid = firebaseUser.getUid();
-            // Tạo reference đến tài liệu Firestore "NguoiDung" tương ứng với user UID
-            DocumentReference nguoiDungDocRef = db.collection("Customer").document(userUid);
-
-            nguoiDungDocRef.get().addOnSuccessListener(nguoiDungDocumentSnapshot -> {
-                if (nguoiDungDocumentSnapshot.exists()) {
-                    progressBar.setVisibility(View.VISIBLE);
-                    String email = nguoiDungDocumentSnapshot.getString("Gmail");
-                    if (email != null) {
-                        DocumentReference khachHangDocRef = db.collection("KhachHang").document(email);
-                        // Tiếp tục xử lý dữ liệu Firestore ở đây
-                        khachHangDocRef.get().addOnSuccessListener(khachHangDocumentSnapshot -> {
-                            if (khachHangDocumentSnapshot.exists()) {
-                                progressBar.setVisibility(View.VISIBLE);
-                                String hoVaTen = khachHangDocumentSnapshot.getString("HoTen");
-                                tvten.setText(hoVaTen);
-                                progressBar.setVisibility(View.VISIBLE);
-                            } else {
-                                tvten.setText("");
-                                progressBar.setVisibility(View.VISIBLE);
-                            }
-                        }).addOnFailureListener(e -> {
-                            tvten.setText("Bạn chưa chỉnh sửa TTCN");
-                            progressBar.setVisibility(View.VISIBLE);
-                        });
-
-                        // Set the email to the email TextView
-                        tvemail.setText(email);
+            String email = firebaseUser.getEmail();
+            if (email != null) {
+                DocumentReference khachHangDocRef = db.collection("KhachHang").document(email);
+                khachHangDocRef.get().addOnSuccessListener(khachHangDocumentSnapshot -> {
+                    if (khachHangDocumentSnapshot.exists()) {
+                        progressBar.setVisibility(View.VISIBLE);
+                        String hoVaTen = khachHangDocumentSnapshot.getString("HoTen");
+                        Log.d("PersonFragment", "HoTen: " + hoVaTen);
+                        tvten.setText(hoVaTen);
                     } else {
-                        
+                        tvten.setText("User");
                     }
-
-
-
-                } else {
-                    tvemail.setText("Document không tồn tại");
-                    tvten.setText("Họ và tên không có trong Firestore");
+                }).addOnFailureListener(e -> {
+                    tvten.setText("Bạn chưa chỉnh sửa TTCN");
                     progressBar.setVisibility(View.VISIBLE);
-                }
-            }).addOnFailureListener(e -> {
-                tvemail.setText("Lỗi khi lấy dữ liệu từ Firestore");
-                tvten.setText("Lỗi khi lấy dữ liệu từ Firestore");
-            });
-        } else {// Người dùng chưa đăng nhập, xử lý thông báo tương ứng
+                });
+                tvemail.setText(email);
+            } else {
+                // Handle the case where email is null
+            }
+        } else {
+            // Người dùng chưa đăng nhập, xử lý thông báo tương ứng
             tvemail.setText("Chưa đăng nhập");
             tvten.setText("Chưa đăng nhập");
         }

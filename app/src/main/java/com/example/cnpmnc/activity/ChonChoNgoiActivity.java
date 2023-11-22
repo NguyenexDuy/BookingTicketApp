@@ -51,6 +51,7 @@
         private GheAdapter gheAdapter;
         private ChuyenBay chuyenBay;
         private ArrayList<Ghe> ghes;
+        int giaVe;
 
 
         @Override
@@ -139,7 +140,11 @@
 
                         Ghe ghe=new Ghe(idGhe,idChuyenBay, soGhe,loaighe,state);
                         ghes.add(ghe);
-                        chuyenBay.setLoaiGhe(ghe.getLoaiGhe());
+                        giaVe = Integer.parseInt(chuyenBay.getGiaVe());
+                        if (loaighe.equals("ThuongGia")){
+                            giaVe *= 4;
+                        }
+                        chuyenBay.setLoaiGhe(loaighe);
                     }
                     Collections.sort(ghes, new Comparator<Ghe>() {
                         @Override
@@ -147,6 +152,7 @@
                             return Long.compare(ghe.getSoGhe(),ghe2.getSoGhe());
                         }
                     });
+                    tv_tongGiaVe.setText(String.valueOf(giaVe));
                     gheAdapter.notifyDataSetChanged();
                 }
             });
