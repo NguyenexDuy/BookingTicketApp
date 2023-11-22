@@ -70,7 +70,6 @@ public class NotifiFragment extends Fragment {
     ArrayList<VeMayBay> veMayBays;
     NotifiCationAdapter notifiCationAdapter;
     FirebaseFirestore firebaseFirestore;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
