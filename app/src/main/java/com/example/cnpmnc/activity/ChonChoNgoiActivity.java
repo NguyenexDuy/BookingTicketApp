@@ -88,16 +88,15 @@
 
             gheAdapter.setOnSeatSelectedListener(new GheAdapter.OnSeatSelectedListener() {
                 @Override
-                public void onSeatSelected(long seatNumber) {
+                public void onSeatSelected(long seatNumber,String loaiGhe) {
                     HangKhachChonGheAdapter adapter= (HangKhachChonGheAdapter) rcv_hangKhachChonCHo.getAdapter();
                     if(adapter!=null){
-                        adapter.setSelectedSeat(seatNumber);
+                        adapter.setSelectedSeat(seatNumber,loaiGhe);
                     }
-                 String currentSeatType = gheAdapter.getCurrentSeatType();
-                  Toast.makeText(ChonChoNgoiActivity.this, "Loại ghế: " + currentSeatType, Toast.LENGTH_SHORT).show();
+                  Toast.makeText(ChonChoNgoiActivity.this, "Loại ghế: " + loaiGhe, Toast.LENGTH_SHORT).show();
                     int giaVe = Integer.parseInt(chuyenBay.getGiaVe());
 
-                    if (currentSeatType.equals("ThuongGia")) {
+                    if (loaiGhe.equals("ThuongGia")) {
                         giaVe *= 4;
                     }
                     tv_tongGiaVe.setText(String.valueOf(giaVe));

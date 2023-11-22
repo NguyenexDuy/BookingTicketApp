@@ -28,7 +28,7 @@ public class GheAdapter extends RecyclerView.Adapter<GheAdapter.GheViewHolder>  
         void onGetGheInfoFailure();
     }
     public interface OnSeatSelectedListener {
-        void onSeatSelected( long seatNumber);
+        void onSeatSelected( long seatNumber, String loaiGhe);
     }
 
     private OnSeatSelectedListener mListener;
@@ -77,7 +77,7 @@ public class GheAdapter extends RecyclerView.Adapter<GheAdapter.GheViewHolder>  
                     updateFirestoreState(ghe);
                     currentSelections++;
                     if (mListener != null) {
-                        mListener.onSeatSelected(ghe.getSoGhe());
+                        mListener.onSeatSelected(ghe.getSoGhe(),ghe.getLoaiGhe());
                         Toast.makeText(context, String.valueOf(ghe.getSoGhe()), Toast.LENGTH_SHORT).show(); // Gửi vị trí khi ghế được chọn
                     }
                 } else {

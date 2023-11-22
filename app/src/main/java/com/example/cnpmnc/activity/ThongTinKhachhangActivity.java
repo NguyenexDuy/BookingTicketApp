@@ -90,50 +90,6 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
         });
 
     }
-    private void AddVeMayBay()
-    {
-
-        HangKhachDataHolder dataHolder = HangKhachDataHolder.getInstance();
-        ArrayList<HangKhach> hangKhachList = dataHolder.getHangKhachList();
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        String idChuyenBay=chuyenBay.getIdChuyenBay();
-        String diemDi=chuyenBay.getDiemDi();
-        String diemDen=chuyenBay.getDiemDen();
-        String giaVe= String.valueOf(GiaVeTong);
-        String ngayBay=chuyenBay.getNgayDi();
-        String ngayVe=chuyenBay.getNgayVe();
-        String gioDi=chuyenBay.getGioBatDau();
-        String gioVe=chuyenBay.getGioVe();
-
-        Map<String, Object> hangKhachData = new HashMap<>();
-        for (int i = 0; i < hangKhachList.size(); i++) {
-            HangKhach hangKhach = hangKhachList.get(i);
-            Map<String, Object> hangKhachMap = new HashMap<>();
-            hangKhachMap.put("name", hangKhach.getHoTen());
-            hangKhachMap.put("type", hangKhach.getType());
-            hangKhachMap.put("soGhe",hangKhach.getSoghe());
-            hangKhachData.put("hangKhach_" + i, hangKhachMap);
-        }
-        hangKhachData.put("ChuyenBayID",idChuyenBay);
-        hangKhachData.put("KhachHangID",userId);
-        hangKhachData.put("diemDi",diemDi);
-        hangKhachData.put("diemDen",diemDen);
-        hangKhachData.put("gioDi",gioDi);
-        hangKhachData.put("gioVe",gioVe);
-        hangKhachData.put("giaVe",giaVe);
-        hangKhachData.put("ngayBatDau",ngayBay);
-        hangKhachData.put("ngayVe",ngayVe);
-
-        db.collection("VeMayBay").add(hangKhachData).addOnSuccessListener(documentReference -> {
-            Toast.makeText(this, "Tải thành công", Toast.LENGTH_SHORT).show();
-        })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
-                });
-
-    }
 
     @Override
     protected void onResume() {
