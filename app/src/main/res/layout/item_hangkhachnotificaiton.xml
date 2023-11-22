@@ -6,7 +6,7 @@
     <TextView
         android:layout_weight="1"
         android:id="@+id/tv_tenHK"
-        android:layout_width="wrap_content"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:text="tên hàng khách"/>
     <TextView
@@ -14,7 +14,7 @@
         android:id="@+id/tv_soG"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="số ghe"/>
+        android:text="00"/>
     <TextView
         android:layout_weight="1"
         android:id="@+id/tv_loaiHK"

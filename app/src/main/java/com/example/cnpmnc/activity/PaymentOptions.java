@@ -91,7 +91,6 @@ public class PaymentOptions extends AppCompatActivity {
 
     private void AddVeMayBay()
     {
-
         HangKhachDataHolder dataHolder = HangKhachDataHolder.getInstance();
         ArrayList<HangKhach> hangKhachList = dataHolder.getHangKhachList();
 
@@ -223,8 +222,8 @@ public class PaymentOptions extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("customer", customerId);
-                params.put("amount", "10000");
-                params.put("currency", "USD"); // Replace with your currency
+                params.put("amount", String.valueOf(GiaVeTong));
+                params.put("currency", "VND"); // Replace with your currency
                 // Add any other necessary parameters
                 return params;
             }

@@ -29,7 +29,7 @@ import java.util.Map;
 
 public class ChiTietFlightActivity extends AppCompatActivity {
 
-    private ImageView img_chiTietFight,imgcc;
+    private ImageView img_chiTietFight,back;
     private ChuyenBay chuyenBay;
     private FirebaseFirestore db;
     private Button btn_datve;
@@ -60,6 +60,12 @@ public class ChiTietFlightActivity extends AppCompatActivity {
         tv_MoTaChiTietFight.setText(tv_mota);
         tv_DiemDapChiTiet.setText(tv_diemdapchitiet);
         tv_GiaVe.setText(tv_giave);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
         btn_datve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,6 +105,7 @@ public class ChiTietFlightActivity extends AppCompatActivity {
         tv_MoTaChiTietFight=findViewById(R.id.tv_MoTaChiTietFight);
         tv_DiemDapChiTiet=findViewById(R.id.tv_DiemDapChiTiet);
         tymButton = findViewById(R.id.TymButton);
+        back=findViewById(R.id.back);
     }
     private void kiemTraTrangThaiYeuThich() {
 //         Kiểm tra xem chuyến bay đã trong danh sách yêu thích hay không và cập nhật nút "tym" tương ứng.

@@ -77,11 +77,13 @@ public class HangKhachChonGheAdapter extends RecyclerView.Adapter<HangKhachChonG
 public ArrayList<HangKhach> getHangKhaches() {
     return hangKhaches;
 }
-public void setSelectedSeat(long seatNumber) {
+public void setSelectedSeat(long seatNumber,String loaiGhe) {
     if (positonOK >= 0 && positonOK < hangKhaches.size()) {
         HangKhach hangKhach = hangKhaches.get(positonOK);
         if (hangKhach != null) {
             hangKhach.setSoGhe(seatNumber);
+            hangKhach.setLoaiGhe(loaiGhe);
+//            hangKhach.setLoaiGhe();
             notifyItemChanged(positonOK);
             positonOK++; // Tăng vị trí đã chọn sau khi gán số ghế
         }
