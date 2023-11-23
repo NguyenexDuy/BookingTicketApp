@@ -312,4 +312,3 @@ public class PaymentOptions extends AppCompatActivity {
         }
     }
 }
-
