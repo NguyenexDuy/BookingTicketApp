@@ -151,40 +151,41 @@ public class    KhuHoiFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
-                if(firebaseUser!=null)
-                {
+//                firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
+//                if(firebaseUser!=null)
+//                {
                     ThucHienHanhDong();
-                    Toast.makeText(getContext(), "Co user", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getContext(), DiaDiem.getInstance().getDiemDen(), Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Toast.makeText(getContext(), "ko co user", Toast.LENGTH_SHORT).show();
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-
-                    builder.setTitle("Xác nhận");
-                    builder.setMessage("Quý khách cần phải đăng nhập để thực hiện đặt chuyến bay?");
-
-
-                    builder.setPositiveButton("Đăng nhập", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent=new Intent(getContext(), DangNhapActivity.class);
-                            startActivityForResult(intent, LOGIN_REQUEST_CODE);
-                        }
-                    });
-
-                    builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // Thực hiện hành động khi người dùng chọn "Không" ở đây
-                            dialog.dismiss(); // Dismiss dialog khi chọn "Không"
-                        }
-                    });
-
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-
-                }
+//                    Toast.makeText(getContext(), "Co user", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), DiaDiem.getInstance().getDiemDen(), Toast.LENGTH_SHORT).show();
+//                }
+//                else {
+//                    Toast.makeText(getContext(), "ko co user", Toast.LENGTH_SHORT).show();
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+//
+//                    builder.setTitle("Xác nhận");
+//                    builder.setMessage("Quý khách cần phải đăng nhập để thực hiện đặt chuyến bay?");
+//
+//
+//                    builder.setPositiveButton("Đăng nhập", new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            Intent intent=new Intent(getContext(), DangNhapActivity.class);
+//                            intent.putExtra("callingFragment", "KhuHoiFragment");
+//                            startActivityForResult(intent, LOGIN_REQUEST_CODE);
+////
+//                        }
+//                    });
+//
+//                    builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            dialog.dismiss();
+//                        }
+//                    });
+//
+//                    AlertDialog dialog = builder.create();
+//                    dialog.show();
+//
+//                }
 
 
             }
