@@ -8,9 +8,11 @@ import android.os.Bundle;
 
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.cnpmnc.R;
@@ -24,12 +26,21 @@ public class NhapThongTinHangKhachNguoiLonActivity extends AppCompatActivity {
     EditText edtDanhXung,edtHoTen,edtDateOfBirth,edtGmail,edtSDT;
     Button btnHoanThanh;
     int position;
+    private Spinner spinnerDanhXung;
+    private ArrayAdapter<String> danhXungAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nhap_thong_tin_khach_hang);
         AnhXa();
         position=getIntent().getIntExtra("position",0);
+        spinnerDanhXung =findViewById(R.id.spinnerDanhXung);
+
+        danhXungAdapter = new ArrayAdapter<>(getApplication().getApplicationContext(), R.layout.spinner_item);
+        danhXungAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerDanhXung.setAdapter(danhXungAdapter);
+        String[] danhXungOptions = new String[]{"Ông", "Bà", "Anh", "Chị"};
+        danhXungAdapter.addAll(danhXungOptions);
         btnHoanThanh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,7 +58,7 @@ public class NhapThongTinHangKhachNguoiLonActivity extends AppCompatActivity {
 //                finish();
 //            }
                 String hoTen1 = edtHoTen.getText().toString();
-                String danhXung1 = edtDanhXung.getText().toString();
+                String danhXung1 = spinnerDanhXung.getSelectedItem().toString();
                 String dateOfBirth = edtDateOfBirth.getText().toString();
                 String gmail1 = edtGmail.getText().toString();
                 String sdt = edtSDT.getText().toString();
@@ -98,7 +109,6 @@ public class NhapThongTinHangKhachNguoiLonActivity extends AppCompatActivity {
     }
     private void AnhXa()
     {
-        edtDanhXung=findViewById(R.id.edtDanhXung);
         edtHoTen=findViewById(R.id.edtHoTen);
         edtDateOfBirth=findViewById(R.id.edtDateOfBirth);
         edtGmail=findViewById(R.id.edtGmail);
