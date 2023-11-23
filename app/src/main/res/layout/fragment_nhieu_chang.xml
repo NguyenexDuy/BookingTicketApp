@@ -9,236 +9,35 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@color/primaryColor"
             android:orientation="vertical"
             android:padding="10dp">
 
-            <TextView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_nhieuChang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
+            <LinearLayout
+                android:id="@+id/btn_themChuyenBay"
+                android:layout_gravity="end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Chuyến bay 1"
-                android:textColor="@color/textColor"
-                android:textStyle="bold" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="86dp"
-                android:layout_marginBottom="20dp">
-                <LinearLayout
+                android:orientation="horizontal"
+                >
+                <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentBottom="true"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Điểm đi"
-                        android:textColor="#71AFE5"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:id="@+id/tv_idsanbaydiemdi"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="SGN"
-                        android:textColor="@color/white"
-                        android:textSize="35sp" />
-
-                    <TextView
-                        android:id="@+id/tv_tensanbaydiemdi"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Tp Hồ Chí Minh, VN"
-                        android:textColor="@color/white"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <LinearLayout
+                    android:backgroundTint="@color/primaryColor"
+                    android:src="@drawable/add_chuyenbay"/>
+                <TextView
+                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Chọn ngày đi"
-                        android:textColor="#71AFE5"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tv_CalendarNgayDi"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableTop="@drawable/ic_calenda"
-                        android:drawablePadding="3dp"
-                        android:text="17-10-2023"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="86dp"
-                android:layout_marginBottom="20dp">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentBottom="true"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Điểm đến"
-                        android:textColor="#71AFE5"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:id="@+id/tv_idsanbaydiemden1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="SGN"
-                        android:textColor="@color/white"
-                        android:textSize="35sp" />
-
-                    <TextView
-                        android:id="@+id/tv_tensanbaydiemden1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Tp Hồ Chí Minh, VN"
-                        android:textColor="@color/white"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-
-            </RelativeLayout>
-
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                android:text="Chuyến bay 2"
-                android:textColor="@color/textColor"
-                android:textStyle="bold" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="86dp"
-                android:layout_marginBottom="20dp">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentBottom="true"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Điểm đi"
-                        android:textColor="#71AFE5"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:id="@+id/tv_idsanbaydiemdi2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="SGN"
-                        android:textColor="@color/white"
-                        android:textSize="35sp" />
-
-                    <TextView
-                        android:id="@+id/tv_tensanbaydiemdi2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Tp Hồ Chí Minh, VN"
-                        android:textColor="@color/white"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Chọn ngày đi"
-                        android:textColor="#71AFE5"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tv_CalendarNgayDi2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableTop="@drawable/ic_calenda"
-                        android:drawablePadding="3dp"
-                        android:text="17-10-2023"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="86dp"
-                android:layout_marginBottom="20dp">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentBottom="true"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Điểm đến"
-                        android:textColor="#71AFE5"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:id="@+id/tv_idsanbaydiemden2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="SGN"
-                        android:textColor="@color/white"
-                        android:textSize="35sp" />
-
-                    <TextView
-                        android:id="@+id/tv_tensanbaydiemden2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Tp Hồ Chí Minh, VN"
-                        android:textColor="@color/white"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-
-            </RelativeLayout>
-
+                    android:textColor="@color/textColor"
+                    android:text="Thêm chuyến bay"/>
+            </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"

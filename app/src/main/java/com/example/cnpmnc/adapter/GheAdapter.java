@@ -9,6 +9,7 @@ import android.widget.CheckBox;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cnpmnc.R;
@@ -28,7 +29,7 @@ public class GheAdapter extends RecyclerView.Adapter<GheAdapter.GheViewHolder>  
         void onGetGheInfoFailure();
     }
     public interface OnSeatSelectedListener {
-        void onSeatSelected( long seatNumber);
+        void onSeatSelected( long seatNumber, String loaiGhe);
     }
 
     private OnSeatSelectedListener mListener;
@@ -55,6 +56,16 @@ public class GheAdapter extends RecyclerView.Adapter<GheAdapter.GheViewHolder>  
         Ghe ghe=ghes.get(position);
         holder.checkBox.setChecked(ghe.getState());
         holder.checkBox.setTag(ghe.getLoaiGhe());
+        if (ghe.getBooking()) {
+            holder.checkBox.setEnabled(false);
+            holder.checkBox.setClickable(false);
+            holder.checkBox.setFocusable(false);
+
+        } else {
+            holder.checkBox.setEnabled(true);
+            holder.checkBox.setClickable(true);
+            holder.checkBox.setFocusable(true);
+        }
         holder.checkBox.setOnClickListener(view -> {
             getGheInfoFromFirestore(ghe.getIdGhe(), new OnGetGheInfoListener() {
                 @Override
@@ -77,8 +88,8 @@ public class GheAdapter extends RecyclerView.Adapter<GheAdapter.GheViewHolder>  
                     updateFirestoreState(ghe);
                     currentSelections++;
                     if (mListener != null) {
-                        mListener.onSeatSelected(ghe.getSoGhe());
-                        Toast.makeText(context, String.valueOf(ghe.getSoGhe()), Toast.LENGTH_SHORT).show(); // Gửi vị trí khi ghế được chọn
+                        mListener.onSeatSelected(ghe.getSoGhe(),ghe.getLoaiGhe());
+                        Toast.makeText(context, String.valueOf(ghe.getSoGhe()), Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     holder.checkBox.setChecked(false);
@@ -93,6 +104,7 @@ public class GheAdapter extends RecyclerView.Adapter<GheAdapter.GheViewHolder>  
 
 
     }
+
 
     private void updateFirestoreState(Ghe ghe) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();

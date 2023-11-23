@@ -5,19 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.cnpmnc.R;
@@ -26,6 +21,7 @@ import com.example.cnpmnc.model.DiaDiem;
 import com.example.cnpmnc.model.HangKhach;
 import com.example.cnpmnc.model.HangKhachDataHolder;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.stripe.android.PaymentConfiguration;
 import com.stripe.android.paymentsheet.PaymentSheet;
@@ -39,7 +35,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PaymentOptions extends AppCompatActivity {
-    Button btn_ThanhToanStripe;
     String PublishableKey = "pk_test_51OCkphH0M8gfVgbL3402cevMkpx7e9ZgY3dowKdHtYyitkRqFsig1O3w0wP9vWeCn6XEMHBIHfeQ0XNzrHv4g5Hy00goIhYCrg";
     String SecretKey = "sk_test_51OCkphH0M8gfVgbLnhaXkmrmQHqXNF7NAxHNsazNoO4ANaoLAepk5VbvJEswwrC5Wc3jjbjkF0ug9z53uVTgxCEB00uEEoXZ4C";
     String CustomerId;
@@ -48,8 +43,8 @@ public class PaymentOptions extends AppCompatActivity {
     PaymentSheet paymentSheet;
     LinearLayout linear_thanhtoan;
     ChuyenBay chuyenBay;
-    TextView tv_idsanbaydiemden, tv_tensanbaydiemden, tv_idsanbaydiemdi, tv_tensanbaydiemdi,tv_CalendarNgayVeKhuHoi,tv_CalendarNgayDiKhuHoi,tv_countNguoiLonKhuHoi,tv_count2NguoiLonKhuHoi,tv_count3NguoiLonKhuHoi;
 
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     private int numberTreEm2_12Tuoi, numberNguoiLon, numberTreEm2Tuoi,soLuongHangKhach, price,GiaVeTong;
 
     @SuppressLint("MissingInflatedId")
@@ -57,8 +52,11 @@ public class PaymentOptions extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_options);
+
         btn_ThanhToanStripe = findViewById(R.id.btn_ThanhToanStripe);
-//        chuyenBay=(ChuyenBay) getIntent().getSerializableExtra("DuLieuChuyenBay");
+
+
+        chuyenBay=(ChuyenBay) getIntent().getSerializableExtra("DuLieuChuyenBay");
         linear_thanhtoan=findViewById(R.id.linear_thanhtoan);
 
 //        price=Integer.valueOf(chuyenBay.getGiaVe());
@@ -109,12 +107,12 @@ public class PaymentOptions extends AppCompatActivity {
                 if (CustomerId != null) {
                     paymentFlow();
                 } else {
-                    Toast.makeText(PaymentOptions.this, "Error: Customer ID is null", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-    }private void AddVeMayBay1() {
+    }
+  private void AddVeMayBay1() {
         if (chuyenBay != null) {
             HangKhachDataHolder dataHolder = HangKhachDataHolder.getInstance();
             ArrayList<HangKhach> hangKhachList = dataHolder.getHangKhachList();
@@ -160,66 +158,119 @@ public class PaymentOptions extends AppCompatActivity {
             Toast.makeText(this, "Lỗi: ChuyenBay là null", Toast.LENGTH_SHORT).show();
         }
     }
-    private void ThucHienHanhDong()
-    {
-        DiaDiem.getInstance().setSoLuongNguoiLon(tv_countNguoiLonKhuHoi.getText().toString());
-        DiaDiem.getInstance().setSoLuongTreEm2Ttoi12T(tv_count2NguoiLonKhuHoi.getText().toString());
-        DiaDiem.getInstance().setSoLuongTreEmDuoi2T(tv_count3NguoiLonKhuHoi.getText().toString());
-        DiaDiem.getInstance().setDiemDi(tv_tensanbaydiemdi.getText().toString());
-        DiaDiem.getInstance().setDiemDen(tv_tensanbaydiemden.getText().toString());
-        DiaDiem.getInstance().setNgayDi(tv_CalendarNgayDiKhuHoi.getText().toString());
-        DiaDiem.getInstance().setNgayVe(tv_CalendarNgayVeKhuHoi.getText().toString());
+ 
+        HangKhachDataHolder dataHolder = HangKhachDataHolder.getInstance();
+        ArrayList<HangKhach> hangKhachList = dataHolder.getHangKhachList();
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String idChuyenBay=chuyenBay.getIdChuyenBay();
+        String diemDi=chuyenBay.getDiemDi();
+        String diemDen=chuyenBay.getDiemDen();
+        String giaVe= String.valueOf(GiaVeTong);
+        String ngayBay=chuyenBay.getNgayDi();
+        String ngayVe=chuyenBay.getNgayVe();
+        String gioDi=chuyenBay.getGioBatDau();
+        String gioVe=chuyenBay.getGioVe();
+
+        Map<String, Object> hangKhachData = new HashMap<>();
+        for (int i = 0; i < hangKhachList.size(); i++) {
+            HangKhach hangKhach = hangKhachList.get(i);
+            Map<String, Object> hangKhachMap = new HashMap<>();
+            hangKhachMap.put("name", hangKhach.getHoTen());
+            hangKhachMap.put("type", hangKhach.getType());
+            hangKhachMap.put("soGhe",hangKhach.getSoghe());
+            hangKhachData.put("hangKhach_" + i, hangKhachMap);
+        }
+        hangKhachData.put("ChuyenBayID",idChuyenBay);
+        hangKhachData.put("KhachHangID",userId);
+        hangKhachData.put("diemDi",diemDi);
+        hangKhachData.put("diemDen",diemDen);
+        hangKhachData.put("gioDi",gioDi);
+        hangKhachData.put("gioVe",gioVe);
+        hangKhachData.put("giaVe",giaVe+ "VND");
+        hangKhachData.put("ngayBatDau",ngayBay);
+        hangKhachData.put("ngayVe",ngayVe);
+
+
+        db.collection("VeMayBay").add(hangKhachData).addOnSuccessListener(documentReference -> {
+                    Toast.makeText(this, "Tải thành công", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
+                });
+
 
     }
 
-//    private void AddVeMayBay()
-//    {
-//
-//        HangKhachDataHolder dataHolder = HangKhachDataHolder.getInstance();
-//        ArrayList<HangKhach> hangKhachList = dataHolder.getHangKhachList();
-//
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-//        String idChuyenBay=chuyenBay.getIdChuyenBay();
-//        String diemDi=chuyenBay.getDiemDi();
-//        String diemDen=chuyenBay.getDiemDen();
-//        String giaVe= String.valueOf(GiaVeTong);
-//        String ngayBay=chuyenBay.getNgayDi();
-//        String ngayVe=chuyenBay.getNgayVe();
-//        String gioDi=chuyenBay.getGioBatDau();
-//        String gioVe=chuyenBay.getGioVe();
-//
-//        Map<String, Object> hangKhachData = new HashMap<>();
-//        for (int i = 0; i < hangKhachList.size(); i++) {
-//            HangKhach hangKhach = hangKhachList.get(i);
-//            Map<String, Object> hangKhachMap = new HashMap<>();
-//            hangKhachMap.put("name", hangKhach.getHoTen());
-//            hangKhachMap.put("type", hangKhach.getType());
-//            hangKhachMap.put("soGhe",hangKhach.getSoghe());
-//            hangKhachData.put("hangKhach_" + i, hangKhachMap);
-//        }
-//        hangKhachData.put("ChuyenBayID",idChuyenBay);
-//        hangKhachData.put("KhachHangID",userId);
-//        hangKhachData.put("diemDi",diemDi);
-//        hangKhachData.put("diemDen",diemDen);
-//        hangKhachData.put("gioDi",gioDi);
-//        hangKhachData.put("gioVe",gioVe);
-//        hangKhachData.put("giaVe",giaVe);
-//        hangKhachData.put("ngayBatDau",ngayBay);
-//        hangKhachData.put("ngayVe",ngayVe);
-//
-//
-//        db.collection("VeMayBay").add(hangKhachData).addOnSuccessListener(documentReference -> {
-//                    Toast.makeText(this, "Tải thành công", Toast.LENGTH_SHORT).show();
-//                })
-//                .addOnFailureListener(e -> {
-//                    Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
-//                });
-//
-//    }
 
 
+    private void updateBooking() {
+        String idChuyenBay = chuyenBay.getIdChuyenBay();
+        HangKhachDataHolder dataHolder = HangKhachDataHolder.getInstance();
+        ArrayList<HangKhach> hangKhachList = dataHolder.getHangKhachList();
 
+        for (int i = 0; i < hangKhachList.size(); i++) {
+            HangKhach hangKhach = hangKhachList.get(i);
+            Long soghe = hangKhach.getSoghe();
+
+            // Reference to the "ghe" collection and query for matching documents
+            db.collection("ghe")
+                    .whereEqualTo("IdChuyenBay", idChuyenBay)
+                    .whereEqualTo("soGhe", soghe)
+                    .get()
+                    .addOnSuccessListener(queryDocumentSnapshots -> {
+                        for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
+                            documentSnapshot.getReference().update("isBooked", true)
+                                    .addOnSuccessListener(aVoid -> {
+                                        Log.d("Capnhatghe", "Cập nhật thành công cho ghế: " + soghe);
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        Log.w("Capnhatghe", "Lỗi khi cập nhật cho ghế: " + soghe, e);
+                                    });
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.w("Capnhatghe", "Lỗi khi truy vấn danh sách ghế", e);
+                    });
+        }
+    }
+
+    private void updateSoLuongGheTrong() {
+        String idChuyenBay = chuyenBay.getIdChuyenBay();
+
+        // Tìm và cập nhật số lượng ghế trống sau khi thanh toán
+        db.collection("ChuyenBay")
+                .document(idChuyenBay)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            String soLuongGheTrong = document.getString("SoLuongGheTrong");
+                            ArrayList<HangKhach> hangKhachList = HangKhachDataHolder.getInstance().getHangKhachList();
+
+                            int soLuongGheTrongInt = Integer.parseInt(soLuongGheTrong);
+                            soLuongGheTrongInt -= hangKhachList.size();
+                            String updatedSoLuongGheTrong = String.valueOf(soLuongGheTrongInt);
+
+                            db.collection("ChuyenBay")
+                                    .document(idChuyenBay)
+                                    .update("SoLuongGheTrong", updatedSoLuongGheTrong)
+                                    .addOnSuccessListener(aVoid -> {
+                                        Log.d("PaymentOptions", "Số lượng ghế trống đã được cập nhật.");
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        Log.w("PaymentOptions", "Lỗi khi cập nhật số lượng ghế trống.", e);
+                                    });
+                        } else {
+                            Log.d("PaymentOptions", "Không tìm thấy tài liệu.");
+                        }
+                    } else {
+                        Log.d("PaymentOptions", "Lỗi khi truy cập dữ liệu: ", task.getException());
+                    }
+                });
+    }
     private void createStripeCustomer() {
         StringRequest request = new StringRequest(Request.Method.POST, "https://api.stripe.com/v1/customers",
                 response -> {
@@ -306,7 +357,7 @@ public class PaymentOptions extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("customer", customerId);
-                params.put("amount", "10000");
+                params.put("amount", String.valueOf(GiaVeTong));
                 params.put("currency", "USD"); // Replace with your currency
                 // Add any other necessary parameters
                 return params;
@@ -327,9 +378,13 @@ public class PaymentOptions extends AppCompatActivity {
         }
     }
 
+
     private void onPaymentResult(PaymentSheetResult paymentSheetResult) {
         if (paymentSheetResult instanceof PaymentSheetResult.Completed) {
-            AddVeMayBay1();
+
+            updateSoLuongGheTrong();
+            AddVeMayBay();
+            updateBooking();
             Toast.makeText(this, "Payment Success", Toast.LENGTH_SHORT).show();
         }
     }

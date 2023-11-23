@@ -52,9 +52,10 @@ public class Firebase {
     public interface getIdSanBayByTenSanBayCallback{
         void onCallBack(String idSanBay);
     }
-    public interface getTenUserByIdCallback{
-        void onCallBack(String idUser);
+    public interface getTenHangKhachByIdCallback{
+        void onCallBack(String tenHangKhach);
     }
+
 
 
     public void getAllFlightByDiemDi(String diemdi,FirebaseCallback<ChuyenBay> callback) {
@@ -93,6 +94,26 @@ public class Firebase {
 
 
 
+    public void getTenHangKhachById(String idHangKhach, getTenHangKhachByIdCallback callback)
+    {
+        mfirestore.collection("KhachHang")
+                .document(idHangKhach)
+                .get().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot documentSnapshot=task.getResult();
+                        if(documentSnapshot.exists()){
+                            String tenHangKhach=documentSnapshot.getString("HoTen");
+                            callback.onCallBack(tenHangKhach);
+                        }
+                        else {
+                            Log.d(TAG, "No such document");
+                        }
+
+                    } else {
+                        Log.w(TAG, "Error getting document", task.getException());
+                    }
+                });
+    }
     public void getTenSanBayBySanBayId(String sanBayId, getTenSanBayBySanBayIdCallback callback) {
         mfirestore.collection("SanBay")
                 .document(sanBayId)
@@ -111,28 +132,27 @@ public class Firebase {
                     }
                 });
     }
-//    public void getTenUserById(String idUser, getTenUserByIdCallback callback)
-//    {
-//        mfirestore.collection("")
-//    }
-    public void getIdSanBayByTenSanBay(String tenSanBay,getIdSanBayByTenSanBayCallback callback )
-    {
+
+    public void getIdSanBayByTenSanBay(String tenSanBay, getIdSanBayByTenSanBayCallback callback) {
         mfirestore.collection("SanBay")
-                .document(tenSanBay)
+                .whereEqualTo("TenSanBay", tenSanBay)
                 .get()
                 .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()){
-                        DocumentSnapshot documentSnapshot= task.getResult();
-                        if(documentSnapshot.exists())
-                        {
-                            String idSanBay=documentSnapshot.getId();
-                            callback.onCallBack(idSanBay);
-                        }else {
-                            Log.d(TAG,"No such document");
+                    if (task.isSuccessful()) {
+                        QuerySnapshot querySnapshot = task.getResult();
+                        if (querySnapshot != null && !querySnapshot.isEmpty()) {
+                            // Lặp qua tất cả các tài liệu để lấy id
+                            for (DocumentSnapshot documentSnapshot : querySnapshot.getDocuments()) {
+                                String idSanBay = documentSnapshot.getId();
+                                callback.onCallBack(idSanBay);
+                                // Nếu bạn chỉ muốn lấy id của một tài liệu đầu tiên, có thể dùng break ở đây
+                                // break;
+                            }
+                        } else {
+                            Log.d(TAG, "No such document");
                         }
-
-                    }else {
-                        Log.w(TAG,"Error getting document",task.getException());
+                    } else {
+                        Log.w(TAG, "Error getting documents", task.getException());
                     }
                 });
     }
@@ -224,72 +244,4 @@ public class Firebase {
     }
 
 
-//    public void getAllFlighttoCompareKhuHoiThuongGia(String diemDi, String diemDen,String NgayDi,String NgayVe,String SoLuongGheVipTrong, FirebaseCallback<ChuyenBay> callback) {
-//        ArrayList<ChuyenBay> flightlist = new ArrayList<>();
-//        mfirestore.collection("ChuyenBay")
-//                .whereEqualTo("DiemDi", diemDi)
-//                .whereEqualTo("DiemDen", diemDen)
-//                .whereEqualTo("NgayDi", NgayDi)
-//                .whereEqualTo("NgayVe", NgayVe)
-//                .whereEqualTo("SoLuongGheVipTrong", SoLuongGheVipTrong)
-//                .get()
-//                .addOnCompleteListener(task -> {
-//                    if (task.isSuccessful()) {
-//                        for (QueryDocumentSnapshot document : task.getResult()) {
-//                            ChuyenBay chuyenBay = new ChuyenBay(document.getId(),
-//                                    document.getString("DiemDen"),
-//                                    document.getString("DiemDi"),
-//                                    document.getString("GioBatDau"),
-//                                    document.getString("HinhAnh"),
-//                                    document.getString("NgayDi"),
-//                                    document.getString("NgayVe"),
-//                                    document.getString("SoLuongGheTrong"),
-//                                    document.getString("SoLuongGheVipTrong"),
-//                                    document.getString("TrangThai"),
-//                                    document.getString("MoTa"),
-//                                    document.getString("MoTaDiemDap"),
-//                                    document.getString("Gia"));
-//
-//                            flightlist.add(chuyenBay);
-//                        }
-//                        callback.onCallback(flightlist);
-//                    } else {
-//                        Log.w(TAG, "Error getting documents.", task.getException());
-//                    }
-//                });
-//    }
-//    public void getAllFlighttoCompareThuongGia(String diemDi, String diemDen,String NgayDi,String SoLuongGheTrong, FirebaseCallback<ChuyenBay> callback) {
-//        ArrayList<ChuyenBay> flightlist = new ArrayList<>();
-//        mfirestore.collection("ChuyenBay")
-//                .whereEqualTo("DiemDi",diemDi)
-//                .whereEqualTo("DiemDen",diemDen)
-//                .whereEqualTo("NgayDi",NgayDi)
-//                .whereEqualTo("NgayVe","")
-//                .whereEqualTo("SoLuongGheTrong",SoLuongGheTrong)
-//                .get()
-//                .addOnCompleteListener(task -> {
-//                    if (task.isSuccessful()) {
-//                        for (QueryDocumentSnapshot document : task.getResult()) {
-//                            ChuyenBay chuyenBay = new ChuyenBay(document.getId(),
-//                                    document.getString("DiemDen"),
-//                                    document.getString("DiemDi"),
-//                                    document.getString("GioBatDau"),
-//                                    document.getString("HinhAnh"),
-//                                    document.getString("NgayDi"),
-//                                    document.getString("NgayVe"),
-//                                    document.getString("SoLuongGheTrong"),
-//                                    document.getString("SoLuongGheVipTrong"),
-//                                    document.getString("TrangThai"),
-//                                    document.getString("MoTa"),
-//                                    document.getString("MoTaDiemDap"),
-//                                    document.getString("Gia"));
-//                            flightlist.add(chuyenBay);
-//                        }
-//                        callback.onCallback(flightlist);
-//                    } else {
-//                        Log.w(TAG, "Error getting documents.", task.getException());
-//                    }
-//                });
-//
-//    }
 }

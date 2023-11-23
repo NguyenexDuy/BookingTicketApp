@@ -11,6 +11,7 @@
     import android.os.Parcelable;
     import android.view.View;
     import android.widget.Button;
+    import android.widget.ImageView;
     import android.widget.TextView;
     import android.widget.Toast;
 
@@ -43,7 +44,7 @@
         private DiaDiem diaDiem;
         int soLuongGhe,soLuongHangKhach,numberTreEm2_12Tuoi, numberNguoiLon, numberTreEm2Tuoi;
         private Button btn_tiepTuc;
-
+        ImageView backCCN;
         private TextView tv_diemDi,tv_diemDen,tv_ngayDi,tv_tongGiaVe;
         private RecyclerView rcv_hangKhachChonCHo,rcv_choNgoi;
         private HangKhachChonGheAdapter hangKhachChonGheAdapter;
@@ -61,11 +62,8 @@
             AnhXa();
 
             chuyenBay=(ChuyenBay) getIntent().getSerializableExtra("ChuyenBayDT");
-//            Bundle bundle = getIntent().getExtras();
-//            if(bundle != null){
-//                String loaighe = bundle.getString("LoaiGhe","");
-//                GetAllGhe(loaighe);
-//            }
+
+
             GetAllGhe();
             tv_diemDi.setText(chuyenBay.getDiemDi());
             tv_diemDen.setText(chuyenBay.getDiemDen());
@@ -88,16 +86,14 @@
 
             gheAdapter.setOnSeatSelectedListener(new GheAdapter.OnSeatSelectedListener() {
                 @Override
-                public void onSeatSelected(long seatNumber) {
+                public void onSeatSelected(long seatNumber,String loaiGhe) {
                     HangKhachChonGheAdapter adapter= (HangKhachChonGheAdapter) rcv_hangKhachChonCHo.getAdapter();
                     if(adapter!=null){
-                        adapter.setSelectedSeat(seatNumber);
+                        adapter.setSelectedSeat(seatNumber,loaiGhe);
                     }
-                 String currentSeatType = gheAdapter.getCurrentSeatType();
-                  Toast.makeText(ChonChoNgoiActivity.this, "Loại ghế: " + currentSeatType, Toast.LENGTH_SHORT).show();
                     int giaVe = Integer.parseInt(chuyenBay.getGiaVe());
 
-                    if (currentSeatType.equals("ThuongGia")) {
+                    if (loaiGhe.equals("ThuongGia")) {
                         giaVe *= 4;
                     }
                     tv_tongGiaVe.setText(String.valueOf(giaVe));
@@ -108,10 +104,17 @@
 
 
 
+
             rcv_choNgoi.setAdapter(gheAdapter);
 
             btn_tiepTuc=findViewById(R.id.btn_tiepTuc);
             btn_tiepTuc.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onBackPressed();
+                }
+            });
+            backCCN.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     onBackPressed();
@@ -136,9 +139,10 @@
                         Long soGhe= documentSnapshot.getLong("soGhe");
                         String loaighe = (String) documentSnapshot.get("loaighe");
                         Boolean state=(Boolean) documentSnapshot.get("state");
+                        Boolean isBooking=(Boolean) documentSnapshot.get("isBooked");
 
 
-                        Ghe ghe=new Ghe(idGhe,idChuyenBay, soGhe,loaighe,state);
+                        Ghe ghe=new Ghe(idGhe,idChuyenBay, soGhe,loaighe,state,isBooking);
                         ghes.add(ghe);
                         giaVe = Integer.parseInt(chuyenBay.getGiaVe());
                         if (loaighe.equals("ThuongGia")){
@@ -161,7 +165,7 @@
 
         private void AnhXa()
         {
-
+            backCCN=findViewById(R.id.backCCN);
             firebaseFirestore=FirebaseFirestore.getInstance();
             tv_ngayDi=findViewById(R.id.tv_ngayDi);
             tv_diemDi=findViewById(R.id.tv_diemDi);

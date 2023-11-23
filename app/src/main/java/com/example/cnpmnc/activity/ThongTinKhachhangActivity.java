@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +43,7 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
     private int GiaVeTong;
     private Button btn_ThanhToan;
     ChuyenBay chuyenBay;
+    private ImageView backve;
     private int numberTreEm2_12Tuoi, numberNguoiLon, numberTreEm2Tuoi,soLuongHangKhach, price;
     TextView tvThongTinGheNgoi, tv_giaChuyenBay,tv_SoLuongHangKhach;
     FirebaseUser firebaseUser;
@@ -83,7 +85,6 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent=new Intent(ThongTinKhachhangActivity.this,ChonChoNgoiActivity.class);
                 intent.putExtra("ChuyenBayDT", chuyenBay);
-                intent.putExtra("LoaiGhe","PhoThong");
                 startActivity(intent);
             }
         });
@@ -122,28 +123,9 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
             }
         });
 
+
     }
-//    private void ThucHienHanhDong()
-//    {
-//        DiaDiem.getInstance().setSoLuongNguoiLon(tv_countNguoiLonKhuHoi.getText().toString());
-//        DiaDiem.getInstance().setSoLuongTreEm2Ttoi12T(tv_count2NguoiLonKhuHoi.getText().toString());
-//        DiaDiem.getInstance().setSoLuongTreEmDuoi2T(tv_count3NguoiLonKhuHoi.getText().toString());
-//        DiaDiem.getInstance().setDiemDi(tv_tensanbaydiemdi.getText().toString());
-//        DiaDiem.getInstance().setDiemDen(tv_tensanbaydiemden.getText().toString());
-//        DiaDiem.getInstance().setNgayDi(tv_CalendarNgayDiKhuHoi.getText().toString());
-//        DiaDiem.getInstance().setNgayVe(tv_CalendarNgayVeKhuHoi.getText().toString());
-//
-//        if (chuyenBay!=null)
-//        {
-//            Intent intent = new Intent(getContext(), ChonChuyenBayActivity.class);
-//            getContext().startActivity(intent);
-//        }
-//        if (DiaDiem.getInstance().getDiemDi()!=null||DiaDiem.getInstance().getDiemDen()!=null)
-//        {
-//            Intent intent = new Intent(getContext(), ChonChuyenBayActivity.class);
-//            getContext().startActivity(intent);
-//        }
-//    }
+
     private void AddVeMayBay()
     {
 
@@ -186,6 +168,12 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
                 .addOnFailureListener(e -> {
                     Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
                 });
+        backve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
     }
 
@@ -211,7 +199,7 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
         tvThongTinGheNgoi=findViewById(R.id.tvThongTinGheNgoi);
         btn_chonChoNgoi=findViewById(R.id.btn_chonChoNgoi);
         tv_giaChuyenBay=findViewById(R.id.tv_giaChuyenBay);
-
+        backve=findViewById(R.id.backTNKH);
         rcvTreEm2_12Tuoi =findViewById(R.id.recyclerview2);
         rcvNguoiLon=findViewById(R.id.recyclerview1);
         rcvTreEm2Tuoi=findViewById(R.id.recyclerview3);

@@ -2,13 +2,23 @@ package com.example.cnpmnc.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.example.cnpmnc.R;
+import com.example.cnpmnc.activity.ChonChoNgoiActivity;
+import com.example.cnpmnc.adapter.NhieuChangAdapter;
+import com.example.cnpmnc.model.ChuyenBay;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,6 +58,9 @@ public class NhieuChangFragment extends Fragment {
         return fragment;
     }
 
+    RecyclerView rcv_nhieuChang;
+    LinearLayout btn_themChuyenBay;
+    NhieuChangAdapter nhieuChangAdapter;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,12 +68,53 @@ public class NhieuChangFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        btn_themChuyenBay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addNewItemToRecyclerView();
+            }
+        });
+
+
+    }
+
+    private void addNewItemToRecyclerView() {
+        ChuyenBay newItem = new ChuyenBay();
+
+        nhieuChangAdapter.addItem(newItem);
+
+        nhieuChangAdapter.notifyDataSetChanged();
+    }
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_nhieu_chang, container, false);
+        View view = inflater.inflate(R.layout.fragment_nhieu_chang, container, false);
+        Anhxa(view);
+
+        ArrayList<ChuyenBay> chuyenBays = new ArrayList<>();
+        ChuyenBay chuyenBay = new ChuyenBay();
+        ChuyenBay chuyenBay2 = new ChuyenBay();
+        chuyenBays.add(chuyenBay);
+        chuyenBays.add(chuyenBay2);
+
+        nhieuChangAdapter = new NhieuChangAdapter(chuyenBays, getContext());
+        rcv_nhieuChang.setLayoutManager(new LinearLayoutManager(getContext()));
+        rcv_nhieuChang.setAdapter(nhieuChangAdapter);
+
+        return view;
     }
+
+    private void Anhxa(View view) {
+        btn_themChuyenBay=view.findViewById(R.id.btn_themChuyenBay);
+        rcv_nhieuChang = view.findViewById(R.id.rcv_nhieuChang);
+    }
+
 }
