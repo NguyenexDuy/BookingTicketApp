@@ -148,7 +148,15 @@ public class DangKyActivity extends AppCompatActivity {
             showError(edtSDT, "Số điện thoại phải có từ 8 đến 10 ký tự.");
             return;
         }
-        firestore.collection("Customer").whereEqualTo("Gmail",email).get()
+        if(TextUtils.isEmpty(ngaysinh)){
+            showError(edtNgaySinh,"Vui lòng nhập ngày sinh");
+            return;
+        }
+        if(TextUtils.isEmpty(hoten)){
+            showError(edtHoTen,"Vui lòng nhập họ tên");
+            return;
+        }
+        firestore.collection("KhachHang").whereEqualTo("Gmail",email).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {

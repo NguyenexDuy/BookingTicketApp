@@ -49,11 +49,14 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
         chuyenBay=(ChuyenBay) getIntent().getSerializableExtra("ChuyenBayData");
         String ghe=String.valueOf(DiaDiem.getInstance().getSelectedSeatPosition());
 
+
+
         soLuongHangKhach=numberNguoiLon+numberTreEm2Tuoi+numberTreEm2_12Tuoi;
         price=Integer.valueOf(chuyenBay.getGiaVe());
         GiaVeTong=price*soLuongHangKhach;
-        tv_SoLuongHangKhach.setText(String.valueOf(soLuongHangKhach));
         tv_giaChuyenBay.setText(String.valueOf(GiaVeTong));
+        tv_SoLuongHangKhach.setText(String.valueOf(soLuongHangKhach));
+
 
         Bundle bundle=getIntent().getExtras();
         String giaTri=bundle.getString("fragment");

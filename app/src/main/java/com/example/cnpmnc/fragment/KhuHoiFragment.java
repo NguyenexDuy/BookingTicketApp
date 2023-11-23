@@ -169,15 +169,16 @@ public class    KhuHoiFragment extends Fragment {
                     builder.setPositiveButton("Đăng nhập", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             Intent intent=new Intent(getContext(), DangNhapActivity.class);
+                            intent.putExtra("callingFragment", "KhuHoiFragment");
                             startActivityForResult(intent, LOGIN_REQUEST_CODE);
+//
                         }
                     });
 
                     builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            // Thực hiện hành động khi người dùng chọn "Không" ở đây
-                            dialog.dismiss(); // Dismiss dialog khi chọn "Không"
+                            dialog.dismiss();
                         }
                     });
 
