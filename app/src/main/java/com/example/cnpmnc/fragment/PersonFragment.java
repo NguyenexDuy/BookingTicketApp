@@ -135,6 +135,7 @@ public class PersonFragment extends Fragment {
             public void onClick(View view) {
                 firebaseAuth.signOut();
                 signOutUser();
+                getActivity().finishAffinity();
             }
         });
 

@@ -75,7 +75,6 @@ public class NhapThongTinHangKhachNguoiLonActivity extends AppCompatActivity {
                 }
                 if (sdt.length() < 8 || sdt.length() > 10) {
                     showError(edtSDT, "Số điện thoại phải có từ 8 đến 10 ký tự.");
-                    return;
                 }
 
                 else {

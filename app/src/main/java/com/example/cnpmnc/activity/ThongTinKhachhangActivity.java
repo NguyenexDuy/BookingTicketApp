@@ -88,6 +88,12 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        backve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
         btn_ThanhToan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,8 +111,7 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
                     builder.setMessage("Quý khách cần phải đăng nhập để thực hiện đặt chuyến bay?");
                     builder.setPositiveButton("Đăng nhập", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(ThongTinKhachhangActivity.this, DangNhapActivity.class);
-                            intent.putExtra("callingActivity", "ThongTinKhachHangActivity");
+                            Intent intent=new Intent(ThongTinKhachhangActivity.this, DangNhapActivity.class);
                             startActivityForResult(intent, LOGIN_REQUEST_CODE);
                         }
                     });

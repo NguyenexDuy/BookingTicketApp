@@ -71,31 +71,11 @@ public class DangNhapActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     progressDialog.dismiss();
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(DangNhapActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-//                                        if (kiemTraDangNhap) {
-//                                            getSupportFragmentManager().beginTransaction()
-//                                                    .replace(R.id.content_fm, new KhuHoiFragment())
-//                                                    .commit();
-//                                        } else {
-//                                            Intent intent = new Intent(DangNhapActivity.this, HomePageActivity.class);
-//                                            startActivity(intent);
-//                                            finish();
-//                                        }
-                                        Intent intent = getIntent();
-                                        String callingActivity =  intent.getStringExtra("callingActivity");
-                                        if ("ThongTinKhachHangActivity".equals(callingActivity)) {
-                                            Intent khuHoiIntent = new Intent(DangNhapActivity.this, PaymentOptions.class);
-                                            intent.putExtra("DuLieuChuyenBay", chuyenBay);
-                                            startActivity(khuHoiIntent);
-                                        }else if(kiemTraDangNhap){
-                                            getSupportFragmentManager().beginTransaction().replace(R.id.content_fm, new KhuHoiFragment()).commit();
-                                        }else {
-
-                                            Intent homePageIntent = new Intent(DangNhapActivity.this, HomePageActivity.class);
-                                            startActivity(homePageIntent);
-                                        }
-
+                                        Toast.makeText(DangNhapActivity.this, "dangnhapthanhcong", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent();
+                                        setResult(Activity.RESULT_OK, intent);
                                         finish();
+
                                     } else {
                                         // Nếu đăng nhập thất bại, hiển thị thông báo cho người dùng.
                                         Toast.makeText(DangNhapActivity.this, "Đăng nhập thất bại.",
