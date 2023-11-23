@@ -56,23 +56,13 @@ public class ChiTietVeMayBayActivity extends AppCompatActivity {
                 builder.setPositiveButton("Hủy vé", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        String idVeMayBay = veMayBay.getIdVe();
-                        db.collection("VeMayBay").document(idVeMayBay)
-                                .delete()
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        Toast.makeText(ChiTietVeMayBayActivity.this, "Hủy vé thành công", Toast.LENGTH_SHORT).show();
-                                        finish();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(ChiTietVeMayBayActivity.this, "Hủy vé thất bại", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+
+                        Toast.makeText(ChiTietVeMayBayActivity.this, "Hủy vé thành công", Toast.LENGTH_SHORT).show();
+                        finish();
                         updateSoLuongGheTrong();
                         updateBooking();
+                        updateState();
+                        updateCanceled();
                     }
                 });
                 builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
@@ -86,6 +76,35 @@ public class ChiTietVeMayBayActivity extends AppCompatActivity {
 
             }
         });
+    }
+    private void updateCanceled()
+    {
+        String idChuyenBay = veMayBay.getIdChuyenBay();
+        String idHangKhach=veMayBay.getIdHangKhach();
+        ArrayList<Map<String, Object>> hangKhachList = veMayBay.getHangKhaches();
+        for (Map<String, Object> hangKhachMap : hangKhachList) {
+            Long soghe = (Long) hangKhachMap.get("soGhe");
+
+            // Reference to the "ghe" collection and query for matching documents
+            db.collection("VeMayBay")
+                    .whereEqualTo("ChuyenBayID", idChuyenBay)
+                    .whereEqualTo("KhachHangID",idHangKhach)
+                    .get()
+                    .addOnSuccessListener(queryDocumentSnapshots -> {
+                        for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
+                            documentSnapshot.getReference().update("TrangThaiVe", true)
+                                    .addOnSuccessListener(aVoid -> {
+                                        Log.d("TrangThaiVe", "Cập nhật thành công cho ghế: " + soghe);
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        Log.w("TrangThaiVe", "Lỗi khi cập nhật cho ghế: " + soghe, e);
+                                    });
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.w("Capnhatghe", "Lỗi khi truy vấn danh sách ghế", e);
+                    });
+        }
     }
     private void updateBooking() {
         String idChuyenBay = veMayBay.getIdChuyenBay();
@@ -114,12 +133,38 @@ public class ChiTietVeMayBayActivity extends AppCompatActivity {
                         Log.w("Capnhatghe", "Lỗi khi truy vấn danh sách ghế", e);
                     });
         }
+    } private void updateState() {
+        String idChuyenBay = veMayBay.getIdChuyenBay();
+        ArrayList<Map<String, Object>> hangKhachList = veMayBay.getHangKhaches();
+
+        for (Map<String, Object> hangKhachMap : hangKhachList) {
+            Long soghe = (Long) hangKhachMap.get("soGhe");
+
+            // Reference to the "ghe" collection and query for matching documents
+            db.collection("ghe")
+                    .whereEqualTo("IdChuyenBay", idChuyenBay)
+                    .whereEqualTo("soGhe", soghe)
+                    .get()
+                    .addOnSuccessListener(queryDocumentSnapshots -> {
+                        for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
+                            documentSnapshot.getReference().update("state", false)
+                                    .addOnSuccessListener(aVoid -> {
+                                        Log.d("StateSuccess", "Cập nhật thành công cho ghế: " + soghe);
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        Log.w("StateSuccess", "Lỗi khi cập nhật cho ghế: " + soghe, e);
+                                    });
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.w("Capnhatghe", "Lỗi khi truy vấn danh sách ghế", e);
+                    });
+        }
     }
     private void updateSoLuongGheTrong() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String idChuyenBay = veMayBay.getIdChuyenBay();
 
-        // Tìm và cập nhật số lượng ghế trống sau khi thanh toán
         db.collection("ChuyenBay")
                 .document(idChuyenBay)
                 .get()

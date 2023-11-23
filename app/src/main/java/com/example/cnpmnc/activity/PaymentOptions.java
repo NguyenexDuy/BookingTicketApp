@@ -1,9 +1,12 @@
 package com.example.cnpmnc.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -13,6 +16,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.cnpmnc.R;
+import com.example.cnpmnc.fragment.HomePageFragment;
 import com.example.cnpmnc.model.ChuyenBay;
 import com.example.cnpmnc.model.DiaDiem;
 import com.example.cnpmnc.model.HangKhach;
@@ -40,6 +44,8 @@ public class PaymentOptions extends AppCompatActivity {
     PaymentSheet paymentSheet;
     LinearLayout linear_thanhtoan;
     ChuyenBay chuyenBay;
+    ImageView backHTTT;
+    TextView tv_huydatve;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private int numberTreEm2_12Tuoi, numberNguoiLon, numberTreEm2Tuoi,soLuongHangKhach, price,GiaVeTong;
 
@@ -49,6 +55,8 @@ public class PaymentOptions extends AppCompatActivity {
         setContentView(R.layout.activity_payment_options);
         chuyenBay=(ChuyenBay) getIntent().getSerializableExtra("DuLieuChuyenBay");
         linear_thanhtoan=findViewById(R.id.linear_thanhtoan);
+        tv_huydatve=findViewById(R.id.tv_huydatve);
+        backHTTT=findViewById(R.id.backHTTT);
         numberTreEm2_12Tuoi =Integer.parseInt(DiaDiem.getInstance().getSoLuongTreEm2Ttoi12T());
         numberNguoiLon=Integer.parseInt(DiaDiem.getInstance().getSoLuongNguoiLon());
         numberTreEm2Tuoi=Integer.parseInt(DiaDiem.getInstance().getSoLuongTreEmDuoi2T());
@@ -67,7 +75,21 @@ public class PaymentOptions extends AppCompatActivity {
             }
         });
 
+        backHTTT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
+
+        tv_huydatve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(PaymentOptions.this, HomePageActivity.class);
+                startActivity(intent);
+            }
+        });
 
         linear_thanhtoan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,9 +136,10 @@ public class PaymentOptions extends AppCompatActivity {
         hangKhachData.put("diemDen",diemDen);
         hangKhachData.put("gioDi",gioDi);
         hangKhachData.put("gioVe",gioVe);
-        hangKhachData.put("giaVe",giaVe+ "VND");
+        hangKhachData.put("giaVe",giaVe);
         hangKhachData.put("ngayBatDau",ngayBay);
         hangKhachData.put("ngayVe",ngayVe);
+        hangKhachData.put("TrangThaiVe",false);
 
 
         db.collection("VeMayBay").add(hangKhachData).addOnSuccessListener(documentReference -> {
@@ -309,6 +332,7 @@ public class PaymentOptions extends AppCompatActivity {
             AddVeMayBay();
             updateBooking();
             Toast.makeText(this, "Payment Success", Toast.LENGTH_SHORT).show();
+
         }
     }
 }

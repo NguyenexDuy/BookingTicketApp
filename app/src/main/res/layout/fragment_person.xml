@@ -98,7 +98,7 @@
         android:drawablePadding="15dp"
         android:fontFamily="@font/opensans_medium"
         android:gravity="center"
-        android:text="Lịch sử đặt vé"
+        android:text="Lịch sử hủy vé"
         android:textColor="@color/black"
         android:textSize="25dp"
         android:textStyle="bold" />

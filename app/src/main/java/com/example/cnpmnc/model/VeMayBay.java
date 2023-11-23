@@ -16,6 +16,15 @@ public class VeMayBay implements Serializable {
     String giaVe;
     String gioDi;
     String gioVe;
+    Boolean canceled;
+
+    public Boolean getCanceled() {
+        return canceled;
+    }
+
+    public void setCanceled(Boolean canceled) {
+        this.canceled = canceled;
+    }
 
     public String getGioDi() {
         return gioDi;
@@ -42,7 +51,7 @@ public class VeMayBay implements Serializable {
     }
 
     ArrayList<Map<String,Object>> hangKhaches;
-    public VeMayBay(String idVe, String idChuyenBay, String idHangKhach, String diemDiVe, String diemDenVe,String giodi,String giove, String ngayBatDau,String ngayVe, String giaVe,ArrayList<Map<String,Object>> hangKhaches) {
+    public VeMayBay(String idVe, String idChuyenBay, String idHangKhach, String diemDiVe, String diemDenVe,String giodi,String giove, String ngayBatDau,String ngayVe, String giaVe,Boolean canceled,ArrayList<Map<String,Object>> hangKhaches) {
         this.idVe = idVe;
         this.idChuyenBay = idChuyenBay;
         this.idHangKhach = idHangKhach;
@@ -53,6 +62,7 @@ public class VeMayBay implements Serializable {
         this.ngayBatDau = ngayBatDau;
         this.ngayVe=ngayVe;
         this.giaVe = giaVe;
+        this.canceled=canceled;
         this.hangKhaches=hangKhaches;
     }
 
