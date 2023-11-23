@@ -11,6 +11,7 @@
     import android.os.Parcelable;
     import android.view.View;
     import android.widget.Button;
+    import android.widget.ImageView;
     import android.widget.TextView;
     import android.widget.Toast;
 
@@ -43,7 +44,7 @@
         private DiaDiem diaDiem;
         int soLuongGhe,soLuongHangKhach,numberTreEm2_12Tuoi, numberNguoiLon, numberTreEm2Tuoi;
         private Button btn_tiepTuc;
-
+        ImageView backCCN;
         private TextView tv_diemDi,tv_diemDen,tv_ngayDi,tv_tongGiaVe;
         private RecyclerView rcv_hangKhachChonCHo,rcv_choNgoi;
         private HangKhachChonGheAdapter hangKhachChonGheAdapter;
@@ -113,6 +114,12 @@
                     onBackPressed();
                 }
             });
+            backCCN.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onBackPressed();
+                }
+            });
 
 
             HangKhachDataHolder dataHolder = HangKhachDataHolder.getInstance();
@@ -158,7 +165,7 @@
 
         private void AnhXa()
         {
-
+            backCCN=findViewById(R.id.backCCN);
             firebaseFirestore=FirebaseFirestore.getInstance();
             tv_ngayDi=findViewById(R.id.tv_ngayDi);
             tv_diemDi=findViewById(R.id.tv_diemDi);

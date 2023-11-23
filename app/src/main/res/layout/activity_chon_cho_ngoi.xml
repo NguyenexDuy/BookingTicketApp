@@ -12,7 +12,7 @@
         android:orientation="horizontal"
         android:background="#004578">
         <ImageView
-            android:id="@+id/back"
+            android:id="@+id/backCCN"
             android:layout_width="42dp"
             android:layout_height="28dp"
             android:layout_marginLeft="10dp"

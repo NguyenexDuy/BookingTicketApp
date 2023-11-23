@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +40,7 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
     private int GiaVeTong;
     private Button btn_ThanhToan;
     ChuyenBay chuyenBay;
+    private ImageView backve;
     private int numberTreEm2_12Tuoi, numberNguoiLon, numberTreEm2Tuoi,soLuongHangKhach, price;
     TextView tvThongTinGheNgoi, tv_giaChuyenBay,tv_SoLuongHangKhach;
     @Override
@@ -90,6 +92,12 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        backve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
     }
 
@@ -115,7 +123,7 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
         tvThongTinGheNgoi=findViewById(R.id.tvThongTinGheNgoi);
         btn_chonChoNgoi=findViewById(R.id.btn_chonChoNgoi);
         tv_giaChuyenBay=findViewById(R.id.tv_giaChuyenBay);
-
+        backve=findViewById(R.id.backTNKH);
         rcvTreEm2_12Tuoi =findViewById(R.id.recyclerview2);
         rcvNguoiLon=findViewById(R.id.recyclerview1);
         rcvTreEm2Tuoi=findViewById(R.id.recyclerview3);

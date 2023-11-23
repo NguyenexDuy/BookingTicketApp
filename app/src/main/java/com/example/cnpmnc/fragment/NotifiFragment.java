@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.adapter.NotifiCationAdapter;
+import com.example.cnpmnc.model.Firebase;
 import com.example.cnpmnc.model.VeMayBay;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -69,6 +70,7 @@ public class NotifiFragment extends Fragment {
     RecyclerView rcv_notifi;
     ArrayList<VeMayBay> veMayBays;
     NotifiCationAdapter notifiCationAdapter;
+    Firebase firebase;
     FirebaseFirestore firebaseFirestore;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,7 +85,8 @@ public class NotifiFragment extends Fragment {
         rcv_notifi = view.findViewById(R.id.rcv_notifi);
         veMayBays = new ArrayList<>();
         Notification2();
-        notifiCationAdapter = new NotifiCationAdapter(getContext(), veMayBays);
+        firebase=new Firebase(getContext());
+        notifiCationAdapter = new NotifiCationAdapter(getContext(), veMayBays,firebase);
         rcv_notifi.setAdapter(notifiCationAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false);
         rcv_notifi.setLayoutManager(layoutManager);

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.activity.ChiTietVeMayBayActivity;
 import com.example.cnpmnc.model.ChuyenBay;
+import com.example.cnpmnc.model.Firebase;
 import com.example.cnpmnc.model.VeMayBay;
 
 import java.util.ArrayList;
@@ -21,10 +22,12 @@ import java.util.ArrayList;
 public class NotifiCationAdapter extends RecyclerView.Adapter<NotifiCationAdapter.NofificationVH>{
     private Context context;
     private ArrayList<VeMayBay> notificaiton;
+    Firebase firebase;
 
-    public NotifiCationAdapter(Context context, ArrayList<VeMayBay> notificaiton) {
+    public NotifiCationAdapter(Context context, ArrayList<VeMayBay> notificaiton, Firebase firebase) {
         this.context = context;
         this.notificaiton = notificaiton;
+        this.firebase=firebase;
     }
 
     @NonNull
@@ -38,7 +41,15 @@ public class NotifiCationAdapter extends RecyclerView.Adapter<NotifiCationAdapte
     public void onBindViewHolder(@NonNull NofificationVH holder, int position) {
         VeMayBay notifi=notificaiton.get(position);
         holder.tv_giaveNoti.setText(notifi.getGiaVe());
-        holder.tv_usernameNoti.setText(notifi.getIdHangKhach());
+//        holder.tv_usernameNoti.setText(notifi.getIdHangKhach());
+        String idHangKhach=notifi.getIdHangKhach();
+        firebase.getTenHangKhachById(idHangKhach, new Firebase.getTenHangKhachByIdCallback() {
+            @Override
+            public void onCallBack(String tenHangKhach) {
+                holder.tv_usernameNoti.setText(tenHangKhach);
+
+            }
+        });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
