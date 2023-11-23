@@ -8,7 +8,6 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -175,14 +174,6 @@ public class FormPersonActivity extends AppCompatActivity {
         String sdt = mSDT.getText().toString();
         if (sdt.length() < 8 || sdt.length() > 10 || !sdt.matches("\\d+")) {
             showError(mSDT, "Số điện thoại không hợp lệ.");
-            return;
-        }
-        if(TextUtils.isEmpty(ngaysinh)){
-            showError(mngaysinh,"Vui lòng nhập ngày sinh");
-            return;
-        }
-        if(TextUtils.isEmpty(hoten)){
-            showError(edten,"Vui lòng nhập họ tên");
             return;
         }
         Query query = db.collection("KhachHang").whereEqualTo("Gmail", userEmail);
