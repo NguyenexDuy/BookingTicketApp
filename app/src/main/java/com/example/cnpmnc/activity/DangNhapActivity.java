@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.fragment.HomePageFragment;
 import com.example.cnpmnc.fragment.KhuHoiFragment;
+import com.example.cnpmnc.model.ChuyenBay;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -29,6 +30,7 @@ public class DangNhapActivity extends AppCompatActivity {
     TextView Layout_Dang_Ky;
     private EditText edtEmailDangNhap,edtPassDangNhap;
     Button BtnDangNhap;
+    public ChuyenBay chuyenBay;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,28 +72,30 @@ public class DangNhapActivity extends AppCompatActivity {
                                     progressDialog.dismiss();
                                     if (task.isSuccessful()) {
                                         Toast.makeText(DangNhapActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                                        if (kiemTraDangNhap) {
-                                            getSupportFragmentManager().beginTransaction()
-                                                    .replace(R.id.content_fm, new KhuHoiFragment())
-                                                    .commit();
-                                        } else {
-                                            Intent intent = new Intent(DangNhapActivity.this, HomePageActivity.class);
-                                            startActivity(intent);
-                                            finish();
-                                        }
-//                                        Intent intent = getIntent();
-//                                        String callingFragment = intent.getStringExtra("callingFragment");
-//                                        if ("KhuHoiFragment".equals(callingFragment)) {
-//                                            // Nếu đến từ KhuHoiFragment, chuyển đến KhuHoiFragment
-//                                            Intent khuHoiIntent = new Intent(DangNhapActivity.this, KhuHoiFragment.class);
-//                                            startActivity(khuHoiIntent);
+//                                        if (kiemTraDangNhap) {
+//                                            getSupportFragmentManager().beginTransaction()
+//                                                    .replace(R.id.content_fm, new KhuHoiFragment())
+//                                                    .commit();
 //                                        } else {
-//                                            // Ngược lại, chuyển đến HomePageActivity
-//                                            Intent homePageIntent = new Intent(DangNhapActivity.this, HomePageActivity.class);
-//                                            startActivity(homePageIntent);
+//                                            Intent intent = new Intent(DangNhapActivity.this, HomePageActivity.class);
+//                                            startActivity(intent);
+//                                            finish();
 //                                        }
-//
-//                                        finish();
+                                        Intent intent = getIntent();
+                                        String callingActivity =  intent.getStringExtra("callingActivity");
+                                        if ("ThongTinKhachHangActivity".equals(callingActivity)) {
+                                            Intent khuHoiIntent = new Intent(DangNhapActivity.this, PaymentOptions.class);
+                                            intent.putExtra("DuLieuChuyenBay", chuyenBay);
+                                            startActivity(khuHoiIntent);
+                                        }else if(kiemTraDangNhap){
+                                            getSupportFragmentManager().beginTransaction().replace(R.id.content_fm, new KhuHoiFragment()).commit();
+                                        }else {
+
+                                            Intent homePageIntent = new Intent(DangNhapActivity.this, HomePageActivity.class);
+                                            startActivity(homePageIntent);
+                                        }
+
+                                        finish();
                                     } else {
                                         // Nếu đăng nhập thất bại, hiển thị thông báo cho người dùng.
                                         Toast.makeText(DangNhapActivity.this, "Đăng nhập thất bại.",
