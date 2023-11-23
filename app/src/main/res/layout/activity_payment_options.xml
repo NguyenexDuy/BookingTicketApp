@@ -57,50 +57,12 @@
                 android:orientation="vertical"
                 android:background="@drawable/rectangle_bg_white_a700"
                 >
-                <LinearLayout android:gravity="start"
-                    android:id="@+id/linearRowtngcng"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="21dp"
-                    android:layout_marginStart="21dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal">
-                    <TextView android:ellipsize="end"
-                        android:id="@+id/txtTngcng"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="1dp"
-                        android:layout_weight="0.41"
-                        android:layout_width="0dp"
-                        android:singleLine="true"
-                        android:textSize="25dp"
-                        android:text="Tổng cộng"
-                        />
-                    <TextView android:ellipsize="end"
-                        android:id="@+id/txtPrice"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="18dp"
-                        android:layout_marginTop="1dp"
-                        android:layout_weight="0.59"
-                        android:layout_width="0dp"
-                        android:singleLine="true"
-                        android:text="2,215,000 VND"
-                        android:textStyle="bold"
-                        android:textSize="25dp"
-                        android:textColor="@color/orange_600"
-                        />
-                </LinearLayout>
-                <View android:background="@color/bluegray_400"
-                    android:id="@+id/lineRectangle101"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_height="3dp"
-                    android:layout_marginEnd="21dp"
-                    android:layout_marginStart="21dp"
-                    android:layout_marginTop="1dp" android:layout_width="337dp"/>
+
                 <TextView android:id="@+id/txtQukhchcth"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="23dp"
                     android:layout_marginStart="23dp"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:text="Quý khách có thể thanh toán bằng các hình thức thanh toán dưới đây:"
                     android:textSize="18dp"
@@ -306,11 +268,6 @@
                         tools:ignore="ContentDescription" tools:src="@drawable/img_image32"/>
 
                 </LinearLayout>
-                <Button
-                    android:id="@+id/btn_ThanhToanStripe"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Button"/>
                 <TextView android:ellipsize="end"
                     android:gravity="center_horizontal"
                     android:id="@+id/txtFive"

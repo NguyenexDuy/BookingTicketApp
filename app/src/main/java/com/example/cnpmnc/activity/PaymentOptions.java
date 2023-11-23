@@ -1,25 +1,18 @@
 package com.example.cnpmnc.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.cnpmnc.R;
-import com.example.cnpmnc.fragment.HomePageFragment;
 import com.example.cnpmnc.model.ChuyenBay;
 import com.example.cnpmnc.model.DiaDiem;
 import com.example.cnpmnc.model.HangKhach;
@@ -39,7 +32,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PaymentOptions extends AppCompatActivity {
-    Button btn_ThanhToanStripe;
     String PublishableKey = "pk_test_51OCkphH0M8gfVgbL3402cevMkpx7e9ZgY3dowKdHtYyitkRqFsig1O3w0wP9vWeCn6XEMHBIHfeQ0XNzrHv4g5Hy00goIhYCrg";
     String SecretKey = "sk_test_51OCkphH0M8gfVgbLnhaXkmrmQHqXNF7NAxHNsazNoO4ANaoLAepk5VbvJEswwrC5Wc3jjbjkF0ug9z53uVTgxCEB00uEEoXZ4C";
     String CustomerId;
@@ -48,13 +40,13 @@ public class PaymentOptions extends AppCompatActivity {
     PaymentSheet paymentSheet;
     LinearLayout linear_thanhtoan;
     ChuyenBay chuyenBay;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     private int numberTreEm2_12Tuoi, numberNguoiLon, numberTreEm2Tuoi,soLuongHangKhach, price,GiaVeTong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_options);
-        btn_ThanhToanStripe = findViewById(R.id.btn_ThanhToanStripe);
         chuyenBay=(ChuyenBay) getIntent().getSerializableExtra("DuLieuChuyenBay");
         linear_thanhtoan=findViewById(R.id.linear_thanhtoan);
         numberTreEm2_12Tuoi =Integer.parseInt(DiaDiem.getInstance().getSoLuongTreEm2Ttoi12T());
@@ -137,9 +129,38 @@ public class PaymentOptions extends AppCompatActivity {
 
     }
 
+    private void updateBooking() {
+        String idChuyenBay = chuyenBay.getIdChuyenBay();
+        HangKhachDataHolder dataHolder = HangKhachDataHolder.getInstance();
+        ArrayList<HangKhach> hangKhachList = dataHolder.getHangKhachList();
+
+        for (int i = 0; i < hangKhachList.size(); i++) {
+            HangKhach hangKhach = hangKhachList.get(i);
+            Long soghe = hangKhach.getSoghe();
+
+            // Reference to the "ghe" collection and query for matching documents
+            db.collection("ghe")
+                    .whereEqualTo("IdChuyenBay", idChuyenBay)
+                    .whereEqualTo("soGhe", soghe)
+                    .get()
+                    .addOnSuccessListener(queryDocumentSnapshots -> {
+                        for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots.getDocuments()) {
+                            documentSnapshot.getReference().update("isBooked", true)
+                                    .addOnSuccessListener(aVoid -> {
+                                        Log.d("Capnhatghe", "Cập nhật thành công cho ghế: " + soghe);
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        Log.w("Capnhatghe", "Lỗi khi cập nhật cho ghế: " + soghe, e);
+                                    });
+                        }
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.w("Capnhatghe", "Lỗi khi truy vấn danh sách ghế", e);
+                    });
+        }
+    }
 
     private void updateSoLuongGheTrong() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
         String idChuyenBay = chuyenBay.getIdChuyenBay();
 
         // Tìm và cập nhật số lượng ghế trống sau khi thanh toán
@@ -286,6 +307,7 @@ public class PaymentOptions extends AppCompatActivity {
         if (paymentSheetResult instanceof PaymentSheetResult.Completed) {
             updateSoLuongGheTrong();
             AddVeMayBay();
+            updateBooking();
             Toast.makeText(this, "Payment Success", Toast.LENGTH_SHORT).show();
         }
     }
