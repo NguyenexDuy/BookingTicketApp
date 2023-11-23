@@ -93,39 +93,14 @@ public class NotifiFragment extends Fragment {
 
     }
 
-//    private void Notification() {
-//        FirebaseUser current = FirebaseAuth.getInstance().getCurrentUser();
-//        if (current != null) {
-//            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-//            firebaseFirestore = FirebaseFirestore.getInstance();
-//            firebaseFirestore.collection("VeMayBay").whereEqualTo("KhachHangID", userId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                @Override
-//                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
-//                        String idVe = documentSnapshot.getId();
-//                        String idHangKhach = (String) documentSnapshot.get("KhachHangID");
-//                        String idChuyenBay = (String) documentSnapshot.get("ChuyenBayID");
-//                        String diemDi = (String) documentSnapshot.get("diemDi");
-//                        String diemDen = (String) documentSnapshot.get("diemDen");
-//                        String ngayBatDau = (String) documentSnapshot.get("ngayBatDau");
-//                        String giaVe = (String) documentSnapshot.get("giaVe");
-//                        VeMayBay veMayBay = new VeMayBay(idVe, idChuyenBay, idHangKhach, diemDi, diemDen, ngayBatDau, giaVe);
-//                        veMayBays.add(veMayBay);
-//                    }
-//                    notifiCationAdapter.notifyDataSetChanged();
-//                }
-//            });
-//        }
-//
-//
-//    }
+
 
     private void Notification2() {
         FirebaseUser current = FirebaseAuth.getInstance().getCurrentUser();
         if (current != null) {
             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
             firebaseFirestore = FirebaseFirestore.getInstance();
-            firebaseFirestore.collection("VeMayBay").whereEqualTo("KhachHangID", userId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            firebaseFirestore.collection("VeMayBay").whereEqualTo("KhachHangID", userId).whereEqualTo("TrangThaiVe",false).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
@@ -139,6 +114,7 @@ public class NotifiFragment extends Fragment {
                         String ngayBatDau = (String) documentSnapshot.get("ngayBatDau");
                         String ngayVe=(String) documentSnapshot.get("ngayVe");
                         String giaVe = (String) documentSnapshot.get("giaVe");
+                        Boolean canceled=(Boolean) documentSnapshot.get("TrangThaiVe");
 
                         ArrayList<Map<String, Object>> hangKhachList = new ArrayList<>();
                         int index = 0;
@@ -149,7 +125,7 @@ public class NotifiFragment extends Fragment {
                             }
                             index++;
                         }
-                            VeMayBay veMayBay = new VeMayBay(idVe, idChuyenBay, idHangKhach, diemDi, diemDen,gioDi,gioVe, ngayBatDau,ngayVe, giaVe, hangKhachList);
+                            VeMayBay veMayBay = new VeMayBay(idVe, idChuyenBay, idHangKhach, diemDi, diemDen,gioDi,gioVe, ngayBatDau,ngayVe, giaVe,canceled, hangKhachList);
                             veMayBays.add(veMayBay);
                         }
                         notifiCationAdapter.notifyDataSetChanged();

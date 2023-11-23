@@ -26,7 +26,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent" android:orientation="horizontal">
                     <ImageView
-                        android:id="@+id/imageRectangleFortySeven"
+                        android:id="@+id/backHTTT"
                         android:layout_height="35dp"
                         android:layout_marginTop="1dp"
                         android:layout_width="35dp"
@@ -48,6 +48,13 @@
                         android:textStyle="bold"
                         android:textColor="@color/white_A700"
                         />
+                    <TextView
+                        android:id="@+id/tv_huydatve"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/orange_600"
+                        android:textSize="25dp"
+                        android:text="Hủy"/>
                 </LinearLayout>
             </androidx.appcompat.widget.Toolbar>
             <LinearLayout android:gravity="start"

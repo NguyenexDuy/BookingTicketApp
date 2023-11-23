@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginTop="10dp"
+    android:padding="10dp"
+    android:background="@drawable/boder_huyve"
+    android:layout_height="wrap_content">
+
+   <LinearLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal">
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Bạn đã hủy vé"/>
+       <TextView
+           android:id="@+id/tv_idVeHuy"
+           android:layout_marginLeft="5dp"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="ID ve"/>
+   </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rất mong quý khách sẽ luôn đồng hành cùng hãng bay của chúng tôi ❤"/>
+</LinearLayout>

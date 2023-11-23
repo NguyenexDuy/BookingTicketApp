@@ -13,13 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.cnpmnc.R;
 import com.example.cnpmnc.activity.DangNhapActivity;
 import com.example.cnpmnc.activity.DanhSachChuyenBayDaThich;
 import com.example.cnpmnc.activity.FormPersonActivity;
-import com.example.cnpmnc.activity.LichSuDatVeActivity;
+import com.example.cnpmnc.activity.HuyVeActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -155,7 +154,7 @@ public class PersonFragment extends Fragment {
         tvLichSuDatVe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), LichSuDatVeActivity.class));
+                startActivity(new Intent(getContext(), HuyVeActivity.class));
             }
         });
         if(tvemail.getText().toString().equals("Chưa đăng nhập")&&tvten.getText().toString().equals("Chưa đăng nhập")){
