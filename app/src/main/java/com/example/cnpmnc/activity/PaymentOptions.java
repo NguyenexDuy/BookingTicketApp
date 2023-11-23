@@ -1,10 +1,13 @@
 package com.example.cnpmnc.activity;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -45,21 +48,47 @@ public class PaymentOptions extends AppCompatActivity {
     PaymentSheet paymentSheet;
     LinearLayout linear_thanhtoan;
     ChuyenBay chuyenBay;
+    TextView tv_idsanbaydiemden, tv_tensanbaydiemden, tv_idsanbaydiemdi, tv_tensanbaydiemdi,tv_CalendarNgayVeKhuHoi,tv_CalendarNgayDiKhuHoi,tv_countNguoiLonKhuHoi,tv_count2NguoiLonKhuHoi,tv_count3NguoiLonKhuHoi;
+
     private int numberTreEm2_12Tuoi, numberNguoiLon, numberTreEm2Tuoi,soLuongHangKhach, price,GiaVeTong;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_options);
         btn_ThanhToanStripe = findViewById(R.id.btn_ThanhToanStripe);
-        chuyenBay=(ChuyenBay) getIntent().getSerializableExtra("DuLieuChuyenBay");
+//        chuyenBay=(ChuyenBay) getIntent().getSerializableExtra("DuLieuChuyenBay");
         linear_thanhtoan=findViewById(R.id.linear_thanhtoan);
-        numberTreEm2_12Tuoi =Integer.parseInt(DiaDiem.getInstance().getSoLuongTreEm2Ttoi12T());
-        numberNguoiLon=Integer.parseInt(DiaDiem.getInstance().getSoLuongNguoiLon());
-        numberTreEm2Tuoi=Integer.parseInt(DiaDiem.getInstance().getSoLuongTreEmDuoi2T());
-        soLuongHangKhach=numberNguoiLon+numberTreEm2Tuoi+numberTreEm2_12Tuoi;
-        price=Integer.valueOf(chuyenBay.getGiaVe());
-        GiaVeTong=price*soLuongHangKhach;
+
+//        price=Integer.valueOf(chuyenBay.getGiaVe());
+
+
+        tv_countNguoiLonKhuHoi=findViewById(R.id.tv_countNguoiLonKhuHoi);
+        tv_count2NguoiLonKhuHoi=findViewById(R.id.tv_countTreEm2_12KhuHoi);
+        tv_count3NguoiLonKhuHoi=findViewById(R.id.tv_count3TreEm2TKhuHoi);
+        tv_CalendarNgayVeKhuHoi=findViewById(R.id.tv_CalendarNgayVeKhuHoi);
+        tv_CalendarNgayDiKhuHoi=findViewById(R.id.tv_CalendarNgayDiKhuHoi);
+        tv_idsanbaydiemdi = findViewById(R.id.tv_idsanbaydiemdi);
+        tv_tensanbaydiemdi =findViewById(R.id.tv_tensanbaydiemdi);
+        tv_idsanbaydiemden = findViewById(R.id.tv_idsanbaydiemden);
+        tv_tensanbaydiemden = findViewById(R.id.tv_tensanbaydiemden);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            chuyenBay = (ChuyenBay) extras.getSerializable("DuLieuChuyenBay");
+            if (chuyenBay != null) {
+                price = Integer.valueOf(chuyenBay.getGiaVe());
+                numberTreEm2_12Tuoi =Integer.parseInt(DiaDiem.getInstance().getSoLuongTreEm2Ttoi12T());
+                numberNguoiLon=Integer.parseInt(DiaDiem.getInstance().getSoLuongNguoiLon());
+                numberTreEm2Tuoi=Integer.parseInt(DiaDiem.getInstance().getSoLuongTreEmDuoi2T());
+                soLuongHangKhach=numberNguoiLon+numberTreEm2Tuoi+numberTreEm2_12Tuoi;
+                GiaVeTong=price*soLuongHangKhach;
+            } else {
+                Toast.makeText(this, "Error: ChuyenBay is null", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, "Error: Intent extras are null", Toast.LENGTH_SHORT).show();
+        }
         PaymentConfiguration.init(this, PublishableKey);
 
         paymentSheet = new PaymentSheet(this, paymentSheetResult -> {
@@ -67,8 +96,6 @@ public class PaymentOptions extends AppCompatActivity {
                 onPaymentResult(paymentSheetResult);
             } else {
                 Log.d("PaymentOptions", "paymentSheetResult is null");
-                // Handle the case where paymentSheetResult is null
-                // This might need further investigation or handling
             }
         });
 
@@ -87,53 +114,109 @@ public class PaymentOptions extends AppCompatActivity {
             }
         });
 
-    }
+    }private void AddVeMayBay1() {
+        if (chuyenBay != null) {
+            HangKhachDataHolder dataHolder = HangKhachDataHolder.getInstance();
+            ArrayList<HangKhach> hangKhachList = dataHolder.getHangKhachList();
 
-    private void AddVeMayBay()
-    {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            String idChuyenBay = chuyenBay.getIdChuyenBay();
+            String diemDi = chuyenBay.getDiemDi();
+            String diemDen = chuyenBay.getDiemDen();
+            String giaVe = String.valueOf(GiaVeTong);
+            String ngayBay = chuyenBay.getNgayDi();
+            String ngayVe = chuyenBay.getNgayVe();
+            String gioDi = chuyenBay.getGioBatDau();
+            String gioVe = chuyenBay.getGioVe();
 
-        HangKhachDataHolder dataHolder = HangKhachDataHolder.getInstance();
-        ArrayList<HangKhach> hangKhachList = dataHolder.getHangKhachList();
+            Map<String, Object> hangKhachData = new HashMap<>();
+            for (int i = 0; i < hangKhachList.size(); i++) {
+                HangKhach hangKhach = hangKhachList.get(i);
+                Map<String, Object> hangKhachMap = new HashMap<>();
+                hangKhachMap.put("name", hangKhach.getHoTen());
+                hangKhachMap.put("type", hangKhach.getType());
+                hangKhachMap.put("soGhe", hangKhach.getSoghe());
+                hangKhachData.put("hangKhach_" + i, hangKhachMap);
+            }
+            hangKhachData.put("ChuyenBayID", idChuyenBay);
+            hangKhachData.put("KhachHangID", userId);
+            hangKhachData.put("diemDi", diemDi);
+            hangKhachData.put("diemDen", diemDen);
+            hangKhachData.put("gioDi", gioDi);
+            hangKhachData.put("gioVe", gioVe);
+            hangKhachData.put("giaVe", giaVe);
+            hangKhachData.put("ngayBatDau", ngayBay);
+            hangKhachData.put("ngayVe", ngayVe);
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        String idChuyenBay=chuyenBay.getIdChuyenBay();
-        String diemDi=chuyenBay.getDiemDi();
-        String diemDen=chuyenBay.getDiemDen();
-        String giaVe= String.valueOf(GiaVeTong);
-        String ngayBay=chuyenBay.getNgayDi();
-        String ngayVe=chuyenBay.getNgayVe();
-        String gioDi=chuyenBay.getGioBatDau();
-        String gioVe=chuyenBay.getGioVe();
-
-        Map<String, Object> hangKhachData = new HashMap<>();
-        for (int i = 0; i < hangKhachList.size(); i++) {
-            HangKhach hangKhach = hangKhachList.get(i);
-            Map<String, Object> hangKhachMap = new HashMap<>();
-            hangKhachMap.put("name", hangKhach.getHoTen());
-            hangKhachMap.put("type", hangKhach.getType());
-            hangKhachMap.put("soGhe",hangKhach.getSoghe());
-            hangKhachData.put("hangKhach_" + i, hangKhachMap);
+            db.collection("VeMayBay").add(hangKhachData)
+                    .addOnSuccessListener(documentReference -> {
+                        Toast.makeText(this, "Tải thành công", Toast.LENGTH_SHORT).show();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(this, "Thất bại", Toast.LENGTH_SHORT).show();
+                    });
+        } else {
+            Toast.makeText(this, "Lỗi: ChuyenBay là null", Toast.LENGTH_SHORT).show();
         }
-        hangKhachData.put("ChuyenBayID",idChuyenBay);
-        hangKhachData.put("KhachHangID",userId);
-        hangKhachData.put("diemDi",diemDi);
-        hangKhachData.put("diemDen",diemDen);
-        hangKhachData.put("gioDi",gioDi);
-        hangKhachData.put("gioVe",gioVe);
-        hangKhachData.put("giaVe",giaVe);
-        hangKhachData.put("ngayBatDau",ngayBay);
-        hangKhachData.put("ngayVe",ngayVe);
-
-
-        db.collection("VeMayBay").add(hangKhachData).addOnSuccessListener(documentReference -> {
-                    Toast.makeText(this, "Tải thành công", Toast.LENGTH_SHORT).show();
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
-                });
+    }
+    private void ThucHienHanhDong()
+    {
+        DiaDiem.getInstance().setSoLuongNguoiLon(tv_countNguoiLonKhuHoi.getText().toString());
+        DiaDiem.getInstance().setSoLuongTreEm2Ttoi12T(tv_count2NguoiLonKhuHoi.getText().toString());
+        DiaDiem.getInstance().setSoLuongTreEmDuoi2T(tv_count3NguoiLonKhuHoi.getText().toString());
+        DiaDiem.getInstance().setDiemDi(tv_tensanbaydiemdi.getText().toString());
+        DiaDiem.getInstance().setDiemDen(tv_tensanbaydiemden.getText().toString());
+        DiaDiem.getInstance().setNgayDi(tv_CalendarNgayDiKhuHoi.getText().toString());
+        DiaDiem.getInstance().setNgayVe(tv_CalendarNgayVeKhuHoi.getText().toString());
 
     }
+
+//    private void AddVeMayBay()
+//    {
+//
+//        HangKhachDataHolder dataHolder = HangKhachDataHolder.getInstance();
+//        ArrayList<HangKhach> hangKhachList = dataHolder.getHangKhachList();
+//
+//        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//        String idChuyenBay=chuyenBay.getIdChuyenBay();
+//        String diemDi=chuyenBay.getDiemDi();
+//        String diemDen=chuyenBay.getDiemDen();
+//        String giaVe= String.valueOf(GiaVeTong);
+//        String ngayBay=chuyenBay.getNgayDi();
+//        String ngayVe=chuyenBay.getNgayVe();
+//        String gioDi=chuyenBay.getGioBatDau();
+//        String gioVe=chuyenBay.getGioVe();
+//
+//        Map<String, Object> hangKhachData = new HashMap<>();
+//        for (int i = 0; i < hangKhachList.size(); i++) {
+//            HangKhach hangKhach = hangKhachList.get(i);
+//            Map<String, Object> hangKhachMap = new HashMap<>();
+//            hangKhachMap.put("name", hangKhach.getHoTen());
+//            hangKhachMap.put("type", hangKhach.getType());
+//            hangKhachMap.put("soGhe",hangKhach.getSoghe());
+//            hangKhachData.put("hangKhach_" + i, hangKhachMap);
+//        }
+//        hangKhachData.put("ChuyenBayID",idChuyenBay);
+//        hangKhachData.put("KhachHangID",userId);
+//        hangKhachData.put("diemDi",diemDi);
+//        hangKhachData.put("diemDen",diemDen);
+//        hangKhachData.put("gioDi",gioDi);
+//        hangKhachData.put("gioVe",gioVe);
+//        hangKhachData.put("giaVe",giaVe);
+//        hangKhachData.put("ngayBatDau",ngayBay);
+//        hangKhachData.put("ngayVe",ngayVe);
+//
+//
+//        db.collection("VeMayBay").add(hangKhachData).addOnSuccessListener(documentReference -> {
+//                    Toast.makeText(this, "Tải thành công", Toast.LENGTH_SHORT).show();
+//                })
+//                .addOnFailureListener(e -> {
+//                    Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
+//                });
+//
+//    }
 
 
 
@@ -246,7 +329,7 @@ public class PaymentOptions extends AppCompatActivity {
 
     private void onPaymentResult(PaymentSheetResult paymentSheetResult) {
         if (paymentSheetResult instanceof PaymentSheetResult.Completed) {
-            AddVeMayBay();
+            AddVeMayBay1();
             Toast.makeText(this, "Payment Success", Toast.LENGTH_SHORT).show();
         }
     }

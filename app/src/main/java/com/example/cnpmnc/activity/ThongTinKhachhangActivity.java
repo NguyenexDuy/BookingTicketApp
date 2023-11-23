@@ -1,10 +1,12 @@
 package com.example.cnpmnc.activity;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +24,7 @@ import com.example.cnpmnc.model.DiaDiem;
 import com.example.cnpmnc.model.HangKhach;
 import com.example.cnpmnc.model.HangKhachDataHolder;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -41,6 +44,8 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
     ChuyenBay chuyenBay;
     private int numberTreEm2_12Tuoi, numberNguoiLon, numberTreEm2Tuoi,soLuongHangKhach, price;
     TextView tvThongTinGheNgoi, tv_giaChuyenBay,tv_SoLuongHangKhach;
+    FirebaseUser firebaseUser;
+    private static final int LOGIN_REQUEST_CODE = 123;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,14 +90,60 @@ public class ThongTinKhachhangActivity extends AppCompatActivity {
         btn_ThanhToan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                AddVeMayBay();
-                Intent intent=new Intent(ThongTinKhachhangActivity.this,PaymentOptions.class);
-                intent.putExtra("DuLieuChuyenBay",chuyenBay);
-                startActivity(intent);
+                firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                if (firebaseUser != null) {
+                    Toast.makeText(ThongTinKhachhangActivity.this, "Đã đăng nhập", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ThongTinKhachhangActivity.this, DiaDiem.getInstance().getDiemDen(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(ThongTinKhachhangActivity.this, PaymentOptions.class);
+                    intent.putExtra("DuLieuChuyenBay", chuyenBay);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(ThongTinKhachhangActivity.this, "Chưa đăng nhập", Toast.LENGTH_SHORT).show();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ThongTinKhachhangActivity.this);
+                    builder.setTitle("Xác nhận");
+                    builder.setMessage("Quý khách cần phải đăng nhập để thực hiện đặt chuyến bay?");
+                    builder.setPositiveButton("Đăng nhập", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(ThongTinKhachhangActivity.this, DangNhapActivity.class);
+                            intent.putExtra("callingActivity", "ThongTinKhachHangActivity");
+                            startActivityForResult(intent, LOGIN_REQUEST_CODE);
+                        }
+                    });
+                    builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
             }
         });
 
     }
+//    private void ThucHienHanhDong()
+//    {
+//        DiaDiem.getInstance().setSoLuongNguoiLon(tv_countNguoiLonKhuHoi.getText().toString());
+//        DiaDiem.getInstance().setSoLuongTreEm2Ttoi12T(tv_count2NguoiLonKhuHoi.getText().toString());
+//        DiaDiem.getInstance().setSoLuongTreEmDuoi2T(tv_count3NguoiLonKhuHoi.getText().toString());
+//        DiaDiem.getInstance().setDiemDi(tv_tensanbaydiemdi.getText().toString());
+//        DiaDiem.getInstance().setDiemDen(tv_tensanbaydiemden.getText().toString());
+//        DiaDiem.getInstance().setNgayDi(tv_CalendarNgayDiKhuHoi.getText().toString());
+//        DiaDiem.getInstance().setNgayVe(tv_CalendarNgayVeKhuHoi.getText().toString());
+//
+//        if (chuyenBay!=null)
+//        {
+//            Intent intent = new Intent(getContext(), ChonChuyenBayActivity.class);
+//            getContext().startActivity(intent);
+//        }
+//        if (DiaDiem.getInstance().getDiemDi()!=null||DiaDiem.getInstance().getDiemDen()!=null)
+//        {
+//            Intent intent = new Intent(getContext(), ChonChuyenBayActivity.class);
+//            getContext().startActivity(intent);
+//        }
+//    }
     private void AddVeMayBay()
     {
 
