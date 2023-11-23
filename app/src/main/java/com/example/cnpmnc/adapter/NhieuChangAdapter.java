@@ -1,6 +1,7 @@
 package com.example.cnpmnc.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cnpmnc.R;
+import com.example.cnpmnc.activity.TimKiemActivity;
 import com.example.cnpmnc.model.ChuyenBay;
 
 import java.util.ArrayList;
@@ -34,7 +36,15 @@ public class NhieuChangAdapter extends RecyclerView.Adapter<NhieuChangAdapter.Nh
 
     @Override
     public void onBindViewHolder(@NonNull NhieuChangViewHolder holder, int position) {
-
+        ChuyenBay chuyenBay=chuyenBays.get(position);
+        holder.tv_idsanbaydiemdiNhieuChang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(context, TimKiemActivity.class);
+                intent.putExtra("Timkiem", "diemdi");
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
